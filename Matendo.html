@@ -2057,60 +2057,69 @@
                 min-height: 348px
             }
 
-           /* Basic styling for the carousel container */
-        .carousel-container {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
+            /* Basic styling for the carousel container */
+            .carousel-container {
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .scrollbar-hide {
+                display: flex;
+                transition: scroll 0.3s ease;
+            }
+
+            /* Carousel item styling */
+            .flex-none {
+                flex: none;
+                width: 200px;
+                margin: 0 10px;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+
+            /* Image and profile card */
+            .profile-card {
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: center;
+                border-radius: 8px;
+            }
+
+            .profile-card img {
+                width: 100%;
+                border-radius: 50%;
+                margin-bottom: 10px;
+            }
+
+            /* Styling for selected profile */
+            .selected {
+                border: 3px solid #00b0ff;
+                /* Blue border for selection */
+                box-shadow: 0 0 10px rgba(0, 176, 255, 0.5);
+                /* Optional soft glow effect */
+                transition: all 0.3s ease-in-out;
+            }
+
+            /* Dynamic image display */
+            #dynamic-image {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                border-radius: 8px;
+                margin-top: 20px;
+            }
+
+            .selected {
+                border: 3px solid #00b0ff;
+                /* Blue border for selection */
+                box-shadow: 0 0 10px rgba(0, 176, 255, 0.5);
+                /* Optional soft glow effect */
+                transition: all 0.3s ease-in-out;
+            }
+
+
         }
-
-        .scrollbar-hide {
-            display: flex;
-            transition: scroll 0.3s ease;
-        }
-
-        /* Carousel item styling */
-        .flex-none {
-            flex: none;
-            width: 200px;
-            margin: 0 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        /* Image and profile card */
-        .profile-card {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px;
-        }
-
-        .profile-card img {
-            width: 100%;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        /* Styling for selected profile */
-        .selected {
-            border: 3px solid #00b0ff; /* Blue border for selection */
-            box-shadow: 0 0 10px rgba(0, 176, 255, 0.5); /* Optional soft glow effect */
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Dynamic image display */
-        #dynamic-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-       
-    }      
-
     </style>
     <link rel="stylesheet" href="tw-77fc006f29d392641ce5.css" />
     <link rel="stylesheet" href="f86e3eeebd61c50b.css" media="print" onload="this.media='all'" />
@@ -2161,46 +2170,49 @@
         </div>
         <div data-cid="home-1">
             <section class="relative z-0 pb-8 md:pb-12 lg:pb-0 mb-16 lg:!bg-transparent"
-                style="background-color:#d2d6e2" id="main">
-                <div style="background-color:#d2d6e2">
-                    <div
-                        class="grid grid-cols-12 mx-6 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-4 md:gap-6 xl:gap-8 lg:pb-2 xl:pb-0 mb-24 last:mb-0">
-                        <div class="col-span-12">
-                            <div class="mx-auto">
-                                <div class="relative flex flex-col my-0 mx-auto lg:block">
-                                    <div
-                                        class="z-10 mt-28 mx-auto text-center lg:absolute lg:top-22 lg:left-0 lg:flex lg:flex-col lg:justify-center lg:max-w-[42%] lg:m-0 lg:text-left">
-                                        <h1 class="mx-auto mb-4 p-0 heading-md md:heading-lg xl:heading-xl font-bold text-gray-900 [&amp;_a]:text-gray-900 [&amp;_a]:whitespace-nowrap [&amp;_a]:underline [&amp;_a]:decoration-2 [&amp;_a]:underline-offset-8 [&amp;_a:hover]:no-underline [&amp;_a:visited]:text-gray-900 [&amp;_a:focus]:outline-none [&amp;_a:focus]:outline-brand-blue/50 [&amp;_sup]:text-xl [&amp;_sup]:leading-none [&amp;_sup]:align-super"
-                                            data-testid="hero-title" style="max-width:500px">Hire
-                                            Medical professionals
-                                        </h1>
-                                        <p class="mb-8 text-gray-700 text-base leading-3 xl:text-lg xl:leading-4">
-                                            Matendo Medics is an exclusive
-                                            network of the top freelance medical professionals in the world. Top
-                                            companies hire
-                                            Matendo Medics freelancers for
-                                            their most important projects.
-                                        </p>
-                                        <div
-                                            class="flex flex-col justify-start items-stretch sm:block sm:w-auto mb-2 w-full !mb-6 lg:!mb-12">
-                                            <a class="box-border border-0 border-solid inline-block text-decoration-inherit text-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white bg-brand-blue disabled:bg-gray-300 hover:bg-brand-blue-dark active:bg-brand-blue-darker heading-xs gap-6 py-3 px-[33px] md:px-[65px]"
-                                                href="D:\Matendo\Matendo\resume.html" data-testid="hero-cta">Hire
-                                                Medics</a>
-                                        </div>
-                                    </div>
-                                    <div class="hidden lg:block relative max-w-full h-0" style="padding-top:45%">
-                                        <div
-                                            class="absolute w-full h-full top-0 right-0 pt-12 flex justify-end items-end text-right focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-brand-blue focus-within:overflow-visible">
-                                            <img alt="" src="D:\Matendo\image\doc1.png" class="max-w-full max-h-full"
-                                                style="aspect-ratio:4/3;margin-right:200" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+              style="background-color:#d2d6e2" id="main">
+              <div style="background-color:#d2d6e2">
+                <div
+                  class="grid grid-cols-12 mx-6 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-4 md:gap-6 xl:gap-8 lg:pb-2 xl:pb-0 mb-24 last:mb-0">
+                  <div class="col-span-12">
+                    <div class="mx-auto">
+                      <div class="relative flex flex-col my-0 mx-auto lg:block">
+                        <div
+                          class="z-10 mt-28 mx-auto text-center lg:absolute lg:top-22 lg:left-0 lg:flex lg:flex-col lg:justify-center lg:max-w-[42%] lg:m-0 lg:text-left">
+                          <h1 class="mx-auto mb-4 p-0 heading-md md:heading-lg xl:heading-xl font-bold" data-testid="hero-title"
+                            style="max-width:500px">Hire Medical professionals</h1>
+                          <p class="mb-8 text-gray-700 text-base leading-3 xl:text-lg xl:leading-4">
+                            Matendo Medics is an exclusive network of the top freelance medical
+                            professionals in the world. Top companies hire Matendo Medics freelancers
+                            for their most important projects.
+                          </p>
+                          <div
+                            class="flex flex-col justify-start items-stretch sm:block sm:w-auto mb-2 w-full!mb-6 lg:!mb-12">
+                            <a class="box-border border-0 border-solid inline-block text-decoration-inherit text-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white bg-brand-blue disabled:bg-gray-300 hover:bg-brand-blue-dark active:bg-brand-blue-darker heading-xs gap-6 py-3 px-[33px] md:px-[65px]"
+                              href="D:\Matendo\Matendo\resume.html" data-testid="hero-cta">Hire Medics</a>
                         </div>
+                      </div>
+                      <div class="hidden lg:block relative max-w-full h-0" style="padding-top:45%">
+                        <div
+                          class="absolute w-full h-full top-0 right-0 pt-12 flex justify-end items-end text-right focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-brand-blue focus-within:overflow-visible"
+                        >
+                          <div class="w-120 h-120 overflow-hidden rounded-full flex justify-center items-center">
+                            <img                
+                              src="D:\Matendo\image\doc1.png"
+                              class="rounded-full w-60 h-60 object-cover"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-        </div>
+              </div>
+            </section>
+          </div>
         </div>
         <div class="_21yCG_iO _2WCXFkQt C-WFb9I5 is-viewport-regular">
             <div
@@ -2525,87 +2537,94 @@
             </div>
         </div>
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    const carousel = document.querySelector('.scrollbar-hide');
-    const leftButton = document.querySelector('.group.relative:first-child');
-    const rightButton = document.querySelector('.group.relative:last-child');
-    const dynamicImage = document.getElementById('dynamic-image');
-    const carouselItems = document.querySelectorAll('.scrollbar-hide .flex-none');
-    let scrollAmount = 0;
-    const scrollStep = 200; // Adjust scroll speed here
-    let scrollInterval;
+            document.addEventListener("DOMContentLoaded", function () {
+                const carousel = document.querySelector('.scrollbar-hide');
+                const leftButton = document.querySelector('.group.relative:first-child');
+                const rightButton = document.querySelector('.group.relative:last-child');
+                const dynamicImage = document.getElementById('dynamic-image');
+                const carouselItems = document.querySelectorAll('.scrollbar-hide .flex-none');
+                let scrollAmount = 0;
+                const scrollStep = 200; // Adjust scroll speed here
+                let scrollInterval;
 
-    // Images for the profiles (if applicable)
-    const images = [
-        
-                    "D:\Matendo\image\doc1.png",
-                    "D:\Matendo\image\doc2.png",
-                    "D:\Matendo\image\doc3.png",
-                    "D:\Matendo\image\doc4.png",
-                    "D:\Matendo\image\doc5.png",
-                    "D:\Matendo\image\doc6.png",
-                    "D:\Matendo\image\doc7.png",
-                    "D:\Matendo\image\doc8.png",
-                    "D:\Matendo\image\doc9.png",
-                    "D:\Matendo\image\doc10.png",
-                    "D:\Matendo\image\doc11.png",
-            
-        // Add more image URLs here corresponding to each profile
-    ];
+                // Images for the profiles (if applicable)
+                const images = [
+                    "D:\\Matendo\\image\\doc1.png",
+                    "D:\\Matendo\\image\\doc2.png",
+                    "D:\\Matendo\\image\\doc3.png",
+                    "D:\\Matendo\\image\\doc4.png",
+                    "D:\\Matendo\\image\\doc5.png",
+                    "D:\\Matendo\\image\\doc6.png",
+                    "D:\\Matendo\\image\\doc7.png",
+                    "D:\\Matendo\\image\\doc8.png",
+                    "D:\\Matendo\\image\\doc9.png",
+                    "D:\\Matendo\\image\\doc10.png",
+                    "D:\\Matendo\\image\\doc11.png",
+                ];
 
-    function updateDynamicImage() {
-        const index = Math.floor(carousel.scrollLeft / scrollStep);
-        if (index < images.length) {
-            dynamicImage.src = images[index];
-        }
-    }
+                function updateDynamicImage(index) {
+                    if (index < images.length) {
+                        dynamicImage.src = images[index];
+                    }
+                }
 
-    // Function to start auto-scrolling
-    function startAutoScroll() {
-        scrollInterval = setInterval(() => {
-            if (scrollAmount < carousel.scrollWidth - carousel.clientWidth) {
-                carousel.scrollBy({ left: scrollStep, behavior: 'smooth' });
-                scrollAmount += scrollStep;
-            } else {
-                carousel.scrollTo(0, 0); // Reset to the beginning
-                scrollAmount = 0;
-            }
-            updateDynamicImage(); // Update the image when the carousel scrolls
-        }, 3000); // Change slide every 3 seconds
-    }
+                function selectProfile(index) {
+                    // Deselect all profiles
+                    carouselItems.forEach(item => {
+                        item.classList.remove('selected');
+                    });
 
-    // Function to handle profile selection
-    function handleProfileSelection(event) {
-        // Deselect all profiles
-        carouselItems.forEach(item => {
-            item.classList.remove('selected');
-        });
-        
-        // Select the clicked profile
-        const profile = event.currentTarget;
-        profile.classList.add('selected');
-    }
+                    // Select the profile at the given index
+                    const profile = carouselItems[index];
+                    if (profile) {
+                        profile.classList.add('selected');
+                        updateDynamicImage(index);
+                    }
+                }
 
-    // Add event listeners for each profile card
-    carouselItems.forEach(item => {
-        item.addEventListener('click', handleProfileSelection);
-    });
+                // Function to start auto-scrolling
+                function startAutoScroll() {
+                    let currentIndex = 0;
+                    scrollInterval = setInterval(() => {
+                        selectProfile(currentIndex);
+                        currentIndex = (currentIndex + 1) % carouselItems.length;
+                    }, 3000); // Change slide every 3 seconds
+                }
 
-    // Scroll to the right
-    rightButton.addEventListener('click', () => {
-        carousel.scrollBy({ left: scrollStep, behavior: 'smooth' });
-        scrollAmount += scrollStep;
-        updateDynamicImage(); // Update the image when manually scrolling
-    });
+                // Function to handle profile selection
+                function handleProfileSelection(event) {
+                    // Find the index of the clicked profile
+                    const profile = event.currentTarget;
+                    const index = Array.from(carouselItems).indexOf(profile);
+                    selectProfile(index);
+                    clearInterval(scrollInterval); // Stop auto-scrolling when a profile is clicked
+                }
 
-    // Scroll to the left
-    leftButton.addEventListener('click', () => {
-        carousel.scrollBy({ left: -scrollStep, behavior: 'smooth' });
-        scrollAmount -= scrollStep;
-        updateDynamicImage(); // Update the image when manually scrolling
-    });
+                // Add event listeners for each profile card
+                carouselItems.forEach(item => {
+                    item.addEventListener('click', handleProfileSelection);
+                });
 
-    startAutoScroll(); // Start auto-scrolling when the page is loaded
-});
-   
+                // Scroll to the right
+                rightButton.addEventListener('click', () => {
+                    carousel.scrollBy({ left: scrollStep, behavior: 'smooth' });
+                    scrollAmount += scrollStep;
+                    // Update the selected profile based on scroll position
+                    const index = Math.floor(carousel.scrollLeft / scrollStep);
+                    selectProfile(index);
+                });
+
+                // Scroll to the left
+                leftButton.addEventListener('click', () => {
+                    carousel.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+                    scrollAmount -= scrollStep;
+                    // Update the selected profile based on scroll position
+                    const index = Math.floor(carousel.scrollLeft / scrollStep);
+                    selectProfile(index);
+                });
+
+                startAutoScroll(); // Start auto-scrolling when the page is loaded
+            });
         </script>
+    </main>
+</body>
