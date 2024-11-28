@@ -2118,71 +2118,57 @@
                 transition: all 0.3s ease-in-out;
             }
 
-            /* Footer styles */
             #footer {
-                background-color: #11215a;
-                /* Dark blue background */
-                color: #fff;
-                padding: 2rem 1rem;
+                background-color: #002d72;
+                /* dark blue */
+                color: white;
+                padding: 2rem 0;
             }
 
-            #footer .container {
+            .container {
                 max-width: 1200px;
                 margin: 0 auto;
-                display: flex;
-                justify-content: space-around;
-                flex-wrap: wrap;
+                padding: 0 1rem;
             }
 
-            #footer .footer-column {
+            .footer-column {
                 flex: 1;
                 min-width: 200px;
-                /* Ensure columns have equal spacing */
-                margin: 0 1rem;
+                margin: 1rem;
             }
 
-            #footer h3 {
-                font-size: 1.25rem;
+            .footer-column h3 {
                 margin-bottom: 1rem;
             }
 
-            #footer ul {
-                list-style: none;
-                padding: 0;
-            }
-
-            #footer ul li {
+            .footer-column p {
                 margin-bottom: 0.5rem;
             }
 
-            #footer ul li a {
+            .footer-column ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .footer-column ul li {
+                margin-bottom: 0.5rem;
+            }
+
+            .footer-column ul li a {
+                color: white;
                 text-decoration: none;
-                color: #fff;
-                transition: color 0.3s ease;
             }
 
-            #footer ul li a:hover {
-                color: #84888e;
+            .footer-column ul li a:hover {
+                color: #b8c2cc;
+                /* gray-300 */
             }
 
-            #footer .flex {
-                display: flex;
-                align-items: center;
+            /* Extend the Quick Links column to the right */
+            #footer .quick-links {
+                flex: 1.5;
+                /* Make this column wider */
             }
-
-            #footer .flex.space-x-4>*+* {
-                margin-left: 1rem;
-            }
-
-            /* Responsive adjustments */
-            @media (max-width: 768px) {
-                #footer .footer-column {
-                    flex: 100%;
-                    margin: 1rem 0;
-                }
-            }
-
-
         }
     </style>
     <link rel="stylesheet" href="tw-77fc006f29d392641ce5.css" />
@@ -2562,11 +2548,12 @@
     <footer id="footer" class="bg-dark-blue text-white py-8">
         <div class="container mx-auto flex flex-wrap justify-around">
             <div class="footer-column">
-                <h3 class="font-bold mb-4">About Us</h3>
-                <p>Matendo Medics Outsourcing enables start-ups, businesses, and organizations to hire medical professionals from a growing network of top talent in the world.</p>
+                <h3>About Us</h3>
+                <p>Matendo Medics Outsourcing enables start-ups, businesses, and organizations to hire medical
+                    professionals from a growing network of top talent in the world.</p>
             </div>
             <div class="footer-column">
-                <h3 class="font-bold mb-4">Quick Links</h3>
+                <h3>Quick Links</h3>
                 <ul class="list-unstyled">
                     <li><a href="about.html" class="text-white hover:text-gray-300">About</a></li>
                     <li><a href="services.html" class="text-white hover:text-gray-300">Services</a></li>
@@ -2575,27 +2562,31 @@
                 </ul>
             </div>
             <div class="footer-column">
-                <h3 class="font-bold mb-4">Contact Us</h3>
+                <h3>Contact Us</h3>
                 <p>Email: support@matendomedics.com</p>
                 <p>Phone: +123 456 7890</p>
                 <p>Address: 123 Medical Street, Kampala, Uganda</p>
             </div>
             <div class="footer-column">
-                <h3 class="font-bold mb-5">Follow Us</h3>
+                <h3>Follow Us</h3>
                 <div class="flex space-x-4">
                     <a href="https://facebook.com/matendomedics" target="_blank" class="text-white hover:text-gray-300">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.397 20.997v-8.196h2.765l.411-2.916h-3.176v-1.79c0-.97.288-1.667 1.633-1.667h1.864v-2.909c-.361-.053-1.582-.15-2.933-.15-3.26 0-5.833 1.989-5.833 5.352v3.209h-2.909v2.916h2.909v8.196h3.989z"/>
+                            <path
+                                d="M13.397 20.997v-8.196h2.765l.411-2.916h-3.176v-1.79c0-.97.288-1.667 1.633-1.667h1.864v-2.909c-.361-.053-1.582-.15-2.933-.15-3.26 0-5.833 1.989-5.833 5.352v3.209h-2.909v2.916h2.909v8.196h3.989z" />
                         </svg>
                     </a>
                     <a href="https://twitter.com/matendomedics" target="_blank" class="text-white hover:text-gray-300">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.29 20.252c7.209 0 11.265-5.99 11.265-11.265 0-.18-.005-.355-.014-.53.799-.576 1.492-1.337 2.044-2.174l-.709-.298c-.243.945-.617 1.803-1.115 2.526-.569.781-1.283 1.346-2.105 1.646.775-.083 1.435-.336 1.971-.721-.898-.041-1.745-.243-2.536-.514v-.005c-.286.961-.675 1.817-1.194 2.542-.518.725-1.14 1.383-1.827 1.917v-.005c-.686-.534-1.313-1.191-1.831-1.916-.519-.726-.908-1.581-1.194-2.542h-.004c.686.471 1.404.886 2.163 1.185v.005c-.286-.162-.688-.378-.997-.614.961-.535 1.768-1.279 2.464-2.174l-.709-.298c-.243.945-.617 1.803-1.115 2.526-.569.781-1.283 1.346-2.105 1.646-.775-.083-1.435-.336-1.971-.721-.898-.041-1.745-.243-2.536-.514v-.005c-.286.961-.675 1.817-1.194 2.542-.518.725-1.14 1.383-1.827 1.917v-.005c-.686-.534-1.313-1.191-1.831-1.916-.519-.726-.908-1.581-1.194-2.542h-.004c.686.471 1.404.886 2.163 1.185v.005c-.285-.162-.688-.378-.997-.614-.961-.535-1.768-1.279-2.464-2.174l-.709-.298c-.243.945-.617 1.803-1.115 2.526-.569.781-1.283 1.346-2.105 1.646-.775-.083-1.435-.336-1.971-.721-.898-.041-1.745-.243-2.536-.514v-.005c-.286.961-.685 1.817-1.194 2.542-.518.725-1.14 1.383-1.827 1.917v-.005c-.686-.534-1.313-1.191-1.831-1.916-.519-.726-.908-1.581-1.194-2.542h-.004c.686.471 1.404.886 2.163 1.155v.005c-.286-.162-.688-.378-.997-.614-1.138-.744-2.029-1.782-2.662-2.995C1.713 8.954 1 7.72 1 6.337c0-2.472 2.027-4.5 4.5-4.5s4.5 2.028 4.5 4.5c0 .68-.14 1.327-.404 1.911h2.765l-.411 2.916h-2.354v8.196h-2.909v-2.909h2.909v-1.79c0-.97.288-1.667 1.633-1.667h1.864v-2.909c-.361-.053-1.582-.15-2.933-.15-3.26 0-5.833 1.989-5.833 5.352z"/>
+                            <path
+                                d="M8.29 20.252c7.209 0 11.265-5.99 11.265-11.265 0-.18-.005-.355-.014-.53.799-.576 1.492-1.337 2.044-2.174l-.709-.298c-.243.945-.617 1.803-1.115 2.526-.569.781-1.283 1.346-2.105 1.646.775-.083 1.435-.336 1.971-.721-.898-.041-1.745-.243-2.536-.514v-.005c-.286.961-.675 1.817-1.194 2.542-.518.725-1.14 1.383-1.827 1.917v-.005c-.686-.534-1.313-1.191-1.831-1.916-.519-.726-.908-1.581-1.194-2.542h-.004c.686.471 1.404.886 2.163 1.185v.005c-.286-.162-.688-.378-.997-.614.961-.535 1.768-1.279 2.464-2.174l-.709-.298c-.243.945-.617 1.803-1.115 2.526-.569.781-1.283 1.346-2.105 1.646-.775-.083-1.435-.336-1.971-.721-.898-.041-1.745-.243-2.536-.514v-.005c-.286.961-.675 1.817-1.194 2.542-.518.725-1.14 1.383-1.827 1.917v-.005c-.686-.534-1.313-1.191-1.831-1.916-.519-.726-.908-1.581-1.194-2.542h-.004c.686.471 1.404.886 2.163 1.185v.005c-.285-.162-.688-.378-.997-.614-.961-.535-1.768-1.279-2.464-2.174l-.709-.298c-.243.945-.617 1.803-1.115 2.526-.569.781-1.283 1.346-2.105 1.646-.775-.083-1.435-.336-1.971-.721-.898-.041-1.745-.243-2.536-.514v-.005c-.286.961-.685 1.817-1.194 2.542-.518.725-1.14 1.383-1.827 1.917v-.005c-.686-.534-1.313-1.191-1.831-1.916-.519-.726-.908-1.581-1.194-2.542h-.004c.686.471 1.404.886 2.163 1.155v.005c-.286-.162-.688-.378-.997-.614-1.138-.744-2.029-1.782-2.662-2.995C1.713 8.954 1 7.72 1 6.337c0-2.472 2.027-4.5 4.5-4.5s4.5 2.028 4.5 4.5c0 .68-.14 1.327-.404 1.911h2.765l-.411 2.916h-2.354v8.196h-2.909v-2.909h2.909v-1.79c0-.97.288-1.667 1.633-1.667h1.864v-2.909c-.361-.053-1.582-.15-2.933-.15-3.26 0-5.833 1.989-5.833 5.352z" />
                         </svg>
                     </a>
-                    <a href="https://linkedin.com/company/matendomedics" target="_blank" class="text-white hover:text-gray-300">
+                    <a href="https://linkedin.com/company/matendomedics" target="_blank"
+                        class="text-white hover:text-gray-300">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-6 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0m6 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0m-10 8a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm2-8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+                            <path
+                                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-6 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0m6 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0m-10 8a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm2-8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
                         </svg>
                     </a>
                 </div>
