@@ -1,471 +1,324 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <meta http-equiv="Content-Language" content="en" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
+    <meta charset="utf-8" />
+    <title>Matendo Medics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Matendo Medics Outsourcing enables start-ups, businesses, and organizations to hire medical professionals from a growing network of top talent in the world." />
+    <meta property="og:title" content="We connect expertly vetted talent with world-class clients." />
+    <meta property="og:description" content="Learn why the top companies trust Matendo Medics Outsourcing." />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base styles */
+        body, html {
+            font-family: 'Proxima Nova', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 16px;
+            line-height: 1.5;
+        }
 
-    <link rel="icon" href="https://dash.infinityfree.com/images/favicon.ico" type="image/x-icon"/>
-    <link rel="shortcut icon" href="https://dash.infinityfree.com/images/favicon.ico" type="image/x-icon"/>
+        /* Responsive container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
 
-    <title>Your Profile - InfinityFree</title>
+        /* Responsive navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    <script data-query="key=a324f6e4" id="WDrnciceA" data-sdk="p/1.0.7" data-cfasync="false" src="https://html-load.com/loader.min.js" charset="UTF-8" data="irrron6o4fhugojo4o2o4hch8hto8jhe2h4h8oso7o4ojfogh8h4oj5h4h4fo7o4he52h4ocoso7o42h4oj3s2hyh4ojo2uuhto8ochto8htfogoc2h4h4opdhuoj5opojfogh8h4o7o4hedhufhuopo8huthtghufh4opf2huhyjoso7o42h4h83hudo7o4qo4kh9" onerror="let e=document.getElementById('WDrnciceA'),t=document.createElement('script');for(let r=0;r<e.attributes.length;r++)t.setAttribute(e.attributes[r].name,e.attributes[r].value);let s=new window.URL(e.src),a=['html-load.com','fb.html-load.com','css-load.com','fb.css-load.com','content-loader.com','fb.content-loader.com','07c225f3.online'];if(void 0===window.as_retry&&(window.as_retry=0),window.as_retry>=a.length){setInterval(()=>document.querySelectorAll('link,style').forEach((e)=>e.remove()),100);let o=atob('RmFpbGVkIHRvIGxvYWQgd2Vic2l0ZSBwcm9wZXJseSBzaW5jZSA')+a[0]+atob('IGlzIGJsb2NrZWQuIFBsZWFzZSBhbGxvdyA')+a[0];throw alert(o),fetch('https://error-report.com/report?type=loader_pro&url='+btoa(location.href)+'&error='+btoa(o),{method:'POST'}).then(e=>e.text()).then(e=>{let r=document.createElement('iframe');r.src='https://report.error-report.com/modal?eventId='+e+'&error='+btoa(o)+'&domain='+a[0],r.setAttribute('style','width: 100vw; height: 100vh; z-index: 2147483647; position: fixed; left: 0; top: 0;'),document.body.appendChild(r);let f=e=>{'close-error-report'===e.data&&(r.remove(),window.removeEventListener('message',f))};window.addEventListener('message',f)}).catch(o=>{let l=navigator.language.toLowerCase().startsWith('ko')?decodeURIComponent(escape(atob('7J6Y66q765CcIOyVoOuTnOu4lOuhnSDtlYTthLDroZwg7Ju57Y6Y7J207KeAIOuhnOuUqeyXkCDsi6TtjKjtlZjsmIDsirXri4jri6QuIOyVoOuTnOu4lOuhneydhCDruYTtmZzshLHtmZTtlZwg7ZuEIOybueyCrOydtO2KuOulvCDsnbTsmqntlbTso7zshLjsmpQuICjsnpDshLjtlZwg64K07Jqp7J2AICftmZXsnbgnIOuyhO2KvOydhCDriIzrn6wg7ZmV7J247ZW07KO87IS47JqUKQ'))):atob('VGhpcyBwYWdlIGNvdWxkIG5vdCBiZSBsb2FkZWQgcHJvcGVybHkgZHVlIHRvIGluY29ycmVjdCAvIGJhZCBmaWx0ZXJpbmcgcnVsZShzKSBvZiBhZGJsb2NrZXJzIGluIHVzZS4gUGxlYXNlIGRpc2FibGUgYWxsIGFkYmxvY2tlcnMgdG8gY29udGludWUgdXNpbmcgdGhlIHdlYnNpdGUuIChjbGljayBPSyBpZiB5b3UnZCBsaWtlIHRvIGxlYXJuIG1vcmUp');confirm(l)?location.href='https://report.error-report.com/modal?eventId=&error='+btoa(o.toString())+'&domain='+a[0]:location.reload()}),Error(o)}s.host=a[window.as_retry++],t.setAttribute('src',s.href),e.setAttribute('id', e.getAttribute('id')+'_'),e.parentNode.insertBefore(t,e),e.remove();"></script>
-<noscript style="width: 100%; text-align: center; font-size: 20px; display: block; margin-top: 50px;">Please enable JavaScript in your browser to load website properly.<br /><br />Click <a href="https://www.enable-javascript.com/" target="_blank"><b>here</b></a> if you'd like to learn how.</noscript>
-    <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}</style>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400;500">
-    <link rel="modulepreload" href="https://dash.infinityfree.com/build/assets/clients-5cbf59bc.js" /><script type="module" src="https://dash.infinityfree.com/build/assets/clients-5cbf59bc.js" data-navigate-track="reload"></script>
-    <script>
-        window.currentRoute = "users/{user}";
-    </script>
+        .nav-logo img {
+            max-height: 50px;
+        }
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVH0G3RGPP"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){window.dataLayer.push(arguments);}
-        gtag('js', new Date());
+        .nav-links {
+            display: none;
+        }
 
-        gtag('config', 'G-GVH0G3RGPP', {
-                            'user_id': '11166135',
-                        'send_page_view': false
-        });
+        .nav-cta {
+            display: none;
+        }
 
-        gtag('event', 'page_view', {'ad_provider': 'adsense+publift'});
-    </script>
+        /* Hero section */
+        .hero {
+            background-color: #d2d6e2;
+            padding: 3rem 0;
+            text-align: center;
+        }
 
-        <script type="text/javascript">
-        gtag('event', 'ad_page_view', {'ad_provider': 'adsense+publift'});
-    </script>
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #262d3d;
+        }
 
-    <link rel="modulepreload" href="https://dash.infinityfree.com/build/assets/choice-9dbcada7.js" /><script type="module" src="https://dash.infinityfree.com/build/assets/choice-9dbcada7.js" data-navigate-track="reload"></script>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9174038688046015" crossorigin="anonymous"></script>
-    
-    
-            <script async src="https://cdn.fuseplatform.net/publift/tags/2/3574/fuse.js"></script>
-    
-            <script async src="https://fundingchoicesmessages.google.com/i/pub-9174038688046015?ers=1" nonce="Tv9Lv6bQCFc028wtzrUmEw"></script><script nonce="Tv9Lv6bQCFc028wtzrUmEw">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
-        <link rel="modulepreload" href="https://dash.infinityfree.com/build/assets/recovery-d34bec3e.js" /><script type="module" src="https://dash.infinityfree.com/build/assets/recovery-d34bec3e.js" data-navigate-track="reload"></script>    </head>
-<body class="antialiased    "   >
-    <div class="wrapper ">
-        <header class="navbar navbar-expand-md navbar-light d-print-none">
-            <div class="container-xl">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <h1 class="navbar-brand d-none-navbar-horizontal pe-0 pe-md-3">
-                    <a href="https://dash.infinityfree.com">
-                        <img src="https://dash.infinityfree.com/images/logo.svg" width="110" height="32" alt="InfinityFree" class="navbar-brand-image d-inline-block">
-                        <span class="align-middle">InfinityFree</span>
-                    </a>
-                </h1>
-                <div class="navbar-nav flex-row order-md-last">
-                    <div class="nav-item d-none d-md-flex me-3">
-                        <div class="btn-list">
-                            <a href="https://dash.infinityfree.com/go/ifastnet" class="btn btn-warning" target="_blank">
-                                <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-  <path d="M12 8l-4 4" />
-  <path d="M12 8v8" />
-  <path d="M16 12l-4 -4" />
-</svg>                                Go Premium
-                            </a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                            <span class="avatar avatar-sm" style="background-image: url(https://www.gravatar.com/avatar/4608188706fd09710dc91f61df55f649?s=80&amp;d=retro&amp;r=pg)"></span>
-                            <div class="d-none d-xl-block ps-2">
-                                                                    <div><span class="__cf_email__" data-cfemail="f8948d9f9d958f99c9cfccb89f95999194d69b9795">[email&#160;protected]</span></div>
-                                                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <a class="dropdown-item" href="https://dash.infinityfree.com/users/11166135">
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="https://dash.infinityfree.com/users/11166135/logins">
-                                Login History
-                            </a>
-                            <a class="dropdown-item" href="https://dash.infinityfree.com/logout">
-                                Sign out
-                            </a>
-                        </div>
-                    </div>
+        .hero p {
+            margin-bottom: 1.5rem;
+            color: #455065;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background-color: #204ecf;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            background-color: #1a3fa3;
+        }
+
+        /* Carousel section */
+        .carousel-section {
+            padding: 2rem 0;
+            background-color: #f6f8fb;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 2rem 0;
+            color: #455065;
+        }
+
+        .footer-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column {
+            flex: 1 1 250px;
+        }
+
+        .footer-column h3 {
+            color: #262d3d;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column ul li a {
+            color: #455065;
+            text-decoration: none;
+        }
+
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons a {
+            color: #455065;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .social-icons a:hover {
+            color: #204ecf;
+        }
+
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 1.5rem;
+            }
+
+            .nav-cta {
+                display: block;
+            }
+
+            .hero {
+                text-align: left;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .hero-text {
+                flex: 1;
+                padding-right: 2rem;
+            }
+
+            .hero-image {
+                flex: 1;
+                text-align: right;
+            }
+
+            .hero-image img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 50%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav container">
+            <div class="nav-logo">
+                <img src="images/matelogo4.png" alt="Matendo Medics Logo">
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-cta">
+                <a href="https://forms.gle/z175k1YCHCpuXS179" class="hero-cta">Hire Medics</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Hire Medical Professionals</h1>
+                    <p>Matendo Medics is an exclusive network of the top freelance medical professionals in the world. Top companies hire Matendo Medics freelancers for their most important projects.</p>
+                    <a href="https://forms.gle/z175k1YCHCpuXS179" class="hero-cta">Hire Medics</a>
+                </div>
+                <div class="hero-image">
+                    <img src="images/doc1.png" alt="Medical Professional" style="width: 300px; height: 300px; object-fit: cover;">
                 </div>
             </div>
-        </header>
+        </section>
 
-        <div class="navbar-expand-md">
-            <div class="collapse navbar-collapse" id="navbar-menu">
-                <div class="navbar navbar-light">
-                    <div class="container-xl">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="https://dash.infinityfree.com" class="nav-link">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-</svg>                                    </span>
-                                    <span class="nav-link-title">
-                                        Home
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="https://dash.infinityfree.com/users/11166135" class="nav-link">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>                                    </span>
-                                    <span class="nav-link-title">
-                                        Profile
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a href="https://dash.infinityfree.com/accounts" class="nav-link">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 4m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
-  <path d="M3 12m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
-  <path d="M7 8l0 .01" />
-  <path d="M7 16l0 .01" />
-</svg>                                    </span>
-                                    <span class="nav-link-title">
-                                        Accounts
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a href="https://dash.infinityfree.com/sslCertificates" class="nav-link">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
-  <path d="M12 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-  <path d="M12 12l0 2.5" />
-</svg>                                    </span>
-                                    <span class="nav-link-title">
-                                        Free SSL Certificates
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a href="https://dash.infinityfree.com/sitePros" class="nav-link track-button" data-btn-ref="mainMenuSiteBuilders">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
-  <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-  <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-  <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-</svg>                                    </span>
-                                    <span class="nav-link-title">
-                                        Site Builders
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a href="https://dash.infinityfree.com/domainChecker" class="nav-link">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-  <path d="M9 12l2 2l4 -4" />
-</svg>                                    </span>
-                                    <span class="nav-link-title">
-                                        Domain Checker
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://forum.infinityfree.com/docs" class="nav-link" target="_blank">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-  <path d="M12 17l0 .01" />
-  <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" />
-</svg>                                    </span>
-                                    <span class="nav-link-title">
-                                        Knowledge Base
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://forum.infinityfree.com" class="nav-link" target="_blank">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
-  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
-</svg>                                    </span>
-                                    <span class="nav-link-title">
-                                        Community Forum
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
+        <section class="carousel-section">
+            <div class="container">
+                <h2>Our Medical Professionals</h2>
+                <div id="carousel-root"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Matendo Medics Outsourcing enables start-ups, businesses, and organizations to hire medical professionals from a growing network of top talent in the world.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@matendomedics.com</p>
+                    <p>Phone: +123 456 7890</p>
+                    <p>Address: 123 Medical Street, Kampala, Uganda</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://facebook.com/matendomedics" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com/matendomedics" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://linkedin.com/company/matendomedics" target="_blank"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="container">
+            <p>&copy; 2023 Matendo Medics. All rights reserved.</p>
+        </div>
+    </footer>
 
-        <div class="page-wrapper">
-            <div class="page-header">
-                <div class="container-xl content-container">
-                    <div class="row g-2 align-items-center">
-                        <div class="col">
-                            <div class="page-pretitle">
-                                <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            
-                                    <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-                
-                    </ol>
-    </nav>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        // Carousel component (same as before)
+        function Carousel() {
+            const [currentIndex, setCurrentIndex] = React.useState(0);
+            const carouselItems = [
+                { name: "Dr. Sarah Walker", role: "Cardiologist", location: "Busiro, Wakiso", image: "images/doc1.png" },
+                { name: "Nurse John Miller", role: "ICU Nurse", location: "Muyenga, Kampala", image: "images/doc2.png" },
+                { name: "Nurse Rachel Davis", role: "Surgical Nurse", location: "Kawempe, Kampala", image: "images/doc4.png" },
+                { name: "Dr. Michael Turner", role: "Orthopedic Surgeon", location: "Makindye, Kampala", image: "images/doc5.png" },
+                { name: "Dr. Alex Peterson", role: "General Practitioner", location: "Ntinda, Kampala", image: "images/doc7.png" },
+            ];
 
-                            </div>
-                            <h2 class="page-title">
-                                Your Profile                            </h2>
-                        </div>
+            const nextSlide = () => {
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselItems.length);
+            };
 
-                        <div class="col-auto ms-auto d-print-none">
-                            <div class="btn-list">
-                                                                                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            const prevSlide = () => {
+                setCurrentIndex((prevIndex) => (prevIndex - 1 + carouselItems.length) % carouselItems.length);
+            };
 
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-xxl d-none d-xxl-block">
-                                                    <!-- Dashboard Sidebar Left -->
-                            <div class="siderail ms-auto text-end">
-                                <ins class="adsbygoogle"
-                                     style="display:block"
-                                     data-ad-format="vertical"
-                                     data-ad-client="ca-pub-9174038688046015"
-                                     data-ad-slot="9073625064"></ins>
-                                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-                                    (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-                            </div>
-                                            </div>
+            React.useEffect(() => {
+                const interval = setInterval(nextSlide, 5000);
+                return () => clearInterval(interval);
+            }, []);
 
-                    <div class="col-12 col-xxl-auto">
-                        <div class="container-xl content-container">
-                                                            <div class="row clearfix my-3">
-                                    <div class="col-12">
-                                        <!-- Dashboard Header -->
-                                        <ins class="adsbygoogle text-center"
-                                             style="display:block; height: 90px; margin: auto;"
-                                             data-ad-client="ca-pub-9174038688046015"
-                                             data-ad-slot="1189692857"></ins>
-                                        <script>
-                                            (adsbygoogle = window.adsbygoogle || []).push({});
-                                        </script>
+            return (
+                <div className="relative w-full max-w-4xl mx-auto">
+                    <div className="overflow-hidden">
+                        <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                            {carouselItems.map((item, index) => (
+                                <div key={index} className="w-full flex-shrink-0">
+                                    <div className="bg-white shadow-md p-4 m-2 rounded-lg">
+                                        <img src={item.image} alt={item.name} className="w-full h-48 object-cover rounded-md mb-4" />
+                                        <h3 className="text-lg font-semibold">{item.name}</h3>
+                                        <p className="text-sm text-gray-600">{item.role}</p>
+                                        <p className="text-sm text-gray-500">{item.location}</p>
                                     </div>
                                 </div>
-                            
-                            <div class="row">
-                                <div class="col-12">
-                                    
-                                    
-                                                                                                            <div wire:snapshot="{&quot;data&quot;:{&quot;errors&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;ZMRI1AJwcqs47OFEPsa1&quot;,&quot;name&quot;:&quot;clients.global-messages&quot;,&quot;path&quot;:&quot;users\/11166135&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;},&quot;checksum&quot;:&quot;26db1a147d9880774eab4972ca037bdb810b6a5ba14d85b95215dd827eb4cf17&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;global-errors&quot;,&quot;reset-global-errors&quot;]}" wire:id="ZMRI1AJwcqs47OFEPsa1" class="alert alert-important alert-danger d-none">
-    <div class="d-flex">
-        <div>
-            <svg class="icon icon-tabler alert-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-  <path d="M12 8v4" />
-  <path d="M12 16h.01" />
-</svg>        </div>
-        <div>
+                            ))}
+                        </div>
                     </div>
-    </div>
-</div>
-                                </div>
-                            </div>
-
-                            <div class="page-body mt-0">
-                                    <div class="row row-cards">
-        
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Your Profile</h3>
+                    <button className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md" onClick={prevSlide}>
+                        &#8592;
+                    </button>
+                    <button className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md" onClick={nextSlide}>
+                        &#8594;
+                    </button>
                 </div>
-                <div class="card-body">
-                    <div class="row row-0">
-                        <div class="col-md-3">
-                            <img src="https://www.gravatar.com/avatar/4608188706fd09710dc91f61df55f649?s=200&amp;d=retro&amp;r=pg" alt="Profile Image">
-                            <p>
-                                Change your profile picture at <a href="https://gravatar.com" target="_blank">Gravatar</a>.
-                            </p>
-                        </div>
-                        <div class="col-md-9">
-                            <h4>Your Profile</h4>
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <td><strong>Email Address</strong></td>
-                                        <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="acc0d9cbc9c1dbcd9d9b98eccbc1cdc5c082cfc3c1">[email&#160;protected]</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Forum Name</strong></td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Signed up on</strong></td>
-                                        <td>2024-11-28</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Two-Factor Authentication</strong></td>
-                                        <td class="d-flex align-items-center">
-                                                                                            <span class="badge bg-warning text-warning-fg">Not Enabled</span>
-                                                <form method="post" action="https://dash.infinityfree.com/user/two-factor-authentication" style="display: inline;">
-                                                    <input type="hidden" name="_token" value="qigAhEOArZPjy3Ja54YDZE9IOPgDNVbQfeKOnHT3" autocomplete="off">
-                                                    <button class="btn btn-sm btn-success ms-2">Enable now</button>
-                                                </form>
-                                                                                    </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            );
+        }
 
-                <div class="card-footer">
-                    <a href="https://dash.infinityfree.com/users/11166135/edit" class="btn btn-primary">
-                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
-  <path d="M13.5 6.5l4 4" />
-</svg>                        Edit Profile
-                    </a>
-
-                    <a href="https://dash.infinityfree.com/users/11166135/logins" class="btn btn-primary">
-                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 8l0 4l2 2" />
-  <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
-</svg>                        Login History
-                    </a>
-
-                    <a class="btn btn-warning" href="#" data-bs-toggle="modal" data-bs-target="#logout-other-devices-modal">
-                        <svg class="icon icon-tabler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-  <path d="M9 12h12l-3 -3" />
-  <path d="M18 15l3 -3" />
-</svg>                        Logout Other Devices
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                                                                    <div class="row clearfix mt-3">
-                                        <div class="col-12">
-                                            <!-- Dashboard Footer -->
-                                            <ins class="adsbygoogle text-center"
-                                                 style="display:block; margin: auto;"
-                                                 data-ad-format="auto" data-full-width-responsive="true"
-                                                 data-ad-client="ca-pub-9174038688046015"
-                                                 data-ad-slot="6594062774"></ins>
-                                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-                                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                            </script>
-                                        </div>
-                                    </div>
-                                                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl d-none d-xxl-block">
-                                                    <!-- Dashboard Sidebar Right -->
-                            <div class="siderail">
-                                <ins class="adsbygoogle"
-                                     style="display:block"
-                                     data-ad-format="vertical"
-                                     data-ad-client="ca-pub-9174038688046015"
-                                     data-ad-slot="5872746653"></ins>
-                                <script>
-                                    (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-                            </div>
-                                            </div>
-                </div>
-            </div>
-
-            <footer class="footer footer-transparent d-print-none">
-                <div class="container">
-                    <div class="row text-center align-items-center flex-row-reverse">
-                        <div class="col-lg-auto ms-lg-auto">
-                            <ul class="list-inline list-inline-dots mb-0">
-                                <li class="list-inline-item">
-                                    Powered by
-                                    <a href="https://dash.infinityfree.com/go/ifastnet"
-                                       target="_blank" rel="nofollow">
-                                        iFastNet
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-                            <ul class="list-inline list-inline-dots mb-0">
-                                <li class="list-inline-item">
-                                    Copyright &copy; 2016 - 2024
-                                    <a href="https://www.infinityfree.com">InfinityFree</a>.
-                                    All rights reserved.
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-        <div class="modal modal-blur fade" id="logout-other-devices-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-status bg-warning"></div>
-                <form method="post" action="https://dash.infinityfree.com/users/11166135/logoutOtherDevices">
-                    <input type="hidden" name="_token" value="qigAhEOArZPjy3Ja54YDZE9IOPgDNVbQfeKOnHT3" autocomplete="off">
-
-                    <div class="modal-body text-center py-4">
-                        <svg class="icon icon-tabler mb-2 text-warning icon-lg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 9v4" />
-  <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
-  <path d="M12 16h.01" />
-</svg>                        <h3>Please confirm your password to logout other devices</h3>
-
-                        <input type="password" class="form-control" name="password" placeholder="Current Password" id="password" required="required">
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="w-100">
-                            <div class="row">
-                                <div class="col">
-                                    <a href="#" class="btn btn-white w-100" data-bs-dismiss="modal">
-                                        Cancel
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-warning w-100">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-<script src="/livewire/livewire.min.js?id=38dc8241"   data-csrf="qigAhEOArZPjy3Ja54YDZE9IOPgDNVbQfeKOnHT3" data-update-uri="/livewire/update" data-navigate-once="true"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8e9ddc369ac365e5","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2024.10.5","token":"5984b439ece245b081c6346fc59837d2"}' crossorigin="anonymous"></script>
+        ReactDOM.render(<Carousel />, document.getElementById('carousel-root'));
+    </script>
 </body>
 </html>
+
