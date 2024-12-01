@@ -1,0 +1,140 @@
+/* Mobile First Responsive Design */
+
+/* Base styles for all devices */
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Mobile styles (up to 576px) */
+@media screen and (max-width: 576px) {
+    .container {
+        width: 95%;
+        padding: 0 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    [data-testid="talent-card"] {
+        flex: 0 0 100% !important;
+        margin: 10px 0;
+    }
+
+    .grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+
+    button, 
+    .button,
+    nav ul li a,
+    [role="button"] {
+        min-height: 44px;
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1 { font-size: 1.8rem !important; }
+    h2 { font-size: 1.5rem !important; }
+    h3 { font-size: 1.2rem !important; }
+    p { font-size: 1rem !important; }
+
+    .flex {
+        flex-direction: column !important;
+    }
+
+    .mx-6 {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+}
+
+/* Tablet styles (577px to 992px) */
+@media screen and (min-width: 577px) and (max-width: 992px) {
+    .container {
+        width: 90%;
+        padding: 0 20px;
+    }
+
+    [data-testid="talent-card"] {
+        flex: 0 0 48% !important;
+        margin: 10px 1%;
+    }
+
+    .grid {
+        grid-template-columns: repeat(6, 1fr) !important;
+        gap: 1.5rem;
+    }
+
+    h1 { font-size: 2rem !important; }
+    h2 { font-size: 1.7rem !important; }
+    h3 { font-size: 1.4rem !important; }
+    p { font-size: 1.1rem !important; }
+
+    .mx-6 {
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+    }
+}
+
+/* Common mobile and tablet styles */
+@media screen and (max-width: 992px) {
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    /* Mobile menu styles */
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        display: none;
+    }
+
+    .mobile-menu.active {
+        display: block;
+    }
+
+    .mobile-menu ul {
+        padding: 20px;
+        margin-top: 60px;
+    }
+
+    .mobile-menu li {
+        margin: 15px 0;
+    }
+
+    .mobile-menu a {
+        color: white;
+        font-size: 1.2rem;
+    }
+}
