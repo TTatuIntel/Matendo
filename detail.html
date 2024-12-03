@@ -1,0 +1,2223 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Matendo Resume</title>
+    <meta name="theme-color" content="#204ECF" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style id="inline-css">
+        body,
+        html {
+            font-family: Proxima Nova, proxima-nova, Proxima Nova Fallback, Arial, sans-serif;
+            font-weight: 400
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        a {
+            text-decoration: none
+        }
+
+        a,
+        abbr,
+        acronym,
+        address,
+        applet,
+        article,
+        aside,
+        audio,
+        b,
+        big,
+        blockquote,
+        body,
+        canvas,
+        caption,
+        center,
+        cite,
+        code,
+        dd,
+        del,
+        details,
+        dfn,
+        div,
+        dl,
+        dt,
+        em,
+        embed,
+        fieldset,
+        figcaption,
+        figure,
+        footer,
+        form,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        header,
+        hgroup,
+        html,
+        i,
+        iframe,
+        img,
+        ins,
+        kbd,
+        label,
+        legend,
+        li,
+        mark,
+        menu,
+        nav,
+        object,
+        ol,
+        output,
+        p,
+        pre,
+        q,
+        ruby,
+        s,
+        samp,
+        section,
+        small,
+        span,
+        strike,
+        strong,
+        sub,
+        summary,
+        sup,
+        table,
+        tbody,
+        td,
+        tfoot,
+        th,
+        thead,
+        time,
+        tr,
+        tt,
+        u,
+        ul,
+        var,
+        video {
+            border: 0;
+            font-size: 100%;
+            margin: 0;
+            padding: 0;
+            vertical-align: baseline
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block
+        }
+
+        ol,
+        ul {
+            list-style: none
+        }
+
+        blockquote,
+        q {
+            quotes: none
+        }
+
+        blockquote:after,
+        blockquote:before,
+        q:after,
+        q:before {
+            content: ""
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        button,
+        input {
+            font-family: inherit
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: Proxima Nova;
+            font-weight: 100;
+            src: url(https://frontier-assets.matendo.com/0d334d6378eced47.woff2) format("woff2"), url(https://frontier-assets.matendo.com/8022270c98c44680.woff) format("woff"), url(https://frontier-assets.matendo.com/3a3d434803adb427.otf) format("opentype")
+        }
+
+        @font-face {
+            size-adjust: 95.3341%;
+            ascent-override: 92.9364%;
+            descent-override: 29.1606%;
+            font-display: swap;
+            font-family: Proxima Nova Fallback;
+            font-weight: 100;
+            line-gap-override: 0%;
+            src: local(Arial)
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: Proxima Nova;
+            font-weight: 300;
+            src: url(https://frontier-assets.matendo.com/537cdd0465a548f0.woff2) format("woff2"), url(https://frontier-assets.matendo.com/f9510317aef3a1d2.woff) format("woff"), url(https://frontier-assets.matendo.com/5bc35956b6aaec48.otf) format("opentype")
+        }
+
+        @font-face {
+            size-adjust: 96.9043%;
+            ascent-override: 111.347%;
+            descent-override: 33.4351%;
+            font-display: swap;
+            font-family: Proxima Nova Fallback;
+            font-weight: 300;
+            line-gap-override: 0%;
+            src: local(Arial)
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: Proxima Nova;
+            font-weight: 400;
+            src: url(https://frontier-assets.matendo.com/bc447dcd2473a499.woff2) format("woff2"), url(https://frontier-assets.matendo.com/31a7fb48a0c14d38.woff) format("woff"), url(https://frontier-assets.matendo.com/f68460597dbfd4ac.otf) format("opentype")
+        }
+
+        @font-face {
+            size-adjust: 98.4745%;
+            ascent-override: 109.5715%;
+            descent-override: 35.0345%;
+            font-display: swap;
+            font-family: Proxima Nova Fallback;
+            font-weight: 400;
+            line-gap-override: 0%;
+            src: local(Arial)
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: Proxima Nova;
+            font-weight: 600 700;
+            src: url(https://frontier-assets.matendo.com/b514066e53e79bf0.woff2) format("woff2"), url(https://frontier-assets.matendo.com/cac11883ad6397e3.woff) format("woff"), url(https://frontier-assets.matendo.com/4ce555f565b723fa.otf) format("opentype")
+        }
+
+        @font-face {
+            size-adjust: 100.4933%;
+            ascent-override: 107.3703%;
+            descent-override: 37.3159%;
+            font-display: swap;
+            font-family: Proxima Nova Fallback;
+            font-weight: 600 700;
+            line-gap-override: 0%;
+            src: local(Arial)
+        }
+
+        body,
+        html {
+            scroll-behavior: smooth
+        }
+
+        #page-root,
+        body,
+        html {
+            min-height: 100%
+        }
+
+        .aowwyHr4 svg {
+            height: 100%;
+            width: auto
+        }
+
+        ._2s8qlRft {
+            color: inherit
+        }
+
+        ._2s8qlRft svg path {
+            fill: currentColor
+        }
+
+        ._1lqQP1In:focus {
+            outline-offset: 2px;
+            outline-style: solid;
+            outline-width: 2px
+        }
+
+        ._1lqQP1In:focus:not(:focus-visible) {
+            outline: 0;
+            outline-offset: 0
+        }
+
+        ._2zFNtrUH {
+            align-items: baseline;
+            color: #455065;
+            display: flex;
+            flex-shrink: 0;
+            font-size: 29px;
+            line-height: 29px;
+            max-width: 100%
+        }
+
+        ._2zFNtrUH img,
+        ._2zFNtrUH svg {
+            display: inline-block;
+            vertical-align: -17.5%
+        }
+
+        ._2zFNtrUH svg {
+            transform: translateY(.5px)
+        }
+
+        ._1lqQP1In {
+            align-items: baseline;
+            color: inherit;
+            display: flex
+        }
+
+        ._1lqQP1In:focus {
+            outline-color: #204ecf;
+            z-index: 1
+        }
+
+        ._3pv3brId {
+            color: #204ecf;
+            line-height: 32px
+        }
+
+        ._3IvwqTLq,
+        ._3pv3brId {
+            height: 32px
+        }
+
+        ._3sedtAc7 {
+            height: 29px;
+            margin: 0 9px 0 1px
+        }
+
+        ._3sedtAc7:not([class*=hidden])+._2h0Q-csS>span {
+            color: inherit
+        }
+
+        ._2h0Q-csS {
+            margin: 0 6px 0 -6px
+        }
+
+        ._2h0Q-csS span {
+            color: #204ecf;
+            font-size: 13px;
+            line-height: 13px;
+            margin-top: -8px;
+            position: absolute
+        }
+
+        ._2bDJPIeG {
+            margin-left: 3px
+        }
+
+        ._2bDJPIeG span {
+            color: inherit;
+            font-size: 18px;
+            line-height: 15px;
+            margin-top: -6px;
+            position: absolute
+        }
+
+        ._1m09hJFy {
+            color: #262d3d;
+            font-size: 30px;
+            letter-spacing: -1px;
+            margin: 0 0 0 8px;
+            white-space: nowrap
+        }
+
+        ._2ZgGtzgx {
+            align-items: baseline;
+            display: flex;
+            margin-left: 16px;
+            min-height: 32px
+        }
+
+        ._3kK1Rr6A:before {
+            border-left: 1px solid #c4c6ca;
+            content: "";
+            display: inline-block;
+            height: 32px;
+            margin-right: 16px;
+            vertical-align: -20%
+        }
+
+        .m_DMFHig {
+            color: #455065;
+            display: inline-block;
+            font-size: 17px;
+            font-weight: 400;
+            letter-spacing: -.6px;
+            line-height: 19px
+        }
+
+        .m_DMFHig span {
+            font-size: 13px;
+            line-height: 13px;
+            vertical-align: -30%
+        }
+
+        ._3lBhZcpL ._1m09hJFy,
+        ._3lBhZcpL ._2bDJPIeG>span,
+        ._3lBhZcpL ._2h0Q-csS>span,
+        ._3lBhZcpL._2zFNtrUH,
+        ._3lBhZcpL ._3pv3brId,
+        ._3lBhZcpL .m_DMFHig {
+            color: inherit
+        }
+
+        .LbfAhr52 {
+            line-height: 35px
+        }
+
+        .LbfAhr52 ._3IvwqTLq,
+        .LbfAhr52 ._3pv3brId {
+            height: 37px
+        }
+
+        .LbfAhr52 ._3sedtAc7 {
+            height: 35px
+        }
+
+        .LbfAhr52 ._2bDJPIeG span,
+        .LbfAhr52 ._2h0Q-csS span {
+            font-size: 15px
+        }
+
+        .LbfAhr52 ._1m09hJFy {
+            font-size: 36px;
+            letter-spacing: -1.2px;
+            margin-left: 9px
+        }
+
+        ._33gzocPg {
+            line-height: 22px;
+            margin-bottom: 1px
+        }
+
+        ._33gzocPg ._3IvwqTLq,
+        ._33gzocPg ._3pv3brId {
+            height: 25px
+        }
+
+        ._33gzocPg ._3sedtAc7 {
+            height: 22px;
+            margin-right: 7px
+        }
+
+        ._33gzocPg ._2bDJPIeG span {
+            font-size: 10px;
+            line-height: 14px
+        }
+
+        ._33gzocPg ._2h0Q-csS {
+            margin: 0 5px 0 -5px
+        }
+
+        ._33gzocPg ._2h0Q-csS span {
+            font-size: 10px;
+            line-height: 14px
+        }
+
+        ._33gzocPg ._1m09hJFy {
+            font-size: 24px;
+            letter-spacing: -.8px;
+            margin-left: 6px
+        }
+
+        ._33gzocPg svg {
+            transform: none
+        }
+
+        ._1PF6Xbpx {
+            line-height: 17px
+        }
+
+        ._1PF6Xbpx ._3IvwqTLq,
+        ._1PF6Xbpx ._3pv3brId {
+            height: 21px
+        }
+
+        ._1PF6Xbpx ._3sedtAc7 {
+            height: 18px;
+            margin-right: 4px
+        }
+
+        ._1PF6Xbpx ._2bDJPIeG span {
+            font-size: 8px;
+            line-height: 16px
+        }
+
+        ._1PF6Xbpx ._2h0Q-csS {
+            margin: 0 4px 0 -3px
+        }
+
+        ._1PF6Xbpx ._2h0Q-csS span {
+            font-size: 8px;
+            line-height: 16px
+        }
+
+        ._1PF6Xbpx ._1m09hJFy {
+            font-size: 18px;
+            letter-spacing: -.6px;
+            margin-left: 4px
+        }
+
+        ._2n5lyJsq {
+            line-height: 17px
+        }
+
+        ._2n5lyJsq ._3IvwqTLq,
+        ._2n5lyJsq ._3pv3brId {
+            display: flex;
+            height: 14px
+        }
+
+        ._2n5lyJsq ._3sedtAc7 {
+            height: 14px;
+            margin-right: 4px
+        }
+
+        ._2n5lyJsq ._2bDJPIeG span {
+            font-size: 6px;
+            line-height: 8px
+        }
+
+        ._2n5lyJsq ._2h0Q-csS {
+            margin: 0 0 0 -2px
+        }
+
+        ._2n5lyJsq ._2h0Q-csS span {
+            font-size: 6px;
+            line-height: 8px
+        }
+
+        ._2n5lyJsq ._1m09hJFy {
+            font-size: 14px;
+            letter-spacing: -.4px;
+            margin-left: 3px
+        }
+
+        .elMww11j {
+            display: none
+        }
+
+        @media(min-width:768px) {
+            ._2Bso87Uq {
+                display: none
+            }
+        }
+
+        @media(min-width:1024px) {
+            ._2IC_Z8fZ {
+                display: none
+            }
+        }
+
+        @media(min-width:1440px) {
+            .wvd4yX4K {
+                display: none
+            }
+        }
+
+        @media(min-width:768px) {
+            ._2N72yWhX {
+                display: unset
+            }
+
+            ._2N72yWhX+._2h0Q-csS>span {
+                color: inherit
+            }
+        }
+
+        @media(min-width:1024px) {
+            ._217YOfpM {
+                display: unset
+            }
+
+            ._217YOfpM+._2h0Q-csS>span {
+                color: inherit
+            }
+        }
+
+        @media(min-width:1440px) {
+            ._1ox-Xanm {
+                display: unset
+            }
+
+            ._1ox-Xanm+._2h0Q-csS>span {
+                color: inherit
+            }
+        }
+
+        ._12jVcp4W,
+        ._12jVcp4W ._1lqQP1In,
+        ._12jVcp4W ._2ZgGtzgx {
+            align-items: center
+        }
+
+        ._12jVcp4W .m_DMFHig {
+            display: block;
+            padding-top: 4px
+        }
+
+        ._12jVcp4W ._2h0Q-csS span {
+            margin-top: 3px
+        }
+
+        @media(min-width:768px) {
+
+            ._2Ws5vMcU,
+            ._2Ws5vMcU ._1lqQP1In,
+            ._2Ws5vMcU ._2ZgGtzgx {
+                align-items: center
+            }
+
+            ._2Ws5vMcU .m_DMFHig {
+                display: block;
+                padding-top: 4px
+            }
+
+            ._2Ws5vMcU ._2h0Q-csS span {
+                margin-top: 3px
+            }
+        }
+
+        @media(min-width:1024px) {
+
+            ._22s4LGPZ,
+            ._22s4LGPZ ._1lqQP1In,
+            ._22s4LGPZ ._2ZgGtzgx {
+                align-items: center
+            }
+
+            ._22s4LGPZ .m_DMFHig {
+                display: block;
+                padding-top: 4px
+            }
+
+            ._22s4LGPZ ._2h0Q-csS span {
+                margin-top: 3px
+            }
+        }
+
+        @media(min-width:1440px) {
+
+            ._2niAWoar,
+            ._2niAWoar ._1lqQP1In,
+            ._2niAWoar ._2ZgGtzgx {
+                align-items: center
+            }
+
+            ._2niAWoar .m_DMFHig {
+                display: block;
+                padding-top: 4px
+            }
+
+            ._2niAWoar ._2h0Q-csS span {
+                margin-top: 3px
+            }
+        }
+
+        @media(min-width:768px) {
+
+            ._2uBBObmD,
+            ._2uBBObmD ._1lqQP1In,
+            ._2uBBObmD ._2ZgGtzgx {
+                align-items: baseline
+            }
+
+            ._2uBBObmD .m_DMFHig {
+                display: inline-block;
+                padding-top: 0
+            }
+
+            ._2uBBObmD ._2h0Q-csS span {
+                margin-top: -8px
+            }
+        }
+
+        @media(min-width:1024px) {
+
+            .M0cmECfZ,
+            .M0cmECfZ ._1lqQP1In,
+            .M0cmECfZ ._2ZgGtzgx {
+                align-items: baseline
+            }
+
+            .M0cmECfZ .m_DMFHig {
+                display: inline-block;
+                padding-top: 0
+            }
+
+            .M0cmECfZ ._2h0Q-csS span {
+                margin-top: -8px
+            }
+        }
+
+        @media(min-width:1440px) {
+
+            ._1VFRKttE,
+            ._1VFRKttE ._1lqQP1In,
+            ._1VFRKttE ._2ZgGtzgx {
+                align-items: baseline
+            }
+
+            ._1VFRKttE .m_DMFHig {
+                display: inline-block;
+                padding-top: 0
+            }
+
+            ._1VFRKttE ._2h0Q-csS span {
+                margin-top: -8px
+            }
+        }
+
+        .CV4YLXjk {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 14px;
+            font-weight: 400;
+            height: 64px;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 99
+        }
+
+        .CV4YLXjk:focus-within {
+            overflow: visible
+        }
+
+        .CV4YLXjk._17f6jrU- {
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+            position: fixed;
+            width: 100%
+        }
+
+        .CV4YLXjk._17f6jrU-._3dWgWApq {
+            background: rgba(0, 0, 0, .6);
+            transform: translateZ(0)
+        }
+
+        .CV4YLXjk._17f6jrU-._3dWgWApq:before {
+            -webkit-backdrop-filter: blur(35px);
+            backdrop-filter: blur(35px);
+            background: linear-gradient(179deg, rgba(0, 0, 0, .15) .8%, hsla(0, 0%, 100%, 0) 104.82%);
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%
+        }
+
+        ._149kcYtF {
+            background: none;
+            border: 0;
+            border-radius: 0;
+            color: inherit;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
+            width: 24px
+        }
+
+        ._149kcYtF>span {
+            background-color: currentColor;
+            border-radius: 2px;
+            display: block;
+            height: 3px;
+            margin: 6px 0;
+            transition-duration: .2s;
+            transition-property: height, opacity, transform
+        }
+
+        ._149kcYtF._2D2qdNBZ>span {
+            height: 2px;
+            margin-block: 8px
+        }
+
+        ._149kcYtF._2Oum_hbN>span:nth-child(2n) {
+            margin-top: -9px;
+            transform: rotate(-45deg)
+        }
+
+        ._149kcYtF._2Oum_hbN>span:first-child {
+            margin-top: 16px;
+            transform: rotate(45deg)
+        }
+
+        ._149kcYtF._2Oum_hbN>span:last-child {
+            opacity: 0
+        }
+
+        ._3eM4gMdx {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .16)
+        }
+
+        ._2-oDGCM5:focus,
+        ._3D9T9QSe:focus {
+            outline-offset: 2px;
+            outline-style: solid;
+            outline-width: 2px
+        }
+
+        ._2-oDGCM5:focus:not(:focus-visible),
+        ._3D9T9QSe:focus:not(:focus-visible) {
+            outline: 0;
+            outline-offset: 0
+        }
+
+        ._3D9T9QSe {
+            align-items: center;
+            background: transparent;
+            border: 0;
+            color: inherit;
+            cursor: pointer;
+            display: flex;
+            font-size: inherit;
+            height: 100%;
+            line-height: inherit;
+            margin: 0;
+            padding: 0;
+            width: 100%
+        }
+
+        ._3D9T9QSe:focus {
+            outline-color: #204ecf;
+            z-index: 1
+        }
+
+        ._3D9T9QSe:focus:after {
+            margin-top: 4px
+        }
+
+        ._3vjPAKai {
+            content: "";
+            display: block;
+            height: 10px;
+            margin-left: 4px;
+            margin-top: 3px;
+            transform: rotate(90deg);
+            transition: transform .2s linear;
+            width: 10px
+        }
+
+        ._2-oDGCM5 {
+            color: #455065;
+            display: block
+        }
+
+        ._2-oDGCM5:focus {
+            outline-color: #204ecf;
+            z-index: 1
+        }
+
+        ._2-oDGCM5._3mFUzdRA,
+        ._2-oDGCM5:hover {
+            color: #204ecf
+        }
+
+        ._3eM4gMdx {
+            background: #fff;
+            border-radius: 0 0 4px 4px;
+            max-width: 380px;
+            padding: 24px;
+            position: absolute;
+            top: 100%;
+            visibility: hidden;
+            width: -moz-max-content;
+            width: max-content
+        }
+
+        ._3eM4gMdx._3Nizu1rn {
+            max-width: 497px
+        }
+
+        ._3eM4gMdx._2sFW1-TY {
+            right: 0
+        }
+
+        ._1PI1h4vZ._1gHFhirN {
+            display: block
+        }
+
+        ._1PI1h4vZ ._3D9T9QSe {
+            border-bottom: none
+        }
+
+        @media(max-width:767px) {
+            ._1PI1h4vZ ._3D9T9QSe {
+                justify-content: space-between
+            }
+        }
+
+        ._1PI1h4vZ ._3eM4gMdx {
+            box-shadow: none;
+            height: 0;
+            margin: -4px -8px 0;
+            max-width: none;
+            overflow-y: hidden;
+            padding: 4px 0;
+            position: static;
+            transition-delay: 0ms, .3s;
+            transition-duration: .3s, 0ms;
+            transition-property: height, visibility;
+            transition-timing-function: ease-in-out;
+            width: 100%
+        }
+
+        ._1PI1h4vZ ._2-oDGCM5 {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            margin: 0 8px;
+            min-height: 36px;
+            padding: 6px 0
+        }
+
+        ._1PI1h4vZ._1t8Zrevj ._3eM4gMdx {
+            height: auto;
+            transition: none
+        }
+
+        ._2L30v7CR {
+            -webkit-backdrop-filter: blur(35px);
+            backdrop-filter: blur(35px);
+            background: rgba(0, 0, 0, .6)
+        }
+
+        ._2L30v7CR ._2-oDGCM5 {
+            color: #fff
+        }
+
+        ._2L30v7CR ._2-oDGCM5._3mFUzdRA,
+        ._2L30v7CR ._2-oDGCM5:hover {
+            color: #204ecf
+        }
+
+        ._2L30v7CR:before {
+            background: linear-gradient(132deg, hsla(0, 0%, 100%, .4), hsla(0, 0%, 100%, 0) 51.82%, hsla(0, 0%, 100%, .5) 96.43%);
+            border-radius: 0 0 5.5px 5.5px;
+            content: "";
+            inset: 0;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 1.5px;
+            position: absolute;
+            z-index: -1
+        }
+
+        ._1gHFhirN {
+            display: flex;
+            position: relative
+        }
+
+        ._1gHFhirN._2uG9PbI8 ._3eM4gMdx {
+            transition-delay: 0s;
+            visibility: visible
+        }
+
+        ._1gHFhirN._2uG9PbI8 ._3vjPAKai {
+            transform: rotate(-90deg)
+        }
+
+        ._1gHFhirN._2uG9PbI8._1PI1h4vZ ._3D9T9QSe {
+            font-weight: 600
+        }
+
+        ._38aPcJyj._1gHFhirN._2uG9PbI8 ._3D9T9QSe:after {
+            border-top-color: #fff
+        }
+
+        .Vt5M1_D_._3bXj9XwP:focus,
+        .Vt5M1_D_:focus {
+            outline-offset: 2px;
+            outline-style: solid;
+            outline-width: 2px
+        }
+
+        .Vt5M1_D_:focus:not(:focus-visible) {
+            outline: 0;
+            outline-offset: 0
+        }
+
+        .Vt5M1_D_ {
+            align-items: center;
+            border: 4px solid transparent;
+            border-width: 0 4px;
+            color: #262d3d;
+            display: flex;
+            flex-shrink: 0;
+            font-size: 14px;
+            font-weight: 400;
+            height: 100%;
+            padding: 4px 0;
+            position: relative;
+            text-decoration: none
+        }
+
+        .Vt5M1_D_:focus {
+            outline-color: #204ecf;
+            outline-offset: -2px;
+            z-index: 1
+        }
+
+        .Vt5M1_D_._31BAhWCT:after,
+        .Vt5M1_D_:hover:after {
+            border-top: 2px solid #204ecf;
+            bottom: 0;
+            content: "";
+            left: 0;
+            position: absolute;
+            width: 100%
+        }
+
+        .Vt5M1_D_._2Ag8qsoM {
+            color: #fff
+        }
+
+        .Vt5M1_D_._2Ag8qsoM:hover:after {
+            border-top-color: #fff
+        }
+
+        .Vt5M1_D_._2Ag8qsoM._31BAhWCT:not(:hover):after {
+            display: none
+        }
+
+        .Vt5M1_D_._1ra0UBl2:hover:after {
+            border-top-color: #25a9ef
+        }
+
+        .Vt5M1_D_._3bXj9XwP {
+            border: 0;
+            border-bottom: 1px solid #ebeced;
+            font-size: 16px;
+            line-height: 46px;
+            padding: 0;
+            width: 100%
+        }
+
+        .Vt5M1_D_._3bXj9XwP:focus {
+            outline-color: #204ecf;
+            z-index: 1
+        }
+
+        .Vt5M1_D_._3bXj9XwP:after {
+            display: none
+        }
+
+        ._13qVZnF8 {
+            width: 100%
+        }
+
+        ._13qVZnF8._1SDPwyms {
+            font-weight: 400;
+            padding-left: 0;
+            padding-right: 0
+        }
+
+        ._13qVZnF8._1SDPwyms._1i-SFxc6 {
+            color: #fff
+        }
+
+        ._13qVZnF8._2PJc2RVJ._13qVZnF8._2PJc2RVJ {
+            display: none
+        }
+
+        @media(min-width:525px) {
+            ._13qVZnF8._2PJc2RVJ._13qVZnF8._2PJc2RVJ {
+                display: inline-block
+            }
+        }
+
+        ._13qVZnF8.Das2kvhB {
+            display: inline-block
+        }
+
+        @media(min-width:525px) {
+            ._13qVZnF8.Das2kvhB {
+                display: inline-block
+            }
+        }
+
+        ._13qVZnF8.Das2kvhB:after {
+            background: url(https://frontier-assets.matendo.com/ae103f4e7ce40154.svg) 0 0/20px 16px no-repeat;
+            bottom: 1px;
+            content: "";
+            display: inline-block;
+            height: 16px;
+            margin-left: 3px;
+            position: relative;
+            vertical-align: middle;
+            width: 20px
+        }
+
+        @media(min-width:768px) {
+            ._13qVZnF8.Das2kvhB:after {
+                background: url(https://frontier-assets.matendo.com/8bd74fa8f4dcbd99.svg) 0 0/65px 16px no-repeat;
+                height: 16px;
+                width: 65px
+            }
+        }
+
+        @keyframes _2tPiREdh {
+            0% {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        html {
+            scroll-padding-top: 64px
+        }
+
+        ._2SKZhefz {
+            align-items: center;
+            display: flex;
+            height: 64px;
+            min-height: 64px;
+            position: relative
+        }
+
+        @media(min-width:768px) {
+            ._2SKZhefz {
+                margin-right: 40px
+            }
+        }
+
+        .U1M-fb49 {
+            display: none;
+            font-size: 16px;
+            line-height: 16px
+        }
+
+        @media(min-width:1024px) {
+            .U1M-fb49 {
+                display: block
+            }
+        }
+
+        ._19S1Pxiu {
+            display: none;
+            height: 100%
+        }
+
+        @media(min-width:1070px) {
+            ._1fA2l0Sj ._19S1Pxiu {
+                display: flex;
+                gap: 8px;
+                margin-left: -4px
+            }
+        }
+
+        @media(min-width:1272px) {
+
+            ._2x_SsRBi ._19S1Pxiu,
+            ._3Hr0AWy9 ._19S1Pxiu {
+                display: flex;
+                gap: 8px;
+                margin-left: -4px
+            }
+        }
+
+        ._19S1Pxiu [data-expanded=true]~a._1rZ7kgJi,
+        ._19S1Pxiu a._1rZ7kgJi:has(~[data-expanded=true]) {
+            opacity: .7
+        }
+
+        @media(min-width:1024px) {
+
+            ._19S1Pxiu:hover ._1rZ7kgJi:not(:hover) button,
+            ._19S1Pxiu:hover a._1rZ7kgJi:not(:hover) {
+                opacity: .7
+            }
+        }
+
+        ._1H08x506 {
+            align-items: center;
+            display: flex;
+            justify-content: flex-end;
+            visibility: hidden
+        }
+
+        @media(min-width:768px) {
+            ._1H08x506 {
+                margin-left: auto
+            }
+        }
+
+        ._1H08x506.HfVT27du {
+            visibility: visible
+        }
+
+        ._3MRiAuyU {
+            display: none
+        }
+
+        @media(max-width:767px) {
+            ._3MRiAuyU:not(:last-child) {
+                margin-bottom: 10px
+            }
+        }
+
+        @media(min-width:1070px) {
+            ._1fA2l0Sj ._3MRiAuyU {
+                display: block
+            }
+
+            ._1fA2l0Sj ._3MRiAuyU:not(:last-child) {
+                margin-right: 16px
+            }
+        }
+
+        @media(min-width:1272px) {
+            ._2x_SsRBi ._3MRiAuyU {
+                display: block
+            }
+
+            ._2x_SsRBi ._3MRiAuyU:not(:last-child) {
+                margin-right: 16px
+            }
+
+            ._3Hr0AWy9 ._3MRiAuyU {
+                display: block
+            }
+
+            ._3Hr0AWy9 ._3MRiAuyU:not(:last-child) {
+                margin-right: 16px
+            }
+        }
+
+        @media(min-width:768px) {
+            ._3MRiAuyU._2oFSXYPu {
+                display: block
+            }
+        }
+
+        .CtkKdTBv {
+            margin: 0 0 0 auto;
+            position: absolute;
+            right: 16px;
+            top: 15px
+        }
+
+        @media(min-width:1024px) {
+            .USHuY6CH .CtkKdTBv {
+                right: 44px
+            }
+        }
+
+        @media(min-width:1070px) {
+            ._1fA2l0Sj .CtkKdTBv {
+                display: none
+            }
+        }
+
+        @media(min-width:1272px) {
+
+            ._2x_SsRBi .CtkKdTBv,
+            ._3Hr0AWy9 .CtkKdTBv {
+                display: none
+            }
+        }
+
+        .olcpnQ-e {
+            display: none
+        }
+
+        @media(min-width:1070px) {
+            ._1fA2l0Sj .olcpnQ-e {
+                display: inline-block;
+                flex-shrink: 0;
+                margin-right: 16px;
+                vertical-align: bottom
+            }
+        }
+
+        @media(min-width:1272px) {
+
+            ._2x_SsRBi .olcpnQ-e,
+            ._3Hr0AWy9 .olcpnQ-e {
+                display: inline-block;
+                flex-shrink: 0;
+                margin-right: 16px;
+                vertical-align: bottom
+            }
+        }
+
+        ._10M8yw-N {
+            align-items: center;
+            display: flex;
+            flex: 1;
+            height: 64px;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 56px 0 16px;
+            position: relative;
+            width: 100%
+        }
+
+        @media(min-width:1440px) {
+            ._10M8yw-N {
+                max-width: 1216px;
+                padding: 0
+            }
+        }
+
+        ._10M8yw-N:focus-within {
+            overflow: visible
+        }
+
+        @media(min-width:1272px) {
+            ._10M8yw-N._2x_SsRBi {
+                padding: 0 max(44px, (100vw - 1216px)/2)
+            }
+        }
+
+        @media(min-width:1440px) {
+            ._10M8yw-N._2x_SsRBi {
+                padding: 0
+            }
+        }
+
+        @media(min-width:1070px) {
+            ._10M8yw-N._1fA2l0Sj {
+                padding: 0 max(44px, (100vw - 1216px)/2)
+            }
+        }
+
+        @media(min-width:1440px) {
+            ._10M8yw-N._1fA2l0Sj {
+                padding: 0
+            }
+        }
+
+        @media(min-width:1272px) {
+            ._10M8yw-N._3Hr0AWy9 {
+                padding: 0 max(16px, (100vw - 1216px)/2)
+            }
+        }
+
+        @media(min-width:1440px) {
+            ._10M8yw-N._3Hr0AWy9 {
+                padding: 0
+            }
+        }
+
+        @media(min-width:1024px) {
+            ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9) {
+                padding: 0 max(80px, (100vw - 1216px)/2) 0 max(44px, (100vw - 1216px)/2)
+            }
+        }
+
+        @media(min-width:1272px) {
+            ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9) {
+                padding: 0 max(44px, (100vw - 1216px)/2)
+            }
+        }
+
+        @media(min-width:1440px) {
+            ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9) {
+                padding: 0
+            }
+        }
+
+        ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9):not(._1IQj-k77) {
+            max-width: 100%
+        }
+
+        @media(min-width:1440px) {
+            ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9):not(._1IQj-k77) {
+                padding: 0 max(112px, (100vw - 1448px)/2)
+            }
+        }
+
+        @media(min-width:1920px) {
+            ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9):not(._1IQj-k77) {
+                max-width: 1448px;
+                padding: 0
+            }
+        }
+
+        ._10M8yw-N._1yPD_vB2 {
+            align-items: flex-start;
+            background: #fff;
+            flex-direction: column;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 0 16px 16px
+        }
+
+        @media(min-width:1070px) {
+            ._1fA2l0Sj ._10M8yw-N._1yPD_vB2 {
+                height: 64px
+            }
+        }
+
+        @media(min-width:1272px) {
+
+            ._2x_SsRBi ._10M8yw-N._1yPD_vB2,
+            ._3Hr0AWy9 ._10M8yw-N._1yPD_vB2 {
+                height: 64px
+            }
+        }
+
+        ._10M8yw-N._1yPD_vB2._1q9IO1ou {
+            overflow-y: visible
+        }
+
+        ._10M8yw-N._1yPD_vB2 ._19S1Pxiu {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            height: auto;
+            margin-bottom: 24px;
+            margin-left: 0;
+            width: 100%
+        }
+
+        ._10M8yw-N._1yPD_vB2 ._1H08x506 {
+            display: flex;
+            display: flex !important;
+            flex-direction: column
+        }
+
+        @media(min-width:768px) {
+            ._10M8yw-N._1yPD_vB2 ._1H08x506 {
+                flex-direction: row;
+                justify-content: space-between
+            }
+        }
+
+        ._10M8yw-N._1yPD_vB2 ._3MRiAuyU {
+            display: block;
+            flex-grow: 1;
+            width: 100%
+        }
+
+        @media(min-width:768px) {
+            ._10M8yw-N._1yPD_vB2 ._3MRiAuyU:not(:last-child) {
+                margin-right: 16px
+            }
+        }
+
+        ._10M8yw-N._1yPD_vB2 ._1FTFnJdO {
+            animation: _2tPiREdh .4s;
+            padding-bottom: 16px;
+            width: 100%
+        }
+
+        ._10M8yw-N._1yPD_vB2 ._1FTFnJdO._1q9IO1ou {
+            animation: none
+        }
+
+        ._10M8yw-N._1yPD_vB2 .CtkKdTBv {
+            display: block
+        }
+
+        ._5J4FYFpA._1yPD_vB2 {
+            position: fixed
+        }
+
+        ._5J4FYFpA._1aGNUu_k {
+            background: #fff;
+            color: #000
+        }
+
+        ._5J4FYFpA._1aGNUu_k ._10M8yw-N:not(._1yPD_vB2) {
+            border-bottom: 1px solid #edf0f8
+        }
+
+        ._5J4FYFpA._2FBYxJ66 {
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+            color: #000
+        }
+
+        ._5J4FYFpA._1UujKHl6 ._10M8yw-N:not(._1yPD_vB2):not(._26C85qBR),
+        ._5J4FYFpA._3P1PDB08 ._10M8yw-N:not(._1yPD_vB2) {
+            color: #fff
+        }
+
+        @media(min-width:1070px) {
+            ._5J4FYFpA._3dAOHEmq {
+                height: auto
+            }
+
+            ._5J4FYFpA._3dAOHEmq ._10M8yw-N {
+                display: grid;
+                grid-template: "header toolbar" "links links"
+            }
+
+            ._5J4FYFpA._3dAOHEmq ._10M8yw-N ._2SKZhefz {
+                grid-area: header
+            }
+
+            ._5J4FYFpA._3dAOHEmq ._10M8yw-N ._19S1Pxiu {
+                border-top: 1px solid rgba(0, 0, 0, .2);
+                grid-area: links
+            }
+
+            ._5J4FYFpA._3dAOHEmq ._10M8yw-N ._19S1Pxiu ._1rZ7kgJi {
+                padding-bottom: 16px;
+                padding-top: 8px
+            }
+
+            ._5J4FYFpA._3dAOHEmq ._10M8yw-N ._1H08x506 {
+                grid-area: toolbar
+            }
+
+            ._5J4FYFpA._3dAOHEmq._1UujKHl6 ._10M8yw-N:not(._26C85qBR) ._19S1Pxiu,
+            ._5J4FYFpA._3dAOHEmq._3P1PDB08 ._10M8yw-N ._19S1Pxiu {
+                border-top: 1px solid hsla(0, 0%, 100%, .2)
+            }
+        }
+
+        .body-no-scrollbar {
+            overflow: hidden
+        }
+
+        @media(max-width:479px) {
+            ._31fFu5WV {
+                align-self: center;
+                font-size: 24px
+            }
+
+            ._31fFu5WV._3flTEn5U {
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 15px;
+                max-width: 70px;
+                white-space: unset
+            }
+        }
+
+        ._2XsmF_ig {
+            color: #455065;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px
+        }
+
+        ._2XsmF_ig h2 {
+            color: #262d3d;
+            font-size: 28px;
+            font-weight: 300;
+            line-height: 32px;
+            margin: 0 0 32px
+        }
+
+        ._2XsmF_ig h3 {
+            color: #262d3d;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 24px;
+            margin: 32px 0 24px
+        }
+
+        ._2XsmF_ig h4 {
+            margin: 8px 0
+        }
+
+        ._2XsmF_ig ol {
+            list-style: decimal
+        }
+
+        ._2XsmF_ig ul {
+            list-style: disc outside
+        }
+
+        ._2XsmF_ig li {
+            padding-left: 8px
+        }
+
+        ._2XsmF_ig ol,
+        ._2XsmF_ig ul {
+            margin-left: 20px
+        }
+
+        ._2XsmF_ig ol:not(:last-child),
+        ._2XsmF_ig ol li:not(:last-child),
+        ._2XsmF_ig p:not(:last-child),
+        ._2XsmF_ig ul:not(:last-child),
+        ._2XsmF_ig ul li:not(:last-child) {
+            margin-bottom: 16px
+        }
+
+        ._2XsmF_ig a {
+            color: #204ecf
+        }
+
+        ._2XsmF_ig a:hover {
+            text-decoration: underline;
+            text-underline-position: under
+        }
+
+        ._2XsmF_ig hr {
+            background-color: #ebeced;
+            border: none;
+            height: 1px;
+            margin: 32px 0
+        }
+
+        ._2XsmF_ig img {
+            max-width: 100%
+        }
+    </style>
+    <link rel="stylesheet" href="tw-f6d60ba79024b80a0eb2.css" />
+    <link rel="stylesheet" href="d61a422aa012ee78.css" media="print" onload="this.media='all'" />
+</head>
+
+<body>
+    <main id="page-root">
+        <div id="cookie-banner-host"></div>
+        <div data-cid="resume-0">
+            <nav id="nav" class="CV4YLXjk _5J4FYFpA _1UujKHl6 z-20" aria-label="Main">
+                <div data-testid="nav-container" class="_10M8yw-N _2x_SsRBi">
+                    <div class="_2SKZhefz" style="margin-top: 20px;"> <!-- Add margin-top here for space -->
+                        <div class="_2zFNtrUH _3lBhZcpL">
+                            <a href="index.html" title="Matendo" aria-label="Matendo"
+                                class="_1lqQP1In">
+                                <div data-testid="wordmark" class="aowwyHr4 _2s8qlRft _3sedtAc7"
+                                    style="display: flex; align-items: center;">
+                                    <!-- Replace the wordmark SVG with an image logo -->
+                                    <img src="images/matelogo44.png" alt="Matendo Wordmark" width="250" height="50"  />
+                                    <!-- Logo suffix "Nurses" (aligned next to the ® symbol) -->
+                                    
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <ul id="navbar-actions-toolbar" class="_1H08x506 HfVT27du">
+                        <li class="_3MRiAuyU _2oFSXYPu">
+                            <a class="box-border border-0 border-solid inline-block text-decoration-inherit text-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white bg-brand-green disabled:bg-gray-300 hover:bg-brand-green-dark active:bg-brand-green-darker paragraph-sm gap-4 py-2 px-[25px] _13qVZnF8 _1i-SFxc6"
+                                href="https://forms.gle/z175k1YCHCpuXS179" target="_blank" data-ga-category="Hire CTA Click" data-ga-event="Navbar CTA"
+                                data-ga-label="Hire a Medics" data-testid="nav-cta">Hire a Medics</a>
+                        </li>
+                    </ul>
+                    <button class="_149kcYtF CtkKdTBv" type="button" aria-label="menu" data-testid="burger-menu-button">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </nav>
+            <div class="h-16 bg-brand-blue-darker"></div>
+            <div class="mt-6 mb-24 last:mb-0">
+                <div
+                    class="grid grid-cols-12 mx-6 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-4 md:gap-6 xl:gap-8">
+                    <div data-cid="resume-manager-1" class="col-span-12 md:col-span-4 self-start">
+                        <div>
+                            <figure
+                                class="m-0 z-0 relative flex flex-1 bg-white caliber-avatar max-w-screen-sm mx-auto w-full lg:mb-3"
+                                style="--caliber-avatar-clip-path-x: 12.5%; --caliber-avatar-clip-path-y: 87.5%; --caliber-avatar-clip-path-x-percentage: 0.125; --caliber-avatar-clip-path-y-percentage: 0.875;">
+                                <div class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400"><img
+                                        alt="Adan Perez, Product Manager in Washington, DC, United States"
+                                        src="images/doc7.png"
+                                        class="max-w-full h-auto block align-middle basis-full font-family-inherit aspect-square object-cover"
+                                        data-testid="talent-avatar"></div>
+                            </figure>
+                            <div class="flex flex-col flex-center lg:flex-row lg:justify-between lg:items-center gap-2 lg:gap-4 pt-4 lg:py-4 lg:pl-6 rounded-md lg:border-l-4 border-solid border-brand-green mb-4"
+                                data-testid="hire-cta-section">
+                                <div class="text-gray-700 text-center">Adan<!-- --> is <span
+                                        class="text-brand-green-dark">available</span> <!-- -->for hire</div><a
+                                    class="box-border border-0 border-solid text-decoration-inherit text-center inline-flex items-center justify-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white bg-brand-green disabled:bg-gray-300 hover:bg-brand-green-dark active:bg-brand-green-darker py-2 px-6 paragraph-sm gap-4 w-full lg:w-auto grow-0 shrink-0"
+                                    href="/hire?interested_in=adan-e-perez" style="min-width:30%"
+                                    data-ga-category="Hire CTA Click" data-ga-event="Hire CTA Box"
+                                    data-ga-label="Hire Adan">Hire <!-- -->Adan</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 md:col-span-8">
+                        <section class="break-words pb-8 border-b-1 border-solid border-gray-300 mb-8"
+                            data-testid="talent-intro-section">
+                            <div class="mt-4 md:mt-0 mb-1">
+                                <h1 class="heading-sm font-bold text-brand-blue" data-testid="talent-intro-name">Adan
+                                    Perez</h1>
+                            </div>
+                            <div data-cid="talent-intro-1">
+                                <div class="flex mb-6">
+                                    <div data-testid="tooltip-trigger" tabindex="0" class="inline-block"
+                                        data-state="closed">
+                                        <h2
+                                            class="pl-5 paragraph-sm relative flex flex-wrap items-center text-brand-green-darker dark:text-white font-regular">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-5">
+                                                <rect class="text-white dark:text-transparent" fill="currentColor"
+                                                    x="4.5" y="4.5" width="7" height="7"></rect>
+                                                <path fill="currentColor"
+                                                    d="m2.3438,5.6562l-2.3438,2.3438,2.3438,2.3438v3.3137h3.3137l2.3425,2.3425,2.3425-2.3425h3.315v-3.315l2.3425-2.3425-2.3425-2.3425v-3.3137h-3.3138l-2.3437-2.3438-2.3438,2.3438h-3.3125v3.3125Zm5.0488,2.7528l2.754-2.7654.9705.9739-3.7245,3.7399-.9705-.9739-1.3672-1.3733.9705-.9752,1.3672,1.3739Z">
+                                                </path>
+                                                <path class="text-white dark:text-transparent" fill-rule="evenodd"
+                                                    clip-rule="evenodd"
+                                                    d="M10.1465 5.64374L7.39254 8.4091L6.02535 7.03518L5.05485 8.01039L6.42204 9.38364L7.39254 10.3575L11.117 6.61761L10.1465 5.64374Z"
+                                                    fill="currentColor"></path>
+                                            </svg><strong class="font-bold">Verified Expert<!-- -->&nbsp;</strong> in
+                                            <!-- -->General Practitioner
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-cid="talent-intro-2">
+                                <div class="mb-6 transition-opacity opacity-100">
+                                    <div class="flex gap-2 mb-4 items-center" data-testid="talent-intro-job-title"><svg
+                                            viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" class="w-6 h-6">
+                                            <path d="m20.57 20.21-3.35-3.36.71-.7 2.64 2.64 6.65-6.64.71.7z"
+                                                fill="#455065"></path>
+                                            <path
+                                                d="m14.57 29.06-12.5-6.25v-15.62l12.5-6.25 12.3 6.16v.8l-12.3 6.16-11.5-5.75v13.88l11.5 5.75 11.78-5.89.45.89-12.22 6.11zm-10.88-21.56 10.88 5.44 10.86-5.44-10.86-5.44z"
+                                                fill="#455065"></path>
+                                            <path d="m0 0h30v30h-30z" fill="none"></path>
+                                        </svg>
+                                        <h3 class="paragraph-md font-regular text-gray-700"
+                                            data-testid="talent-intro-location">Nurse</h3>
+                                    </div>
+                                    <div class="flex gap-2 mb-4 items-center" data-testid="talent-intro-location"><svg
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12 24C18 17.3137 21 12.3137 21 9C21 4.02944 16.9706 0 12 0C7.02944 0 3 4.02944 3 9C3 12.3137 6 17.3137 12 24ZM4 9C4 4.58172 7.58172 1 12 1C16.4183 1 20 4.58172 20 9C20 11.8551 17.3441 16.4056 12 22.4937C6.65591 16.4056 4 11.8551 4 9ZM12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12ZM10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9C14 10.1046 13.1046 11 12 11C10.8954 11 10 10.1046 10 9Z"
+                                                fill="#455065"></path>
+                                        </svg>
+                                        <h3 class="paragraph-md font-regular text-gray-700"
+                                            data-testid="talent-intro-location">Kampala ,Uganda</h3>
+                                    </div>
+                                    <div class="flex gap-2 mb-4 items-center" data-testid="talent-intro-date"><svg
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6 2H5V4H0V9V10V22H24V10V9V4H19V2H18V4H6V2ZM5 5V7H6V5H18V7H19V5H23V9H1V5H5ZM1 10V21H23V10H1Z"
+                                                fill="#455065"></path>
+                                        </svg>
+                                        <h3 class="paragraph-md font-regular text-gray-700"
+                                            data-testid="talent-intro-location">Matendo member since November 14, 2018
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="mb-6">
+                                    <div class="mb-2 text-xs text-gray-700 uppercase">Expertise</div>
+                                    <div class="flex flex-wrap gap-2 transition-opacity opacity-100">
+                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                            tabindex="0" data-testid="skill-tag"
+                                            href="https://www.example.com/nurses">Nurses</a>
+                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                            tabindex="0" data-testid="skill-tag"
+                                            href="https://www.example.com/doctors">Doctors</a>
+                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                            tabindex="0" data-testid="skill-tag"
+                                            href="https://www.example.com/nurse-practitioners">Nurse Practitioners</a>
+                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                            tabindex="0" data-testid="skill-tag"
+                                            href="https://www.example.com/medical-consultants">Medical Consultants</a>
+                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                            tabindex="0" data-testid="skill-tag"
+                                            href="https://www.example.com/healthcare-coaching">Healthcare Coaching</a>
+                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                            tabindex="0" data-testid="skill-tag"
+                                            href="https://www.example.com/virtual-healthcare">Virtual Healthcare</a>
+                                    </div>
+                                </div>
+                                <div class="mb-6" id="ai-summary-talent-intro-host"></div>
+                                <div>
+                                    <div class="mb-2 text-xs text-gray-700 uppercase">Bio</div>
+                                    <p data-testid="talent-intro-description"
+                                        class="text-base font-regular text-gray-700">
+                                        Dr. Adan is a highly experienced healthcare professional specializing in
+                                        providing expert care and innovative medical solutions. With years of experience
+                                        in clinical practice, he is skilled in diagnosing, treating, and managing a wide
+                                        range of health conditions. His approach combines evidence-based practices with
+                                        a compassionate, patient-centered methodology. Dr. Adan is also passionate about
+                                        advancing healthcare through continuous learning, education, and mentoring the
+                                        next generation of medical professionals.</p>
+                                </div>
+
+                        </section>
+                        <div class="max-w-full grid grid-cols-1 gap-8 md:grid-cols-2 mb-8 lg:mb-6"
+                            id="ProjectHighlights" data-testid="manager-highlights-section">
+                            <section class="break-words" data-testid="project-highlights-section">
+                                <h3 class="mb-6 heading-xs">Project Highlights</h3>
+
+                                <div class="mb-4 last:mb-0">
+                                    <a class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue block"
+                                        href="#ProjectHistory"><span>Telemedicine Platform for Remote Care</span></a>
+                                    <div class="text-base text-gray-700">Developed and launched a telemedicine platform
+                                        to provide remote consultations, improving access to healthcare for patients in
+                                        rural and underserved areas, resulting in over 12,000 consultations in the first
+                                        6 months.</div>
+                                </div>
+
+                                <div class="mb-4 last:mb-0">
+                                    <a class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue block"
+                                        href="#ProjectHistory"><span>Electronic Health Record (EHR) System
+                                            Integration</span></a>
+                                    <div class="text-base text-gray-700">Led the seamless integration of an Electronic
+                                        Health Record (EHR) system across multiple clinics, improving patient data
+                                        accessibility, reducing medical errors, and streamlining patient care workflows.
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 last:mb-0">
+                                    <a class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue block"
+                                        href="#ProjectHistory"><span>AI-Powered Diagnostic Tool for Rare
+                                            Diseases</span></a>
+                                    <div class="text-base text-gray-700">Developed and implemented an AI-powered
+                                        diagnostic tool to assist doctors in diagnosing rare diseases with greater
+                                        accuracy. The tool increased diagnostic efficiency by 30% and is now used in
+                                        clinical settings across multiple hospitals.</div>
+                                </div>
+                            </section>
+
+                            <section class="break-words" data-testid="experience-skills-section">
+                                <h3 class="heading-xs mb-6">Expertise</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <a class="bg-transparent decoration-inherit no-underline inline-block align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full ring-gray-500 text-gray-700 hover:bg-brand-blue-lighter hover:ring-gray-500 hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                        tabindex="0" data-testid="skill-tag"
+                                        href="https://www.matendo.com/healthcare/agile">Agile Healthcare
+                                        Management</a>
+                                    <a class="bg-transparent decoration-inherit no-underline inline-block align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full ring-gray-500 text-gray-700 hover:bg-brand-blue-lighter hover:ring-gray-500 hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                        tabindex="0" data-testid="skill-tag"
+                                        href="https://www.matendo.com/healthcare/healthcare-strategy">Healthcare
+                                        Strategy</a>
+                                    <a class="bg-transparent decoration-inherit no-underline inline-block align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full ring-gray-500 text-gray-700 hover:bg-brand-blue-lighter hover:ring-gray-500 hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                        tabindex="0" data-testid="skill-tag"
+                                        href="https://www.matendo.com/healthcare/design">Healthcare Design</a>
+                                    <a class="bg-transparent decoration-inherit no-underline inline-block align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full ring-gray-500 text-gray-700 hover:bg-brand-blue-lighter hover:ring-gray-500 hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                        tabindex="0" data-testid="skill-tag">Patient Care Management</a>
+                                    <a class="bg-transparent decoration-inherit no-underline inline-block align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full ring-gray-500 text-gray-700 hover:bg-brand-blue-lighter hover:ring-gray-500 hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                        tabindex="0" data-testid="skill-tag"
+                                        href="https://www.matendo.com/healthcare/healthcare-technology">Healthcare
+                                        Technology</a>
+                                    <a class="bg-transparent decoration-inherit no-underline inline-block align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full ring-gray-500 text-gray-700 hover:bg-brand-blue-lighter hover:ring-gray-500 hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                        tabindex="0" data-testid="skill-tag">Clinical Workflow Optimization</a>
+                                    <a class="bg-transparent decoration-inherit no-underline inline-block align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full ring-gray-500 text-gray-700 hover:bg-brand-blue-lighter hover:ring-gray-500 hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                        tabindex="0" data-testid="skill-tag">Medical Research and Innovation</a>
+                                    <a class="bg-transparent decoration-inherit no-underline inline-block align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full ring-gray-500 text-gray-700 hover:bg-brand-blue-lighter hover:ring-gray-500 hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
+                                        tabindex="0" data-testid="skill-tag"
+                                        href="https://www.matendo.com/healthcare/ux">Healthcare UX</a>
+                                </div>
+                            </section>
+                        </div>
+                        <div data-cid="resume-manager-2" class="mb-12">
+                            <div data-testid="manager-sections">
+                                <section
+                                    class="box-border m-0 border-0 border-gray-300 border-solid border-b-1 group pt-4 lg:pt-6"
+                                    data-state="open" id="WorkExperience">
+                                    <h3 class="flex gap-2 items-start p-0 rounded-sm text-gray-900 group focus-visible:ring-4 focus-visible:ring-brand-blue/50 bg-transparent border-none cursor-pointer outline-none text-left mb-4 font-semibold paragraph-md lg:heading-xs lg:font-regular lg:mb-6 w-full place-content-between"
+                                        tabindex="0" data-state="open" aria-expanded="true"><span <h3
+                                            class="text-lg font-semibold">Work Experience</h3>
+                                    <svg class="max-w-4 max-h-4 lg:max-w-6 lg:max-h-6 mt-1 lg:mt-0.5 fill-black group-hover:fill-brand-blue motion-safe:transition-transform motion-safe:duration-300 group-data-[state=open]:-rotate-180 min-w-4 min-h-4 lg:min-w-6"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M11.3 15.0069L5.30005 9.00691L6.00716 8.2998L12.0072 14.2998L18.0072 8.2998L18.7143 9.00691L12.7143 15.0069L12.0072 15.714L11.3 15.0069Z">
+                                        </path>
+                                    </svg>
+
+                                    <div data-state="open"
+                                        class="overflow-hidden duration-300 ease-in-out -ml-6 lg:-ml-8"
+                                        style="max-height: 5092px;">
+                                        <div
+                                            class="pb-4 pl-6 paragraph-sm lg:pb-6 lg:pl-8 lg:paragraph-md text-gray-700 font-regular">
+                                            <!-- Example for Doctor -->
+                                            <div class="pt-2 lg:pt-0">
+                                                <div class="break-words" data-testid="work-experience-section">
+                                                    <div
+                                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                                        <div class="md:flex md:flex-auto justify-between">
+                                                            <h4 class="text-base font-semibold text-black mr-2">General
+                                                                Practitioner (GP)</h4>
+                                                            <div class="text-base text-gray-700 shrink-0">2015 - Present
+                                                            </div>
+                                                        </div>
+                                                        <h5 class="text-base leading-2 font-regular text-gray-700">
+                                                            Springfield Family Clinic</h5>
+                                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                                            data-testid="description-employment-154375">
+                                                            <ul>
+                                                                <li>Provide primary care services to patients of all
+                                                                    ages, managing chronic conditions and preventative
+                                                                    care.</li>
+                                                                <li>Diagnose and treat common illnesses and injuries,
+                                                                    referring patients to specialists when necessary.
+                                                                </li>
+                                                                <li>Advise on health and lifestyle choices, including
+                                                                    diet and exercise plans.</li>
+                                                                <li>Collaborate with a team of nurses, medical
+                                                                    assistants, and other doctors to deliver
+                                                                    comprehensive care.</li>
+                                                                <li>Manage patient records and ensure all documentation
+                                                                    is up-to-date and in compliance with healthcare
+                                                                    regulations.</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Example for Nurse -->
+                                                    <div
+                                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                                        <div class="md:flex md:flex-auto justify-between">
+                                                            <h4 class="text-base font-semibold text-black mr-2">
+                                                                Registered Nurse (RN)</h4>
+                                                            <div class="text-base text-gray-700 shrink-0">2018 - Present
+                                                            </div>
+                                                        </div>
+                                                        <h5 class="text-base leading-2 font-regular text-gray-700">St.
+                                                            Mary's Medical Center</h5>
+                                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                                            data-testid="description-employment-154375">
+                                                            <ul>
+                                                                <li>Provide direct patient care in a busy hospital
+                                                                    setting, including administering medications and
+                                                                    monitoring vital signs.</li>
+                                                                <li>Collaborate with doctors and healthcare teams to
+                                                                    create patient care plans and update them as
+                                                                    necessary.</li>
+                                                                <li>Perform diagnostic tests, interpret results, and
+                                                                    assist with procedures to ensure patient well-being.
+                                                                </li>
+                                                                <li>Support patient families with education, resources,
+                                                                    and emotional support through recovery and treatment
+                                                                    plans.</li>
+                                                                <li>Maintain patient records and ensure compliance with
+                                                                    healthcare standards and confidentiality
+                                                                    regulations.</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Example for another doctor role -->
+                                                    <div
+                                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                                        <div class="md:flex md:flex-auto justify-between">
+                                                            <h4 class="text-base font-semibold text-black mr-2">
+                                                                Pediatrician</h4>
+                                                            <div class="text-base text-gray-700 shrink-0">2010 - 2015
+                                                            </div>
+                                                        </div>
+                                                        <h5 class="text-base leading-2 font-regular text-gray-700">City
+                                                            Children’s Hospital</h5>
+                                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                                            data-testid="description-employment-154375">
+                                                            <ul>
+                                                                <li>Specialized in pediatric care, treating infants,
+                                                                    children, and adolescents for a wide range of
+                                                                    illnesses and conditions.</li>
+                                                                <li>Developed treatment plans and provided preventive
+                                                                    care, including vaccinations and health screenings.
+                                                                </li>
+                                                                <li>Collaborated with a multidisciplinary team to manage
+                                                                    complex cases involving chronic conditions.</li>
+                                                                <li>Educated parents and caregivers about children's
+                                                                    health, safety, and wellness.</li>
+                                                                <li>Maintained accurate patient records and ensured
+                                                                    adherence to pediatric healthcare guidelines.</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                        <div class="md:flex md:flex-auto justify-between">
+                                            <h4 class="text-base font-semibold text-black mr-2">Chief Medical Officer
+                                            </h4>
+                                            <div class="text-base text-gray-700 shrink-0">2017 - 2018</div>
+                                        </div>
+                                        <h5 class="text-base leading-2 font-regular text-gray-700">Pulse Health Systems
+                                        </h5>
+                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                            data-testid="description-employment-149963">
+                                            <ul>
+                                                <li>Led the development and launch of new clinical services and
+                                                    healthcare technology products, enhancing patient care and service
+                                                    efficiency.</li>
+                                                <li>Collaborated with C-level executives and department heads to define
+                                                    and prioritize the healthcare organization's medical strategy and
+                                                    goals.</li>
+                                                <li>Worked closely with the CTO to integrate advanced health IT systems,
+                                                    optimizing electronic health records (EHR) and telemedicine
+                                                    platforms.</li>
+                                                <li>Oversaw the development of mobile health apps, collaborating with
+                                                    design and tech teams to ensure intuitive user interfaces for both
+                                                    clinicians and patients.</li>
+                                                <li>Managed and mentored a team of medical professionals, clinical
+                                                    researchers, and product developers to create innovative health
+                                                    solutions.</li>
+                                                <li>Ensured compliance with regulatory standards (HIPAA, FDA) during the
+                                                    development and launch of healthcare products.</li>
+                                                <li>Led clinical trials and studies to evaluate the effectiveness of new
+                                                    treatments and healthcare technology solutions.</li>
+                                                <li>Directed the integration of AI-powered diagnostic tools, enhancing
+                                                    decision-making and improving patient outcomes.</li>
+                                                <li>Implemented machine learning models for analyzing patient data,
+                                                    leading to personalized treatment recommendations and predictive
+                                                    health insights.</li>
+                                                <li>Spearheaded the integration of natural language processing (NLP) for
+                                                    improving electronic health records, allowing for better clinical
+                                                    documentation and communication.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                        <div class="md:flex md:flex-auto justify-between">
+                                            <h4 class="text-base font-semibold text-black mr-2">Healthcare Consultant
+                                            </h4>
+                                            <div class="text-base text-gray-700 shrink-0">2017</div>
+                                        </div>
+                                        <h5 class="text-base leading-2 font-regular text-gray-700">Hook Medical
+                                            Solutions</h5>
+                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                            data-testid="description-employment-149966">
+                                            <ul>
+                                                <li>Collaborated with healthcare executives to develop and refine
+                                                    strategies for new medical product offerings and health services.
+                                                </li>
+                                                <li>Created detailed clinical workflows and designed healthcare
+                                                    technology solutions to improve patient experience and provider
+                                                    efficiency.</li>
+                                                <li>Conducted market research to identify emerging trends in healthcare
+                                                    delivery and digital health technologies.</li>
+                                                <li>Worked with stakeholders to develop patient engagement strategies,
+                                                    leveraging mobile health solutions and telehealth platforms.</li>
+                                                <li>Developed clinical prototypes of health applications and tools,
+                                                    showcasing potential benefits to healthcare providers.</li>
+                                                <li>Delivered presentations to prospective clients and partners,
+                                                    highlighting the value of innovative healthcare solutions.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                        <div class="md:flex md:flex-auto justify-between">
+                                            <h4 class="text-base font-semibold text-black mr-2">Director of Healthcare
+                                                Innovation</h4>
+                                            <div class="text-base text-gray-700 shrink-0">2016 - 2017</div>
+                                        </div>
+                                        <h5 class="text-base leading-2 font-regular text-gray-700">Mobile Health
+                                            Technologies</h5>
+                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                            data-testid="description-employment-149965">
+                                            <ul>
+                                                <li>Managed a team of healthcare professionals, researchers, and
+                                                    technology experts to drive new innovations in mobile health and
+                                                    telemedicine.</li>
+                                                <li>Led the development of an AI-driven platform for detecting health
+                                                    risks and improving patient outcomes through personalized care
+                                                    recommendations.</li>
+                                                <li>Oversaw a team of data scientists and engineers to build predictive
+                                                    models for early disease detection, leveraging big data analytics
+                                                    and machine learning.</li>
+                                                <li>Directed the strategy for integrating medical devices and wearables
+                                                    into a unified digital health ecosystem for real-time patient
+                                                    monitoring.</li>
+                                                <li>Designed and executed clinical pilot programs to test and validate
+                                                    new healthcare technologies, improving quality of care and patient
+                                                    satisfaction.</li>
+                                                <li>Spearheaded the implementation of AI-driven systems to improve the
+                                                    efficiency of hospital workflows, from patient intake to discharge.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                        <div class="md:flex md:flex-auto justify-between">
+                                            <h4 class="text-base font-semibold text-black mr-2">Lead Healthcare Strategy
+                                                Consultant</h4>
+                                            <div class="text-base text-gray-700 shrink-0">2015 - 2016</div>
+                                        </div>
+                                        <h5 class="text-base leading-2 font-regular text-gray-700">AARP</h5>
+                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                            data-testid="description-employment-149967">
+                                            <ul>
+                                                <li>Partnered with the marketing team to define the business case and
+                                                    go-to-market strategy for health services and products.</li>
+                                                <li>Collaborated with AARP's healthcare units to create a mobile health
+                                                    revenue strategy.</li>
+                                                <li>Established a communication strategy to promote patient acquisition,
+                                                    increase engagement, and drive membership signups and renewals.</li>
+                                                <li>Implemented a mobile health payment system that seamlessly connected
+                                                    users to vendors, benefiting various AARP product lines.</li>
+                                                <li>Guided external creative teams in designing user-friendly and
+                                                    accessible mobile health services for AARP members.</li>
+                                                <li>Led an editorial team in developing content reflecting AARP’s social
+                                                    mission, tailored for digital health solutions.</li>
+                                                <li>Guided development teams through technical requirement definition
+                                                    phases to product release, ensuring a seamless health tech
+                                                    deployment.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                        <div class="md:flex md:flex-auto justify-between">
+                                            <h4 class="text-base font-semibold text-black mr-2">Senior Medical Portfolio
+                                                Manager | Clinical Operations Manager</h4>
+                                            <div class="text-base text-gray-700 shrink-0">2012 - 2015</div>
+                                        </div>
+                                        <h5 class="text-base leading-2 font-regular text-gray-700">MediHealth System
+                                        </h5>
+                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                            data-testid="description-employment-149968">
+                                            <ul>
+                                                <li>Led the management of medical operations for key clinical services,
+                                                    ensuring that doctors, nurses, support staff, and stakeholders
+                                                    collaborated effectively to implement patient care strategies.</li>
+                                                <li>Managed the introduction and development of digital health tools
+                                                    like mobile health apps, telemedicine platforms, and patient
+                                                    portals, ensuring they met healthcare standards and patient needs.
+                                                </li>
+                                                <li>Partnered with interdisciplinary teams to streamline care pathways,
+                                                    improve patient outcomes, and enhance the quality of services
+                                                    delivered across different departments.</li>
+                                                <li>Developed and implemented clinical programs aimed at improving
+                                                    patient engagement, including mobile apps for patient education,
+                                                    follow-ups, and appointment scheduling.</li>
+                                                <li>Established key performance indicators (KPIs) for evaluating
+                                                    clinical outcomes and patient satisfaction, driving continuous
+                                                    improvements in care delivery.</li>
+                                                <li>Worked with healthcare administrators to integrate clinical
+                                                    processes with technology, ensuring smooth adoption of electronic
+                                                    health records (EHR) and other healthcare IT systems.</li>
+                                                <li>Collaborated with marketing and communications teams to promote new
+                                                    healthcare services and products to the public, focusing on
+                                                    evidence-based benefits and patient-centric features.</li>
+                                                <li>Led the evaluation and integration of new medical technologies
+                                                    (e.g., telehealth tools, health tracking devices) to optimize care
+                                                    delivery and patient monitoring.</li>
+                                                <li>Managed relationships with healthcare partners and stakeholders,
+                                                    aligning team efforts with organizational goals for service
+                                                    expansion and improved patient care outcomes.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                        <div class="md:flex md:flex-auto justify-between">
+                                            <h4 class="text-base font-semibold text-black mr-2">Clinical Product Manager
+                                            </h4>
+                                            <div class="text-base text-gray-700 shrink-0">2009 - 2012</div>
+                                        </div>
+                                        <h5 class="text-base leading-2 font-regular text-gray-700">HealthTech Solutions
+                                        </h5>
+                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                            data-testid="description-employment-149969">
+                                            <ul>
+                                                <li>Managed the lifecycle of clinical applications for healthcare
+                                                    providers, overseeing development, implementation, and support for
+                                                    electronic medical records (EMRs) and telehealth services.</li>
+                                                <li>Led cross-functional teams to develop mobile apps that allowed
+                                                    patients to access their medical records, schedule appointments, and
+                                                    receive health reminders.</li>
+                                                <li>Worked with doctors, nurses, and hospital IT teams to ensure that
+                                                    new clinical software integrated seamlessly with hospital workflows
+                                                    and improved care efficiency.</li>
+                                                <li>Assessed market needs and conducted user research with patients and
+                                                    healthcare providers to inform product development and feature
+                                                    prioritization.</li>
+                                                <li>Supervised product development from concept through launch, ensuring
+                                                    timely delivery of healthcare applications and support platforms
+                                                    that aligned with regulatory requirements.</li>
+                                                <li>Provided training and technical support to healthcare teams to
+                                                    ensure optimal use of new digital health tools, including electronic
+                                                    health records (EHR) systems and mobile care apps.</li>
+                                                <li>Ensured product compliance with healthcare regulations and worked
+                                                    with legal and compliance teams to address any privacy concerns or
+                                                    security risks related to patient data.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                        <div class="md:flex md:flex-auto justify-between">
+                                            <h4 class="text-base font-semibold text-black mr-2">Technical Lead -
+                                                Healthcare Solutions</h4>
+                                            <div class="text-base text-gray-700 shrink-0">2005 - 2009</div>
+                                        </div>
+                                        <h5 class="text-base leading-2 font-regular text-gray-700">MedTech Systems</h5>
+                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                            data-testid="description-employment-149970">
+                                            <ul>
+                                                <li>Led the design and implementation of clinical software solutions,
+                                                    including patient management systems, EMR platforms, and mobile apps
+                                                    for telemedicine.</li>
+                                                <li>Developed and managed technical solutions to support hospital
+                                                    operations, improving patient flow, scheduling, and real-time data
+                                                    access for medical professionals.</li>
+                                                <li>Oversaw development and deployment of health IT systems for multiple
+                                                    healthcare clients, ensuring system stability and scalability in
+                                                    high-demand clinical environments.</li>
+                                                <li>Collaborated with doctors, nurses, and medical staff to identify
+                                                    technical needs and delivered digital solutions that enhanced
+                                                    patient care efficiency and safety.</li>
+                                                <li>Trained medical staff on the use of new software tools, ensuring
+                                                    they were fully integrated into clinical workflows and compliant
+                                                    with healthcare regulations.</li>
+                                                <li>Worked with cross-functional teams to ensure all healthcare IT
+                                                    systems were secure, HIPAA-compliant, and adhered to industry best
+                                                    practices for patient privacy and data security.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="relative pl-14 pr-4 pt-8 first:pt-0 after:content-[''] after:absolute after:top-10 after:first:top-2 after:left-4 after:w-2 after:h-2 after:z-0 after:bg-brand-blue after:rounded-xl after:outline after:outline-white after:outline-8 before:content-[''] before:absolute before:top-0 before:left-5 before:h-full before:border-0 before:border-r-1 before:border-dashed before:border-brand-blue">
+                                        <div class="md:flex md:flex-auto justify-between">
+                                            <h4 class="text-base font-semibold text-black mr-2">Web
+                                                Developer</h4>
+                                            <div class="text-base text-gray-700 shrink-0">2004 - 2005
+                                            </div>
+                                        </div>
+                                        <h5 class="text-base leading-2 font-regular text-gray-700">
+                                            Gryphon Technologies</h5>
+                                        <div class="_2XsmF_ig break-words [&amp;_ul]:list-disc [&amp;_ul]:!ml-0 [&amp;_ul]:pt-6 [&amp;_ul]:pl-4 [&amp;_li]:!pl-4 marker:[&amp;_li]:text-xs marker:[&amp;_li]:text-gray-400"
+                                            data-testid="description-employment-150002">
+                                            <ul>
+                                                <li>Supported web technology initiatives of the United
+                                                    States Navy to customize products specifically to
+                                                    meet the client’s requirements.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+</body>
