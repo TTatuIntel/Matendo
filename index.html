@@ -578,6 +578,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('.CV4YLXjk');
     const mobileMenu = document.querySelector('.mobile-menu');
+    if (mobileMenu) {
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
 
     // Handle scroll transparency
@@ -588,9 +589,12 @@ document.addEventListener('DOMContentLoaded', () => {
             nav.classList.remove('nav-scrolled');
         }
     });
+    }
 
     // Mobile menu toggle
     mobileMenuButton?.addEventListener('click', () => {
         mobileMenu.classList.toggle('active');
     });
 });
+
+
