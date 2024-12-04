@@ -22,10 +22,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajaxes/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
     <link rel="stylesheet" href="tw-77fc006f29d392641ce5.css" />
     <link
       rel="stylesheet"
@@ -81,16 +77,16 @@
                 class="box-border border-0 border-solid inline-block text-decoration-inherit text-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white bg-brand-blue disabled:bg-gray-300 hover:bg-brand-blue-dark active:bg-brand-blue-darker paragraph-sm gap-4 py-2 px-[25px] _13qVZnF8"
                 href="D:\Matendo\Matendo\matendo.html"
                 data-ga-category="Hire Hire Medics Mobile"
+              <a
+                class="box-border border-0 border-solid inline-block text-decoration-inherit text-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white bg-brand-blue disabled:bg-gray-300 hover:bg-brand-blue-dark active:bg-brand-blue-darker paragraph-sm gap-4 py-2 px-[25px] _13qVZnF8"
+                href="matendo.html"
+                data-ga-category="Hire Hire Medics Mobile"
                 data-ga-event="Hire CTA Click"
                 data-ga-label="Hire Medics"
                 data-testid="nav-cta"
                 id="navbar-mobile-cta"
                 >Hire Medics</a
               >
-            </div>
-            <div class="_19S1Pxiu">
-              <div
-                role="presentation"
                 class="_1gHFhirN Vt5M1_D_ _1rZ7kgJi"
                 data-expanded="false"
               >
@@ -573,28 +569,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-
-// script.js
-document.addEventListener('DOMContentLoaded', () => {
-    const nav = document.querySelector('.CV4YLXjk');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    if (mobileMenu) {
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
-
-    // Handle scroll transparency
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 10) {
-            nav.classList.add('nav-scrolled');
-        } else {
-            nav.classList.remove('nav-scrolled');
-        }
-    });
-    }
-
-    // Mobile menu toggle
-    mobileMenuButton?.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-    });
-});
-
-
