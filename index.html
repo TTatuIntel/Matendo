@@ -573,28 +573,28 @@
     <script src="script.js"></script>
   </body>
 </html>
-<script>
+
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
-  const nav = document.querySelector('.CV4YLXjk');
-  const mobileMenu = document.querySelector('.mobile-menu');
-  if (mobileMenu) {
+    const nav = document.querySelector('.CV4YLXjk');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    if (mobileMenu) {
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
 
     // Handle scroll transparency
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
-        nav.classList.add('nav-scrolled');
-      } else {
-        nav.classList.remove('nav-scrolled');
-      }
+        if (window.scrollY > 10) {
+            nav.classList.add('nav-scrolled');
+        } else {
+            nav.classList.remove('nav-scrolled');
+        }
     });
+    }
 
     // Mobile menu toggle
     mobileMenuButton?.addEventListener('click', () => {
-      mobileMenu.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
     });
-  }
 });
-</script>
 
 
