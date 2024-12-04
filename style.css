@@ -2609,7 +2609,7 @@ body {
 }
 
 .footer-bottom {
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #e0e0e0;
   text-align: center;
@@ -2617,13 +2617,13 @@ body {
 }
 
 /* Footer Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .footer-grid {
     grid-template-columns: 1fr;
   }
   
   .footer-column {
-    text-align: center;
+    text-align: left;
     margin: 0.5rem;
   }
   
@@ -2632,7 +2632,7 @@ body {
   }
   
   .footer h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
 
