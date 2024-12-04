@@ -1455,10 +1455,14 @@ html {
   font-weight: 400;
   height: 64px;
   left: 0;
-  position: absolute;
+  position: fixed; /* Change from absolute to fixed */
   right: 0;
   top: 0;
   z-index: 99;
+  background: rgba(255, 255, 255, 0.98); /* Add background */
+  backdrop-filter: blur(8px); /* Add blur effect */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Add shadow */
+  transition: transform 0.3s ease; /* Add transition */
 }
 
 .CV4YLXjk:focus-within {
@@ -1466,10 +1470,8 @@ html {
 }
 
 .CV4YLXjk._17f6jrU- {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.98);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  position: fixed;
-  width: 100%;
 }
 
 .CV4YLXjk._17f6jrU-._3dWgWApq {
@@ -1535,15 +1537,17 @@ html {
 
 @media (max-width: 1049px) {
   .l6LO0mFG {
-    background: #d2d6e2;
+    background: #fff; /* Change from #d2d6e2 to white */
     position: fixed;
     transform: translateY(0);
     transition: transform 0.2s ease-in;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .l6LO0mFG #navbar-mobile-cta {
     padding-left: 12px;
     padding-right: 12px;
+    display: block;
   }
 
   ._1fUWJptL #navbar-actions-toolbar,
