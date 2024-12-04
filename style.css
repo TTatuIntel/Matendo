@@ -2635,3 +2635,47 @@ body {
     font-size: 1.1rem;
   }
 }
+
+/* Enhanced Navigation Styles */
+.CV4YLXjk {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    z-index: 999; 
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.CV4YLXjk.nav-scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.CV4YLXjk.nav-transparent {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+}
+
+/* Enhanced Mobile Navigation */
+@media (max-width: 768px) {
+    ._19S1Pxiu {
+        display: none;
+    }
+    
+    ._149kcYtF {
+        display: block;
+    }
+}
+
+/* Performance Optimizations */
+.hardware-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
