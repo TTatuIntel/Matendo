@@ -714,6 +714,51 @@ body {
 }
 
 /* Navigation Styles */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.space-x-4 > * + * {
+  margin-left: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .md\:inline {
+    display: inline;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+}
+
+.text-brand-green-darker {
+  color: #006400;
+}
+
+.hover\:underline:hover {
+  text-decoration: underline;
+}
+
+.transition {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.hover\:text-brand-green-darker:hover {
+  color: #004d00;
+}
 
 /* Logo Container */
 ._2SKZhefz {
@@ -797,3 +842,4 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
+
