@@ -340,14 +340,14 @@ html {
   font-weight: 400;
   height: 64px;
   left: 0;
-  position: fixed; /* Change from absolute to fixed */
+  position: fixed;
   right: 0;
   top: 0;
   z-index: 99;
-  background: rgba(255, 255, 255, 0.98); /* Add background */
-  backdrop-filter: blur(8px); /* Add blur effect */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Add shadow */
-  transition: transform 0.3s ease; /* Add transition */
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .CV4YLXjk:focus-within {
@@ -356,7 +356,7 @@ html {
 
 @media (max-width: 1049px) {
   .l6LO0mFG {
-    background: #fff; /* Change from #d2d6e2 to white */
+    background: #fff;
     position: fixed;
     transform: translateY(0);
     transition: transform 0.2s ease-in;
@@ -842,30 +842,30 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
-/* Add these new styles at the end of the file */
 
+/* Mobile Navigation Styles */
 .mobile-nav {
   display: none;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   margin-top: 1rem;
 }
 
 .mobile-nav-link {
   display: inline-block;
   padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
-  text-align: center;
-  color: #204ECF;
-  background-color: white;
-  border: 1px solid #204ECF;
-  border-radius: 0.25rem;
   text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.mobile-nav-link:first-child {
+  margin-right: 1rem;
 }
 
 .mobile-nav-link:hover {
-  background-color: #204ECF;
-  color: white;
+  text-decoration: underline;
 }
 
 @media (max-width: 767px) {
@@ -883,4 +883,3 @@ body {
     display: none;
   }
 }
-
