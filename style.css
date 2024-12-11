@@ -842,4 +842,45 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
+/* Add these new styles at the end of the file */
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.mobile-nav-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  color: #204ECF;
+  background-color: white;
+  border: 1px solid #204ECF;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.mobile-nav-link:hover {
+  background-color: #204ECF;
+  color: white;
+}
+
+@media (max-width: 767px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-nav {
+    display: none;
+  }
+}
 
