@@ -107,14 +107,12 @@
           </div>
         </section>
       </div>
-      <div class="_21yCG_iO _2WCXFkQt C-WFb9I5 is-viewport-regular">
-        <div
-          class="grid grid-cols-4 py-4 mx-4 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-4 md:gap-4 xl:gap- last:mb-4">
+      <div class="_21yCG_iO _2WCXFkQt C-WFb9I5 is-viewport-regular" style="margin-bottom: 1rem;">            
           <div class="col-span-6">
-            <div class="_3OWYe9UK">
-              <p class="_1WFc0gTx">Trusted by leading brands and&nbsp;startups</p>
-            </div>
-          </div>
+         <div class="_3OWYe9UK grid grid-cols-4 mb-4 py-4 mx-4 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-4 md:gap-4 xl:gap- last:mb-4">
+          ">
+            <p class="_1WFc0gTx">Trusted by leading brands and&nbsp;startups</p>
+         </div>
         </div>
       </div>
       <div
@@ -619,6 +617,48 @@
       </div>
     </div>
   </footer>
+  <script>
+    $(document).ready(function() {
+      const carousel = $('.carousel-inner');
+      const profiles = carousel.children();
+      const profileWidth = profiles.first().outerWidth(true);
+      let currentIndex = 0;
+      let autoScrollInterval;
+
+      function scrollCarousel(direction) {
+        if (direction === 'left' && currentIndex > 0) {
+          currentIndex--;
+        } else if (direction === 'right' && currentIndex < profiles.length - 1) {
+          currentIndex++;
+        }
+        carousel.css('transform', `translateX(-${currentIndex * profileWidth}px)`);
+      }
+
+      function autoScroll() {
+        if (currentIndex >= profiles.length - 1) {
+          currentIndex = 0;
+        } else {
+          currentIndex++;
+        }
+        carousel.css('transform', `translateX(-${currentIndex * profileWidth}px)`);
+      }
+
+      $('.scroll-left').on('click', () => scrollCarousel('left'));
+      $('.scroll-right').on('click', () => scrollCarousel('right'));
+
+      function startAutoScroll() {
+        autoScrollInterval = setInterval(autoScroll, 3000);
+      }
+
+      function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+      }
+
+      $('.carousel-container').hover(stopAutoScroll, startAutoScroll);
+
+      startAutoScroll();
+    });
+  </script>
 </body>
 
 </html>
