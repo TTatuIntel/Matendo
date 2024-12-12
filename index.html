@@ -9,54 +9,7 @@
     content="Matendo Medics Outsourcing enables start-ups, businesses, and organizations to hire medical professionals from a growing network of top talent in the world. Find quality talent to work full-time, part-time, or hourly who will seamlessly integrate into your team." />
   <meta property="og:title" content="We connect expertly vetted talent with world-class clients." />
   <meta property="og:description" content="Learn why the top companies trust Matendo Medics Outsourcing." />
-  <style>
-    /* Add these styles to your existing CSS */
-    .profile-carousel {
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-    }
-    .profile-container {
-        display: flex;
-        transition: transform 0.5s ease;
-    }
-    .profile-card {
-        flex: 0 0 100%;
-        max-width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-    .nav-button {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(255, 255, 255, 0.7);
-        border: none;
-        font-size: 24px;
-        padding: 10px;
-        cursor: pointer;
-    }
-    .nav-button.prev {
-        left: 10px;
-    }
-    .nav-button.next {
-        right: 10px;
-    }
 
-    @media (min-width: 768px) {
-        .profile-card {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-    }
-
-    @media (min-width: 1024px) {
-        .profile-card {
-            flex: 0 0 33.333%;
-            max-width: 33.333%;
-        }
-    }
-</style>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="tw-77fc006f29d392641ce5.css" />
@@ -174,7 +127,7 @@
           <div role="region" aria-label="Featured Talent"
             class="_1OimJyyD flex justify-center pt-8 lg:pt-6 px-0 select-none mb-4 md:mb-6 lg:mb-0">
             <button aria-hidden="true"
-              class="group relative hidden my-1 bg-transparent border-0 lg:flex items-center justify-center flex-none basis-10 cursor-pointer disabled:!text-gray-500 disabled:bg-gray-100 disabled:select-none disabled:pointer-events-none"
+              class="group relative hidden my-3 bg-transparent border-0 lg:flex items-center justify-center flex-none basis-10 cursor-pointer disabled:!text-gray-500 disabled:bg-gray-100 disabled:select-none disabled:pointer-events-none"
               disabled="" tabindex="-1" data-ga-category="homepage" data-ga-event="medics"
               data-ga-label="click_left_arrow"><svg viewBox="0 0 13 38" width="13" height="38"
                 xmlns="http://www.w3.org/2000/svg">
@@ -185,7 +138,7 @@
                 class="absolute w-full h-full -z-10 bg-brand-blue-lighter opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus:opacity-100">
               </div>
             </button>
-            <div class="relative flex gap-0 p-1 w-full overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+            <div class="relative flex gap-2 p-4 w-full overflow-x-auto scrollbar-hide snap-x snap-mandatory">
               <!-- Talent Profile 1: General Practitioner -->
               <div role="none" data-testid="talent-card"
                 class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
@@ -546,7 +499,8 @@
                           <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
                             height="7"></rect>
                         </svg>
-                        <strong class="font-bold">Verified Expert</strong><span class="inline-block">in Dermatology</span>
+                        <strong class="font-bold">Verified Expert&nbsp;</strong><span class="inline-block">in
+                          Dermatology</span>
                       </div>
                     </div>
                    
@@ -629,55 +583,6 @@
       </div>
     </div>
   </footer>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.querySelector('.profile-container');
-        const cards = document.querySelectorAll('.profile-card');
-        const prevBtn = document.querySelector('.nav-button.prev');
-        const nextBtn = document.querySelector('.nav-button.next');
-        let currentIndex = 0;
-        let interval;
-
-        function showCard(index) {
-            const offset = -index * 100;
-            container.style.transform = `translateX(${offset}%)`;
-        }
-
-        function nextCard() {
-            currentIndex = (currentIndex + 1) % cards.length;
-            showCard(currentIndex);
-        }
-
-        function prevCard() {
-            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-            showCard(currentIndex);
-        }
-
-        function startAutoScroll() {
-            interval = setInterval(nextCard, 3000);
-        }
-
-        function stopAutoScroll() {
-            clearInterval(interval);
-        }
-
-        prevBtn.addEventListener('click', () => {
-            prevCard();
-            stopAutoScroll();
-            startAutoScroll();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            nextCard();
-            stopAutoScroll();
-            startAutoScroll();
-        });
-
-        container.addEventListener('mouseenter', stopAutoScroll);
-        container.addEventListener('mouseleave', startAutoScroll);
-
-        startAutoScroll();
-    });
-</script>
 </body>
+
 </html>
