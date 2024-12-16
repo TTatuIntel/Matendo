@@ -762,7 +762,7 @@ body {
 
 /* Logo Container */
 ._2SKZhefz {
-  position: relative;
+  position: fixed;
   height: var(--nav-height);
   display: flex;
   align-items: center;
