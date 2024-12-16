@@ -4,6 +4,205 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log in | Matendo Medic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- FontAwesome Icons -->
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 1.8rem; /* Slightly smaller font size */
+      color: #204ECF;
+      margin: 0;
+    }
+
+    header div {
+      font-size: 0.9rem; /* Slightly reduced font size */
+      color: gray;
+      margin-top: 5px;
+    }
+
+    form {
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 380px; /* Moderate width */
+      width: 100%;
+      background: none;
+      box-shadow: none;
+    }
+
+    form div {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      background-color: #f9f9f9;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #204ECF;
+      box-shadow: none;
+      background-color: #e8f0fe;
+    }
+
+    label {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .checkbox-label input {
+      margin-right: 6px;
+    }
+
+    .forgot-password {
+      font-size: 1rem;
+      color: #204ECF;
+      text-decoration: none;
+      margin-left: auto;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #204ECF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem; /* Moderate font size */
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #183b9a;
+      transform: scale(1.03);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem; /* Slightly reduced font size */
+      color: #666;
+    }
+
+    footer a {
+      color: #204ECF;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Social login buttons */
+    .social-login {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .social-login a {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      text-decoration: none;
+      font-size: 1rem;
+      color: #333;
+      padding: 12px;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+      transition: transform 0.3s ease;
+    }
+
+    .social-login a i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    .social-login a:hover {
+      transform: scale(1.05);
+    }
+
+    .social-login a:active {
+      transform: scale(0.98);
+    }
+
+    .information {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+      color: gray;
+      margin-top: 15px;
+    }
+
+    .information a {
+      color: #204ECF;
+      text-decoration: none;
+    }
+
+    .information a:hover {
+      text-decoration: underline;
+    }
+
+    .or-divider {
+      font-size: 1rem;
+      margin: 12px 0;
+      color: gray;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      form {
+        padding: 18px;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 10px;
+      }
+
+      .information {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
   <div>
@@ -13,38 +212,38 @@
     </header>
     <form action="" method="post" novalidate>
       <div>
-        <input type="text" name="user[email]" id="user_email" placeholder="Email" required autofocus>
+        <label for="user_email">Email</label>
+        <input type="text" name="user[email]" id="user_email" placeholder="Enter your email" required aria-label="Email" autofocus>
       </div>
       <div>
-        <input type="password" name="user[password]" id="user_password" placeholder="Password" required minlength="6">
+        <label for="user_password">Password</label>
+        <input type="password" name="user[password]" id="user_password" placeholder="Enter your password" required minlength="6" aria-label="Password">
       </div>
-      <div>
-        <label>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <label class="checkbox-label">
           <input type="checkbox" name="user[remember_me]" id="user_remember_me">
           Remember me
         </label>
-        <a href="/password/new">Lost password?</a>
-      </div>
+        <a href="#" class="forgot-password">Forgot password?</a>
+      </div>       
       <div>
         <button type="submit">Log in</button>
       </div>
-      <div>OR</div>
-      <div>
+      <div class="or-divider">OR</div> 
+
+      <div class="social-login">
         <a href="/users/auth/google">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" width="20">
+          <i class="fab fa-google" style="color: #DB4437;"></i> <!-- Google Icon with actual color -->
           Log in with Google
         </a>
-      </div>
-      <div>
         <a href="/users/auth/linkedin">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" width="20">
+          <i class="fab fa-linkedin" style="color: #0077B5;"></i> <!-- LinkedIn Icon with actual color -->
           Sign in with LinkedIn
         </a>
       </div>
     </form>
     <footer>
-      <div>No account? Join as a <a href="#">freelancer</a> or <a href="#">company</a>.</div>
-      <div>© 2024 Matendo Medic</div>
+      <div>&copy; 2024 Matendo Medic</div>
     </footer>
   </div>
 </body>

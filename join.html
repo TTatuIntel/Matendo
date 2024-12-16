@@ -1,231 +1,164 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <title>Join Matendo Medics</title>
-    <meta name="theme-color" content="#204ECF" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-        content="The Matendo Medics application portal for medical professionals applying to the Matendo Medics network." />
-    <meta property="og:title"
-        content="Join Matendo Medics, the world's largest network of top medical professionals." />
-    <meta property="og:description"
-        content="Work with leading hospitals and clinics worldwide for great opportunities in healthcare." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in | Matendo Medic</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
 
-    <link rel="stylesheet" href="style.css" />
-   
-    <link rel="stylesheet" href="tw-6e4c4ab00ffcfdd0baa6.css" />
-    <link rel="stylesheet" href="tw-6e4c4ab00ffcfdd0baa6.css" />
-    <link rel="stylesheet" href="6f2089a4a4c6c5b9.css" media="print" onload="this.media='all'" />
-    <noscript>
-        <link rel="stylesheet" href="6f2089a4a4c6c5b9.css" />
-    </noscript>
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #204ECF;
+    }
+
+    header div {
+      font-size: 0.9rem;
+      color: gray;
+    }
+
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    form div {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    label {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #204ECF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #183b9a;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer a {
+      color: #204ECF;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Social login buttons */
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1rem;
+      color: #333;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background-color: white;
+      transition: background-color 0.3s;
+    }
+
+    a img {
+      margin-right: 10px;
+    }
+
+    a:hover {
+      background-color: #f3f3f3;
+    }
+  </style>
 </head>
-
-
 <body>
-    <main id="page-root">
-        <div class="_1sNnj6Id mb-24 last:mb-0">
-            <div class="fDIHQXz2 mb-24 last:mb-0">
-                <header class="_2KORMhH9">
-                    <div class="_2zFNtrUH">
-                        <a href="index.html" title="Matendo Medics" aria-label="Matendo Medics" class="_1lqQP1In"><img
-                                src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" /></a>
-                    </div>
-                </header>
-                <section class="lSr4TKYq last:mb-0" style="margin-top:1rem">
-                    <h1 class="_1FLwSXSi" data-testid="hero-section-title">Apply to Join Matendo Medics</h1>
-                    <p class="_2J2Wlx8C" data-testid="hero-section-subtitle">Matendo Medics is an exclusive network of
-                        top medical professionals, linking skilled healthcare providers with leading hospitals and
-                        clinics worldwide to ensure the highest standards of care and innovation.</p>
-                </section>
-                <div class="_3_9lWn5B mb-24 last:mb-0">
-                    <div class="_5piNKoCf">
-                        <div data-cid="talent-apply-0">
-                            <div class="_5Rsxw-Qr">
-                                <div class="_3bHlbGud">
-                                    <form name="social-signup-form" class="flex flex-col"
-                                        action="https://www.matendomedics.com/users/auth/linkedin" method="post"
-                                        rel="nofollow">
-                                        <button
-                                            class="box-border border-0 border-solid font-family-inherit m-0 p-0 text-center inline-flex items-center justify-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white disabled:bg-gray-300 py-2 px-6 paragraph-sm gap-4 mb-2 bg-[#3376b0] hover:bg-[#06699b] active:bg-[#06699b]"
-                                            data-ga-category="matendo_apply_page"
-                                            data-ga-event="form - linkedin_signup submit"
-                                            data-ga-label="Signup as talent" data-testid="social-signup-button">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 14 14"
-                                                class="shrink-0" data-testid="social-signup-button-icon-linkedin"
-                                                width="16">
-                                                <defs>
-                                                    <path
-                                                        d="M11.927 11.93H9.854V8.682c0-.775-.015-1.772-1.08-1.772-1.081 0-1.246.843-1.246 1.715v3.305H5.455V5.25h1.991v.91h.027c.278-.524.955-1.079 1.966-1.079 2.1 0 2.489 1.383 2.489 3.183v3.666zM3.113 4.336c-.667 0-1.203-.54-1.203-1.205a1.203 1.203 0=">
-                                                    </path>
-                                                </defs>
-                                                <use fill="currentColor" fill-rule="nonzero"
-                                                    xlink:href="#prefix__linkedin-a-3"></use>
-                                            </svg>
-                                            <span class="-ml-2">Sign Up with LinkedIn</span>
-                                        </button>
-                                    </form>
-                                    <span class="pMjTrpJF">By clicking <i>Sign up with LinkedIn</i>, you agree to let
-                                        Matendo Medics store your LinkedIn profile</span>
-                                </div>
-                                <div class="k-5MQW4R">
-                                    <span>or</span>
-                                </div>
-                                <form id="talent-apply-form" method="post" novalidate="">
-                                    <div class="_2G9w1fn-">
-                                        <div class="_1F_7y6J0">
-                                            <div tabindex="0" role="button" aria-haspopup="listbox"
-                                                aria-expanded="false" data-direction="top"
-                                                class="_1WRJuyTt _3dVVljYP _2FR6nyQk" style="width:100%">
-                                                I'm applying as a medical professional...
-                                                <div class="QfcLdBQ7"></div>
-                                            </div>
-                                            <ul tabindex="-1" role="listbox" aria-hidden="true"
-                                                style="width: 100%; max-height: 400px; top: -365.333px;"
-                                                class="nmVG0gal">
-                                                <li role="option" tabindex="-1" aria-selected="false"
-                                                    aria-disabled="false" class="qR_04_y3">
-                                                    <div class="_1oemECVn">
-                                                        <img alt="Doctor icon"
-                                                            src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Font_Awesome_5_solid_user-md.svg">
-                                                        <div class="_26cjR6gi">
-                                                            <strong>Doctor</strong>
-                                                            <span>General Practitioners, Surgeons, Specialists,
-                                                                etc.</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li role="option" tabindex="-1" aria-selected="false"
-                                                    aria-disabled="false" class="qR_04_y3">
-                                                    <div class="_1oemECVn">
-                                                        <img alt="Nurse icon"
-                                                            src="https://upload.wikimedia.org/wikipedia/commons/1/17/Font_Awesome_5_solid_user-nurse.svg">
-                                                        <div class="_26cjR6gi">
-                                                            <strong>Nurse</strong>
-                                                            <span>Registered Nurses, Nurse Practitioners, Nursing
-                                                                Assistants, etc.</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li role="option" tabindex="-1" aria-selected="false"
-                                                    aria-disabled="false" class="qR_04_y3">
-                                                    <div class="_1oemECVn">
-                                                        <img alt="Pharmacist icon"
-                                                            src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Font_Awesome_5_solid_pills.svg">
-                                                        <div class="_26cjR6gi">
-                                                            <strong>Pharmacist</strong>
-                                                            <span>Clinical Pharmacists, Pharmacy Technicians,
-                                                                etc.</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li role="option" tabindex="-1" aria-selected="false"
-                                                    aria-disabled="false" class="qR_04_y3">
-                                                    <div class="_1oemECVn">
-                                                        <img alt="Medical Researcher icon"
-                                                            src="https://upload.wikimedia.org/wikipedia/commons/9/96/Font_Awesome_5_solid_flask.svg">
-                                                        <div class="_26cjR6gi">
-                                                            <strong>Medical Researcher</strong>
-                                                            <span>Biomedical Research, Clinical Trials, Pharmaceutical
-                                                                Research, etc.</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li role="option" tabindex="-1" aria-selected="false"
-                                                    aria-disabled="false" class="qR_04_y3">
-                                                    <div class="_1oemECVn">
-                                                        <img alt="Healthcare Administrator icon"
-                                                            src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Font_Awesome_5_solid_id-badge.svg">
-                                                        <div class="_26cjR6gi">
-                                                            <strong>Healthcare Administrator</strong>
-                                                            <span>Hospital Administration, Healthcare Management,
-                                                                etc.</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="_2tb1sElg"><label for="talent_create_applicant[fullName]"
-                                            class="_1oGND2AA">Full
-                                            name</label><input placeholder="Full name" aria-required="true"
-                                            aria-invalid="false" name="fullName" id="talent_create_applicant[fullName]"
-                                            type="text" autocomplete="name" class="_3MuNYYSt" value=""></div>
-                                    <div class="_2tb1sElg"><label for="talent_create_applicant[email]"
-                                            class="_1oGND2AA">E-mail</label><input placeholder="E-mail"
-                                            aria-required="true" aria-invalid="false" name="email"
-                                            id="talent_create_applicant[email]" type="email" autocomplete="email"
-                                            class="_3MuNYYSt" value=""></div>
-                                    <div class="_2R8PjEP2">
-                                        <div class="_2tb1sElg _1S8zabF6"><label for="talent_create_applicant[password]"
-                                                class="_1oGND2AA">Password</label><input placeholder="Password"
-                                                aria-required="true" aria-invalid="false" name="password"
-                                                id="talent_create_applicant[password]" type="password"
-                                                autocomplete="new-password" class="_3MuNYYSt" value=""></div>
-                                        <div aria-live="polite" data-testid="password-constraints-box"
-                                            aria-hidden="true"
-                                            class="overflow-hidden transition-all max-h-0 invisible _2hxyf2aR">
-                                            <div class="pt-2">
-                                                <p class="mb-2 text-xs text-black leading-4">Please make sure that your
-                                                    password contains:</p>
-                                                <ul id="password-constraints"
-                                                    class="pl-1 grid grid-cols-2 gap-y-2 gap-x-8">
-                                                    <li data-completed="false"
-                                                        class="flex items-center leading-none text-xs transition-colors before:content-[&quot;&quot;] before:w-1 before:h-1 before:mr-2 before:bg-brand-red before:rounded-xl text-brand-red">
-                                                        At least 8 characters</li>
-                                                    <li data-completed="false"
-                                                        class="flex items-center leading-none text-xs transition-colors before:content-[&quot;&quot;] before:w-1 before:h-1 before:mr-2 before:bg-brand-red before:rounded-xl text-brand-red">
-                                                        Minimum 1 uppercase</li>
-                                                    <li data-completed="false"
-                                                        class="flex items-center leading-none text-xs transition-colors before:content-[&quot;&quot;] before:w-1 before:h-1 before:mr-2 before:bg-brand-red before:rounded-xl text-brand-red">
-                                                        Minimum 1 lowercase</li>
-                                                    <li data-completed="false"
-                                                        class="flex items-center leading-none text-xs transition-colors before:content-[&quot;&quot;] before:w-1 before:h-1 before:mr-2 before:bg-brand-red before:rounded-xl text-brand-red">
-                                                        Minimum 1 number</li>
-                                                    <li data-completed="false"
-                                                        class="flex items-center leading-none text-xs transition-colors before:content-[&quot;&quot;] before:w-1 before:h-1 before:mr-2 before:bg-brand-red before:rounded-xl text-brand-red">
-                                                        Minimum 1 special character</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="_2tb1sElg">
-                                        <label for="talent_create_applicant[passwordConfirmation]"
-                                            class="_1oGND2AA">Confirm password</label>
-                                        <input placeholder="Confirm password" aria-required="true" aria-invalid="false"
-                                            name="passwordConfirmation"
-                                            id="talent_create_applicant[passwordConfirmation]" type="password"
-                                            autocomplete="new-password" class="_3MuNYYSt" value="">
-                                    </div>
-                                    <p class="_3Huk_4PK">By submitting, you acknowledge and agree to <a
-                                            href="https://www.matendomedics.com/terms-and-conditions" target="_blank"
-                                            data-pass-click-event="true">Matendo Medics' Terms and Conditions</a> and <a
-                                            href="https://www.matendomedics.com/privacy" target="_blank"
-                                            data-pass-click-event="true">Privacy Policy</a>.</p>
-                                    <button
-                                        class="box-border border-0 border-solid font-family-inherit m-0 p-0 text-center inline-flex items-center justify-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white bg-brand-green disabled:bg-gray-300 hover:bg-brand-green-dark active:bg-brand-green-darker paragraph-md gap-6 py-[14px] px-[33px] md:px-[49px] _234usIAX"
-                                        type="submit" data-testid="apply-form-button">
-                                        <span>Apply to Join Matendo Medics</span>
-                                    </button>
-                                    <div data-testid="recaptcha-container" style="position:absolute;visibility:hidden">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="_2oOPlIn8">
-                        <div class="_2wkfLvx6">
-                            <div class="_1Dh9wLgK"></div>
-                            <div class="_2VapzXf9"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+  <div>
+    <header>
+      <h1>Matendo Medics</h1>
+      <div>Secured connection</div>
+    </header>
+    <form action="" method="post" novalidate>
+      <div>
+        <input type="text" name="user[email]" id="user_email" placeholder="Email" required autofocus>
+      </div>
+      <div>
+        <input type="password" name="user[password]" id="user_password" placeholder="Password" required minlength="6">
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" name="user[remember_me]" id="user_remember_me">
+          Remember me
+        </label>
+        <a href="/password/new">Lost password?</a>
+      </div>
+      <div>
+        <button type="submit">Log in</button>
+      </div>
+      <div>OR</div>
+      <div>
+        <a href="/users/auth/google">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" width="20">
+          Log in with Google
+        </a>
+      </div>
+      <div>
+        <a href="/users/auth/linkedin">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" width="20">
+          Sign in with LinkedIn
+        </a>
+      </div>
+    </form>
+    <footer>
+      <div>No account? Join as a <a href="#">freelancer</a> or <a href="#">company</a>.</div>
+      <div>© 2024 Matendo Medic</div>
+    </footer>
+  </div>
 </body>
-
 </html>
