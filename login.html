@@ -19,98 +19,100 @@
 
     header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 20px; /* Slightly increased margin */
     }
 
     header h1 {
-      font-size: 1.8rem; /* Slightly smaller font size */
+      font-size: 2rem; /* Increased font size */
       color: #204ECF;
       margin: 0;
     }
 
     header div {
-      font-size: 0.9rem; /* Slightly reduced font size */
+      font-size: 1rem; /* Increased font size */
       color: gray;
-      margin-top: 5px;
+      margin-top: 7px; /* Increased margin */
     }
 
     form {
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 380px; /* Moderate width */
+      padding: 20px; /* Increased padding */
+      border-radius: 10px; /* Slightly increased border radius */
+      max-width: 380px; /* Increased form width */
       width: 100%;
-      background: none;
-      box-shadow: none;
+      background: none; /* Removed form background */
+      box-shadow: none; /* Removed form shadow */
     }
 
     form div {
-      margin-bottom: 15px;
+      margin-bottom: 15px; /* Slightly increased margin */
     }
 
     input[type="text"],
     input[type="password"] {
       width: 100%;
-      padding: 10px;
+      padding: 10px; /* Increased padding */
       border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 8px; /* Slightly increased border radius */
+      font-size: 1rem; /* Increased font size */
       background-color: #f9f9f9;
       transition: all 0.3s ease;
-      outline: none;
+      outline: none; /* Hide outline on focus */
     }
 
     input[type="text"]:focus,
     input[type="password"]:focus {
       border-color: #204ECF;
-      box-shadow: none;
+      box-shadow: none; /* Removed focus box shadow */
       background-color: #e8f0fe;
     }
 
     label {
-      font-size: 1rem;
+      font-size: 0.9rem; /* Increased font size */
       color: #333;
     }
 
     .checkbox-label {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 1rem;
+      gap: 8px; /* Increased gap */
+      font-size: 0.9rem; /* Increased font size */
       color: #333;
     }
 
     .checkbox-label input {
-      margin-right: 6px;
+      margin-right: 8px; /* Increased margin */
     }
 
     .forgot-password {
-      font-size: 1rem;
+      font-size: 0.9rem; /* Increased font size */
       color: #204ECF;
       text-decoration: none;
       margin-left: auto;
     }
 
-    button {
-      width: 100%;
-      padding: 12px;
+    /* Added .btn class for styling buttons */
+    .btn {
+      width: auto; /* Medium size */
+      padding: 12px 24px; /* Increased padding */
       background-color: #204ECF;
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 1.1rem; /* Moderate font size */
+      border-radius: 8px; /* Slightly increased border radius */
+      font-size: 1.1rem; /* Increased font size */
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.3s ease;
+      margin: 12px 0; /* Slightly increased margin */
     }
 
-    button:hover {
+    .btn:hover {
       background-color: #183b9a;
-      transform: scale(1.03);
+      transform: scale(1.05); /* Slightly larger hover effect */
     }
 
     footer {
       text-align: center;
-      margin-top: 20px;
-      font-size: 0.9rem; /* Slightly reduced font size */
+      margin-top: 20px; /* Increased margin */
+      font-size: 1rem; /* Increased font size */
       color: #666;
     }
 
@@ -124,12 +126,12 @@
       text-decoration: underline;
     }
 
-    /* Social login buttons */
+    /* Social login buttons without box */
     .social-login {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 15px;
+      gap: 10px; /* Increased gap */
+      margin-top: 15px; /* Increased margin above OR */
     }
 
     .social-login a {
@@ -137,21 +139,20 @@
       align-items: center;
       justify-content: flex-start;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 0.85rem; /* Slightly increased font size */
       color: #333;
-      padding: 12px;
-      border-radius: 5px;
-      background-color: #f1f1f1;
+      padding: 8px 0; /* Increased padding */
+      border-radius: 8px; /* Slightly increased border radius */
       transition: transform 0.3s ease;
     }
 
     .social-login a i {
-      margin-right: 10px;
-      font-size: 1.2rem;
+      margin-right: 10px; /* Increased margin */
+      font-size: 1.1rem; /* Increased icon size */
     }
 
     .social-login a:hover {
-      transform: scale(1.05);
+      transform: scale(1.05); /* Slightly larger hover effect */
     }
 
     .social-login a:active {
@@ -161,9 +162,9 @@
     .information {
       display: flex;
       justify-content: space-between;
-      font-size: 1rem;
+      font-size: 0.85rem; /* Slightly increased font size */
       color: gray;
-      margin-top: 15px;
+      margin-top: 12px; /* Increased margin */
     }
 
     .information a {
@@ -176,24 +177,30 @@
     }
 
     .or-divider {
-      font-size: 1rem;
-      margin: 12px 0;
+      font-size: 1rem; /* Increased font size for 'OR' text */
+      margin: 12px 0; /* Increased margin above OR divider */
       color: gray;
-      text-align: center;
+      text-align: center; /* Centered OR text */
     }
 
     @media (max-width: 480px) {
       form {
-        padding: 18px;
+        padding: 15px; /* Increased padding */
       }
 
       header h1 {
-        font-size: 1.8rem;
+        font-size: 1.8rem; /* Increased font size */
       }
 
-      button {
-        font-size: 1rem;
-        padding: 10px;
+      .btn {
+        font-size: 1rem; /* Increased font size */
+        padding: 8px 16px; /* Increased padding */
+      }
+
+      .links-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
 
       .information {
@@ -224,10 +231,10 @@
           <input type="checkbox" name="user[remember_me]" id="user_remember_me">
           Remember me
         </label>
-        <a href="#" class="forgot-password">Forgot password?</a>
+        <a href="#" class="forgot-password">Forgot password?</a> <!-- Forgot Password Link -->
       </div>       
       <div>
-        <button type="submit">Log in</button>
+        <button type="submit" class="btn">Log in</button> <!-- Apply btn class here -->
       </div>
       <div class="or-divider">OR</div> 
 
