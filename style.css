@@ -6931,3 +6931,9 @@ html {
     display: inline-flex !important;  /* Ensure it's visible */
   }
 }
+.static-logo {
+  position: fixed;
+  top: 20px; /* Adjust as necessary */
+  left: 40px; /* Adjust as necessary */
+  z-index: 1000; /* Ensure it's on top of other elements */
+}
