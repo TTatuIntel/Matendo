@@ -6919,3 +6919,9 @@ html {
   font-size: 0.8rem; /* Adjust this value as needed */
   /* You can also use other units like 'px', 'em', etc. */
 }
+/* Hide buttons on mobile devices */
+@media (max-width: 768px) {
+  .btn {
+      display: none; /* Hide the button */
+  }
+}
