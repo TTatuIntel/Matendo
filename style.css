@@ -6920,8 +6920,8 @@ html {
   /* You can also use other units like 'px', 'em', etc. */
 }
 @media (max-width: 768px) {
-  /* Hide the buttons on mobile screens */
-  button {
+  /* Hide the button with the ID mobile-button on mobile screens */
+  #card-button {
       display: none !important;
   }
 }
