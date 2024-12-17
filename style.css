@@ -5673,7 +5673,7 @@ html {
   white-space: normal
 }
 
-@media(max-width:767px) {
+@media(max-width:768px) {
   ._2G9w1fn- [role=button] {
     font-size: 16px
   }
@@ -6919,9 +6919,9 @@ html {
   font-size: 0.8rem; /* Adjust this value as needed */
   /* You can also use other units like 'px', 'em', etc. */
 }
-/* Hide buttons on mobile devices */
 @media (max-width: 768px) {
-  .btn {
-      display: none; /* Hide the button */
+  /* Hide the buttons on mobile screens */
+  button {
+      display: none !important;
   }
 }
