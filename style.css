@@ -6903,7 +6903,19 @@ html {
   opacity: 0
 }
 
+
+.trusted-brands h2 {
+  margin-bottom: 10px; /* Adjust this value as needed */
+}
+
+.trusted-brands {
+  padding-bottom: 10px; /* Adjust this value as needed */
+}
 .selected-card {
-  border: 2px solid green; /* Change color as needed */
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Optional: adds a glow effect */
+  border: 2px solid rgba(4, 183, 228, 0.872); /* Change the color as needed */
+  box-shadow: 0 0 5px rgb(0, 213, 255); /* Optional: Add a shadow for better visibility */
+}
+.small-font {
+  font-size: 0.8rem; /* Adjust this value as needed */
+  /* You can also use other units like 'px', 'em', etc. */
 }
