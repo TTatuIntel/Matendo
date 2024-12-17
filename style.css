@@ -6925,3 +6925,9 @@ html {
       display: none !important;
   }
 }
+/* Ensure the button remains visible on mobile */
+@media (max-width: 768px) {
+  button {
+    display: inline-flex !important;  /* Ensure it's visible */
+  }
+}
