@@ -4,80 +4,165 @@
   <meta charset="utf-8" />
   <title>Matendo Medics - Hire Medical Professionals</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs. Hire experts for full-time, part-time, or contract work." />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    #nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background-color: #004080;
+      color: white;
+    }
+
+    #nav img {
+      max-height: 50px;
+    }
+
+    .hero {
+      text-align: center;
+      background: linear-gradient(to right, #0066cc, #004080);
+      color: white;
+      padding: 5rem 2rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero button {
+      background: white;
+      color: #004080;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .hero button:hover {
+      background: #f0f0f0;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin: 2rem 0;
+      padding: 2rem;
+      background: #f9f9f9;
+    }
+
+    .feature {
+      flex: 1 1 30%;
+      text-align: center;
+      padding: 1rem;
+      margin: 1rem;
+    }
+
+    .feature i {
+      font-size: 2rem;
+      color: #004080;
+    }
+
+    .feature h3 {
+      margin: 1rem 0 0.5rem;
+    }
+
+    .testimonials {
+      padding: 2rem;
+      background: #e6eefc;
+      text-align: center;
+    }
+
+    .testimonial {
+      max-width: 600px;
+      margin: 1rem auto;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #004080;
+      color: white;
+      padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .feature {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main id="page-root">
-    <nav id="nav">
-      <a href="index.html" title="Matendo Medics">
-        <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
-      </a>
-    </nav>
+  <nav id="nav">
+    <a href="index.html" title="Matendo Medics">
+      <img src="images/matelogo4.png" alt="Matendo Wordmark" />
+    </a>
+    <div>
+      <a href="#" style="color: white; margin-right: 1rem;">Services</a>
+      <a href="#" style="color: white;">Contact</a>
+    </div>
+  </nav>
 
-    <section id="main" style="background-color:#d2d6e2">
-      <div class="form-container">
-        <h1>Hire Medical Professionals</h1>
-        <p>At Matendo Medics, we provide access to certified, highly-skilled medical professionals. Whether you need a doctor, specialist, nurse, or therapist, our network can fulfill your requirements. Please fill out the form below to help us understand your needs before we contact you.</p>
+  <section class="hero">
+    <h1>Hire Top Medical Professionals</h1>
+    <p>Certified experts ready to meet your healthcare needs.</p>
+    <button>Get Started</button>
+  </section>
 
-        <form>
-          <!-- Role & Specialization -->
-          <label for="role">What type of medical professional are you seeking?</label>
-          <select id="role" name="role">
-            <option value="doctor">Doctor</option>
-            <option value="specialist">Specialist (e.g., Cardiologist, Orthopedist)</option>
-            <option value="nurse">Nurse</option>
-            <option value="therapist">Therapist</option>
-            <option value="surgeon">Surgeon</option>
-            <option value="other">Other</option>
-          </select>
+  <section class="features">
+    <div class="feature">
+      <i class="fas fa-user-md"></i>
+      <h3>Vetted Professionals</h3>
+      <p>All professionals are thoroughly screened for qualifications and experience.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-clock"></i>
+      <h3>Fast Onboarding</h3>
+      <p>Get matched with a professional quickly to meet your urgent needs.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-handshake"></i>
+      <h3>Flexible Contracts</h3>
+      <p>Choose from full-time, part-time, or contract-based arrangements.</p>
+    </div>
+  </section>
 
-          <!-- Experience Level -->
-          <label for="experience">What experience level is required?</label>
-          <select id="experience" name="experience">
-            <option value="entry">Entry-Level</option>
-            <option value="mid">Mid-Level</option>
-            <option value="senior">Senior-Level</option>
-          </select>
+  <section class="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial">
+      <p>"Matendo Medics provided us with an experienced nurse who fit perfectly into our team. Highly recommend!"</p>
+      <p>- Jane Doe, Clinic Manager</p>
+    </div>
+    <div class="testimonial">
+      <p>"The specialist we hired through Matendo was knowledgeable and professional. It made a huge difference for our patients."</p>
+      <p>- John Smith, Hospital Director</p>
+    </div>
+  </section>
 
-          <!-- Assignment Duration -->
-          <label for="duration">What is the duration of the assignment?</label>
-          <select id="duration" name="duration">
-            <option value="temporary">Temporary</option>
-            <option value="permanent">Permanent</option>
-            <option value="contract">Contract</option>
-          </select>
-
-          <!-- Location -->
-          <label for="location">Where is the professional needed?</label>
-          <select id="location" name="location">
-            <option value="in-house">In-House (On-site)</option>
-            <option value="remote">Remote</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
-
-          <!-- Start Date -->
-          <label for="start-date">When would you like the professional to start?</label>
-          <input type="date" id="start-date" name="start-date" />
-
-          <!-- Skills & Certifications -->
-          <label for="skills">Are there specific certifications or skills required?</label>
-          <textarea id="skills" name="skills" rows="4" placeholder="E.g., medical software proficiency, certifications, etc."></textarea>
-
-          <!-- Job Description -->
-          <label for="job-description">Please provide a brief description of the job or healthcare needs.</label>
-          <textarea id="job-description" name="job-description" rows="4" placeholder="E.g., handling a high volume of patients, specialized care, etc."></textarea>
-
-          <!-- Additional Requirements -->
-          <label for="additional-requests">Are there any other preferences or important details we should know?</label>
-          <textarea id="additional-requests" name="additional-requests" rows="4" placeholder="E.g., language proficiency, experience with certain equipment, etc."></textarea>
-
-          <!-- Submit Button -->
-          <button type="submit">Submit Request</button>
-        </form>
-      </div>
-    </section>
-  </main>
+  <footer>
+    <p>&copy; 2024 Matendo Medics. All Rights Reserved.</p>
+  </footer>
 </body>
 </html>
