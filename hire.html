@@ -7,8 +7,32 @@
   <meta name="description" content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs. Hire experts for full-time, part-time, or contract work." />
   
   <link rel="stylesheet" href="style.css" />
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+    }
+    .form-step {
+      display: none;
+    }
+    .form-step.active {
+      display: block;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
   <main id="page-root">
@@ -23,63 +47,176 @@
         <h1>Hire Medical Professionals</h1>
         <p>At Matendo Medics, we provide access to certified, highly-skilled medical professionals. Whether you need a doctor, specialist, nurse, or therapist, our network can fulfill your requirements. Please fill out the form below to help us understand your needs before we contact you.</p>
 
-        <form>
-          <!-- Role & Specialization -->
-          <label for="role">What type of medical professional are you seeking?</label>
-          <select id="role" name="role">
-            <option value="doctor">Doctor</option>
-            <option value="specialist">Specialist (e.g., Cardiologist, Orthopedist)</option>
-            <option value="nurse">Nurse</option>
-            <option value="therapist">Therapist</option>
-            <option value="surgeon">Surgeon</option>
-            <option value="other">Other</option>
-          </select>
+        <form action="#" method="POST" id="hire-form">
+          <!-- SECTION 1: Role & Specialization -->
+          <div class="form-step active" id="step-1">
+            <fieldset>
+              <legend>Role & Specialization</legend>
 
-          <!-- Experience Level -->
-          <label for="experience">What experience level is required?</label>
-          <select id="experience" name="experience">
-            <option value="entry">Entry-Level</option>
-            <option value="mid">Mid-Level</option>
-            <option value="senior">Senior-Level</option>
-          </select>
+              <label for="role">What type of medical professional are you seeking?</label>
+              <select id="role" name="role">
+                <option value="doctor">Doctor</option>
+                <option value="specialist">Specialist (e.g., Cardiologist, Orthopedist)</option>
+                <option value="nurse">Nurse</option>
+                <option value="therapist">Therapist</option>
+                <option value="surgeon">Surgeon</option>
+                <option value="other">Other</option>
+              </select>
+              <br><br>
 
-          <!-- Assignment Duration -->
-          <label for="duration">What is the duration of the assignment?</label>
-          <select id="duration" name="duration">
-            <option value="temporary">Temporary</option>
-            <option value="permanent">Permanent</option>
-            <option value="contract">Contract</option>
-          </select>
+              <label for="specialization">Is this role focused on a specific medical specialty or subspecialty?</label>
+              <input type="text" id="specialization" name="specialization" placeholder="Example: Pediatrician, Cardiologist" />
+              <br><br>
 
-          <!-- Location -->
-          <label for="location">Where is the professional needed?</label>
-          <select id="location" name="location">
-            <option value="in-house">In-House (On-site)</option>
-            <option value="remote">Remote</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
+              <label for="role-description">What is the primary responsibility and duty of the medical role?</label>
+              <textarea id="role-description" name="role-description" rows="4" placeholder="Describe whether the role is patient-facing (e.g., consultation, diagnosis, treatment) or non-patient-facing (e.g., research, administrative duties)."></textarea>
+            </fieldset>
 
-          <!-- Start Date -->
-          <label for="start-date">When would you like the professional to start?</label>
-          <input type="date" id="start-date" name="start-date" />
+            <button type="button" onclick="nextStep(1)">Next</button>
+          </div>
 
-          <!-- Skills & Certifications -->
-          <label for="skills">Are there specific certifications or skills required?</label>
-          <textarea id="skills" name="skills" rows="4" placeholder="E.g., medical software proficiency, certifications, etc."></textarea>
+          <!-- SECTION 2: Experience & Qualifications -->
+          <div class="form-step" id="step-2">
+            <fieldset>
+              <legend>Experience & Qualifications</legend>
 
-          <!-- Job Description -->
-          <label for="job-description">Please provide a brief description of the job or healthcare needs.</label>
-          <textarea id="job-description" name="job-description" rows="4" placeholder="E.g., handling a high volume of patients, specialized care, etc."></textarea>
+              <label for="experience">What experience level is required?</label>
+              <select id="experience" name="experience">
+                <option value="entry">Entry-Level</option>
+                <option value="mid">Mid-Level</option>
+                <option value="senior">Senior-Level</option>
+              </select>
+              <br><br>
 
-          <!-- Additional Requirements -->
-          <label for="additional-requests">Are there any other preferences or important details we should know?</label>
-          <textarea id="additional-requests" name="additional-requests" rows="4" placeholder="E.g., language proficiency, experience with certain equipment, etc."></textarea>
+              <label for="certifications">Are there specific certifications or qualifications required?</label>
+              <textarea id="certifications" name="certifications" rows="4" placeholder="List any mandatory certifications or licenses, such as BLS, ACLS, etc."></textarea>
+              <br><br>
 
-          <!-- Submit Button -->
-          <button type="submit">Submit Request</button>
+              <label for="experience-setting">Do you require experience in a specific medical setting?</label>
+              <select id="experience-setting" name="experience-setting">
+                <option value="hospital">Hospital</option>
+                <option value="clinic">Clinic</option>
+                <option value="research">Research Institution</option>
+                <option value="telemedicine">Telemedicine</option>
+                <option value="other">Other</option>
+              </select>
+            </fieldset>
+
+            <button type="button" onclick="nextStep(2)">Next</button>
+          </div>
+
+          <!-- SECTION 3: Role Logistics -->
+          <div class="form-step" id="step-3">
+            <fieldset>
+              <legend>Role Logistics</legend>
+
+              <label for="location">Where is the professional needed?</label>
+              <select id="location" name="location">
+                <option value="in-house">In-House (On-site)</option>
+                <option value="remote">Remote</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
+              <br><br>
+
+              <label for="start-date">When would you like the professional to start?</label>
+              <input type="date" id="start-date" name="start-date" />
+              <br><br>
+
+              <label for="duration">What is the duration of the assignment?</label>
+              <select id="duration" name="duration">
+                <option value="temporary">Temporary</option>
+                <option value="permanent">Permanent</option>
+                <option value="contract">Contract</option>
+              </select>
+            </fieldset>
+
+            <button type="button" onclick="nextStep(3)">Next</button>
+          </div>
+
+          <!-- SECTION 4: Skills & Additional Details -->
+          <div class="form-step" id="step-4">
+            <fieldset>
+              <legend>Skills & Additional Details</legend>
+
+              <label for="skills">Are there specific certifications, skills, or technologies required?</label>
+              <textarea id="skills" name="skills" rows="4" placeholder="E.g., medical software proficiency, specialized skills, certifications, etc."></textarea>
+              <br><br>
+
+              <label for="job-description">Please provide a brief description of the job or healthcare needs.</label>
+              <textarea id="job-description" name="job-description" rows="4" placeholder="E.g., handling a high volume of patients, specialized care, etc."></textarea>
+              <br><br>
+
+              <label for="additional-requests">Are there any other preferences or important details we should know?</label>
+              <textarea id="additional-requests" name="additional-requests" rows="4" placeholder="E.g., language proficiency, experience with certain equipment, etc."></textarea>
+            </fieldset>
+
+            <button type="button" onclick="nextStep(4)">Next</button>
+          </div>
+
+          <!-- SECTION 5: Budget & Engagement Details -->
+          <div class="form-step" id="step-5">
+            <fieldset>
+              <legend>Budget & Engagement Details</legend>
+
+              <label for="budget">What is your budget for hiring this medical talent?</label>
+              <input type="text" id="budget" name="budget" placeholder="Provide a range or salary estimate, e.g., $100,000 - $120,000 per year." />
+              <br><br>
+
+              <label for="work-type">Are you looking for full-time, part-time, or contract-based medical professionals?</label>
+              <select id="work-type" name="work-type">
+                <option value="full-time">Full-Time</option>
+                <option value="part-time">Part-Time</option>
+                <option value="contract">Contract-Based</option>
+              </select>
+              <br><br>
+
+              <label for="preferred-candidate">Do you have preferences for the candidate’s experience level?</label>
+              <select id="preferred-candidate" name="preferred-candidate">
+                <option value="entry">Entry-Level</option>
+                <option value="mid">Mid-Level</option>
+                <option value="senior">Senior-Level</option>
+              </select>
+            </fieldset>
+
+            <button type="button" onclick="nextStep(5)">Next</button>
+          </div>
+
+          <!-- SECTION 6: Final Details -->
+          <div class="form-step" id="step-6">
+            <fieldset>
+              <legend>Final Details</legend>
+
+              <label for="interview-method">How would you prefer to interview candidates?</label>
+              <select id="interview-method" name="interview-method">
+                <option value="video">Video Call</option>
+                <option value="in-person">In-Person Interview</option>
+                <option value="phone">Phone Interview</option>
+              </select>
+              <br><br>
+
+              <label for="comments">Please share any additional comments or requirements for the hiring process.</label>
+              <textarea id="comments" name="comments" rows="4" placeholder="Provide any other details, such as preferences on candidates' backgrounds, work experience, or availability."></textarea>
+              <br><br>
+
+              <button type="submit">Submit Request</button>
+            </fieldset>
+          </div>
         </form>
       </div>
     </section>
   </main>
+
+  <script>
+    // Function to show the next step and hide the previous step
+    function nextStep(currentStep) {
+      const current = document.getElementById('step-' + currentStep);
+      const next = document.getElementById('step-' + (currentStep + 1));
+      
+      current.classList.remove('active');
+      if (next) {
+        next.classList.add('active');
+      }
+    }
+  </script>
 </body>
 </html>
