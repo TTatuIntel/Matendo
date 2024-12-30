@@ -7,7 +7,7 @@
   <meta name="description" content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs. Hire experts for full-time, part-time, or contract work." />
   <style>
     body {
-      font-family: Proxima Nova, Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f6f8fb;
       color: #455065;
       margin: 0;
@@ -113,6 +113,10 @@
       color: #777;
     }
 
+    .hidden {
+      display: none;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -149,36 +153,48 @@
           <span></span>
           <span></span>
           <span></span>
-          <span></span>
-          <span></span>
         </div>
         <h1>Hire Medical Professionals</h1>
         <p>At Matendo Medics, we provide access to certified, highly-skilled medical professionals. Please complete the form below to help us understand your needs.</p>
 
-        <form action="#" method="POST" id="hire-form">
-          <!-- SECTION 1: Role & Specialization -->
+        <form id="hire-form">
+          <!-- STEP 1: Professional Type -->
           <div class="form-step active" id="step-1">
             <fieldset>
-              <legend>Role & Specialization</legend>
+              <legend>Step 1: Role & Specialization</legend>
               <label for="role">Medical Professional Needed</label>
-              <select id="role" name="role">
+              <select id="role" name="role" onchange="handleRoleChange(event)">
+                <option value="">Select a role</option>
                 <option value="doctor">Doctor</option>
                 <option value="specialist">Specialist</option>
                 <option value="nurse">Nurse</option>
-                <option value="therapist">Therapist</option>
-                <option value="surgeon">Surgeon</option>
               </select>
-
-              <label for="specialization">Specialization</label>
-              <input type="text" id="specialization" name="specialization" placeholder="E.g., Pediatrician">
-
-              <label for="role-description">Role Description</label>
-              <textarea id="role-description" name="role-description" rows="4" placeholder="Describe duties"></textarea>
+              <div id="specialization-question" class="hidden">
+                <label for="specialization">Specialization</label>
+                <input type="text" id="specialization" name="specialization" placeholder="E.g., Cardiologist">
+              </div>
+              <button type="button" onclick="nextStep(1)">Next</button>
             </fieldset>
-            <button type="button" onclick="nextStep(1)">Next</button>
           </div>
 
-          <!-- Additional steps follow the same structure -->
+          <!-- STEP 2: Additional Details -->
+          <div class="form-step" id="step-2">
+            <fieldset>
+              <legend>Step 2: Additional Details</legend>
+              <label for="description">Role Description</label>
+              <textarea id="description" name="description" rows="4" placeholder="Describe the responsibilities"></textarea>
+              <button type="button" onclick="nextStep(2)">Next</button>
+            </fieldset>
+          </div>
+
+          <!-- STEP 3: Review & Submit -->
+          <div class="form-step" id="step-3">
+            <fieldset>
+              <legend>Step 3: Review & Submit</legend>
+              <p>Please review your details and submit the form.</p>
+              <button type="submit">Submit</button>
+            </fieldset>
+          </div>
         </form>
       </div>
     </section>
@@ -189,18 +205,28 @@
   </footer>
 
   <script>
-    function nextStep(currentStep) {
-      const current = document.getElementById('step-' + currentStep);
-      const next = document.getElementById('step-' + (currentStep + 1));
-      if (next) {
-        current.classList.remove('active');
-        next.classList.add('active');
-
-        // Update progress bar
-        const progressBar = document.querySelectorAll('.progress-bar span');
-        progressBar[currentStep].classList.add('active');
+    function handleRoleChange(event) {
+      const role = event.target.value;
+      const specializationQuestion = document.getElementById('specialization-question');
+      if (role === 'specialist') {
+        specializationQuestion.classList.remove('hidden');
+      } else {
+        specializationQuestion.classList.add('hidden');
       }
     }
+
+    function nextStep(currentStep) {
+      document.getElementById('step-' + currentStep).classList.remove('active');
+      const nextStep = document.getElementById('step-' + (currentStep + 1));
+      if (nextStep) {
+        nextStep.classList.add('active');
+      }
+    }
+
+    document.getElementById('hire-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      alert('Your request has been successfully submitted!');
+    });
   </script>
 </body>
 </html>
