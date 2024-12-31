@@ -163,13 +163,14 @@
 
     .checkbox-group {
       display: flex;
-      flex-wrap: nowrap;
-      gap: 20px;
-      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0; /* Reduced space above and below the checkboxes */
     }
 
     .checkbox-group label {
-      display: inline-block;
+      width: auto;
+      margin: 0; /* Reduced space above and below the checkboxes */
       font-weight: normal;
     }
 
@@ -181,6 +182,10 @@
       button {
         width: 100%;
         margin-top: 10px;
+      }
+
+      .checkbox-group label {
+        width: auto;
       }
     }
   </style>
@@ -196,11 +201,11 @@
     <section id="main">
       <div class="form-container">
         <div class="progress-bar">
-          <span class="active" id="progress-1" data-tooltip="Step 1: Role & Specialization">1</span>
-          <span id="progress-2" data-tooltip="Step 2: Project Description">2</span>
-          <span id="progress-3" data-tooltip="Step 3: Time Commitment">3</span>
-          <span id="progress-4" data-tooltip="Step 4: Budget & Preferences">4</span>
-          <span id="progress-5" data-tooltip="Step 5: Contact Information">5</span>
+          <span class="active" id="progress-1" data-tooltip="Step 1: Role & Specialization"></span>
+          <span id="progress-2" data-tooltip="Step 2: Project Description"></span>
+          <span id="progress-3" data-tooltip="Step 3: Time Commitment"></span>
+          <span id="progress-4" data-tooltip="Step 4: Budget & Preferences"></span>
+          <span id="progress-5" data-tooltip="Step 5: Contact Information"></span>
         </div>
         <h1>Hire Medical Professionals</h1>
         <p>At Matendo Medics, we provide access to certified, highly-skilled medical professionals. Please complete the form below to help us understand your needs.</p>
