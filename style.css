@@ -6944,3 +6944,127 @@ html {
   left: 40px; /* Adjust as necessary */
   z-index: 1000; /* Ensure it's on top of other elements */
 }
+nav img {
+  display: block;
+  max-height: 40px;
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  padding: 40px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.progress-bar span {
+  width: 15px;
+  height: 15px;
+  background-color: #d2d6e2;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.progress-bar span.active {
+  background-color: #204ecf;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+fieldset {
+  border: none;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #204ecf;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1a3f9e;
+}
+
+footer {
+  margin-top: 40px;
+  background-color: #f6f8fb;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-step {
+  display: none;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-step.active {
+  display: block;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkbox-group label {
+  display: inline-block;
+  font-weight: normal;
+}
