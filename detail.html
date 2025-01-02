@@ -2,217 +2,208 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title>Registration | Matendo Medics</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#204ECF" />
-    <meta name="description" content="Register to join Matendo Medics, the leading network for top medical professionals worldwide." />
-
+    <meta charset="utf-8">
+    <title>Leap</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+        :root {
+            --surface-a: #ffffff;
+            --surface-b: #f8f9fa;
+            --surface-c: #e9ecef;
+            --surface-d: #dee2e6;
+            --surface-e: #ffffff;
+            --surface-f: #ffffff;
+            --text-color: #495057;
+            --text-color-secondary: #6c757d;
+            --primary-color: #2196F3;
+            --primary-color-text: #ffffff;
+            --font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+            --surface-0: #ffffff;
+            --surface-50: #FAFAFA;
+            --surface-100: #F5F5F5;
+            --surface-200: #EEEEEE;
+            --surface-300: #E0E0E0;
+            --surface-400: #BDBDBD;
+            --surface-500: #9E9E9E;
+            --surface-600: #757575;
+            --surface-700: #616161;
+            --surface-800: #424242;
+            --surface-900: #212121;
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #EEEEEE;
+            --gray-300: #E0E0E0;
+            --gray-400: #BDBDBD;
+            --gray-500: #9E9E9E;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            --content-padding: 1rem;
+            --inline-spacing: .5rem;
+            --border-radius: 3px;
+            --surface-ground: #f8f9fa;
+            --surface-section: #ffffff;
+            --surface-card: #ffffff;
+            --surface-overlay: #ffffff;
+            --surface-border: #dee2e6;
+            --surface-hover: #e9ecef;
+            --maskbg: rgba(0, 0, 0, .4);
+            --focus-ring: 0 0 0 .2rem #a6d5fa;
+            color-scheme: light
         }
 
-        .header {
-            background-color: #204ECF;
-            padding: 1rem;
-            text-align: center;
+        * {
+            box-sizing: border-box
         }
 
-        .header .logo {
-            width: 200px;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: #e6eefc;
-        }
-
-        .hero h1 {
-            color: #204ECF;
-            font-size: 2rem;
-        }
-
-        .hero p {
-            font-size: 1rem;
-            color: #555;
-        }
-
-        .form-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        .form-step {
-            display: none;
-        }
-
-        .form-step.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .btn {
-            background-color: #204ECF;
-            color: white;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .btn:hover {
-            background-color: #163a9f;
-        }
-
-        .btn-secondary {
-            background-color: #ccc;
-            color: #333;
-            margin-top: 0.5rem;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #204ECF;
-            color: white;
-            margin-top: 2rem;
-        }
-
-        .footer a {
-            color: #FFD700;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
+        :root {
+            --blue-50: #f4fafe;
+            --blue-100: #cae6fc;
+            --blue-200: #a0d2fa;
+            --blue-300: #75bef8;
+            --blue-400: #4baaf5;
+            --blue-500: #2196f3;
+            --blue-600: #1c80cf;
+            --blue-700: #1769aa;
+            --blue-800: #125386;
+            --blue-900: #0d3c61;
+            --green-50: #f6fbf6;
+            --green-100: #d4ecd5;
+            --green-200: #b2ddb4;
+            --green-300: #90cd93;
+            --green-400: #6ebe71;
+            --green-500: #4caf50;
+            --green-600: #419544;
+            --green-700: #357b38;
+            --green-800: #2a602c;
+            --green-900: #1e4620;
+            --yellow-50: #fffcf5;
+            --yellow-100: #fef0cd;
+            --yellow-200: #fde4a5;
+            --yellow-300: #fdd87d;
+            --yellow-400: #fccc55;
+            --yellow-500: #fbc02d;
+            --yellow-600: #d5a326;
+            --yellow-700: #b08620;
+            --yellow-800: #8a6a19;
+            --yellow-900: #644d12;
+            --cyan-50: #f2fcfd;
+            --cyan-100: #c2eff5;
+            --cyan-200: #91e2ed;
+            --cyan-300: #61d5e4;
+            --cyan-400: #30c9dc;
+            --cyan-500: #00bcd4;
+            --cyan-600: #00a0b4;
+            --cyan-700: #008494;
+            --cyan-800: #006775;
+            --cyan-900: #004b55;
+            --pink-50: #fef4f7;
+            --pink-100: #fac9da;
+            --pink-200: #f69ebc;
+            --pink-300: #f1749e;
+            --pink-400: #ed4981;
+            --pink-500: #e91e63;
+            --pink-600: #c61a54;
+            --pink-700: #a31545;
+            --pink-800: #801136;
+            --pink-900: #5d0c28;
+            --indigo-50: #f5f6fb;
+            --indigo-100: #d1d5ed;
+            --indigo-200: #acb4df;
+            --indigo-300: #8893d1;
+            --indigo-400: #6372c3;
+            --indigo-500: #3f51b5;
+            --indigo-600: #36459a;
+            --indigo-700: #2c397f;
+            --indigo-800: #232d64;
+            --indigo-900: #192048;
+            --teal-50: #f2faf9;
+            --teal-100: #c2e6e2;
+            --teal-200: #91d2cc;
+            --teal-300: #61beb5;
+            --teal-400: #30aa9f;
+            --teal-500: #009688;
+            --teal-600: #008074;
+            --teal-700: #00695f;
+            --teal-800: #00534b;
+            --teal-900: #003c36;
+            --orange-50: #fff8f2;
+            --orange-100: #fde0c2;
+            --orange-200: #fbc791;
+            --orange-300: #f9ae61;
+            --orange-400: #f79530;
+            --orange-500: #f57c00;
+            --orange-600: #d06900;
+            --orange-700: #ac5700;
+            --orange-800: #874400;
+            --orange-900: #623200;
+            --bluegray-50: #f7f9f9;
+            --bluegray-100: #d9e0e3;
+            --bluegray-200: #bbc7cd;
+            --bluegray-300: #9caeb7;
+            --bluegray-400: #7e96a1;
+            --bluegray-500: #607d8b;
+            --bluegray-600: #526a76;
+            --bluegray-700: #435861;
+            --bluegray-800: #35454c;
+            --bluegray-900: #263238;
+            --purple-50: #faf4fb;
+            --purple-100: #e7cbec;
+            --purple-200: #d4a2dd;
+            --purple-300: #c279ce;
+            --purple-400: #af50bf;
+            --purple-500: #9c27b0;
+            --purple-600: #852196;
+            --purple-700: #6d1b7b;
+            --purple-800: #561561;
+            --purple-900: #3e1046;
+            --red-50: #fff5f5;
+            --red-100: #ffd1ce;
+            --red-200: #ffada7;
+            --red-300: #ff8980;
+            --red-400: #ff6459;
+            --red-500: #ff4032;
+            --red-600: #d9362b;
+            --red-700: #b32d23;
+            --red-800: #8c231c;
+            --red-900: #661a14;
+            --primary-50: #f4fafe;
+            --primary-100: #cae6fc;
+            --primary-200: #a0d2fa;
+            --primary-300: #75bef8;
+            --primary-400: #4baaf5;
+            --primary-500: #2196f3;
+            --primary-600: #1c80cf;
+            --primary-700: #1769aa;
+            --primary-800: #125386;
+            --primary-900: #0d3c61
         }
     </style>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const steps = document.querySelectorAll(".form-step");
-            let currentStep = 0;
-
-            const showStep = (index) => {
-                steps.forEach((step, i) => {
-                    step.classList.toggle("active", i === index);
-                });
-            };
-
-            const nextButton = document.getElementById("next-step");
-            const prevButton = document.getElementById("prev-step");
-
-            nextButton.addEventListener("click", () => {
-                if (currentStep < steps.length - 1) {
-                    currentStep++;
-                    showStep(currentStep);
-                }
-            });
-
-            prevButton.addEventListener("click", () => {
-                if (currentStep > 0) {
-                    currentStep--;
-                    showStep(currentStep);
-                }
-            });
-
-            showStep(currentStep);
-        });
-    </script>
+    <link rel="stylesheet" href="styles.d215365ec00f025f.css" media="print" onload="this.media='all'"><noscript>
+        <link rel="stylesheet" href="styles.d215365ec00f025f.css">
+    </noscript>
 </head>
 
 <body>
-    <main id="page-root">
-        <header class="header">
-            <a href="index.html" title="Matendo Medics" aria-label="Matendo Medics">
-                <img src="images/matelogo4.png" alt="Matendo Wordmark" class="logo" />
-            </a>
-        </header>
+    <app-root></app-root>
+    <script src="runtime.cefaf71314d25289.js" type="module"></script>
+    <script src="polyfills.418c24da48015d20.js" type="module"></script>
+    <script src="scripts.49ca66ca02623656.js" defer></script>
+    <script src="main.c55888b6ae257ddb.js" type="module"></script>
 
-        <section class="hero">
-            <h1>Register with Matendo Medics</h1>
-            <p>Join the world’s largest network of top medical professionals. Provide your details below to begin.</p>
-        </section>
+    <script src="https://www.google.com/recaptcha/enterprise.js" async="" defer>
+    </script>
 
-        <div class="form-container">
-            <form id="registration-form" method="post">
-                <!-- Step 1 -->
-                <div class="form-step active">
-                    <div class="form-group">
-                        <label for="profession">Profession</label>
-                        <select id="profession" name="profession" required>
-                            <option value="">Select your profession...</option>
-                            <option value="doctor">Doctor</option>
-                            <option value="nurse">Nurse</option>
-                            <option value="pharmacist">Pharmacist</option>
-                            <option value="researcher">Medical Researcher</option>
-                            <option value="admin">Healthcare Administrator</option>
-                        </select>
-                    </div>
+    <script async="" src="https://www.googletagmanager.com/gtag/js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+    </script>
 
-                    <div class="form-group">
-                        <label for="full-name">Full Name</label>
-                        <input id="full-name" name="fullName" type="text" placeholder="Full name" required />
-                    </div>
-
-                    <button type="button" id="next-step" class="btn">Next</button>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="form-step">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input id="email" name="email" type="email" placeholder="E-mail" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input id="password" name="password" type="password" placeholder="Password" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input id="confirm-password" name="passwordConfirmation" type="password" placeholder="Confirm password" required />
-                    </div>
-
-                    <button type="button" id="prev-step" class="btn btn-secondary">Previous</button>
-                    <button type="submit" class="btn">Register</button>
-                </div>
-            </form>
-        </div>
-
-        <footer class="footer">
-            <p>By registering, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
-        </footer>
-    </main>
 </body>
 
 </html>
