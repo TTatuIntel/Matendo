@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- FontAwesome Icons -->
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Roboto', sans-serif; /* Updated font */
+      background-color: #f0f4f8; /* Slightly darker background */
       margin: 0;
       padding: 0;
       display: flex;
@@ -19,101 +19,96 @@
 
     header {
       text-align: center;
-      margin-bottom: 20px; /* Slightly increased margin */
+      margin-bottom: 20px;
     }
 
     header h1 {
-      font-size: 2rem; /* Increased font size */
+      font-size: 2rem; /* Reduced font size */
       color: #204ECF;
       margin: 0;
     }
 
     header div {
-      font-size: 1rem; /* Increased font size */
+      font-size: 0.9rem; /* Reduced font size */
       color: gray;
-      margin-top: 7px; /* Increased margin */
+      margin-top: 7px;
     }
 
     form {
-      padding: 20px; /* Increased padding */
-      border-radius: 10px; /* Slightly increased border radius */
-      max-width: 380px; /* Increased form width */
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px; /* Increased form width */
       width: 100%;
-      background: none; /* Removed form background */
-      box-shadow: none; /* Removed form shadow */
-      text-align: center; /* Centered content inside form */
+      background: white; /* Added form background */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Added shadow */
+      text-align: center;
     }
 
     form div {
-      margin-bottom: 15px; /* Slightly increased margin */
+      margin-bottom: 15px;
     }
 
     input[type="text"],
     input[type="password"] {
       width: 100%;
-      padding: 10px; /* Increased padding */
+      padding: 10px; /* Reduced padding */
       border: 1px solid #ccc;
-      border-radius: 8px; /* Slightly increased border radius */
-      font-size: 1rem; /* Increased font size */
+      border-radius: 8px;
+      font-size: 0.9rem; /* Reduced font size */
       background-color: #f9f9f9;
-      transition: all 0.3s ease;
-      outline: none; /* Hide outline on focus */
+      transition: border-color 0.3s, box-shadow 0.3s; /* Added transition */
+      outline: none;
     }
 
     input[type="text"]:focus,
     input[type="password"]:focus {
       border-color: #204ECF;
-      box-shadow: none; /* Removed focus box shadow */
+      box-shadow: 0 0 5px rgba(32, 78, 207, 0.5); /* Added shadow on focus */
       background-color: #e8f0fe;
     }
 
     label {
-      font-size: 0.9rem; /* Increased font size */
+      font-size: 0.85rem; /* Reduced font size */
       color: #333;
     }
 
     .checkbox-label {
       display: flex;
       align-items: center;
-      gap: 8px; /* Increased gap */
-      font-size: 0.9rem; /* Increased font size */
+      gap: 8px;
+      font-size: 0.85rem; /* Reduced font size */
       color: #333;
     }
 
-    .checkbox-label input {
-      margin-right: 8px; /* Increased margin */
-    }
-
     .forgot-password {
-      font-size: 0.9rem; /* Increased font size */
+      font-size: 0.85rem; /* Reduced font size */
       color: #204ECF;
       text-decoration: none;
       margin-left: auto;
     }
 
-    /* Added .btn class for styling buttons */
     .btn {
-      width: 100%; /* Make the button take full width */
-      padding: 12px 0; /* Increased padding for medium button */
+      width: 100%;
+      padding: 10px 0; /* Reduced padding */
       background-color: #204ECF;
       color: white;
       border: none;
-      border-radius: 8px; /* Slightly increased border radius */
-      font-size: 1.1rem; /* Increased font size */
+      border-radius: 8px;
+      font-size: 1rem; /* Reduced font size */
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.3s ease;
-      margin: 15px 0; /* Increased margin */
+      margin: 15px 0;
     }
 
     .btn:hover {
       background-color: #183b9a;
-      transform: scale(1.05); /* Slightly larger hover effect */
+      transform: scale(1.03); /* Slightly smaller hover effect */
     }
 
     footer {
       text-align: center;
-      margin-top: 20px; /* Increased margin */
-      font-size: 1rem; /* Increased font size */
+      margin-top: 20px;
+      font-size: 0.9rem; /* Reduced font size */
       color: #666;
     }
 
@@ -127,12 +122,11 @@
       text-decoration: underline;
     }
 
-    /* Social login buttons without box */
     .social-login {
       display: flex;
       flex-direction: column;
-      gap: 10px; /* Increased gap */
-      margin-top: 15px; /* Increased margin above OR */
+      gap: 10px;
+      margin-top: 15px;
     }
 
     .social-login a {
@@ -140,32 +134,29 @@
       align-items: center;
       justify-content: flex-start;
       text-decoration: none;
-      font-size: 0.85rem; /* Slightly increased font size */
+      font-size: 0.8rem; /* Reduced font size */
       color: #333;
-      padding: 8px 0; /* Increased padding */
-      border-radius: 8px; /* Slightly increased border radius */
-      transition: transform 0.3s ease;
+      padding: 8px; /* Reduced padding */
+      border-radius: 8px;
+      transition: background-color 0.3s, transform 0.3s; /* Added transition */
     }
 
     .social-login a i {
-      margin-right: 10px; /* Increased margin */
-      font-size: 1.1rem; /* Increased icon size */
+      margin-right: 10px;
+      font-size: 1rem; /* Reduced icon size */
     }
 
     .social-login a:hover {
-      transform: scale(1.05); /* Slightly larger hover effect */
-    }
-
-    .social-login a:active {
-      transform: scale(0.98);
+      background-color: #f1f1f1; /* Light background on hover */
+      transform: scale(1.02);
     }
 
     .information {
       display: flex;
       justify-content: space-between;
-      font-size: 0.85rem; /* Slightly increased font size */
+      font-size: 0.8rem; /* Reduced font size */
       color: gray;
-      margin-top: 12px; /* Increased margin */
+      margin-top: 12px;
     }
 
     .information a {
@@ -178,30 +169,24 @@
     }
 
     .or-divider {
-      font-size: 1rem; /* Increased font size for 'OR' text */
-      margin: 12px 0; /* Increased margin above OR divider */
+      font-size: 0.9rem; /* Reduced font size */
+      margin: 12px 0;
       color: gray;
-      text-align: center; /* Centered OR text */
+      text-align: center;
     }
 
     @media (max-width: 480px) {
       form {
-        padding: 15px; /* Increased padding */
+        padding: 15px;
       }
 
       header h1 {
-        font-size: 1.8rem; /* Increased font size */
+        font-size: 1.8rem; /* Adjusted font size for smaller screens */
       }
 
       .btn {
-        font-size: 1rem; /* Increased font size */
-        padding: 10px 0; /* Increased padding for medium button */
-      }
-
-      .links-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        font-size: 0.9rem; /* Reduced font size */
+        padding: 8px 0; /* Reduced padding */
       }
 
       .information {
@@ -239,27 +224,27 @@
           <input type="checkbox" name="user[remember_me]" id="user_remember_me">
           Remember me
         </label>
-        <a href="#" class="forgot-password">Forgot password?</a> <!-- Forgot Password Link -->
+        <a href="#" class="forgot-password">Forgot password?</a>
       </div>       
       <div>
-        <button type="submit" class="btn">Log in</button> <!-- Apply btn class here -->
+        <button type="submit" class="btn">Log in</button>
       </div>
       <div class="or-divider">OR</div> 
 
       <div class="social-login">
         <a href="/users/auth/google">
-          <i class="fab fa-google" style="color: #DB4437;"></i> <!-- Google Icon with actual color -->
+          <i class="fab fa-google" style="color: #DB4437;"></i>
           Log in with Google
         </a>
         <a href="/users/auth/linkedin">
-          <i class="fab fa-linkedin" style="color: #0077B5;"></i> <!-- LinkedIn Icon with actual color -->
+          <i class="fab fa-linkedin" style="color: #0077B5;"></i>
           Sign in with LinkedIn
         </a>
       </div>       
     </form>
     <div>&copy; 2024 Matendo Medic</div>
     <footer>
-      
+      <!-- Additional footer content can go here -->
     </footer>
   </div>
 </body>
