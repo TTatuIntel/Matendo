@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Matendo Medics - Hire Medical Professionals</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs. Hire experts for full-time, part-time, or contract work." />
+  <title>Matendo Medics - Hire Medical Professionals</title>
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <style>
     body {
       font-family: 'Roboto', Arial, sans-serif;
@@ -15,6 +19,7 @@
       padding: 0;
     }
 
+    /* Navbar Styles */
     nav {
       position: fixed;
       top: 0;
@@ -30,6 +35,7 @@
       max-height: 40px;
     }
 
+    /* Form Styles */
     .form-container {
       max-width: 800px;
       margin: 100px auto 40px;
@@ -41,6 +47,7 @@
       animation: fadeIn 0.5s ease-in-out;
     }
 
+    /* Progress Bar Styles */
     .progress-bar {
       display: flex;
       justify-content: space-between;
@@ -85,6 +92,7 @@
       z-index: 10;
     }
 
+    /* Typography Styles */
     h1 {
       font-size: 26px;
       margin-bottom: 20px;
@@ -97,6 +105,7 @@
       text-align: center;
     }
 
+    /* Input/Field Styles */
     fieldset {
       border: none;
       margin-bottom: 20px;
@@ -134,6 +143,7 @@
       background-color: #1a3f9e;
     }
 
+    /* Footer Styles */
     footer {
       margin-top: 40px;
       background-color: #f6f8fb;
@@ -147,6 +157,7 @@
       display: none;
     }
 
+    /* Keyframes */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -158,6 +169,7 @@
       }
     }
 
+    /* Form Step Styles */
     .form-step {
       display: none;
       animation: fadeIn 0.5s ease-in-out;
@@ -167,6 +179,7 @@
       display: block;
     }
 
+    /* Checkbox Group Styles */
     .checkbox-group {
       display: flex;
       flex-wrap: wrap;
@@ -188,6 +201,7 @@
       accent-color: #204ecf;
     }
 
+    /* Responsive Design */
     @media (max-width: 768px) {
       .form-container {
         padding: 20px;
@@ -204,16 +218,20 @@
     }
   </style>
 </head>
+
 <body>
+  <!-- Navigation Bar -->
   <nav>
     <a href="index.html" title="Matendo Medics">
       <img src="images/matelogo4.png" alt="Matendo Wordmark">
     </a>
   </nav>
 
+  <!-- Main Content -->
   <main id="page-root">
     <section id="main">
       <div class="form-container">
+        <!-- Progress Bar -->
         <div class="progress-bar">
           <span class="active" id="progress-1" data-tooltip="Step 1: Role & Specialization"></span>
           <span id="progress-2" data-tooltip="Step 2: Project Description"></span>
@@ -221,9 +239,12 @@
           <span id="progress-4" data-tooltip="Step 4: Budget & Preferences"></span>
           <span id="progress-5" data-tooltip="Step 5: Contact Information"></span>
         </div>
+
+        <!-- Form Title and Description -->
         <h1>Hire Medical Professionals</h1>
         <p>At Matendo Medics, we provide access to certified, highly-skilled medical professionals. Please complete the form below to help us understand your needs.</p>
 
+        <!-- Form -->
         <form id="hire-form">
           <!-- Step 1 -->
           <div class="form-step active" id="step-1">
@@ -241,10 +262,14 @@
                 <option value="medical-researcher">Medical Researcher</option>
                 <option value="pharmacist">Pharmacist</option>
               </select>
+
+              <!-- Specialization Input -->
               <div id="specialization-question" class="hidden">
                 <label for="specialization">Specialization</label>
                 <input type="text" id="specialization" name="specialization" placeholder="E.g., Cardiologist">
               </div>
+
+              <!-- Next Button -->
               <button type="button" onclick="nextStep(1)">Next</button>
             </fieldset>
           </div>
@@ -322,10 +347,13 @@
               <legend>Step 5: Contact Information</legend>
               <label for="name">Your Name</label>
               <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
               <label for="email">Email Address</label>
               <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
               <label for="company">Company Name (Optional)</label>
               <input type="text" id="company" name="company" placeholder="Enter company name">
+
               <button type="submit">Submit</button>
             </fieldset>
           </div>
@@ -334,10 +362,12 @@
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
     &copy; 2024 Matendo Medics. All Rights Reserved.
   </footer>
 
+  <!-- Scripts -->
   <script>
     function handleRoleChange(event) {
       const role = event.target.value;

@@ -131,6 +131,15 @@
             transition: width 0.5s ease-out;
         }
 
+        /* Message Box */
+        .progress-message {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-top: 10px;
+            text-align: center;
+        }
+
         /* Submit Button */
         button {
             background-color: #204ECF;
@@ -143,6 +152,60 @@
 
         button:hover {
             background-color: #799ae8;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #204ECF;
+            margin-bottom: 10px;
+        }
+
+        .modal-body {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .modal-footer {
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         /* Footer */
@@ -183,109 +246,120 @@
         <div style="display: flex; justify-content: space-between; padding: 10px 20px;">
             <a href="index.html" title="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
-            </a>
-            <div class="flex">
-                <a href="join.html" class="text-brand-green-darker hover:underline" style="margin-right: 20px;">Join Matendo</a>
-                <a href="login.html" class="text-brand-blue-darker hover:underline">Login</a>
-            </div>
+            </a>           
         </div>
     </nav>
 
-    <!-- Form -->
-    <form id="join-us-form" action="#" method="post" style="max-width: 900px; margin: 40px auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-        <!-- Progress Bar -->
-        <div class="progress-container">
-            <div id="progress-bar" class="progress-bar"></div>
+  <!-- Form -->
+  <form id="join-us-form" action="#" method="post" style="max-width: 900px; margin: 40px auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <!-- Personal Information -->
+    <section id="personal-info">
+        <button type="button" class="collapsible" aria-expanded="false">
+            <span>Personal Information</span>
+            <span class="arrow closed">➔</span>
+        </button>
+        <div class="content">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="fullName" placeholder="Enter your full name" required oninput="updateProgress()" />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" oninput="updateProgress()" />
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\+?[0-9]{1,4}?[0-9]{7,15}" oninput="updateProgress()" />
         </div>
+        
+    </section>
 
-        <!-- Personal Information -->
-        <section id="personal-info">
-            <button type="button" class="collapsible" aria-expanded="false">
-                <span>Personal Information</span>
-                <span class="arrow closed">➔</span>
-            </button>
-            <div class="content">
-                <label for="full-name">Full Name</label>
-                <input type="text" id="full-name" name="fullName" placeholder="Enter your full name" required oninput="updateProgress()" />
+    <!-- Contact Details -->
+    <section id="contact-details">
+        <button type="button" class="collapsible" aria-expanded="false">
+            <span>Contact Details</span>
+            <span class="arrow closed">➔</span>
+        </button>
+        <div class="content">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required oninput="updateProgress()" />
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" oninput="updateProgress()" />
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" placeholder="Enter your city" required oninput="updateProgress()" />
 
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\+?[0-9]{1,4}?[0-9]{7,15}" oninput="updateProgress()" />
+            <label for="zip-code">Zip Code</label>
+            <input type="text" id="zip-code" name="zipCode" placeholder="Enter your zip code" required oninput="updateProgress()" />
+        </div>
+        
+    </section>
+
+    <!-- Job Preferences -->
+    <section id="job-preferences">
+        <button type="button" class="collapsible" aria-expanded="false">
+            <span>Job Preferences</span>
+            <span class="arrow closed">➔</span>
+        </button>
+        <div class="content">
+            <label for="profession">Profession</label>
+            <select id="profession" name="profession" required onchange="updateProgress()">
+                <option value="doctor">Doctor</option>
+                <option value="nurse">Nurse</option>
+                <option value="pharmacist">Pharmacist</option>
+                <option value="researcher">Medical Researcher</option>
+                <option value="administrator">Healthcare Administrator</option>
+            </select>
+
+            <label for="availability">Availability</label>
+            <input type="date" id="availability" name="availability" required onchange="updateProgress()" />
+        </div>
+        
+    </section>
+
+    <!-- Upload Documents -->
+    <section id="upload-documents">
+        <button type="button" class="collapsible" aria-expanded="false">
+            <span>Upload Documents</span>
+            <span class="arrow closed">➔</span>
+        </button>
+        <div class="content">
+            <label for="resume">Resume/CV</label>
+            <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx" required onchange="updateProgress()" />
+            <small>Accepted file types: PDF, DOC, DOCX</small>
+
+            <label for="certificates">Certificates</label>
+            <input type="file" id="certificates" name="certificates" accept=".pdf, .doc, .docx" required onchange="updateProgress()" />
+            <small>Accepted file types: PDF, DOC, DOCX</small>
+        </div>
+        
+    </section>
+
+    <!-- Terms and Conditions -->
+    <section id="terms-conditions">
+        <div class="checkbox-container">
+            <input type="checkbox" name="terms" required onchange="updateProgress()" />
+            <label for="terms">I accept the <a href="terms.html" style="color: #204ECF;">Terms & Conditions</a></label>
+        </div>
+    </section>
+
+    <button type="submit">Join Now</button>
+</form>
+
+    <!-- Modal Pop-up -->
+    <div id="popup-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                Form Update
             </div>
-            
-        </section>
-
-        <!-- Contact Details -->
-        <section id="contact-details">
-            <button type="button" class="collapsible" aria-expanded="false">
-                <span>Contact Details</span>
-                <span class="arrow closed">➔</span>
-            </button>
-            <div class="content">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="Enter your address" required oninput="updateProgress()" />
-
-                <label for="city">City</label>
-                <input type="text" id="city" name="city" placeholder="Enter your city" required oninput="updateProgress()" />
-
-                <label for="zip-code">Zip Code</label>
-                <input type="text" id="zip-code" name="zipCode" placeholder="Enter your zip code" required oninput="updateProgress()" />
+            <div class="modal-body" id="popup-message">
+                You're making progress! Keep going.
             </div>
-            
-        </section>
-
-        <!-- Job Preferences -->
-        <section id="job-preferences">
-            <button type="button" class="collapsible" aria-expanded="false">
-                <span>Job Preferences</span>
-                <span class="arrow closed">➔</span>
-            </button>
-            <div class="content">
-                <label for="profession">Profession</label>
-                <select id="profession" name="profession" required onchange="updateProgress()">
-                    <option value="doctor">Doctor</option>
-                    <option value="nurse">Nurse</option>
-                    <option value="pharmacist">Pharmacist</option>
-                    <option value="researcher">Medical Researcher</option>
-                    <option value="administrator">Healthcare Administrator</option>
-                </select>
-
-                <label for="availability">Availability</label>
-                <input type="date" id="availability" name="availability" required onchange="updateProgress()" />
+            <div class="modal-footer">
+                <span class="close">&times;</span>
             </div>
-            
-        </section>
-
-        <!-- Upload Documents -->
-        <section id="upload-documents">
-            <button type="button" class="collapsible" aria-expanded="false">
-                <span>Upload Documents</span>
-                <span class="arrow closed">➔</span>
-            </button>
-            <div class="content">
-                <label for="resume">Resume/CV</label>
-                <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx" required onchange="updateProgress()" />
-                <small>Accepted file types: PDF, DOC, DOCX</small>
-
-                <label for="certificates">Certificates</label>
-                <input type="file" id="certificates" name="certificates" accept=".pdf, .doc, .docx" required onchange="updateProgress()" />
-                <small>Accepted file types: PDF, DOC, DOCX</small>
-            </div>
-            
-        </section>
-
-        <!-- Terms and Conditions -->
-        <section id="terms-conditions">
-            <div class="checkbox-container">
-                <input type="checkbox" name="terms" required onchange="updateProgress()" />
-                <label for="terms">I accept the <a href="terms.html" style="color: #204ECF;">Terms & Conditions</a></label>
-            </div>
-        </section>
-
-        <button type="submit">Join Now</button>
-    </form>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -309,26 +383,77 @@
             });
         });
 
-        // Progress Bar Update Functionality
+        // Progress Bar and Message Update Functionality
         function updateProgress() {
             let progress = 0;
-            const totalSections = 5;
-            const completedSections = [
+
+            // Personal Information (3 fields)
+            const personalInfoFilled = [
                 document.getElementById('full-name').value,
                 document.getElementById('email').value,
-                document.getElementById('phone').value,
-                document.getElementById('address').value,
-                document.getElementById('city').value,
-                document.getElementById('zip-code').value,
-                document.getElementById('profession').value,
-                document.getElementById('availability').value,
-                document.getElementById('resume').files.length,
-                document.getElementById('certificates').files.length,
-                document.getElementById('terms').checked
+                document.getElementById('phone').value
             ].filter(val => val).length;
 
-            progress = (completedSections / totalSections) * 100;
+            // Contact Details (3 fields)
+            const contactDetailsFilled = [
+                document.getElementById('address').value,
+                document.getElementById('city').value,
+                document.getElementById('zip-code').value
+            ].filter(val => val).length;
+
+            // Other Information (2 fields)
+            const otherInfoFilled = [
+                document.getElementById('medical-specialty').value,
+                document.getElementById('experience').value
+            ].filter(val => val).length;
+
+            // Count the total filled fields
+            const totalFilled = personalInfoFilled + contactDetailsFilled + otherInfoFilled;
+            const totalFields = 8;  // Total fields across all sections
+
+            // Calculate progress
+            progress = (totalFilled / totalFields) * 100;
+
+            // Update progress bar width
             document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            // Update progress message
+            const progressMessage = document.getElementById('progress-message');
+            if (progress === 0) {
+                progressMessage.textContent = "Please fill in the form to get started.";
+            } else if (progress < 50) {
+                progressMessage.textContent = "You're making progress, keep going!";
+            } else if (progress < 100) {
+                progressMessage.textContent = "Almost there, just a few more steps!";
+            } else {
+                progressMessage.textContent = "Great job! You're all set.";
+            }
+
+            // Show Modal Pop-up for updates
+            if (progress > 0) {
+                showModal("You're making progress! Keep going.");
+            }
+        }
+
+        // Modal functionality
+        function showModal(message) {
+            const modal = document.getElementById("popup-modal");
+            const popupMessage = document.getElementById("popup-message");
+            const closeButton = document.querySelector(".close");
+
+            popupMessage.textContent = message;
+            modal.style.display = "block";
+
+            closeButton.onclick = function() {
+                modal.style.display = "none";
+            };
+
+            // Close the modal if the user clicks anywhere outside the modal
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
         }
     </script>
 </body>
