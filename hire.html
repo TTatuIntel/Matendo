@@ -64,6 +64,10 @@
       background-color: #204ecf;
     }
 
+    .progress-bar span.completed {
+      background-color: #28a745;
+    }
+
     .progress-bar span:hover::after {
       content: attr(data-tooltip);
       position: absolute;
@@ -164,14 +168,22 @@
     .checkbox-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin: 0; /* Reduced space above and below the checkboxes */
+      gap: 20px;
+      margin: 0;
     }
 
     .checkbox-group label {
-      width: auto;
-      margin: 0; /* Reduced space above and below the checkboxes */
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-weight: normal;
+      margin: 0;
+      width: auto;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin: 0;
+      accent-color: #204ecf;
     }
 
     @media (max-width: 768px) {
@@ -211,11 +223,12 @@
         <p>At Matendo Medics, we provide access to certified, highly-skilled medical professionals. Please complete the form below to help us understand your needs.</p>
 
         <form id="hire-form">
+          <!-- Step 1 -->
           <div class="form-step active" id="step-1">
             <fieldset>
               <legend>Step 1: Role & Specialization</legend>
               <label for="role">Medical Professional Needed</label>
-              <select id="role" name="role" onchange="handleRoleChange(event)" required>
+              <select id="role" name="role" onchange="handleRoleChange(event)" required aria-describedby="roleHelp">
                 <option value="">Select a role</option>
                 <option value="doctor">Doctor</option>
                 <option value="specialist">Specialist</option>
@@ -234,6 +247,7 @@
             </fieldset>
           </div>
 
+          <!-- Step 2 -->
           <div class="form-step" id="step-2">
             <fieldset>
               <legend>Step 2: Project Description</legend>
@@ -257,6 +271,7 @@
             </fieldset>
           </div>
 
+          <!-- Step 3 -->
           <div class="form-step" id="step-3">
             <fieldset>
               <legend>Step 3: Time Commitment</legend>
@@ -279,11 +294,13 @@
             </fieldset>
           </div>
 
+          <!-- Step 4 -->
           <div class="form-step" id="step-4">
             <fieldset>
               <legend>Step 4: Budget & Preferences</legend>
               <label for="budget">Budget</label>
-              <input type="number" id="budget" name="budget" placeholder="Enter budget in USD" required>
+              <input type="number" id="budget" name="budget" placeholder="Enter budget in USD" required aria-describedby="budgetHelp" min="0">
+              <span id="budgetHelp" class="hidden">Please enter a positive number for the budget.</span>
 
               <label>Additional Preferences</label>
               <div class="checkbox-group">
@@ -293,11 +310,11 @@
                 <label><input type="checkbox" name="preferences" value="Location preference"> Location preference</label>
                 <label><input type="checkbox" name="preferences" value="Shift preference"> Shift preference</label>
               </div>
-
               <button type="button" onclick="nextStep(4)">Next</button>
             </fieldset>
           </div>
 
+          <!-- Step 5 -->
           <div class="form-step" id="step-5">
             <fieldset>
               <legend>Step 5: Contact Information</legend>
@@ -332,22 +349,15 @@
 
     function nextStep(currentStep) {
       document.getElementById('step-' + currentStep).classList.remove('active');
+      document.getElementById('progress-' + currentStep).classList.add('completed');
       document.getElementById('progress-' + currentStep).classList.remove('active');
 
       const nextStep = document.getElementById('step-' + (currentStep + 1));
       const nextProgress = document.getElementById('progress-' + (currentStep + 1));
 
-      if (nextStep) {
-        nextStep.classList.add('active');
-        nextProgress.classList.add('active');
-      }
+      nextStep.classList.add('active');
+      nextProgress.classList.add('active');
     }
-
-    document.getElementById('hire-form').addEventListener('submit', function (event) {
-      event.preventDefault();
-      alert('Thank you! Your request has been successfully submitted. Returning to the main page.');
-      window.location.href = 'index.html';
-    });
   </script>
 </body>
 </html>
