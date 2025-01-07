@@ -10,7 +10,8 @@
         content="Join Matendo Medics, a global network of top medical professionals connecting with leading hospitals and clinics worldwide." />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
-    <style>
+
+        <style>
         /* Global Reset */
         * {
             box-sizing: border-box;
@@ -242,109 +243,250 @@
 
 <body>
     <!-- Navigation -->
-    <nav id="nav" aria-label="Main Navigation" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
-        <div style="display: flex; justify-content: space-between; padding: 10px 20px;">
+    <nav id="nav" aria-label="Main Navigation">
+        <div>
             <a href="index.html" title="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
             </a>           
         </div>
     </nav>
 
-  <!-- Form -->
-  <form id="join-us-form" action="#" method="post" style="max-width: 900px; margin: 40px auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div id="progress-bar" class="progress-bar"></div>
-    </div>
-
-    <!-- Personal Information -->
-    <section id="personal-info">
-        <button type="button" class="collapsible" aria-expanded="false">
-            <span>Personal Information</span>
-            <span class="arrow closed">➔</span>
-        </button>
-        <div class="content">
-            <label for="full-name">Full Name</label>
-            <input type="text" id="full-name" name="fullName" placeholder="Enter your full name" required oninput="updateProgress()" />
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" oninput="updateProgress()" />
-
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\+?[0-9]{1,4}?[0-9]{7,15}" oninput="updateProgress()" />
+    <!-- Form -->
+    <form id="join-us-form" action="#" method="post">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
         </div>
-        
-    </section>
 
-    <!-- Contact Details -->
-    <section id="contact-details">
-        <button type="button" class="collapsible" aria-expanded="false">
-            <span>Contact Details</span>
-            <span class="arrow closed">➔</span>
-        </button>
-        <div class="content">
-            <label for="address">Address</label>
-            <input type="text" id="address" name="address" placeholder="Enter your address" required oninput="updateProgress()" />
+        <!-- Personal Information -->
+        <section id="personal-info">
+            <button type="button" class="collapsible" aria-expanded="false">
+                <span>Personal Information</span>
+                <span class="arrow closed">➞</span>
+            </button>
+            <div class="content">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="firstName" placeholder="Enter your first name" required />
 
-            <label for="city">City</label>
-            <input type="text" id="city" name="city" placeholder="Enter your city" required oninput="updateProgress()" />
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="lastName" placeholder="Enter your last name" required />
 
-            <label for="zip-code">Zip Code</label>
-            <input type="text" id="zip-code" name="zipCode" placeholder="Enter your zip code" required oninput="updateProgress()" />
-        </div>
-        
-    </section>
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required />
 
-    <!-- Job Preferences -->
-    <section id="job-preferences">
-        <button type="button" class="collapsible" aria-expanded="false">
-            <span>Job Preferences</span>
-            <span class="arrow closed">➔</span>
-        </button>
-        <div class="content">
-            <label for="profession">Profession</label>
-            <select id="profession" name="profession" required onchange="updateProgress()">
-                <option value="doctor">Doctor</option>
-                <option value="nurse">Nurse</option>
-                <option value="pharmacist">Pharmacist</option>
-                <option value="researcher">Medical Researcher</option>
-                <option value="administrator">Healthcare Administrator</option>
-            </select>
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
 
-            <label for="availability">Availability</label>
-            <input type="date" id="availability" name="availability" required onchange="updateProgress()" />
-        </div>
-        
-    </section>
+                <label for="nationality">Nationality</label>
+                <input type="text" id="nationality" name="nationality" placeholder="Enter your nationality" required />
 
-    <!-- Upload Documents -->
-    <section id="upload-documents">
-        <button type="button" class="collapsible" aria-expanded="false">
-            <span>Upload Documents</span>
-            <span class="arrow closed">➔</span>
-        </button>
-        <div class="content">
-            <label for="resume">Resume/CV</label>
-            <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx" required onchange="updateProgress()" />
-            <small>Accepted file types: PDF, DOC, DOCX</small>
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\+?[0-9]{1,4}?[0-9]{7,15}" />
 
-            <label for="certificates">Certificates</label>
-            <input type="file" id="certificates" name="certificates" accept=".pdf, .doc, .docx" required onchange="updateProgress()" />
-            <small>Accepted file types: PDF, DOC, DOCX</small>
-        </div>
-        
-    </section>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
 
-    <!-- Terms and Conditions -->
-    <section id="terms-conditions">
-        <div class="checkbox-container">
-            <input type="checkbox" name="terms" required onchange="updateProgress()" />
-            <label for="terms">I accept the <a href="terms.html" style="color: #204ECF;">Terms & Conditions</a></label>
-        </div>
-    </section>
+                <label for="address">Current Address (City, State/Region, Country)</label>
+                <input type="text" id="address" name="address" placeholder="Enter your current address" required />
 
-    <button type="submit">Join Now</button>
-</form>
+                <label for="id-info">Identification Information</label>
+                <select id="id-info" name="idInfo" required>
+                    <option value="passport">Passport Number</option>
+                    <option value="national-id">National ID Number</option>
+                    <option value="other">Other</option>
+                </select>
+                <input type="text" id="id-number" name="idNumber" placeholder="Enter the ID number" required />
+            </div>
+        </section>
+
+        <!-- Professional Information -->
+        <section id="professional-info">
+            <button type="button" class="collapsible" aria-expanded="false">
+                <span>Professional Information</span>
+                <span class="arrow closed">➞</span>
+            </button>
+            <div class="content">
+                <label for="position">Position Applying For</label>
+                <select id="position" name="position" required>
+                    <option value="medical-officer">Medical Officer</option>
+                    <option value="nurse">Nurse/Midwife</option>
+                    <option value="lab-tech">Lab Technologist/Technician</option>
+                    <option value="radiographer">Radiographer</option>
+                    <option value="pharmacist">Pharmacist</option>
+                    <option value="pharmacy-dispenser">Pharmacy Dispenser</option>
+                    <option value="other">Other</option>
+                </select>
+                <input type="text" id="other-position" name="otherPosition" placeholder="Specify if other" />
+
+                <label for="licensure">Professional Registration/Licensure Number</label>
+                <input type="text" id="licensure" name="licensure" placeholder="Enter your registration/licensure number" required />
+
+                <label for="experience">Years of Relevant Experience</label>
+                <input type="number" id="experience" name="experience" placeholder="Enter years of experience" required />
+
+                <label for="education">Highest Educational Qualification</label>
+                <select id="education" name="education" required>
+                    <option value="diploma">Diploma</option>
+                    <option value="bachelor">Bachelor’s Degree</option>
+                    <option value="master">Master’s Degree</option>
+                    <option value="phd">PhD/Doctorate</option>
+                    <option value="other">Other</option>
+                </select>
+                <input type="text" id="other-education" name="otherEducation" placeholder="Specify if other" />
+
+                <label for="institutions">Institutions Attended and Year of Graduation</label>
+                <input type="text" id="institution1" name="institution1" placeholder="Institution 1" />
+                <input type="text" id="year1" name="year1" placeholder="Year" />
+                <input type="text" id="institution2" name="institution2" placeholder="Institution 2 (if applicable)" />
+                <input type="text" id="year2" name="year2" placeholder="Year" />
+            </div>
+        </section>
+
+        <!-- Employment Details -->
+        <section id="employment-details">
+            <button type="button" class="collapsible" aria-expanded="false">
+                <span>Employment Details</span>
+                <span class="arrow closed">➞</span>
+            </button>
+            <div class="content">
+                <label for="employer">Current/Most Recent Employer</label>
+                <input type="text" id="employer" name="employer" placeholder="Enter your current/most recent employer" />
+
+                <label for="position-held">Position Held</label>
+                <input type="text" id="position-held" name="positionHeld" placeholder="Enter your position" />
+
+                <label for="employment-duration">Duration of Employment</label>
+                <input type="text" id="employment-duration" name="employmentDuration" placeholder="Enter start and end dates" />
+
+                <label for="reason-leaving">Reason for Leaving</label>
+                <input type="text" id="reason-leaving" name="reasonLeaving" placeholder="Enter reason for leaving (if applicable)" />
+            </div>
+        </section>
+
+        <!-- Skills and Certifications -->
+        <section id="skills-certifications">
+            <button type="button" class="collapsible" aria-expanded="false">
+                <span>Skills and Certifications</span>
+                <span class="arrow closed">➞</span>
+            </button>
+            <div class="content">
+                <label for="skills">Relevant Skills</label>
+                <input type="text" id="skills" name="skills" placeholder="Enter relevant skills" />
+
+                <label for="certifications">Additional Certifications</label>
+                <input type="text" id="certifications" name="certifications" placeholder="Enter additional certifications" />
+            </div>
+        </section>
+
+        <!-- Availability -->
+        <section id="availability">
+            <button type="button" class="collapsible" aria-expanded="false">
+                <span>Availability</span>
+                <span class="arrow closed">➞</span>
+            </button>
+            <div class="content">
+                <label for="work-type">Preferred Work Type</label>
+                <select id="work-type" name="workType" required>
+                    <option value="short-term">Short-Term (less than 3 months)</option>
+                    <option value="part-time">Part-Time</option>
+                    <option value="full-time">Full-Time</option>
+                </select>
+
+                <label for="start-date">Preferred Start Date</label>
+                <input type="date" id="start-date" name="startDate" required />
+
+                <label for="shifts">Shift Preferences</label>
+                <div>
+                    <input type="checkbox" id="day-shift" name="shift" value="day">
+                    <label for="day-shift">Day Shift</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="night-shift" name="shift" value="night">
+                    <label for="night-shift">Night Shift</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="rotating-shifts" name="shift" value="rotating">
+                    <label for="rotating-shifts">Rotating Shifts</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- References -->
+        <section id="references">
+            <button type="button" class="collapsible" aria-expanded="false">
+                <span>References</span>
+                <span class="arrow closed">➞</span>
+            </button>
+            <div class="content">
+                <label for="reference1-name">Reference 1 Name</label>
+                <input type="text" id="reference1-name" name="reference1Name" placeholder="Enter the name of reference 1" />
+                <label for="reference1-position">Reference 1 Position</label>
+                <input type="text" id="reference1-position" name="reference1Position" placeholder="Enter the position of reference 1" />
+                <label for="reference1-contact">Reference 1 Contact Number</label>
+                <input type="tel" id="reference1-contact" name="reference1Contact" placeholder="Enter the contact number of reference 1" pattern="\+?[0-9]{1,4}?[0-9]{7,15}" />
+                <label for="reference1-email">Reference 1 Email</label>
+                <input type="email" id="reference1-email" name="reference1Email" placeholder="Enter the email of reference 1" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+
+                <label for="reference2-name">Reference 2 Name</label>
+                <input type="text" id="reference2-name" name="reference2Name" placeholder="Enter the name of reference 2" />
+                <label for="reference2-position">Reference 2 Position</label>
+                <input type="text" id="reference2-position" name="reference2Position" placeholder="Enter the position of reference 2" />
+                <label for="reference2-contact">Reference 2 Contact Number</label>
+                <input type="tel" id="reference2-contact" name="reference2Contact" placeholder="Enter the contact number of reference 2" pattern="\+?[0-9]{1,4}?[0-9]{7,15}" />
+                <label for="reference2-email">Reference 2 Email</label>
+                <input type="email" id="reference2-email" name="reference2Email" placeholder="Enter the email of reference 2" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+            </div>
+        </section>
+
+        <!-- Supporting Documents -->
+        <section id="supporting-documents">
+            <button type="button" class="collapsible" aria-expanded="false">
+                <span>Supporting Documents</span>
+                <span class="arrow closed">➞</span>
+            </button>
+            <div class="content">
+                <label for="resume">Resume/CV</label>
+                <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx" required />
+                <small>Accepted file types: PDF, DOC, DOCX</small>
+
+                <label for="cover-letter">Cover Letter</label>
+                <input type="file" id="cover-letter" name="coverLetter" accept=".pdf, .doc, .docx" />
+                <small>Accepted file types: PDF, DOC, DOCX</small>
+
+                <label for="license">Professional License/Registration</label>
+                <input type="file" id="license" name="license" accept=".pdf, .jpg, .png" />
+                <small>Accepted file types: PDF, JPG, PNG</small>
+
+                <label for="certificates">Academic Certificates</label>
+                <input type="file" id="certificates" name="certificates" accept=".pdf, .jpg, .png" />
+                <small>Accepted file types: PDF, JPG, PNG</small>
+
+                <label for="additional-certifications">Additional Certifications</label>
+                <input type="file" id="additional-certifications" name="additionalCertifications" accept=".pdf, .jpg, .png" />
+                <small>Accepted file types: PDF, JPG, PNG</small>
+            </div>
+        </section>
+
+        <!-- Declaration -->
+        <section id="declaration">
+            <label class="checkbox-container">
+                <input type="checkbox" name="declaration" required />
+                I confirm that the information provided is true and accurate to the best of my knowledge.
+            </label>
+
+            <label for="signature">Applicant's Signature (Optional)</label>
+            <input type="text" id="signature" name="signature" placeholder="Enter your signature" />
+
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required />
+        </section>
+
+        <button type="submit">Join Now</button>
+    </form>
 
     <!-- Modal Pop-up -->
     <div id="popup-modal" class="modal">
@@ -389,7 +531,7 @@
 
             // Personal Information (3 fields)
             const personalInfoFilled = [
-                document.getElementById('full-name').value,
+                document.getElementById('first-name').value,
                 document.getElementById('email').value,
                 document.getElementById('phone').value
             ].filter(val => val).length;
@@ -403,7 +545,7 @@
 
             // Other Information (2 fields)
             const otherInfoFilled = [
-                document.getElementById('medical-specialty').value,
+                document.getElementById('position').value,
                 document.getElementById('experience').value
             ].filter(val => val).length;
 
@@ -457,5 +599,4 @@
         }
     </script>
 </body>
-
 </html>
