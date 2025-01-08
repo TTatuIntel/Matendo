@@ -10,6 +10,7 @@
         content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs. Hire experts for full-time, part-time, or contract work." />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
+  
 </head>
 
 <body>
@@ -29,240 +30,276 @@
         <!-- Form -->
         <form id="hire-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="post" target="_self">
             <!-- Contact Information -->
-            <section id="contact-info">
+            <section id="contact-info" data-step="1">
                 <button type="button" class="collapsible" aria-expanded="false">
                     <span>Contact Information</span>
-                    <span class="arrow closed">➞</span>
+                    <span class="arrow">➞</span>
                 </button>
                 <div class="content">
+                    <div class="guidance-message">
+                        Please provide accurate contact information for your facility. This information will be used to communicate with you regarding your hiring request.
+                    </div>
                     <div class="input-pair">
                         <div>
                             <label for="name">Facility Name</label>
-                            <input type="text" id="name" name="entry.123456789" placeholder="Enter facility name" required>
+                            <input type="text" id="name" name="entry.123456789" placeholder="Enter facility name" required size="20">
                         </div>
                         <div>
                             <label for="location">Location</label>
-                            <input type="text" id="location" name="entry.987654321" placeholder="City, State, Country" required>
+                            <input type="text" id="location" name="entry.987654321" placeholder="City, State/Region, Country" required size="30">
                         </div>
                     </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="contactPerson">Contact Person</label>
-                            <input type="text" id="contactPerson" name="entry.246813579" placeholder="Enter contact name" required>
-                        </div>
-                        <div>
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="entry.135792468" placeholder="Enter phone number" required 
-                                pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="entry.369258147" placeholder="Enter email address" required 
-                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-                        </div>
-                        <div>
-                            <label for="emergencyContact">Emergency Contact</label>
-                            <input type="text" id="emergencyContact" name="entry.741852963" placeholder="Optional emergency contact">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Facility Information -->
-            <section id="facility-info">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Facility Information</span>
-                    <span class="arrow closed">➞</span>
-                </button>
-                <div class="content">
                     <div class="input-pair">
                         <div>
                             <label for="pin">Facility PIN</label>
-                            <input type="text" id="pin" name="entry.159753456" placeholder="Enter facility PIN if applicable">
+                            <input type="text" id="pin" name="entry.246813579" placeholder="Enter PIN if applicable" size="15">
                         </div>
                         <div>
-                            <label for="facilityType">Facility Type</label>
-                            <select id="facilityType" name="entry.951753852" required>
-                                <option value="">Select type</option>
-                                <option value="hospital">Hospital</option>
-                                <option value="clinic">Clinic</option>
-                                <option value="laboratory">Laboratory</option>
-                                <option value="pharmacy">Pharmacy</option>
-                                <option value="other">Other</option>
-                            </select>
+                            <label for="contactPerson">Facility Contact Person</label>
+                            <input type="text" id="contactPerson" name="entry.135792468" placeholder="Enter contact person" required size="25">
                         </div>
                     </div>
                     <div class="input-pair">
-                        <div id="other-facility-type-container" style="display: none;">
-                            <label for="otherFacilityType">Specify Facility Type</label>
-                            <input type="text" id="otherFacilityType" name="entry.357159852" placeholder="Specify other type">
+                        <div>
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="entry.369258147" placeholder="Enter phone number" required 
+                                pattern="\+?[0-9]{1,4}?[0-9]{7,15}" size="15">
+                        </div>
+                        <div>
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="entry.741852963" placeholder="Enter email address" required 
+                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" size="30">
+                        </div>
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="emergencyContact">Emergency Contact Information (Optional)</label>
+                            <input type="text" id="emergencyContact" name="entry.159753456" placeholder="Enter emergency contact" size="30">
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Position Requirements -->
-            <section id="position-requirements">
+            <!-- Workplace Information -->
+            <section id="workplace-info" data-step="2">
                 <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Position Requirements</span>
-                    <span class="arrow closed">➞</span>
+                    <span>Workplace Information</span>
+                    <span class="arrow">➞</span>
                 </button>
                 <div class="content">
-                    <div class="input-pair">
-                        <div>
-                            <label for="positions">Positions Required</label>
-                            <select id="positions" name="entry.753951852" multiple required>
-                                <option value="Medical Officers">Medical Officers</option>
-                                <option value="Nurses/Midwives">Nurses/Midwives</option>
-                                <option value="Lab Technologists/Technicians">Lab Technologists/Technicians</option>
-                                <option value="Radiographers">Radiographers</option>
-                                <option value="Pharmacy Dispensers">Pharmacy Dispensers</option>
-                                <option value="Pharmacists">Pharmacists</option>
-                                <option value="Credit Control Specialists">Credit Control Specialists</option>
-                                <option value="Billing Specialists">Billing Specialists</option>
-                                <option value="Receptionists">Receptionists</option>
-                                <option value="Cashiers">Cashiers</option>
-                                <option value="Laundry Staff">Laundry Staff</option>
-                                <option value="Plumbers">Plumbers</option>
-                                <option value="Electricians">Electricians</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div id="other-position-container" style="display: none;">
-                            <label for="otherPosition">Specify Other Position</label>
-                            <input type="text" id="otherPosition" name="entry.159753654" placeholder="Enter specific position">
-                        </div>
+                    <div class="guidance-message">
+                        Select the type of facility you operate. This helps us understand your specific needs and match you with appropriate staff.
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="staffNumber">Number of Staff Needed</label>
-                            <input type="number" id="staffNumber" name="entry.951753654" placeholder="Number per position" required>
+                            <label>Type of Facility</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="facilityType" value="Hospital"> Hospital</label>
+                                <label><input type="checkbox" name="facilityType" value="Clinic"> Clinic</label>
+                                <label><input type="checkbox" name="facilityType" value="Laboratory"> Laboratory</label>
+                                <label><input type="checkbox" name="facilityType" value="Pharmacy"> Pharmacy</label>
+                                <label><input type="checkbox" name="facilityType" value="Other" id="otherFacilityType"> Other</label>
+                            </div>
                         </div>
-                        <div>
-                            <label for="startDate">Preferred Start Date</label>
-                            <input type="date" id="startDate" name="entry.357159654" required>
+                        <div id="otherFacilityTypeContainer" style="display: none;">
+                            <label for="otherFacilityTypeInput">Specify Other Facility Type</label>
+                            <input type="text" id="otherFacilityTypeInput" name="entry.357159852" placeholder="Specify other type" size="20">
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Position(s) Required -->
+            <section id="positions-required" data-step="3">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Position(s) Required</span>
+                    <span class="arrow">➞</span>
+                </button>
+                <div class="content">
+                    <div class="guidance-message">
+                        Select all positions you need to fill. If you need a position not listed, please use the "Other" option and specify.
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="qualifications">Qualifications/Experience Required</label>
-                            <textarea id="qualifications" name="entry.753951654" placeholder="Certifications, years of experience" required></textarea>
+                            <label>Clinical Staff</label>
+                            <div class="checkbox-group horizontal">
+                                <label><input type="checkbox" name="clinicalStaff" value="Medical Officers"> Medical Officers</label>
+                                <label><input type="checkbox" name="clinicalStaff" value="Nurses/Midwives"> Nurses/Midwives</label>
+                                <label><input type="checkbox" name="clinicalStaff" value="Lab Technologists/Technicians"> Lab Technologists/Technicians</label>
+                                <label><input type="checkbox" name="clinicalStaff" value="Radiographers"> Radiographers</label>
+                                <label><input type="checkbox" name="clinicalStaff" value="Pharmacy Dispensers"> Pharmacy Dispensers</label>
+                                <label><input type="checkbox" name="clinicalStaff" value="Pharmacists"> Pharmacists</label>
+                                <label><input type="checkbox" name="clinicalStaff" value="Other" id="otherClinicalStaff"> Other</label>
+                            </div>
                         </div>
-                        <div>
-                            <label for="salaryRange">Expected Salary Range</label>
-                            <input type="text" id="salaryRange" name="entry.159753756" placeholder="Optional salary range">
+                        <div id="otherClinicalStaffContainer" style="display: none;">
+                            <label for="otherClinicalStaffInput">Specify Other Clinical Staff</label>
+                            <input type="text" id="otherClinicalStaffInput" name="entry.123456790" placeholder="Specify other clinical staff" size="25">
                         </div>
                     </div>
+                    
                 </div>
             </section>
 
             <!-- Employment Details -->
-            <section id="employment-details">
+            <section id="employment-details" data-step="4">
                 <button type="button" class="collapsible" aria-expanded="false">
                     <span>Employment Details</span>
-                    <span class="arrow closed">➞</span>
+                    <span class="arrow">➞</span>
                 </button>
                 <div class="content">
+                    <div class="guidance-message">
+                        Provide details about the employment terms. This helps us match you with candidates who meet your specific needs.
+                    </div>
                     <div class="input-pair">
                         <div>
-                            <label for="employmentDuration">Duration of Employment</label>
-                            <select id="employmentDuration" name="entry.951753756" required>
-                                <option value="">Select duration</option>
-                                <option value="short-term">Short-Term (less than 3 months)</option>
-                                <option value="part-time">Part-Time</option>
-                                <option value="full-time">Full-Time</option>
-                            </select>
+                            <label>Duration of Employment</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="employmentDuration" value="Short-Term"> Short-Term (less than 3 months)</label>
+                                <label><input type="checkbox" name="employmentDuration" value="Part-Time"> Part-Time</label>
+                                <label><input type="checkbox" name="employmentDuration" value="Full-Time"> Full-Time</label>
+                            </div>
                         </div>
                         <div>
-                            <label for="shiftType">Shift Type</label>
-                            <select id="shiftType" name="entry.357159756" required>
-                                <option value="">Select shift</option>
-                                <option value="day">Day Shift</option>
-                                <option value="night">Night Shift</option>
-                                <option value="rotating">Rotating Shifts</option>
-                            </select>
+                            <label>Shift Type</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="shiftType" value="Day Shift"> Day Shift</label>
+                                <label><input type="checkbox" name="shiftType" value="Night Shift"> Night Shift</label>
+                                <label><input type="checkbox" name="shiftType" value="Rotating Shifts"> Rotating Shifts</label>
+                            </div>
                         </div>
                     </div>
                     <div class="input-pair">
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="remoteWork" name="entry.753951756" value="yes">
-                            <label for="remoteWork">Remote Work Option</label>
+                        <div>
+                            <label>Remote Work Option</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="remoteWork" value="Yes"> Yes</label>
+                                <label><input type="checkbox" name="remoteWork" value="No"> No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="staffNumber">Number of Staff Needed per Position</label>
+                            <input type="number" id="staffNumber" name="entry.357159654" placeholder="Enter number" required min="1" size="5">
+                        </div>
+                        <div>
+                            <label for="startDate">Preferred Start Date</label>
+                            <input type="date" id="startDate" name="entry.753951654" required>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Specific Requirements -->
+            <section id="specific-requirements" data-step="5">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Specific Requirements</span>
+                    <span class="arrow">➞</span>
+                </button>
+                <div class="content">
+                    <div class="guidance-message">
+                        Specify any particular qualifications, experience, or preferences for the positions. This helps us find the most suitable candidates for your needs.
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="qualifications">Qualifications or Experience Required</label>
+                            <textarea id="qualifications" name="entry.159753756" placeholder="Enter details" required cols="40"></textarea>
+                        </div>
+                        <div>
+                            <label>Preferred Gender</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="preferredGender" value="Male"> Male</label>
+                                <label><input type="checkbox" name="preferredGender" value="Female"> Female</label>
+                                <label><input type="checkbox" name="preferredGender" value="No Preference"> No Preference</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="salaryRange">Expected Salary Range (Optional)</label>
+                            <input type="text" id="salaryRange" name="entry.357159756" placeholder="Enter range" size="20">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Job Description or Duties -->
+            <section id="job-description" data-step="6">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Job Description or Duties (Optional)</span>
+                    <span class="arrow">➞</span>
+                </button>
+                <div class="content">
+                    <div class="guidance-message">
+                        Provide a detailed description of the job duties and responsibilities. This helps potential candidates understand the role better.
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="jobDescription">Job Description/Duties</label>
+                            <textarea id="jobDescription" name="entry.753951756" placeholder="Outline responsibilities" cols="40"></textarea>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Additional Information -->
-            <section id="additional-info">
+            <section id="additional-info" data-step="7">
                 <button type="button" class="collapsible" aria-expanded="false">
                     <span>Additional Information</span>
-                    <span class="arrow closed">➞</span>
+                    <span class="arrow">➞</span>
                 </button>
                 <div class="content">
+                    <div class="guidance-message">
+                        Provide any additional information that might be relevant to your hiring request. This helps us process your request more efficiently.
+                    </div>
                     <div class="input-pair">
                         <div>
-                            <label for="urgencyHiring">Urgency of Hiring</label>
-                            <select id="urgencyHiring" name="entry.159753858" required>
-                                <option value="">Select urgency</option>
-                                <option value="immediate">Immediate (within a week)</option>
-                                <option value="soon">Soon (within a month)</option>
-                                <option value="flexible">Flexible</option>
-                            </select>
+                            <label>Urgency of Hiring</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="urgencyHiring" value="Immediate"> Immediate (within a week)</label>
+                                <label><input type="checkbox" name="urgencyHiring" value="Soon"> Soon (within a month)</label>
+                                <label><input type="checkbox" name="urgencyHiring" value="Flexible"> Flexible</label>
+                            </div>
                         </div>
                         <div>
-                            <label for="preferredCommunication">Preferred Communication</label>
-                            <select id="preferredCommunication" name="entry.951753858" required>
-                                <option value="">Select method</option>
-                                <option value="phone">Phone Call</option>
-                                <option value="email">Email</option>
-                            </select>
+                            <label>Preferred Method of Communication for Follow-Up</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="preferredCommunication" value="Phone Call"> Phone Call</label>
+                                <label><input type="checkbox" name="preferredCommunication" value="Email"> Email</label>
+                            </div>
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="jobDescription">Job Description/Duties</label>
-                            <textarea id="jobDescription" name="entry.357159858" placeholder="Outline responsibilities"></textarea>
-                        </div>
-                        <div>
-                            <label for="additionalComments">Additional Comments</label>
-                            <textarea id="additionalComments" name="entry.753951858" placeholder="Any other requirements"></textarea>
+                            <label for="additionalComments">Any Additional Comments or Requirements</label>
+                            <textarea id="additionalComments" name="entry.357159858" placeholder="Enter any additional comments" cols="40"></textarea>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Optional Services -->
-            <section id="optional-services">
+            <section id="optional-services" data-step="8">
                 <button type="button" class="collapsible" aria-expanded="false">
                     <span>Optional Services</span>
-                    <span class="arrow closed">➞</span>
+                    <span class="arrow">➞</span>
                 </button>
                 <div class="content">
-                    <div class="input-pair">
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="training" name="entry.159753960" value="training">
-                            <label for="training">Staff Training/Orientation</label>
-                        </div>
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="licensure" name="entry.951753960" value="licensure">
-                            <label for="licensure">Assistance with Licensure</label>
-                        </div>
+                    <div class="guidance-message">
+                        Select any additional services you might need. These services can help ensure a smooth onboarding process for new staff.
                     </div>
                     <div class="input-pair">
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="emergency" name="entry.357159960" value="emergency">
-                            <label for="emergency">Emergency Coverage</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="optionalServices" value="Staff Training/Orientation"> Staff Training/Orientation</label>
+                            <label><input type="checkbox" name="optionalServices" value="Assistance with Licensure or Documentation"> Assistance with Licensure or Documentation</label>
+                            <label><input type="checkbox" name="optionalServices" value="Temporary Staff for Emergency Coverage"> Temporary Staff for Emergency Coverage</label>
+                            <label><input type="checkbox" name="optionalServices" value="Other" id="otherOptionalService"> Other</label>
                         </div>
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="otherService" name="entry.753951960" value="other">
-                            <label for="otherService">Other</label>
-                        </div>
-                        <div id="other-service-container" style="display: none;">
-                            <label for="otherServiceInput">Specify Other Service</label>
-                            <input type="text" id="otherServiceInput" name="entry.159754062" placeholder="Enter service">
-                        </div>
+                    </div>
+                    <div id="otherOptionalServiceContainer" style="display: none;">
+                        <label for="otherOptionalServiceInput">Specify Other Optional Service</label>
+                        <input type="text" id="otherOptionalServiceInput" name="entry.159754062" placeholder="Enter service" size="25">
                     </div>
                 </div>
             </section>
@@ -270,11 +307,12 @@
             <!-- Declaration -->
             <section id="declaration" class="declaration-section">
                 <div class="shared-content">
-                    <p style="display: inline;">By submitting this form, you confirm that all provided information is accurate and complete.</p>
-                    <label style="display: inline-block; margin-left: 10px;">
-                        <input type="checkbox" name="entry.951754062" required>
-                        I confirm the information is true.
-                    </label>
+                    <div class="shared-content">
+                        <p>
+                            <input type="checkbox" id="confirmInfo" name="entry.951754062" required>
+                            <label for="confirmInfo">By submitting this form, you confirm that all provided information is accurate and complete.</label>
+                        </p>
+                    </div>
                 </div>
                 <div class="button-container">
                     <button type="submit">Submit Hiring Request</button>
@@ -289,135 +327,134 @@
     </footer>
 
     <script>
-        // Collapsible Section Toggle Functionality with closing others
         const collapsibles = document.querySelectorAll('.collapsible');
+        const form = document.getElementById('hire-form');
 
-        collapsibles.forEach((button) => {
+        function validateStep(step) {
+            const fields = Array.from(document.querySelectorAll(`#hire-form [data-step="${step}"] input:required, #hire-form [data-step="${step}"] select:required, #hire-form [data-step="${step}"] textarea:required`));
+            let isValid = true;
+            fields.forEach(field => {
+                if (!field.checkValidity()) {
+                    isValid = false;
+                    showError(field);
+                } else {
+                    clearError(field);
+                }
+            });
+            return isValid;
+        }
+
+        function showError(field) {
+            const errorElement = document.getElementById(`${field.id}-error`);
+            if (errorElement) {
+                errorElement.textContent = field.validationMessage;
+            }
+        }
+
+        function clearError(field) {
+            const errorElement = document.getElementById(`${field.id}-error`);
+            if (errorElement) {
+                errorElement.textContent = '';
+            }
+        }
+
+        function updateStepAvailability() {
+            let allPreviousValid = true;
+            collapsibles.forEach((button, index) => {
+                if (allPreviousValid) {
+                    button.disabled = false;
+                } else {
+                    button.disabled = true;
+                }
+                if (index < collapsibles.length - 1 && !validateStep(index + 1)) {
+                    allPreviousValid = false;
+                }
+            });
+            updateProgress();
+        }
+
+        collapsibles.forEach((button, index) => {
             button.addEventListener('click', () => {
-                // Close all other collapsible sections
-                collapsibles.forEach(otherButton => {
-                    if (otherButton !== button) {
-                        otherButton.nextElementSibling.style.display = 'none';
-                        otherButton.querySelector('.arrow').classList.toggle('closed', true);
-                        otherButton.querySelector('.arrow').classList.toggle('open', false);
-                        otherButton.setAttribute('aria-expanded', 'false');
-                    }
-                });
-
                 const content = button.nextElementSibling;
                 const arrow = button.querySelector('.arrow');
                 const isOpen = content.style.display === 'block';
 
-                content.style.display = isOpen ? 'none' : 'block';
-                arrow.classList.toggle('closed', isOpen);
-                arrow.classList.toggle('open', !isOpen);
-                button.setAttribute('aria-expanded', !isOpen);
+                // Close all other sections
+                collapsibles.forEach((otherButton, otherIndex) => {
+                    if (otherIndex !== index) {
+                        otherButton.nextElementSibling.style.display = 'none';
+                        otherButton.querySelector('.arrow').classList.remove('open');
+                    }
+                });
 
-                updateProgress();
+                // Toggle current section
+                content.style.display = isOpen ? 'none' : 'block';
+                arrow.classList.toggle('open', !isOpen);
+
+                updateStepAvailability();
             });
         });
 
-        // Progress Bar Update Functionality
         function updateProgress() {
-            const totalSections = collapsibles.length;
-            const openSections = document.querySelectorAll('.collapsible[aria-expanded="true"]').length;
-            const progress = (openSections / totalSections) * 100;
-
-            const progressBar = document.getElementById('progress-bar');
-            progressBar.style.width = `${progress}%`;
+            const totalSteps = collapsibles.length;
+            const completedSteps = Array.from(collapsibles).filter((_, index) => validateStep(index + 1)).length;
+            const progress = (completedSteps / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
         }
 
-        // Event listener for form changes to update progress
-        document.getElementById('hire-form').addEventListener('input', updateProgress);
-
-        // Handle dropdowns with 'other' options
-        function toggleOtherField(input, containerId, inputId) {
+        function toggleOtherField(checkbox, containerId, inputId) {
             const container = document.getElementById(containerId);
             const inputField = document.getElementById(inputId);
-            if (input.value === 'other' || (input.type === 'checkbox' && input.checked)) {
+            if (checkbox.checked && checkbox.value === 'Other') {
                 container.style.display = 'block';
-                inputField.setAttribute('required', 'required');
+                inputField.required = true;
             } else {
                 container.style.display = 'none';
-                inputField.removeAttribute('required');
+                inputField.required = false;
                 inputField.value = '';
             }
         }
 
-        document.getElementById('facilityType').addEventListener('change', function() {
-            toggleOtherField(this, 'other-facility-type-container', 'otherFacilityType');
-        });
-
-        document.getElementById('positions').addEventListener('change', function() {
-            toggleOtherField(this, 'other-position-container', 'otherPosition');
-        });
-
-        document.getElementById('otherService').addEventListener('change', function() {
-            toggleOtherField(this, 'other-service-container', 'otherServiceInput');
-        });
-
-        // Form submission handling with validation for the first step
-        document.getElementById('hire-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (!validateFirstStep()) {
-                alert('Please fill out the Contact Information section before proceeding.');
-                return;
-            }
-
-            if (!this.checkValidity()) {
-                alert('Please fill out all required fields.');
-                return;
-            }
-
-            // Submit the form data to Google Forms
-            const formData = new FormData(this);
-            fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            }).then(() => {
-                alert('Hiring request submitted successfully!');
-                this.reset();
-                updateProgress();
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.id === 'otherFacilityType') {
+                    toggleOtherField(this, 'otherFacilityTypeContainer', 'otherFacilityTypeInput');
+                } else if (this.id === 'otherClinicalStaff') {
+                    toggleOtherField(this, 'otherClinicalStaffContainer', 'otherClinicalStaffInput');
+                } else if (this.id === 'otherOptionalService') {
+                    toggleOtherField(this, 'otherOptionalServiceContainer', 'otherOptionalServiceInput');
+                }
+                updateStepAvailability();
             });
         });
 
-        // Validate the first step before allowing to open next steps
-        function validateFirstStep() {
-            const contactInfoFields = ['name', 'location', 'contactPerson', 'phone', 'email'];
-            for (let field of contactInfoFields) {
-                if (!document.getElementById(field).checkValidity()) {
-                    return false;
-                }
-            }
-            return true;
-        }
+        form.addEventListener('input', updateStepAvailability);
 
-        // Initial progress update
-        updateProgress();
-
-        // Prevent opening other sections if first step isn't valid
-        document.getElementById('contact-info').querySelector('.collapsible').addEventListener('click', function(e) {
-            if (!validateFirstStep()) {
-                e.preventDefault();
-                alert('Please fill out all required fields in the Contact Information section first.');
-            }
-        });
-
-        // Only allow other collapsibles to open if first step is filled
-        collapsibles.forEach(button => {
-            if (button.closest('section').id !== 'contact-info') {
-                button.addEventListener('click', function(e) {
-                    if (!validateFirstStep()) {
-                        e.preventDefault();
-                        alert('Please fill out all required fields in the Contact Information section first.');
-                    }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (this.checkValidity()) {
+                // Submit the form data to Google Forms
+                const formData = new FormData(this);
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                }).then(() => {
+                    alert('Hiring request submitted successfully!');
+                    this.reset();
+                    updateProgress();
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
                 });
+            } else {
+                alert('Please fill out all required fields before submitting.');
             }
         });
+
+        // Initial setup
+        updateStepAvailability();
+        document.querySelector('[data-step="1"] button').click();
     </script>
 </body>
 

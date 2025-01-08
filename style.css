@@ -7396,23 +7396,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
-/* Navbar Styles */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 10px 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-nav img {
-  display: block;
-  max-height: 40px;
-}
-
 /* Form Styles */
 .form-container {
   max-width: 800px;
