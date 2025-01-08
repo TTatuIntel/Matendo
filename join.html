@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
-        /* Global Reset */
-        * {
+         /* Global Reset */
+         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -67,7 +67,7 @@
             right: 0;
             background-color: #fff;
             z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .nav-content {
@@ -96,9 +96,9 @@
             color: #204ECF;
             cursor: pointer;
             padding: 8px;
-            border: 10px;
+            border: none;
             font-size: 14px;
-            text-align: right;
+            text-align: left;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -126,7 +126,7 @@
         .content {
             display: none;
             padding: 0 20px;
-            margin-left: 10;
+            margin-left: 10px;
             font-size: 15px;
         }
 
@@ -161,8 +161,7 @@
             padding-left: 30px;
         }
 
-        /*  comfirmation checkbox */
-
+        /* confirmation checkbox */
         .checkbox-container {
             display: flex;
             align-items: center;
@@ -178,7 +177,6 @@
         }
 
         /* Submit and Clear Buttons */
-
         .button-container {
             display: flex;
             justify-content: center;
@@ -265,7 +263,7 @@
             text-decoration: none;
             cursor: pointer;
         }
-        
+
         /* Declaration Section Styles */
         .declaration-section {
             display: flex;
@@ -380,8 +378,8 @@
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav id="nav" aria-label="Main Navigation">
+     <!-- Navigation -->
+     <nav id="nav" aria-label="Main Navigation">
         <div class="nav-content">
             <a href="index.html" title="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
@@ -792,21 +790,23 @@
                 arrow.classList.toggle('closed', isOpen);
                 arrow.classList.toggle('open', !isOpen);
                 button.setAttribute('aria-expanded', !isOpen);
+
+                updateProgress();
             });
         });
 
         // Progress Bar Update Functionality
         function updateProgress() {
-            const totalFields = document.querySelectorAll('input, select').length;
-            const filledFields = document.querySelectorAll('input:not([type="file"]):not([type="hidden"]), select').filter(field => field.value).length;
-            const progress = (filledFields / totalFields) * 100;
+            const totalSections = collapsibles.length;
+            const openSections = document.querySelectorAll('.collapsible[aria-expanded="true"]').length;
+            const progress = (openSections / totalSections) * 100;
 
             const progressBar = document.getElementById('progress-bar');
             progressBar.style.width = `${progress}%`;
         }
 
         // Event listener for form changes to update progress
-        document.getElementById('join-us-form').addEventListener('input', updateProgress);
+        document.getElementById('hire-form').addEventListener('input', updateProgress);
 
         // Signature Pad functionality
         document.addEventListener('DOMContentLoaded', function () {
@@ -844,7 +844,7 @@
                 }
             });
 
-            document.getElementById('join-us-form').addEventListener('submit', function (e) {
+            document.getElementById('hire-form').addEventListener('submit', function (e) {
                 e.preventDefault();
                 if (signaturePad.isEmpty() && !signatureInput.value) {
                     alert('Please provide a signature.');
@@ -868,7 +868,7 @@
                     body: formData,
                     mode: 'no-cors'
                 }).then(() => {
-                    alert('Form submitted successfully!');
+                    alert('Job posting submitted successfully!');
                     this.reset();
                     updateProgress();
                 }).catch(error => {
@@ -878,33 +878,8 @@
             });
         });
 
-        // Function to update file input labels
-        function updateFileInputLabel(input) {
-            const label = input.previousElementSibling;
-            label.textContent = input.files[0] ? input.files[0].name : label.getAttribute('data-default-text');
-        }
-
-        // Add event listeners for file inputs
-        document.querySelectorAll('input[type="file"]').forEach(input => {
-            input.addEventListener('change', () => updateFileInputLabel(input));
-            const label = input.previousElementSibling;
-            label.setAttribute('data-default-text', label.textContent);
-        });
-
-        // Function to toggle visibility of "other" input fields
-        function toggleOtherField(selectElement, otherFieldId) {
-            const otherField = document.getElementById(otherFieldId);
-            otherField.style.display = selectElement.value === 'other' ? 'block' : 'none';
-        }
-
-        // Add event listeners for select elements with "other" option
-        document.getElementById('position').addEventListener('change', function () {
-            toggleOtherField(this, 'other-position-container');
-        });
-
-        document.getElementById('education').addEventListener('change', function () {
-            toggleOtherField(this, 'other-education-container');
-        });
+        // Initial progress update
+        updateProgress();
     </script>
 </body>
 
