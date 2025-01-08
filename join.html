@@ -12,327 +12,242 @@
 
     <style>
         /* Global Reset */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.3;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    padding-top: 45px;
-}
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.4;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-/* Nav Styling */
-nav#nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    padding: 6px 0;
-    z-index: 1000;
-}
+        label {
+            font-weight: 400;
+            margin-top: 5px;
+            color: #333;
+            text-align: left;
+            font-size: 10px;
+        }
 
-nav#nav img {
-    height: 35px;
-    width: auto;
-}
+        input, select, button {
+            width: 100%;
+            padding: 6px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+        }
 
-label {
-    font-weight: 400;
-    margin-top: 4px;
-    color: #333;
-    text-align: left;
-    font-size: 9px;
-}
+        input:focus, select:focus {
+            border-color: #204ECF;
+            outline: none;
+        }
 
-/* Form Inputs */
-input, select, button {
-    width: calc(130px + 1ch);
-    max-width: 100%;
-    padding: 5px;
-    margin: 4px 0;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 11px;
-}
+        /* Collapsible Button */
+        .collapsible {
+            background-color: transparent;
+            color: #204ECF;
+            cursor: pointer;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
 
-input:focus, select:focus {
-    border-color: #204ECF;
-    outline: none;
-}
+        .collapsible:hover {
+            background-color: #f0f0f0;
+        }
 
-/* Collapsible Button */
-.collapsible {
-    background-color: transparent;
-    color: #204ECF;
-    cursor: pointer;
-    padding: 5px;
-    border: none;
-    border-radius: 3px;
-    font-size: 13px;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 6px;
-    transition: background-color 0.3s ease;
-}
+        .arrow {
+            transition: transform 0.3s ease;
+        }
 
-.collapsible:hover {
-    background-color: #f0f0f0;
-}
+        .arrow.closed {
+            transform: rotate(0deg);
+        }
 
-.arrow {
-    transition: transform 0.3s ease;
-}
+        .arrow.open {
+            transform: rotate(90deg);
+        }
 
-.arrow.closed {
-    transform: rotate(0deg);
-}
+        .content {
+            display: none;
+            padding: 0 10px;
+            margin-left: 0;
+            font-size: 12px;
+        }
 
-.arrow.open {
-    transform: rotate(90deg);
-}
+        /* Input Pair */
+        .input-pair {
+            display: flex;
+            gap: 4%;
+            margin-bottom: 10px;
+        }
+        .input-pair > div {
+            width: 48%;
+        }
 
-.content {
-    display: none;
-    padding: 0;
-    margin-left: 0;
-    font-size: 11px;
-}
+        /* Connecting Dotted Line */
+        .dotted-line {
+            border-top: 2px dotted #204ECF;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
 
-/* Input Pair */
-.input-pair {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0; /* No gap between pairs */
-    margin-bottom: 3px;
-}
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            font-size: 10px;
+            gap: 10px;
+            margin-top: 10px;
+        }
 
-.input-pair > div {
-    width: 50%;
-}
+        .checkbox-container input {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+        }
 
-/* Join left fields with right fields by adjusting left content */
-.input-pair > div:first-child {
-    margin-right: -10px; /* Adjust this to ensure no gap */
-}
+        .checkbox-container label {
+            margin: 0;
+        }
 
-/* To align the first input with the collapsible button */
-.content > .input-pair:first-child {
-    margin-top: -4px;
-}
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            height: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
-/* Connecting Dotted Line */
-.dotted-line {
-    border-top: 1px dotted #204ECF;
-    margin-top: 6px;
-    margin-bottom: 6px;
-}
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background-color: #204ECF;
+            border-radius: 4px;
+            transition: width 0.5s ease-out;
+        }
 
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    font-size: 9px;
-    gap: 6px;
-    margin-top: 6px;
-}
+        /* Message Box */
+        .progress-message {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-top: 10px;
+            text-align: center;
+        }
 
-.checkbox-container input {
-    width: 14px;
-    height: 14px;
-    margin: 0;
-}
+        /* Submit Button */
+        button {
+            background-color: #204ECF;
+            color: white;
+            cursor: pointer;
+            width: 40%;
+            margin: 25px auto;
+            transition: background-color 0.3s;
+            font-size: 12px; /* Smaller font for button */
+        }
 
-.checkbox-container label {
-    margin: 0;
-}
+        button:hover {
+            background-color: #799ae8;
+        }
 
-/* Progress Bar */
-.progress-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 3px;
-    height: 4px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-}
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
 
-.progress-bar {
-    width: 0;
-    height: 100%;
-    background-color: #204ECF;
-    border-radius: 3px;
-    transition: width 0.5s ease-out;
-}
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
+        }
 
-/* Message Box */
-.progress-message {
-    font-size: 13px;
-    font-weight: 500;
-    color: #333;
-    margin-top: 6px;
-    text-align: center;
-}
+        .modal-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #204ECF;
+            margin-bottom: 10px;
+        }
 
-/* Submit Button */
-button {
-    background-color: #204ECF;
-    color: white;
-    cursor: pointer;
-    width: 35%;
-    margin: 12px auto;
-    transition: background-color 0.3s;
-    font-size: 11px;
-    padding: 6px;
-}
+        .modal-body {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+        }
 
-button:hover {
-    background-color: #799ae8;
-}
+        .modal-footer {
+            text-align: center;
+        }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 25px;
-}
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.modal-content {
-    background-color: #fff;
-    margin: 5% auto;
-    padding: 12px;
-    border-radius: 5px;
-    width: 85%;
-    max-width: 320px;
-}
+        .close:hover, .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-.modal-header {
-    font-size: 15px;
-    font-weight: 600;
-    color: #204ECF;
-    margin-bottom: 6px;
-}
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+            font-size: 12px;
+        }
 
-.modal-body {
-    font-size: 13px;
-    color: #333;
-    margin-bottom: 6px;
-}
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
 
-.modal-footer {
-    text-align: center;
-}
+            button, .collapsible {
+                font-size: 12px;
+                padding: 12px;
+            }
 
-.close {
-    color: #aaa;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-}
+            button {
+                width: 80%;
+            }
 
-.close:hover, .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 12px;
-    color: #555;
-    font-size: 11px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 12px;
-    }
-
-    button, .collapsible {
-        font-size: 11px;
-        padding: 9px;
-    }
-
-    button {
-        width: 85%;
-    }
-
-    .input-pair > div {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    label {
-        font-size: 8px;
-    }
-
-    input, select, button {
-        font-size: 10px;
-        padding: 4px;
-    }
-
-    .collapsible {
-        font-size: 11px;
-        padding: 4px;
-    }
-
-    .modal-content {
-        width: 95%;
-    }
-
-    .modal-header {
-        font-size: 13px;
-    }
-
-    .modal-body {
-        font-size: 11px;
-    }
-}
-
-@media (max-width: 320px) {
-    label {
-        font-size: 7px;
-    }
-
-    input, select, button {
-        font-size: 9px;
-        padding: 3px;
-    }
-
-    .collapsible {
-        font-size: 10px;
-        padding: 3px;
-    }
-
-    .progress-message {
-        font-size: 11px;
-    }
-
-    .modal-header {
-        font-size: 11px;
-    }
-
-    .modal-body {
-        font-size: 9px;
-    }
-}
+            .input-pair {
+                flex-direction: column;
+            }
+            .input-pair > div {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -634,6 +549,7 @@ footer {
                 </div>
             </div>
         </section>
+
         <!-- Supporting Documents -->
         <section id="supporting-documents">
             <button type="button" class="collapsible" aria-expanded="false">
