@@ -100,15 +100,26 @@
         }
 
         .input-pair > div {
-            width: 25%;
+            width: 45%;
             margin: 0;
         }
 
         .input-pair input,
         .input-pair select {
             width: 100%;
-            max-width: 300px; /* Increased from 100px to 120px */
-            margin: 0px;
+            max-width: 120px;
+            margin: 0;
+        }
+
+        /* For datalist inputs */
+        .input-pair input[type="text"][list] {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 20px 20px;
+            padding-right: 30px;
         }
 
         /* Connecting Dotted Line */
@@ -361,15 +372,16 @@
                 <div class="input-pair">
                     <div>
                         <label for="position">Position</label>
-                        <select id="position" name="position" required>
-                            <option value="medical-officer">Med Officer</option>
-                            <option value="nurse">Nurse</option>
-                            <option value="lab-tech">Lab Technician</option>
-                            <option value="radiographer">Radiographer</option>
-                            <option value="pharmacist">Pharmacist</option>
-                            <option value="pharmacy-dispenser">Pharm Disp</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <input type="text" id="position" name="position" list="positions" placeholder="Select or specify position" required>
+                        <datalist id="positions">
+                            <option value="Medical Officer">
+                            <option value="Nurse">
+                            <option value="Lab Technician">
+                            <option value="Radiographer">
+                            <option value="Pharmacist">
+                            <option value="Pharmacy Dispenser">
+                            <option value="Other">
+                        </datalist>
                     </div>
                     <div>
                         <label for="other-position">Specify</label>
@@ -389,13 +401,14 @@
                 <div class="input-pair">
                     <div>
                         <label for="education">Highest Education</label>
-                        <select id="education" name="education" required>
-                            <option value="diploma">Diploma</option>
-                            <option value="bachelor">Bachelor's</option>
-                            <option value="master">Master's</option>
-                            <option value="phd">PhD</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <input type="text" id="education" name="education" list="education-levels" placeholder="Select or specify education" required>
+                        <datalist id="education-levels">
+                            <option value="Diploma">
+                            <option value="Bachelor's">
+                            <option value="Master's">
+                            <option value="PhD">
+                            <option value="Other">
+                        </datalist>
                     </div>
                     <div>
                         <label for="other-education">Specify</label>
