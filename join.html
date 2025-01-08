@@ -34,7 +34,9 @@
             font-size: 10px;
         }
 
-        input, select, button {
+        input,
+        select,
+        button {
             width: 100%;
             padding: 6px;
             margin: 5px 0;
@@ -43,7 +45,8 @@
             font-size: 12px;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             border-color: #204ECF;
             outline: none;
         }
@@ -57,7 +60,7 @@
             border: none;
             border-radius: 4px;
             font-size: 14px;
-            text-align: left;
+            text-align: right;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -91,11 +94,21 @@
         /* Input Pair */
         .input-pair {
             display: flex;
-            gap: 4%;
             margin-bottom: 10px;
+            justify-content: center;
+            gap: 0;
         }
+
         .input-pair > div {
-            width: 48%;
+            width: 25%;
+            margin: 0;
+        }
+
+        .input-pair input,
+        .input-pair select {
+            width: 100%;
+            max-width: 300px; /* Increased from 100px to 120px */
+            margin: 0px;
         }
 
         /* Connecting Dotted Line */
@@ -158,7 +171,7 @@
             width: 40%;
             margin: 25px auto;
             transition: background-color 0.3s;
-            font-size: 12px; /* Smaller font for button */
+            font-size: 12px;
         }
 
         button:hover {
@@ -212,7 +225,8 @@
             cursor: pointer;
         }
 
-        .close:hover, .close:focus {
+        .close:hover,
+        .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
@@ -232,7 +246,8 @@
                 padding: 20px;
             }
 
-            button, .collapsible {
+            button,
+            .collapsible {
                 font-size: 12px;
                 padding: 12px;
             }
@@ -278,11 +293,11 @@
                 <div class="input-pair">
                     <div>
                         <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" name="firstName" placeholder="Enter your first name" required>
+                        <input type="text" id="first-name" name="firstName" placeholder="First name" required>
                     </div>
                     <div>
                         <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" name="lastName" placeholder="Enter your last name" required>
+                        <input type="text" id="last-name" name="lastName" placeholder="Last name" required>
                     </div>
                 </div>
                 <div class="input-pair">
@@ -302,21 +317,21 @@
                 <div class="input-pair">
                     <div>
                         <label for="nationality">Nationality</label>
-                        <input type="text" id="nationality" name="nationality" placeholder="Enter your nationality" required>
+                        <input type="text" id="nationality" name="nationality" placeholder="Nat" required>
                     </div>
                     <div>
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
+                        <input type="tel" id="phone" name="phone" placeholder="Phone" required pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                     </div>
                 </div>
                 <div class="input-pair">
                     <div>
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                        <input type="email" id="email" name="email" placeholder="Email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                     </div>
                     <div>
                         <label for="address">Current Address</label>
-                        <input type="text" id="address" name="address" placeholder="City, State/Region, Country" required>
+                        <input type="text" id="address" name="address" placeholder="Addr" required>
                     </div>
                 </div>
                 <div class="input-pair">
@@ -324,13 +339,13 @@
                         <label for="id-info">ID Type</label>
                         <select id="id-info" name="idInfo" required>
                             <option value="passport">Passport</option>
-                            <option value="national-id">National ID</option>
+                            <option value="national-id">Nat ID</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
                     <div>
                         <label for="id-number">ID Number</label>
-                        <input type="text" id="id-number" name="idNumber" placeholder="Enter ID number" required>
+                        <input type="text" id="id-number" name="idNumber" placeholder="ID num" required>
                     </div>
                 </div>
             </div>
@@ -347,12 +362,12 @@
                     <div>
                         <label for="position">Position</label>
                         <select id="position" name="position" required>
-                            <option value="medical-officer">Medical Officer</option>
-                            <option value="nurse">Nurse/Midwife</option>
-                            <option value="lab-tech">Lab Technologist/Technician</option>
+                            <option value="medical-officer">Med Officer</option>
+                            <option value="nurse">Nurse</option>
+                            <option value="lab-tech">Lab Technician</option>
                             <option value="radiographer">Radiographer</option>
                             <option value="pharmacist">Pharmacist</option>
-                            <option value="pharmacy-dispenser">Pharmacy Dispenser</option>
+                            <option value="pharmacy-dispenser">Pharm Disp</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
@@ -364,7 +379,7 @@
                 <div class="input-pair">
                     <div>
                         <label for="licensure">Licensure Number</label>
-                        <input type="text" id="licensure" name="licensure" placeholder="Enter your licensure number" required>
+                        <input type="text" id="licensure" name="licensure" placeholder="License" required>
                     </div>
                     <div>
                         <label for="experience">Experience (Years)</label>
@@ -390,21 +405,21 @@
                 <div class="input-pair">
                     <div>
                         <label for="institution1">Institution 1</label>
-                        <input type="text" id="institution1" name="institution1" placeholder="Name">
+                        <input type="text" id="institution1" name="institution1" placeholder="Inst 1">
                     </div>
                     <div>
                         <label for="year1">Year 1</label>
-                        <input type="text" id="year1" name="year1" placeholder="Year">
+                        <input type="text" id="year1" name="year1" placeholder="Yr 1">
                     </div>
                 </div>
                 <div class="input-pair">
                     <div>
                         <label for="institution2">Institution 2</label>
-                        <input type="text" id="institution2" name="institution2" placeholder="Name (Optional)">
+                        <input type="text" id="institution2" name="institution2" placeholder="Inst 2">
                     </div>
                     <div>
                         <label for="year2">Year 2</label>
-                        <input type="text" id="year2" name="year2" placeholder="Year (Optional)">
+                        <input type="text" id="year2" name="year2" placeholder="Yr 2">
                     </div>
                 </div>
             </div>
@@ -420,7 +435,7 @@
                 <div class="input-pair">
                     <div>
                         <label for="employer">Employer</label>
-                        <input type="text" id="employer" name="employer" placeholder="Current/Most Recent">
+                        <input type="text" id="employer" name="employer" placeholder="Employer">
                     </div>
                     <div>
                         <label for="position-held">Position Held</label>
@@ -430,11 +445,11 @@
                 <div class="input-pair">
                     <div>
                         <label for="employment-duration">Duration</label>
-                        <input type="text" id="employment-duration" name="employmentDuration" placeholder="Start-End">
+                        <input type="text" id="employment-duration" name="employmentDuration" placeholder="Duration">
                     </div>
                     <div>
                         <label for="reason-leaving">Reason for Leaving</label>
-                        <input type="text" id="reason-leaving" name="reasonLeaving" placeholder="If applicable">
+                        <input type="text" id="reason-leaving" name="reasonLeaving" placeholder="Reason">
                     </div>
                 </div>
             </div>
@@ -450,11 +465,11 @@
                 <div class="input-pair">
                     <div>
                         <label for="skills">Relevant Skills</label>
-                        <input type="text" id="skills" name="skills" placeholder="Enter skills">
+                        <input type="text" id="skills" name="skills" placeholder="Skills">
                     </div>
                     <div>
                         <label for="certifications">Certifications</label>
-                        <input type="text" id="certifications" name="certifications" placeholder="Certifications">
+                        <input type="text" id="certifications" name="certifications" placeholder="Certs">
                     </div>
                 </div>
             </div>
@@ -520,7 +535,7 @@
                 <div class="input-pair">
                     <div>
                         <label for="reference1-contact">Ref 1 Contact</label>
-                        <input type="tel" id="reference1-contact" name="reference1Contact" placeholder="Number" pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
+                        <input type="tel" id="reference1-contact" name="reference1Contact" placeholder="Phone" pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                     </div>
                     <div>
                         <label for="reference1-email">Ref 1 Email</label>
@@ -540,7 +555,7 @@
                 <div class="input-pair">
                     <div>
                         <label for="reference2-contact">Ref 2 Contact</label>
-                        <input type="tel" id="reference2-contact" name="reference2Contact" placeholder="Number" pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
+                        <input type="tel" id="reference2-contact" name="reference2Contact" placeholder="Phone" pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                     </div>
                     <div>
                         <label for="reference2-email">Ref 2 Email</label>
@@ -583,7 +598,7 @@
                 </div>
                 <div class="input-pair">
                     <div>
-                        <label for="additional-certifications">Additional Certifications</label>
+                        <label for="additional-certifications">Addl Certs</label>
                         <input type="file" id="additional-certifications" name="additionalCertifications" accept=".pdf, .jpg, .png">
                         <small>PDF, JPG, PNG</small>
                     </div>
@@ -600,7 +615,7 @@
             <div class="input-pair">
                 <div>
                     <label for="signature">Signature</label>
-                    <input type="text" id="signature" name="signature" placeholder="Optional">
+                    <input type="text" id="signature" name="signature" placeholder="Signature">
                 </div>
                 <div>
                     <label for="date">Date</label>
@@ -631,7 +646,6 @@
     <footer>
         <p>© 2025 Matendo Medics. All Rights Reserved.</p>
     </footer>
-
     <script>
         // Collapsible Section Toggle Functionality
         const collapsibles = document.querySelectorAll('.collapsible');
@@ -683,12 +697,12 @@
             popupMessage.textContent = message;
             modal.style.display = "block";
 
-            closeButton.onclick = function() {
+            closeButton.onclick = function () {
                 modal.style.display = "none";
             };
 
             // Close the modal if the user clicks anywhere outside the modal
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
@@ -696,4 +710,5 @@
         }
     </script>
 </body>
+
 </html>
