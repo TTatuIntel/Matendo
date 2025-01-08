@@ -48,8 +48,7 @@
         select,
         button {
             width: 100%;
-            padding: 8px;
-            margin: 5px 0 15px; /* Increased bottom margin for more space */
+            padding: 10px;* Increased bottom margin for more space */
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 12px;
@@ -66,9 +65,9 @@
             background-color: transparent;
             color: #204ECF;
             cursor: pointer;
-            padding: 8px;
+            padding: 10px;
             border: none;
-            border-radius: 4px;
+            border-radius: 2px;
             font-size: 14px;
             text-align: right;
             display: flex;
@@ -105,13 +104,13 @@
         /* Input Pair */
         .input-pair {
             display: flex;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             justify-content: space-between;
             gap: 20px; /* Added gap between input pairs */
         }
 
         .input-pair>div {
-            width: 48%;
+            width: 45%;
             margin: 0;
         }
 
@@ -153,52 +152,12 @@
             height: 16px;
             margin: 0;
         }
-
-        /* Vertical Progress Bar */
-        .progress-container {
-            width: 10px;
-            height: calc(100vh - 80px);
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            position: fixed;
-            right: 20px;
-            top: 80px;
-            z-index: 1000;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 0;
-            background-color: #204ECF;
-            border-radius: 5px;
-            transition: height 0.5s ease-out;
-            position: absolute;
-            bottom: 0;
-        }
-
-        .progress-bar.complete {
-            background-color: #4CAF50;
-        }
-
-        .progress-message {
-            position: fixed;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            text-align: right;
-            width: 150px;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
         /* Submit and Clear Buttons */
         .button-container {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
-            width: 100%;
+            margin-top: 10px;
+            width: 50%;
         }
 
         .button-container button {
@@ -206,12 +165,12 @@
             color: white;
             cursor: pointer;
             width: 100%;
-            max-width: 300px;
-            padding: 12px 30px;
-            font-size: 16px;
+            max-width: 250px;
+            padding: 10px 20px;
+            font-size: 15px;
             transition: background-color 0.3s;
             border: none;
-            border-radius: 4px;
+            border-radius: 2px;
         }
 
         .button-container button:hover {
@@ -296,7 +255,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 30px;
+            margin-top: 20px;
             margin-bottom: 30px;
             padding: 20px;
             background-color: #f9f9f9;
@@ -315,16 +274,16 @@
             justify-content: space-between;
             width: 100%;
             max-width: 600px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .signature-input, .date-input {
-            width: 48%;
+            width: 50%;
         }
 
         #signature-pad {
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 2px;
             margin-bottom: 10px;
         }
 
@@ -340,7 +299,7 @@
 
         .signature-options button {
             width: 48%;
-            padding: 8px;
+            padding: 10px;
             font-size: 12px;
         }
 
@@ -385,7 +344,7 @@
             }
 
             .signature-input, .date-input {
-                width: 100%;
+                width: 50%;
             }
         }
 
@@ -399,11 +358,6 @@
             select,
             button {
                 font-size: 10px;
-            }
-
-            .button-container button {
-                padding: 8px 16px;
-                font-size: 12px;
             }
         }
     </style>
@@ -785,28 +739,9 @@
                     <button type="submit">Join Now</button>
                 </div>
             </section>
-
-            <div class="button-container">
-                </div>
         </form>
     </div>
-
-    <!-- Modal Pop-up -->
-    <div id="popup-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                Form Update
-            </div>
-            <div class="modal-body" id="popup-message">
-                You're making progress! Keep going.
-            </div>
-            <div class="modal-footer">
-                <span class="close">×</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
+     <!-- Footer -->
     <footer>
         <p>© 2025 Matendo Medics. All Rights Reserved.</p>
     </footer>
