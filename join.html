@@ -197,17 +197,18 @@
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
+            margin-top: 20px;
+            width: 100%;
         }
 
         .button-container button {
             background-color: #204ECF;
             color: white;
             cursor: pointer;
-            width: auto;
-            padding: 10px 20px;
-            font-size: 14px;
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 30px;
+            font-size: 16px;
             transition: background-color 0.3s;
             border: none;
             border-radius: 4px;
@@ -759,7 +760,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- Declaration -->
             <section id="declaration" class="declaration-section">
                 <div class="shared-content">
@@ -768,7 +768,7 @@
                 <div class="signature-container">
                     <div class="signature-input">
                         <label for="signature">Signature</label>
-                        <canvas id="signature-pad" width="300" height="150"></canvas>
+                        <canvas id="signature-pad" width="270" height="80"></canvas>
                         <input type="file" id="signature-upload" name="signature-upload" accept="image/*">
                         <div class="signature-options">
                             <button type="button" id="clear-signature">Clear</button>
@@ -776,20 +776,18 @@
                         </div>
                         <input type="hidden" id="signature" name="signature">
                     </div>
-                    <div class="date-input">
-                        <label for="date">Date</label>
-                        <input type="text" id="date" name="date" readonly>
-                    </div>
                 </div>
                 <label class="checkbox-container">
                     <input type="checkbox" name="declaration" required />
                     I confirm the information is true.
                 </label>
+                <div class="button-container">
+                    <button type="submit">Join Now</button>
+                </div>
             </section>
 
             <div class="button-container">
-                <button type="submit">Join Now</button>
-            </div>
+                </div>
         </form>
     </div>
 
@@ -889,7 +887,6 @@
             const uploadButton = document.getElementById('upload-signature');
             const signatureUpload = document.getElementById('signature-upload');
             const signatureInput = document.getElementById('signature');
-            const dateInput = document.getElementById('date');
 
             clearButton.addEventListener('click', function() {
                 signaturePad.clear();
@@ -927,11 +924,17 @@
                 if (!signatureInput.value) {
                     signatureInput.value = signaturePad.toDataURL();
                 }
-                dateInput.value = new Date().toISOString().split('T')[0];
+                // Automatically capture the current date on form submission
+                const currentDate = new Date().toISOString().split('T')[0];
+                const hiddenDateInput = document.createElement('input');
+                hiddenDateInput.type = 'hidden';
+                hiddenDateInput.name = 'submissionDate';
+                hiddenDateInput.value = currentDate;
+                this.appendChild(hiddenDateInput);
+
                 this.submit();
             });
         });
     </script>
 </body>
-
 </html>
