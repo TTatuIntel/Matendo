@@ -9,6 +9,7 @@
     <meta name="description" content="Join Matendo Medics, a global network of top medical professionals connecting with leading hospitals and clinics worldwide." />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
+
     <style>
         /* Global Reset */
 * {
@@ -358,76 +359,7 @@ footer {
                 <span>Personal Information</span>
                 <span class="arrow closed">➞</span>
             </button>
-            <console.log("Collapsible Section Toggle Functionality initialized.");
-console.log("Progress Bar and Message Update Functionality initialized.");
-console.log("Modal functionality initialized.");
-
-// Collapsible Section Toggle Functionality
-const collapsibles = document.querySelectorAll('.collapsible');
-
-collapsibles.forEach((button) => {
-    button.addEventListener('click', () => {
-        console.log("Collapsible section toggled.");
-        const content = button.nextElementSibling;
-        const arrow = button.querySelector('.arrow');
-        const isOpen = content.style.display === 'block';
-
-        content.style.display = isOpen ? 'none' : 'block';
-        arrow.classList.toggle('closed', isOpen);
-        arrow.classList.toggle('open', !isOpen);
-        button.setAttribute('aria-expanded', !isOpen);
-    });
-});
-
-// Progress Bar and Message Update Functionality
-function updateProgress() {
-    console.log("Progress bar and message updated.");
-    let progress = 0;
-    const totalFields = document.querySelectorAll('input, select').length;
-    const filledFields = document.querySelectorAll('input, select').filter(field => field.value).length;
-    progress = (filledFields / totalFields) * 100;
-
-    document.getElementById('progress-bar').style.width = `${progress}%`;
-
-    const progressMessage = document.getElementById('progress-message');
-    if (progress === 0) {
-        progressMessage.textContent = "Please fill in the form to get started.";
-    } else if (progress < 50) {
-        progressMessage.textContent = "You're making progress, keep going!";
-    } else if (progress < 100) {
-        progressMessage.textContent = "Almost there, just a few more steps!";
-    } else {
-        progressMessage.textContent = "Great job! You're all set.";
-    }
-
-    if (progress > 0) {
-        showModal("You're making progress! Keep going.");
-    }
-}
-
-// Modal functionality
-function showModal(message) {
-    console.log("Modal shown.");
-    const modal = document.getElementById("popup-modal");
-    const popupMessage = document.getElementById("popup-message");
-    const closeButton = document.querySelector(".close");
-
-    popupMessage.textContent = message;
-    modal.style.display = "block";
-
-    closeButton.onclick = function() {
-        console.log("Modal closed.");
-        modal.style.display = "none";
-    };
-
-    // Close the modal if the user clicks anywhere outside the modal
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            console.log("Modal closed.");
-            modal.style.display = "none";
-        }
-    };
-} class="content">
+            <div class="content">
                 <div class="input-pair">
                     <div>
                         <label for="first-name">First Name</label>
