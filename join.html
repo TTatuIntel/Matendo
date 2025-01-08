@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Join Us - Matendo Medics</title>
     <meta name="theme-color" content="#204ECF" />
-    <meta name="description" content="Join Matendo Medics, a global network of top medical professionals connecting with leading hospitals and clinics worldwide." />
+    <meta name="description"
+        content="Join Matendo Medics, a global network of top medical professionals connecting with leading hospitals and clinics worldwide." />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
-
     <style>
         /* Global Reset */
         * {
@@ -99,7 +99,7 @@
             gap: 0;
         }
 
-        .input-pair > div {
+        .input-pair>div {
             width: 25%;
             margin: 0;
         }
@@ -143,32 +143,47 @@
             margin: 0;
         }
 
-        /* Progress Bar */
+        /* Vertical Progress Bar */
         .progress-container {
-            width: 100%;
+            width: 5px;
+            /* Changed to vertical height */
+            height: 100vh;
+            /* Full viewport height */
             background-color: #e0e0e0;
             border-radius: 4px;
-            height: 5px;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 1000;
         }
 
         .progress-bar {
-            width: 0;
-            height: 100%;
+            width: 100%;
+            /* Now width */
+            height: 0;
+            /* Changed from width to height */
             background-color: #204ECF;
             border-radius: 4px;
-            transition: width 0.5s ease-out;
+            transition: height 0.5s ease-out;
+            /* Changed from width to height */
+            position: absolute;
+            bottom: 0;
+            /* Start from the bottom */
         }
 
-        /* Message Box */
         .progress-message {
-            font-size: 14px;
-            font-weight: 500;
-            color: #333;
-            margin-top: 10px;
-            text-align: center;
+            position: fixed;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: right;
+            width: 150px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
+
 
         /* Submit Button */
         button {
@@ -266,8 +281,29 @@
             .input-pair {
                 flex-direction: column;
             }
-            .input-pair > div {
+
+            .input-pair>div {
                 width: 100%;
+            }
+
+            .progress-container {
+                width: 100%;
+                height: 5px;
+                position: static;
+                margin: 10px 0;
+            }
+
+            .progress-bar {
+                width: 0;
+                height: 100%;
+            }
+
+            .progress-message {
+                position: static;
+                width: auto;
+                text-align: center;
+                transform: none;
+                margin: 10px 0;
             }
         }
     </style>
@@ -328,13 +364,15 @@
                     </div>
                     <div>
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Phone" required pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
+                        <input type="tel" id="phone" name="phone" placeholder="Phone" required
+                            pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                     </div>
                 </div>
                 <div class="input-pair">
                     <div>
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                        <input type="email" id="email" name="email" placeholder="Email" required
+                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                     </div>
                     <div>
                         <label for="address">Current Address</label>
@@ -357,7 +395,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Professional Information -->
         <section id="professional-info">
             <button type="button" class="collapsible" aria-expanded="false">
@@ -368,7 +405,8 @@
                 <div class="input-pair">
                     <div>
                         <label for="position">Position</label>
-                        <input type="text" id="position" name="position" list="positions" placeholder="Select or specify position" required>
+                        <input type="text" id="position" name="position" list="positions"
+                            placeholder="Select or specify position" required>
                         <datalist id="positions">
                             <option value="Medical Officer">
                             <option value="Nurse">
@@ -397,7 +435,8 @@
                 <div class="input-pair">
                     <div>
                         <label for="education">Highest Education</label>
-                        <input type="text" id="education" name="education" list="education-levels" placeholder="Select or specify education" required>
+                        <input type="text" id="education" name="education" list="education-levels"
+                            placeholder="Select or specify education" required>
                         <datalist id="education-levels">
                             <option value="Diploma">
                             <option value="Bachelor's">
@@ -544,11 +583,13 @@
                 <div class="input-pair">
                     <div>
                         <label for="reference1-contact">Ref 1 Contact</label>
-                        <input type="tel" id="reference1-contact" name="reference1Contact" placeholder="Phone" pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
+                        <input type="tel" id="reference1-contact" name="reference1Contact" placeholder="Phone"
+                            pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                     </div>
                     <div>
                         <label for="reference1-email">Ref 1 Email</label>
-                        <input type="email" id="reference1-email" name="reference1Email" placeholder="Email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                        <input type="email" id="reference1-email" name="reference1Email" placeholder="Email"
+                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                     </div>
                 </div>
                 <div class="input-pair">
@@ -564,11 +605,13 @@
                 <div class="input-pair">
                     <div>
                         <label for="reference2-contact">Ref 2 Contact</label>
-                        <input type="tel" id="reference2-contact" name="reference2Contact" placeholder="Phone" pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
+                        <input type="tel" id="reference2-contact" name="reference2Contact" placeholder="Phone"
+                            pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                     </div>
                     <div>
                         <label for="reference2-email">Ref 2 Email</label>
-                        <input type="email" id="reference2-email" name="reference2Email" placeholder="Email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                        <input type="email" id="reference2-email" name="reference2Email" placeholder="Email"
+                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                     </div>
                 </div>
             </div>
@@ -608,13 +651,13 @@
                 <div class="input-pair">
                     <div>
                         <label for="additional-certifications">Addl Certs</label>
-                        <input type="file" id="additional-certifications" name="additionalCertifications" accept=".pdf, .jpg, .png">
+                        <input type="file" id="additional-certifications" name="additionalCertifications"
+                            accept=".pdf, .jpg, .png">
                         <small>PDF, JPG, PNG</small>
                     </div>
                 </div>
             </div>
         </section>
-
         <!-- Declaration -->
         <section id="declaration">
             <label class="checkbox-container">
@@ -632,6 +675,11 @@
                 </div>
             </div>
         </section>
+
+        <!-- Added confirmation message for better user experience -->
+        <div class="progress-message" id="confirm-message" style="margin-bottom: 20px;">
+            By submitting this form, you confirm that all provided information is accurate and complete.
+        </div>
 
         <button type="submit">Join Now</button>
     </form>
@@ -655,6 +703,7 @@
     <footer>
         <p>© 2025 Matendo Medics. All Rights Reserved.</p>
     </footer>
+
     <script>
         // Collapsible Section Toggle Functionality
         const collapsibles = document.querySelectorAll('.collapsible');
@@ -682,14 +731,19 @@
             document.getElementById('progress-bar').style.width = `${progress}%`;
 
             const progressMessage = document.getElementById('progress-message');
+            const confirmMessage = document.getElementById('confirm-message');
             if (progress === 0) {
                 progressMessage.textContent = "Please fill in the form to get started.";
+                confirmMessage.style.display = 'none';
             } else if (progress < 50) {
                 progressMessage.textContent = "You're making progress, keep going!";
+                confirmMessage.style.display = 'none';
             } else if (progress < 100) {
                 progressMessage.textContent = "Almost there, just a few more steps!";
+                confirmMessage.style.display = 'block';
             } else {
                 progressMessage.textContent = "Great job! You're all set.";
+                confirmMessage.style.display = 'block';
             }
 
             if (progress > 0) {
@@ -717,6 +771,9 @@
                 }
             };
         }
+
+        // Event listener for form changes to update progress and confirmation message
+        document.getElementById('join-us-form').addEventListener('input', updateProgress);
     </script>
 </body>
 
