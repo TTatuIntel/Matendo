@@ -4,56 +4,73 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hire Medical Professionals - Matendo Medics</title>
+    <title>Join Us - Matendo Medics</title>
     <meta name="theme-color" content="#204ECF" />
     <meta name="description"
-        content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs. Hire experts for full-time, part-time, or contract work." />
+        content="Join Matendo Medics, a global network of top medical professionals connecting with leading hospitals and clinics worldwide." />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <style>
+        
+    </style>
 </head>
 
 <body>
     <!-- Navigation -->
     <nav id="nav" aria-label="Main Navigation">
-        <div class="nav-content">
+        <div>
             <a href="index.html" title="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
             </a>
         </div>
-        <div class="progress-container">
-            <div id="progress-bar"></div>
-        </div>
     </nav>
 
+    <!-- Progress Dots -->
+    <div class="progress-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
     <div class="container">
-        <!-- Form -->
-        <form id="hire-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="post" target="_self">
+        <!-- Form --> <!--// Kindly replace form ID with Actura Google Form ID -->
+        <form id="join-us-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="post" target="_self">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+
             <!-- Personal Information -->
             <section id="personal-info">
-                <button type="button" class="collapsible" aria-expanded="false" data-step="1">
+                <button type="button" class="collapsible" aria-expanded="false">
                     <span>Personal Information</span>
                     <span class="arrow closed">➞</span>
                 </button>
                 <div class="content">
                     <div class="input-pair">
                         <div>
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="entry.123456789" placeholder="Enter first name" required>
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="entry.123456789" placeholder="Enter your first name"
+                                required>
                         </div>
                         <div>
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="entry.987654321" placeholder="Enter last name" required>
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="entry.987654321" placeholder="Enter your last name"
+                                required>
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="dob">Date of Birth (dd/mm/yyyy)</label>
+                            <label for="dob">Date of Birth</label>
                             <input type="date" id="dob" name="entry.246813579" required>
                         </div>
                         <div>
                             <label for="gender">Gender</label>
                             <select id="gender" name="entry.135792468" required>
-                                <option value="">Select one</option>
+                                <option value="">Select your gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="other">Other</option>
@@ -61,164 +78,166 @@
                         </div>
                     </div>
                     <div class="input-pair">
-                        <div id="other-gender-container" style="display: none;">
-                            <label for="otherGender">Specify Gender</label>
-                            <input type="text" id="otherGender" name="entry.369258147" placeholder="Specify other gender">
-                        </div>
                         <div>
                             <label for="nationality">Nationality</label>
-                            <input type="text" id="nationality" name="entry.741852963" placeholder="Enter nationality" required>
+                            <input type="text" id="nationality" name="entry.369258147" placeholder="Enter your nationality"
+                                required>
                         </div>
-                    </div>
-                    <div class="input-pair">
                         <div>
-                            <label for="contactNumber">Contact Number</label>
-                            <input type="tel" id="contactNumber" name="entry.159753456" placeholder="Enter contact number" required 
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="entry.741852963" placeholder="Enter your phone number" required
                                 pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                         </div>
+                    </div>
+                    <div class="input-pair">
                         <div>
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="entry.951753852" placeholder="Enter email address" required 
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="entry.159753456" placeholder="Enter your email address" required
                                 pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                        </div>
+                        <div>
+                            <label for="address">Current Address</label>
+                            <input type="text" id="address" name="entry.951753852" placeholder="Enter your current address"
+                                required>
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="currentAddress">Current Address</label>
-                            <input type="text" id="currentAddress" name="entry.357159852" placeholder="City, State/Region, Country" required>
-                        </div>
-                        <div>
-                            <label for="idType">ID Type</label>
-                            <select id="idType" name="entry.753951852" required>
-                                <option value="">Select one</option>
+                            <label for="id-info">ID Type</label>
+                            <select id="id-info" name="entry.357159852" required>
+                                <option value="">Select ID type</option>
                                 <option value="passport">Passport</option>
                                 <option value="national-id">National ID</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="input-pair">
-                        <div id="other-id-container" style="display: none;">
-                            <label for="otherID">Specify ID Type</label>
-                            <input type="text" id="otherID" name="entry.159753654" placeholder="Specify other ID type">
-                        </div>
                         <div>
-                            <label for="idNumber">ID Number</label>
-                            <input type="text" id="idNumber" name="entry.951753654" placeholder="Enter ID number" required>
+                            <label for="id-number">ID Number</label>
+                            <input type="text" id="id-number" name="entry.753951852" placeholder="Enter your ID number"
+                                required>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Professional Information -->
-            <section id="professional-info" data-step="2">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
+            <section id="professional-info">
+                <button type="button" class="collapsible" aria-expanded="false">
                     <span>Professional Information</span>
                     <span class="arrow closed">➞</span>
                 </button>
                 <div class="content">
                     <div class="input-pair">
                         <div>
-                            <label for="position">Position Applying For</label>
-                            <select id="position" name="entry.357159654" required>
-                                <option value="">Select one</option>
-                                <option value="medical-officer">Medical Officer</option>
-                                <option value="nurse-midwife">Nurse/Midwife</option>
-                                <option value="lab-tech">Lab Technologist/Technician</option>
-                                <option value="radiographer">Radiographer</option>
-                                <option value="pharmacist">Pharmacist</option>
-                                <option value="pharmacy-dispenser">Pharmacy Dispenser</option>
+                            <label for="position">Position</label>
+                            <select id="position" name="entry.159753654" required>
+                                <option value="">Select or specify position</option>
+                                <option value="Medical Officer">Medical Officer</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Lab Technician">Lab Technician</option>
+                                <option value="Radiographer">Radiographer</option>
+                                <option value="Pharmacist">Pharmacist</option>
+                                <option value="Pharmacy Dispenser">Pharmacy Dispenser</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
                         <div id="other-position-container" style="display: none;">
-                            <label for="otherPosition">Specify Position</label>
-                            <input type="text" id="otherPosition" name="entry.753951654" placeholder="Specify other position">
+                            <label for="other-position">Specify Position</label>
+                            <input type="text" id="other-position" name="entry.951753654"
+                                placeholder="Enter your specific position">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="licensureNumber">Professional Registration/Licensure Number</label>
-                            <input type="text" id="licensureNumber" name="entry.159753756" placeholder="Enter licensure number">
+                            <label for="licensure">Licensure Number</label>
+                            <input type="text" id="licensure" name="entry.357159654" placeholder="Enter your licensure number"
+                                required>
                         </div>
                         <div>
-                            <label for="experience">Years of Relevant Experience</label>
-                            <input type="number" id="experience" name="entry.951753756" placeholder="Enter years" required min="0">
+                            <label for="experience">Experience (Years)</label>
+                            <input type="number" id="experience" name="entry.753951654"
+                                placeholder="Enter years of experience" required>
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="education">Highest Educational Qualification</label>
-                            <select id="education" name="entry.357159756" required>
-                                <option value="">Select one</option>
-                                <option value="diploma">Diploma</option>
-                                <option value="bachelors">Bachelor’s Degree</option>
-                                <option value="masters">Master’s Degree</option>
-                                <option value="phd">PhD/Doctorate</option>
+                            <label for="education">Highest Education</label>
+                            <select id="education" name="entry.159753756" required>
+                                <option value="">Select or specify education</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Bachelor's">Bachelor's</option>
+                                <option value="Master's">Master's</option>
+                                <option value="PhD">PhD</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
                         <div id="other-education-container" style="display: none;">
-                            <label for="otherEducation">Specify Education</label>
-                            <input type="text" id="otherEducation" name="entry.753951756" placeholder="Specify other education">
+                            <label for="other-education">Specify Education</label>
+                            <input type="text" id="other-education" name="entry.951753756"
+                                placeholder="Enter your specific education">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
                             <label for="institution1">Institution 1</label>
-                            <input type="text" id="institution1" name="entry.159753858" placeholder="Enter institution name">
+                            <input type="text" id="institution1" name="entry.357159756"
+                                placeholder="Enter name of institution">
                         </div>
                         <div>
-                            <label for="year1">Year of Graduation 1</label>
-                            <input type="text" id="year1" name="entry.951753858" placeholder="Enter year">
+                            <label for="year1">Year 1</label>
+                            <input type="text" id="year1" name="entry.753951756" placeholder="Enter year of completion">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="institution2">Institution 2 (if applicable)</label>
-                            <input type="text" id="institution2" name="entry.357159858" placeholder="Enter institution name">
+                            <label for="institution2">Institution 2</label>
+                            <input type="text" id="institution2" name="entry.159753858"
+                                placeholder="Enter name of institution">
                         </div>
                         <div>
-                            <label for="year2">Year of Graduation 2</label>
-                            <input type="text" id="year2" name="entry.753951858" placeholder="Enter year">
+                            <label for="year2">Year 2</label>
+                            <input type="text" id="year2" name="entry.951753858" placeholder="Enter year of completion">
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Employment Details -->
-            <section id="employment-details" data-step="3">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
+            <section id="employment-details">
+                <button type="button" class="collapsible" aria-expanded="false">
                     <span>Employment Details</span>
                     <span class="arrow closed">➞</span>
                 </button>
                 <div class="content">
                     <div class="input-pair">
                         <div>
-                            <label for="employer">Current/Most Recent Employer</label>
-                            <input type="text" id="employer" name="entry.159753960" placeholder="Enter employer name">
+                            <label for="employer">Employer</label>
+                            <input type="text" id="employer" name="entry.357159858"
+                                placeholder="Enter your current or last employer">
                         </div>
                         <div>
-                            <label for="positionHeld">Position Held</label>
-                            <input type="text" id="positionHeld" name="entry.951753960" placeholder="Enter position">
+                            <label for="position-held">Position Held</label>
+                            <input type="text" id="position-held" name="entry.753951858" placeholder="Enter your position">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="employmentDuration">Duration of Employment</label>
-                            <input type="text" id="employmentDuration" name="entry.357159960" placeholder="Start and End Dates">
+                            <label for="employment-duration">Duration</label>
+                            <input type="text" id="employment-duration" name="entry.159753960"
+                                placeholder="Enter employment duration">
                         </div>
                         <div>
-                            <label for="reasonLeaving">Reason for Leaving</label>
-                            <input type="text" id="reasonLeaving" name="entry.753951960" placeholder="Reason for leaving">
+                            <label for="reason-leaving">Reason for Leaving</label>
+                            <input type="text" id="reason-leaving" name="entry.951753960"
+                                placeholder="Enter reason for leaving">
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Skills and Certifications -->
-            <section id="skills-certifications" data-step="4">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
+            <section id="skills-certifications">
+                <button type="button" class="collapsible" aria-expanded="false">
                     <span>Skills and Certifications</span>
                     <span class="arrow closed">➞</span>
                 </button>
@@ -226,105 +245,112 @@
                     <div class="input-pair">
                         <div>
                             <label for="skills">Relevant Skills</label>
-                            <textarea id="skills" name="entry.159754062" placeholder="Enter relevant skills" required></textarea>
+                            <input type="text" id="skills" name="entry.357159960" placeholder="Enter your relevant skills">
                         </div>
                         <div>
-                            <label for="certifications">Additional Certifications</label>
-                            <textarea id="certifications" name="entry.951754062" placeholder="Enter certifications"></textarea>
+                            <label for="certifications">Certifications</label>
+                            <input type="text" id="certifications" name="entry.753951960"
+                                placeholder="Enter your certifications">
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Availability -->
-            <section id="availability" data-step="5">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
+            <section id="availability">
+                <button type="button" class="collapsible" aria-expanded="false">
                     <span>Availability</span>
                     <span class="arrow closed">➞</span>
                 </button>
                 <div class="content">
                     <div class="input-pair">
                         <div>
-                            <label for="workType">Preferred Work Type</label>
-                            <select id="workType" name="entry.357160062" required>
-                                <option value="">Select one</option>
-                                <option value="short-term">Short-Term (less than 3 months)</option>
+                            <label for="work-type">Work Type</label>
+                            <select id="work-type" name="entry.159754062" required>
+                                <option value="">Select work type</option>
+                                <option value="short-term">Short-Term</option>
                                 <option value="part-time">Part-Time</option>
                                 <option value="full-time">Full-Time</option>
                             </select>
                         </div>
                         <div>
-                            <label for="startDate">Preferred Start Date (dd/mm/yyyy)</label>
-                            <input type="date" id="startDate" name="entry.753952062" required>
+                            <label for="start-date">Start Date</label>
+                            <input type="date" id="start-date" name="entry.951754062" required>
                         </div>
                     </div>
                     <div class="input-pair">
                         <div class="checkbox-container">
-                            <input type="checkbox" id="dayShift" name="entry.159754164" value="day">
-                            <label for="dayShift">Day Shift</label>
+                            <input type="checkbox" id="day-shift" name="entry.357160062" value="day">
+                            <label for="day-shift">Day Shift</label>
                         </div>
                         <div class="checkbox-container">
-                            <input type="checkbox" id="nightShift" name="entry.951754164" value="night">
-                            <label for="nightShift">Night Shift</label>
+                            <input type="checkbox" id="night-shift" name="entry.753952062" value="night">
+                            <label for="night-shift">Night Shift</label>
                         </div>
                     </div>
                     <div class="input-pair">
                         <div class="checkbox-container">
-                            <input type="checkbox" id="rotatingShifts" name="entry.357160164" value="rotating">
-                            <label for="rotatingShifts">Rotating Shifts</label>
+                            <input type="checkbox" id="rotating-shifts" name="entry.159754164" value="rotating">
+                            <label for="rotating-shifts">Rotating Shifts</label>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- References -->
-            <section id="references" data-step="6">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
+            <section id="references">
+                <button type="button" class="collapsible" aria-expanded="false">
                     <span>References</span>
                     <span class="arrow closed">➞</span>
                 </button>
                 <div class="content">
                     <div class="input-pair">
                         <div>
-                            <label for="reference1Name">Reference 1 Name</label>
-                            <input type="text" id="reference1Name" name="entry.753952164" placeholder="Enter name" required>
+                            <label for="reference1-name">Reference 1 Name</label>
+                            <input type="text" id="reference1-name" name="entry.951754164"
+                                placeholder="Enter reference name">
                         </div>
                         <div>
-                            <label for="reference1Position">Reference 1 Position</label>
-                            <input type="text" id="reference1Position" name="entry.159754266" placeholder="Enter position" required>
+                            <label for="reference1-position">Reference 1 Position</label>
+                            <input type="text" id="reference1-position" name="entry.357160164"
+                                placeholder="Enter reference position">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="reference1Contact">Reference 1 Contact Number</label>
-                            <input type="tel" id="reference1Contact" name="entry.951754266" placeholder="Enter contact number" required 
-                                pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
+                            <label for="reference1-contact">Reference 1 Contact</label>
+                            <input type="tel" id="reference1-contact" name="entry.753952164"
+                                placeholder="Enter reference phone number" pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                         </div>
                         <div>
-                            <label for="reference1Email">Reference 1 Email Address</label>
-                            <input type="email" id="reference1Email" name="entry.357160266" placeholder="Enter email address" required 
+                            <label for="reference1-email">Reference 1 Email</label>
+                            <input type="email" id="reference1-email" name="entry.159754266"
+                                placeholder="Enter reference email"
                                 pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="reference2Name">Reference 2 Name</label>
-                            <input type="text" id="reference2Name" name="entry.753952266" placeholder="Enter name" required>
+                            <label for="reference2-name">Reference 2 Name</label>
+                            <input type="text" id="reference2-name" name="entry.951754266"
+                                placeholder="Enter reference name">
                         </div>
                         <div>
-                            <label for="reference2Position">Reference 2 Position</label>
-                            <input type="text" id="reference2Position" name="entry.159754368" placeholder="Enter position" required>
+                            <label for="reference2-position">Reference 2 Position</label>
+                            <input type="text" id="reference2-position" name="entry.357160266"
+                                placeholder="Enter reference position">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
-                            <label for="reference2Contact">Reference 2 Contact Number</label>
-                            <input type="tel" id="reference2Contact" name="entry.951754368" placeholder="Enter contact number" required 
-                                pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
+                            <label for="reference2-contact">Reference 2 Contact</label>
+                            <input type="tel" id="reference2-contact" name="entry.753952266"
+                                placeholder="Enter reference phone number" pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                         </div>
                         <div>
-                            <label for="reference2Email">Reference 2 Email Address</label>
-                            <input type="email" id="reference2Email" name="entry.357160368" placeholder="Enter email address" required 
+                            <label for="reference2-email">Reference 2 Email</label>
+                            <input type="email" id="reference2-email" name="entry.159754368"
+                                placeholder="Enter reference email"
                                 pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                         </div>
                     </div>
@@ -332,114 +358,80 @@
             </section>
 
             <!-- Supporting Documents -->
-            <section id="supporting-documents" data-step="7">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
+            <section id="supporting-documents">
+                <button type="button" class="collapsible" aria-expanded="false">
                     <span>Supporting Documents</span>
                     <span class="arrow closed">➞</span>
                 </button>
                 <div class="content">
                     <div class="input-pair">
                         <div class="file-input-container">
-                            <label for="cvResume">CV/Resume</label>
-                            <input type="file" id="cvResume" name="entry.753952368" accept=".pdf, .doc, .docx" required>
+                            <label for="resume">Resume/CV (PDF, DOC, DOCX)</label>
+                            <input type="file" id="resume" name="entry.951754368" accept=".pdf, .doc, .docx" required>
                         </div>
                         <div class="file-input-container">
-                            <label for="coverLetter">Cover Letter</label>
-                            <input type="file" id="coverLetter" name="entry.159754470" accept=".pdf, .doc, .docx">
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div class="file-input-container">
-                            <label for="license">Professional License/Registration</label>
-                            <input type="file" id="license" name="entry.951754470" accept=".pdf, .jpg, .png">
-                        </div>
-                        <div class="file-input-container">
-                            <label for="academicCertificates">Academic Certificates</label>
-                            <input type="file" id="academicCertificates" name="entry.357160470" accept=".pdf, .jpg, .png">
+                            <label for="cover-letter">Cover Letter (PDF, DOC, DOCX)</label>
+                            <input type="file" id="cover-letter" name="entry.357160368" accept=".pdf, .doc, .docx">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div class="file-input-container">
-                            <label for="additionalCertifications">Additional Certifications</label>
-                            <input type="file" id="additionalCertifications" name="entry.753952470" accept=".pdf, .jpg, .png">
+                            <label for="license">License (PDF, JPG, PNG)</label>
+                            <input type="file" id="license" name="entry.753952368" accept=".pdf, .jpg, .png">
+                        </div>
+                        <div class="file-input-container">
+                            <label for="certificates">Certificates (PDF, JPG, PNG)</label>
+                            <input type="file" id="certificates" name="entry.159754470" accept=".pdf, .jpg, .png">
+                        </div>
+                    </div>
+                    <div class="input-pair">
+                        <div class="file-input-container">
+                            <label for="additional-certifications">Additional Certifications (PDF, JPG, PNG)</label>
+                            <input type="file" id="additional-certifications" name="entry.951754470"
+                                accept=".pdf, .jpg, .png">
                         </div>
                     </div>
                 </div>
             </section>
-
             <!-- Declaration -->
-            <section id="declaration" class="declaration-section" data-step="8">
+            <section id="declaration" class="declaration-section">
                 <div class="shared-content">
+                    <p>By submitting this form, you confirm that all provided information is accurate and complete.</p>
+
                     <label class="checkbox-container">
-                        <input type="checkbox" name="entry.159754572" required>
-                        I confirm that the information provided is true and accurate to the best of my knowledge.
+                        <input type="checkbox" name="entry.357160470" required />
+                        I confirm the information is true.
                     </label>
                 </div>
-                <div class="input-pair">
-                    <div>
-                        <label for="signature">Applicant's Signature (Optional)</label>
-                        <input type="text" id="signature" name="entry.951754572" placeholder="Enter signature">
-                    </div>
-                    <div>
-                        <label for="declarationDate">Date (dd/mm/yyyy)</label>
-                                                   <input type="date" id="declarationDate" name="entry.357160572" required>
+                <div class="signature-container">
+                    <div class="signature-input">
+                        <label for="signature">Signature</label>
+                        <canvas id="signature-pad" width="300" height="50"></canvas>
+                        <input type="file" id="signature-upload" name="entry.753952470" accept="image/*">
+                        <div class="signature-options">
+                            <button type="button" id="clear-signature">Clear</button>
+                            <button type="button" id="upload-signature">Upload</button>
+                        </div>
+                        <input type="hidden" id="signature" name="entry.159754572">
                     </div>
                 </div>
                 <div class="button-container">
-                    <button type="submit">Submit Application</button>
+                    <button type="submit">Join Now</button>
                 </div>
             </section>
         </form>
     </div>
-
     <!-- Footer -->
     <footer>
         <p>© 2025 Matendo Medics. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // Collapsible Section Toggle Functionality with step control
+        // Collapsible Section Toggle Functionality
         const collapsibles = document.querySelectorAll('.collapsible');
-
-        function validateStep(step) {
-            const fields = Array.from(document.querySelectorAll(`#hire-form [data-step="${step}"] input, #hire-form [data-step="${step}"] select, #hire-form [data-step="${step}"] textarea`)).filter(field => field.required);
-            return fields.every(field => field.checkValidity());
-        }
-
-        function updateStepAvailability() {
-            const currentStep = Array.from(collapsibles).findIndex(button => button.getAttribute('aria-expanded') === 'true') + 1 || 1;
-            const totalSteps = collapsibles.length;
-
-            for (let i = 1; i <= totalSteps; i++) {
-                const button = document.querySelector(`[data-step="${i}"] button`);
-                if (button) {
-                    button.disabled = i > currentStep || !validateStep(i - 1);
-                }
-            }
-
-            // Update progress bar
-            updateProgress();
-        }
 
         collapsibles.forEach((button) => {
             button.addEventListener('click', () => {
-                const thisStep = parseInt(button.getAttribute('data-step'), 10);
-                // Check if the previous step is valid before allowing this step to open
-                if (thisStep > 1 && !validateStep(thisStep - 1)) {
-                    alert(`Please complete Step ${thisStep - 1} before proceeding.`);
-                    return;
-                }
-
-                // Close all other collapsible sections
-                collapsibles.forEach(otherButton => {
-                    if (otherButton !== button) {
-                        otherButton.nextElementSibling.style.display = 'none';
-                        otherButton.querySelector('.arrow').classList.toggle('closed', true);
-                        otherButton.querySelector('.arrow').classList.toggle('open', false);
-                        otherButton.setAttribute('aria-expanded', 'false');
-                    }
-                });
-
                 const content = button.nextElementSibling;
                 const arrow = button.querySelector('.arrow');
                 const isOpen = content.style.display === 'block';
@@ -448,87 +440,174 @@
                 arrow.classList.toggle('closed', isOpen);
                 arrow.classList.toggle('open', !isOpen);
                 button.setAttribute('aria-expanded', !isOpen);
-
-                updateStepAvailability();
             });
         });
 
-        // Progress Bar Update Functionality
+        // Progress Bar and Message Update Functionality
         function updateProgress() {
-            const totalSteps = collapsibles.length;
-            const currentStep = Array.from(collapsibles).findIndex(button => button.getAttribute('aria-expanded') === 'true') + 1;
-            const progress = (currentStep / totalSteps) * 100;
+            let progress = 0;
+            const totalFields = document.querySelectorAll('input, select').length;
+            const filledFields = document.querySelectorAll('input:not([type="file"]):not([type="hidden"]), select').filter(field => field.value).length;
+            progress = (filledFields / totalFields) * 100;
 
             const progressBar = document.getElementById('progress-bar');
-            progressBar.style.width = `${progress}%`;
-        }
+            progressBar.style.height = `${progress}%`;
+            progressBar.classList.toggle('complete', progress === 100);
 
-        // Handle dropdowns with 'other' options
-        function toggleOtherField(input, containerId, inputId) {
-            const container = document.getElementById(containerId);
-            const inputField = document.getElementById(inputId);
-            if (input.value === 'other') {
-                container.style.display = 'block';
-                inputField.setAttribute('required', 'required');
+            const progressMessage = document.getElementById('progress-message');
+            if (progress === 0) {
+                progressMessage.textContent = "Please fill in the form to get started.";
+            } else if (progress < 50) {
+                progressMessage.textContent = "You're making progress, keep going!";
+            } else if (progress < 100) {
+                progressMessage.textContent = "Almost there, just a few more steps!";
             } else {
-                container.style.display = 'none';
-                inputField.removeAttribute('required');
-                inputField.value = '';
+                progressMessage.textContent = "Great job! You're all set.";
+            }
+
+            updateProgressDots();
+
+            if (progress > 0 && progress % 25 === 0) {
+                showModal(`You've completed ${progress}% of the form!`);
             }
         }
 
-        document.getElementById('gender').addEventListener('change', function() {
-            toggleOtherField(this, 'other-gender-container', 'otherGender');
-        });
+        function updateProgressDots() {
+            const totalSections = document.querySelectorAll('section').length;
+            const completedSections = Array.from(document.querySelectorAll('section')).filter(section => {
+                const inputs = section.querySelectorAll('input, select');
+                return Array.from(inputs).every(input => input.value.trim() !== '');
+            }).length;
 
-        document.getElementById('idType').addEventListener('change', function() {
-            toggleOtherField(this, 'other-id-container', 'otherID');
-        });
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index < (completedSections / totalSections) * dots.length);
+            });
+        }
 
-        document.getElementById('position').addEventListener('change', function() {
-            toggleOtherField(this, 'other-position-container', 'otherPosition');
-        });
+        // Modal functionality
+        function showModal(message) {
+            const modal = document.getElementById("popup-modal");
+            const popupMessage = document.getElementById("popup-message");
+            const closeButton = document.querySelector(".close");
 
-        document.getElementById('education').addEventListener('change', function() {
-            toggleOtherField(this, 'other-education-container', 'otherEducation');
-        });
+            popupMessage.textContent = message;
+            modal.style.display = "block";
 
-        // Form submission handling with step validation
-        document.getElementById('hire-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Validate all steps before submission
-            for (let i = 1; i <= collapsibles.length; i++) {
-                if (!validateStep(i)) {
-                    alert(`Please complete Step ${i} before submitting.`);
+            closeButton.onclick = function () {
+                modal.style.display = "none";
+            };
+
+            // Close the modal if the user clicks anywhere outside the modal
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        }
+
+        // Event listener for form changes to update progress and confirmation message
+        document.getElementById('join-us-form').addEventListener('input', updateProgress);
+
+        // Signature Pad functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const canvas = document.getElementById('signature-pad');
+            const signaturePad = new SignaturePad(canvas);
+            const clearButton = document.getElementById('clear-signature');
+            const uploadButton = document.getElementById('upload-signature');
+            const signatureUpload = document.getElementById('signature-upload');
+            const signatureInput = document.getElementById('signature');
+
+            clearButton.addEventListener('click', function () {
+                signaturePad.clear();
+                signatureInput.value = '';
+            });
+
+            uploadButton.addEventListener('click', function () {
+                signatureUpload.click();
+            });
+
+            signatureUpload.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        const img = new Image();
+                        img.onload = function () {
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            canvas.getContext('2d').drawImage(img, 0, 0);
+                            signatureInput.value = canvas.toDataURL();
+                        };
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.getElementById('join-us-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (signaturePad.isEmpty() && !signatureInput.value) {
+                    alert('Please provide a signature.');
                     return;
                 }
-            }
+                if (!signatureInput.value) {
+                    signatureInput.value = signaturePad.toDataURL();
+                }
+                // Automatically capture the current date on form submission
+                const currentDate = new Date().toISOString().split('T')[0];
+                const hiddenDateInput = document.createElement('input');
+                hiddenDateInput.type = 'hidden';
+                hiddenDateInput.name = 'entry.159754674';
+                hiddenDateInput.value = currentDate;
+                this.appendChild(hiddenDateInput);
 
-            if (!this.checkValidity()) {
-                alert('Please fill out all required fields.');
-                return;
-            }
-
-            // Submit the form data to Google Forms
-            const formData = new FormData(this);
-            fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            }).then(() => {
-                alert('Application submitted successfully!');
-                this.reset();
-                updateProgress();
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
+                // Submit the form data to Google Forms
+                const formData = new FormData(this);
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                }).then(() => {
+                    alert('Form submitted successfully!');
+                    this.reset();
+                    updateProgress();
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
             });
         });
 
-        // Initial progress update and setting up the first step
-        updateProgress();
-        document.querySelector('[data-step="1"] button').click();
+        // Function to update file input labels
+        function updateFileInputLabel(input) {
+            const label = input.previousElementSibling;
+            label.textContent = input.files[0] ? input.files[0].name : label.getAttribute('data-default-text');
+        }
+
+        // Add event listeners for file inputs
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', () => updateFileInputLabel(input));
+            const label = input.previousElementSibling;
+            label.setAttribute('data-default-text', label.textContent);
+        });
+
+        // Function to toggle visibility of "other" input fields
+        function toggleOtherField(selectElement, otherFieldId) {
+            const otherField = document.getElementById(otherFieldId);
+            otherField.style.display = selectElement.value === 'other' ? 'block' : 'none';
+        }
+
+        // Add event listeners for select elements with "other" option
+        document.getElementById('position').addEventListener('change', function () {
+            toggleOtherField(this, 'other-position-container');
+        });
+
+        document.getElementById('education').addEventListener('change', function () {
+            toggleOtherField(this, 'other-education-container');
+        });
     </script>
 </body>
 
 </html>
+
