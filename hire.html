@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css" />
+    <!-- Added Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 
@@ -38,39 +40,39 @@
                     <div class="input-pair">
                         <div>
                             <label for="name">Facility Name</label>
-                            <input type="text" id="name" name="entry.123456789" placeholder="Enter facility name" required size="20">
+                            <input type="text" id="name" name="entry.123456789" placeholder="Enter facility name" required>
                         </div>
                         <div>
                             <label for="location">Location</label>
-                            <input type="text" id="location" name="entry.987654321" placeholder="City, State/Region, Country" required size="30">
+                            <input type="text" id="location" name="entry.987654321" placeholder="City, State/Region, Country" required>
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
                             <label for="pin">Facility PIN</label>
-                            <input type="text" id="pin" name="entry.246813579" placeholder="Enter PIN if applicable" size="15">
+                            <input type="text" id="pin" name="entry.246813579" placeholder="Enter PIN if applicable">
                         </div>
                         <div>
                             <label for="contactPerson">Facility Contact Person</label>
-                            <input type="text" id="contactPerson" name="entry.135792468" placeholder="Enter contact person" required size="25">
+                            <input type="text" id="contactPerson" name="entry.135792468" placeholder="Enter contact person" required>
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
                             <label for="phone">Phone Number</label>
                             <input type="tel" id="phone" name="entry.369258147" placeholder="Enter phone number" required 
-                                pattern="\+?[0-9]{1,4}?[0-9]{7,15}" size="15">
+                                pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
                         </div>
                         <div>
                             <label for="email">Email Address</label>
                             <input type="email" id="email" name="entry.741852963" placeholder="Enter email address" required 
-                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" size="30">
+                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                         </div>
                     </div>
                     <div class="input-pair">
                         <div>
                             <label for="emergencyContact">Emergency Contact Information (Optional)</label>
-                            <input type="text" id="emergencyContact" name="entry.159753456" placeholder="Enter emergency contact" size="30">
+                            <input type="text" id="emergencyContact" name="entry.159753456" placeholder="Enter emergency contact">
                         </div>
                     </div>
                 </div>
@@ -99,7 +101,7 @@
                         </div>
                         <div id="otherFacilityTypeContainer" style="display: none;">
                             <label for="otherFacilityTypeInput">Specify Other Facility Type</label>
-                            <input type="text" id="otherFacilityTypeInput" name="entry.357159852" placeholder="Specify other type" size="20">
+                            <input type="text" id="otherFacilityTypeInput" name="entry.357159852" placeholder="Specify other type">
                         </div>
                     </div>
                 </div>
@@ -130,7 +132,7 @@
                         </div>
                         <div id="otherClinicalStaffContainer" style="display: none;">
                             <label for="otherClinicalStaffInput">Specify Other Clinical Staff</label>
-                            <input type="text" id="otherClinicalStaffInput" name="entry.123456790" placeholder="Specify other clinical staff" size="25">
+                            <input type="text" id="otherClinicalStaffInput" name="entry.123456790" placeholder="Specify other clinical staff">
                         </div>
                     </div>
                 </div>
@@ -149,7 +151,7 @@
                     <div class="input-pair">
                         <div>
                             <label>Duration of Employment</label>
-                            <div class="checkbox-group">
+                            <div class="checkbox-group two-columns">
                                 <label><input type="checkbox" name="employmentDuration" value="Short-Term"> Short-Term (less than 3 months)</label>
                                 <label><input type="checkbox" name="employmentDuration" value="Part-Time"> Part-Time</label>
                                 <label><input type="checkbox" name="employmentDuration" value="Full-Time"> Full-Time</label>
@@ -157,7 +159,7 @@
                         </div>
                         <div>
                             <label>Shift Type</label>
-                            <div class="checkbox-group">
+                            <div class="checkbox-group two-columns">
                                 <label><input type="checkbox" name="shiftType" value="Day Shift"> Day Shift</label>
                                 <label><input type="checkbox" name="shiftType" value="Night Shift"> Night Shift</label>
                                 <label><input type="checkbox" name="shiftType" value="Rotating Shifts"> Rotating Shifts</label>
@@ -176,7 +178,7 @@
                     <div class="input-pair">
                         <div>
                             <label for="staffNumber">Number of Staff Needed per Position</label>
-                            <input type="number" id="staffNumber" name="entry.357159654" placeholder="Enter number" required min="1" size="5">
+                            <input type="number" id="staffNumber" name="entry.357159654" placeholder="Enter number" required min="1">
                         </div>
                         <div>
                             <label for="startDate">Preferred Start Date</label>
@@ -199,7 +201,7 @@
                     <div class="input-pair">
                         <div>
                             <label for="qualifications">Qualifications or Experience Required</label>
-                            <textarea id="qualifications" name="entry.159753756" placeholder="Enter details" required cols="40"></textarea>
+                            <textarea id="qualifications" name="entry.159753756" placeholder="Enter details" required></textarea>
                         </div>
                         <div>
                             <label>Preferred Gender</label>
@@ -213,7 +215,7 @@
                     <div class="input-pair">
                         <div>
                             <label for="salaryRange">Expected Salary Range (Optional)</label>
-                            <input type="text" id="salaryRange" name="entry.357159756" placeholder="Enter range" size="20">
+                            <input type="text" id="salaryRange" name="entry.357159756" placeholder="Enter range">
                         </div>
                     </div>
                 </div>
@@ -232,7 +234,7 @@
                     <div class="input-pair">
                         <div>
                             <label for="jobDescription">Job Description/Duties</label>
-                            <textarea id="jobDescription" name="entry.753951756" placeholder="Outline responsibilities" cols="40"></textarea>
+                            <textarea id="jobDescription" name="entry.753951756" placeholder="Outline responsibilities"></textarea>
                         </div>
                     </div>
                 </div>
@@ -268,7 +270,7 @@
                     <div class="input-pair">
                         <div>
                             <label for="additionalComments">Any Additional Comments or Requirements</label>
-                            <textarea id="additionalComments" name="entry.357159858" placeholder="Enter any additional comments" cols="40"></textarea>
+                            <textarea id="additionalComments" name="entry.357159858" placeholder="Enter any additional comments"></textarea>
                         </div>
                     </div>
                 </div>
@@ -294,7 +296,7 @@
                     </div>
                     <div id="otherOptionalServiceContainer" style="display: none;">
                         <label for="otherOptionalServiceInput">Specify Other Optional Service</label>
-                        <input type="text" id="otherOptionalServiceInput" name="entry.159754062" placeholder="Enter service" size="25">
+                        <input type="text" id="otherOptionalServiceInput" name="entry.159754062" placeholder="Enter service">
                     </div>
                 </div>
             </section>
