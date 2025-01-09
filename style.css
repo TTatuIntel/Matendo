@@ -7069,16 +7069,11 @@ footer {
   font-weight: normal;
 }
 /* Global Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 body {
   font-family: 'Roboto', sans-serif;
   line-height: 1.4;
-  background-color: #f4f4f4;
+  background-color: #ffffff;
   margin: 0;
   padding: 0;
 }
@@ -7093,7 +7088,7 @@ body {
 label {
   font-weight: 500;
   margin-top: 5px;
-  color: #333;
+  color: #040e1cdb;
   text-align: left;
   font-size: 12px;
   display: block;
