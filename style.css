@@ -463,8 +463,8 @@ html {
 
   #footer {
     background: linear-gradient(135deg, rgba(245, 245, 245, .763), rgba(245, 245, 245, .763));
-    color: #333;
-    padding: 2rem 0;
+    color: #000000;
+    padding: 0.1rem 0;
     transition: background .3s
   }
 
@@ -644,7 +644,7 @@ body {
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: 1rem;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem
@@ -7026,12 +7026,11 @@ button:hover {
 }
 
 footer {
-  margin-top: 40px;
   background-color: #f6f8fb;
-  padding: 20px;
+  padding: 5px;
   text-align: center;
   font-size: 14px;
-  color: #777;
+  color: #c2c0c0d7;
 }
 
 .hidden {
