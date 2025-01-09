@@ -6958,24 +6958,6 @@ nav img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.progress-bar {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.progress-bar span {
-  width: 15px;
-  height: 15px;
-  background-color: #d2d6e2;
-  border-radius: 50%;
-  transition: background-color 0.3s ease;
-}
-
-.progress-bar span.active {
-  background-color: #204ecf;
-}
-
 h1 {
   font-size: 24px;
   margin-bottom: 20px;
@@ -7069,6 +7051,7 @@ footer {
   font-weight: normal;
 }
 
+
  /* Global Reset */
  * {
   box-sizing: border-box;
@@ -7127,9 +7110,8 @@ select:focus {
   background: linear-gradient(to right, #0834ab, #04a34e);
   transition: width 0.3s ease;
 }
-
-/* Collapsible Button */
-.collapsible {
+ /* Collapsible Button */
+ .collapsible {
   background-color: transparent;
   color: #204ECF;
   cursor: pointer;
@@ -7142,11 +7124,20 @@ select:focus {
   align-items: center;
   margin-top: 20px;
   margin-bottom: 10px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .collapsible:hover {
   background-color: #f0f0f0;
+}
+
+.collapsible:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.collapsible.completed {
+  color: #139c58;
 }
 
 .arrow {
@@ -7187,6 +7178,62 @@ select:focus {
   max-width: 100%;
   margin: 0;
 }
+
+/* Checkbox Group */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #204ECF;
+  border-radius: 4px;
+  margin-right: 8px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+  background-color: #204ECF;
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+  content: '\2714';
+  font-size: 14px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .checkbox-group {
+              grid-template-columns: repeat(2, 1fr);
+          }
+      }
+
+      @media (max-width: 480px) {
+          .checkbox-group {
+              grid-template-columns: 1fr;
+          }
+      }
+
 
 /* For datalist inputs */
 .input-pair input[type="text"][list] {
