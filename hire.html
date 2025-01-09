@@ -1,14 +1,337 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" /    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />    
     <meta name="theme-color" content="#204ECF" />
     <meta name="description"
         content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs. Hire experts for full-time, part-time, or contract work." />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css" />
+    
+    <style>
+        /* Global Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.4;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 2000px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 80px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-top: 5px;
+            color: #333;
+            text-align: left;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #204ECF;
+            outline: none;
+        }
+
+        /* Navigation and Progress Bar */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #f0f0f0;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(to right, #204ECF, #4CAF50);
+            transition: width 0.3s ease;
+        }
+
+        /* Collapsible Button */
+        .collapsible {
+            background-color: transparent;
+            color: #204ECF;
+            cursor: pointer;
+            padding: 8px;
+            border: none;
+            font-size: 14px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .collapsible:hover {
+            background-color: #f0f0f0;
+        }
+
+        .collapsible:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .collapsible.completed {
+            color: #139c58;
+        }
+
+        .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .arrow.closed {
+            transform: rotate(0deg);
+        }
+
+        .arrow.open {
+            transform: rotate(90deg);
+        }
+
+        .content {
+            display: none;
+            padding: 0 20px;
+            margin-left: 10px;
+            font-size: 15px;
+        }
+
+        /* Input Pair */
+        .input-pair {
+            display: flex;
+            margin-bottom: 8px;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .input-pair>div {
+            width: 45%;
+            margin: 0;
+        }
+
+        .input-pair input,
+        .input-pair select {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #204ECF;
+            border-radius: 4px;
+            margin-right: 8px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"]:checked {
+            background-color: #204ECF;
+        }
+
+        .checkbox-group input[type="checkbox"]:checked::after {
+            content: '\2714';
+            font-size: 14px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .checkbox-group {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* Declaration Section Styles */
+        .declaration-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .shared-content {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .signature-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 10px;
+        }
+
+        .signature-input,
+        .date-input {
+            width: 50%;
+        }
+
+        #signature-pad {
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            margin-bottom: 10px;
+        }
+
+        #signature-upload {
+            display: none;
+        }
+
+        .signature-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .signature-options button {
+            width: 48%;
+            padding: 8px;
+            font-size: 12px;
+        }
+
+        /* Submit Button */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .button-container button {
+            background-color: #204ECF;
+            color: white;
+            cursor: pointer;
+            width: 45%;
+            max-width: 200px;
+            padding: 10px 20px;
+            font-size: 15px;
+            transition: background-color 0.3s;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .button-container button:hover {
+            background-color: #1a3fa3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                padding-top: 70px;
+            }
+
+            .input-pair {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .input-pair>div {
+                width: 100%;
+            }
+
+            .signature-container {
+                flex-direction: column;
+            }
+
+            .signature-input,
+            .date-input {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .collapsible {
+                font-size: 12px;
+                padding: 6px;
+            }
+
+            input,
+            select,
+            button {
+                font-size: 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -76,7 +399,7 @@
 
             <!-- Workplace Information -->
             <section id="workplace-info" data-step="2">
-                <button type="button" class="collapsible" aria-expanded="false">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Workplace Information</span>
                     <span class="arrow">➞</span>
                 </button>
@@ -87,7 +410,7 @@
                     <div class="input-pair">
                         <div>
                             <label>Type of Facility</label>
-                            <div class="checkbox-group three-columns">
+                            <div class="checkbox-group">
                                 <label><input type="checkbox" name="facilityType" value="Hospital"> Hospital</label>
                                 <label><input type="checkbox" name="facilityType" value="Clinic"> Clinic</label>
                                 <label><input type="checkbox" name="facilityType" value="Laboratory"> Laboratory</label>
@@ -105,7 +428,7 @@
 
             <!-- Position(s) Required -->
             <section id="positions-required" data-step="3">
-                <button type="button" class="collapsible" aria-expanded="false">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Position(s) Required</span>
                     <span class="arrow">➞</span>
                 </button>
@@ -116,7 +439,7 @@
                     <div class="input-pair">
                         <div>
                             <label>Clinical Staff</label>
-                            <div class="checkbox-group three-columns">
+                            <div class="checkbox-group">
                                 <label><input type="checkbox" name="clinicalStaff" value="Medical Officers"> Medical Officers</label>
                                 <label><input type="checkbox" name="clinicalStaff" value="Nurses/Midwives"> Nurses/Midwives</label>
                                 <label><input type="checkbox" name="clinicalStaff" value="Lab Technologists/Technicians"> Lab Technologists/Technicians</label>
@@ -136,7 +459,7 @@
 
             <!-- Employment Details -->
             <section id="employment-details" data-step="4">
-                <button type="button" class="collapsible" aria-expanded="false">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Employment Details</span>
                     <span class="arrow">➞</span>
                 </button>
@@ -147,7 +470,7 @@
                     <div class="input-pair">
                         <div>
                             <label>Duration of Employment</label>
-                            <div class="checkbox-group three-columns">
+                            <div class="checkbox-group">
                                 <label><input type="checkbox" name="employmentDuration" value="Short-Term"> Short-Term (less than 3 months)</label>
                                 <label><input type="checkbox" name="employmentDuration" value="Part-Time"> Part-Time</label>
                                 <label><input type="checkbox" name="employmentDuration" value="Full-Time"> Full-Time</label>
@@ -155,7 +478,7 @@
                         </div>
                         <div>
                             <label>Shift Type</label>
-                            <div class="checkbox-group three-columns">
+                            <div class="checkbox-group">
                                 <label><input type="checkbox" name="shiftType" value="Day Shift"> Day Shift</label>
                                 <label><input type="checkbox" name="shiftType" value="Night Shift"> Night Shift</label>
                                 <label><input type="checkbox" name="shiftType" value="Rotating Shifts"> Rotating Shifts</label>
@@ -165,7 +488,7 @@
                     <div class="input-pair">
                         <div>
                             <label>Remote Work Option</label>
-                            <div class="checkbox-group three-columns">
+                            <div class="checkbox-group">
                                 <label><input type="checkbox" name="remoteWork" value="Yes"> Yes</label>
                                 <label><input type="checkbox" name="remoteWork" value="No"> No</label>
                             </div>
@@ -186,7 +509,7 @@
 
             <!-- Specific Requirements -->
             <section id="specific-requirements" data-step="5">
-                <button type="button" class="collapsible" aria-expanded="false">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Specific Requirements</span>
                     <span class="arrow">➞</span>
                 </button>
@@ -201,7 +524,7 @@
                         </div>
                         <div>
                             <label>Preferred Gender</label>
-                            <div class="checkbox-group three-columns">
+                            <div class="checkbox-group">
                                 <label><input type="checkbox" name="preferredGender" value="Male"> Male</label>
                                 <label><input type="checkbox" name="preferredGender" value="Female"> Female</label>
                                 <label><input type="checkbox" name="preferredGender" value="No Preference"> No Preference</label>
@@ -219,7 +542,7 @@
 
             <!-- Job Description or Duties -->
             <section id="job-description" data-step="6">
-                <button type="button" class="collapsible" aria-expanded="false">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Job Description or Duties (Optional)</span>
                     <span class="arrow">➞</span>
                 </button>
@@ -238,7 +561,7 @@
 
             <!-- Additional Information -->
             <section id="additional-info" data-step="7">
-                <button type="button" class="collapsible" aria-expanded="false">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Additional Information</span>
                     <span class="arrow">➞</span>
                 </button>
@@ -249,7 +572,7 @@
                     <div class="input-pair">
                         <div>
                             <label>Urgency of Hiring</label>
-                            <div class="checkbox-group three-columns">
+                            <div class="checkbox-group">
                                 <label><input type="checkbox" name="urgencyHiring" value="Immediate"> Immediate (within a week)</label>
                                 <label><input type="checkbox" name="urgencyHiring" value="Soon"> Soon (within a month)</label>
                                 <label><input type="checkbox" name="urgencyHiring" value="Flexible"> Flexible</label>
@@ -257,7 +580,7 @@
                         </div>
                         <div>
                             <label>Preferred Method of Communication for Follow-Up</label>
-                            <div class="checkbox-group three-columns">
+                            <div class="checkbox-group">
                                 <label><input type="checkbox" name="preferredCommunication" value="Phone Call"> Phone Call</label>
                                 <label><input type="checkbox" name="preferredCommunication" value="Email"> Email</label>
                             </div>
@@ -274,7 +597,7 @@
 
             <!-- Optional Services -->
             <section id="optional-services" data-step="8">
-                <button type="button" class="collapsible" aria-expanded="false">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Optional Services</span>
                     <span class="arrow">➞</span>
                 </button>
@@ -283,7 +606,7 @@
                         Select any additional services you might need. These services can help ensure a smooth onboarding process for new staff.
                     </div>
                     <div class="input-pair">
-                        <div class="checkbox-group three-columns">
+                        <div class="checkbox-group">
                             <label><input type="checkbox" name="optionalServices" value="Staff Training/Orientation"> Staff Training/Orientation</label>
                             <label><input type="checkbox" name="optionalServices" value="Assistance with Licensure or Documentation"> Assistance with Licensure or Documentation</label>
                             <label><input type="checkbox" name="optionalServices" value="Temporary Staff for Emergency Coverage"> Temporary Staff for Emergency Coverage</label>
@@ -313,116 +636,110 @@
             </section>
         </form>
     </div>
- <!-- Footer -->
- <footer>
-    <p>© 2025 Matendo Medics. All Rights Reserved.</p>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Matendo Medics. All Rights Reserved.</p>
+    </footer>
 
-<script>
-    // Collapsible Section Toggle Functionality
-    const collapsibles = document.querySelectorAll('.collapsible');
+    <script>
+        // Collapsible Section Toggle Functionality
+        const collapsibles = document.querySelectorAll('.collapsible');
+        let currentStep = 1;
 
-    collapsibles.forEach((button) => {
-        button.addEventListener('click', () => {
+        function toggleCollapsible(button, forceClose = false) {
             const content = button.nextElementSibling;
             const arrow = button.querySelector('.arrow');
             const isOpen = content.style.display === 'block';
 
-            content.style.display = isOpen ? 'none' : 'block';
-            arrow.classList.toggle('closed', isOpen);
-            arrow.classList.toggle('open', !isOpen);
-            button.setAttribute('aria-expanded', !isOpen);
-
-            updateProgress();
-        });
-    });
-
-    // Progress Bar Update Functionality
-    function updateProgress() {
-        const totalSections = collapsibles.length;
-        const openSections = document.querySelectorAll('.collapsible[aria-expanded="true"]').length;
-        const progress = (openSections / totalSections) * 100;
-
-        const progressBar = document.getElementById('progress-bar');
-        progressBar.style.width = `${progress}%`;
-    }
-
-    // Event listener for form changes to update progress
-    document.getElementById('hire-form').addEventListener('input', updateProgress);
-
-    // Signature Pad functionality
-    document.addEventListener('DOMContentLoaded', function () {
-        const canvas = document.getElementById('signature-pad');
-        const signaturePad = new SignaturePad(canvas);
-        const clearButton = document.getElementById('clear-signature');
-        const uploadButton = document.getElementById('upload-signature');
-        const signatureUpload = document.getElementById('signature-upload');
-        const signatureInput = document.getElementById('signature');
-
-        clearButton.addEventListener('click', function () {
-            signaturePad.clear();
-            signatureInput.value = '';
-        });
-
-        uploadButton.addEventListener('click', function () {
-            signatureUpload.click();
-        });
-
-        signatureUpload.addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    const img = new Image();
-                    img.onload = function () {
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        canvas.getContext('2d').drawImage(img, 0, 0);
-                        signatureInput.value = canvas.toDataURL();
-                    };
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
+            if (forceClose || isOpen) {
+                content.style.display = 'none';
+                arrow.classList.remove('open');
+                arrow.classList.add('closed');
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                content.style.display = 'block';
+                arrow.classList.remove('closed');
+                arrow.classList.add('open');
+                button.setAttribute('aria-expanded', 'true');
             }
-        });
+        }
 
-        document.getElementById('hire-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (signaturePad.isEmpty() && !signatureInput.value) {
-                alert('Please provide a signature.');
-                return;
-            }
-            if (!signatureInput.value) {
-                signatureInput.value = signaturePad.toDataURL();
-            }
-            // Automatically capture the current date on form submission
-            const currentDate = new Date().toISOString().split('T')[0];
-            const hiddenDateInput = document.createElement('input');
-            hiddenDateInput.type = 'hidden';
-            hiddenDateInput.name = 'entry.159754674';
-            hiddenDateInput.value = currentDate;
-            this.appendChild(hiddenDateInput);
-
-            // Submit the form data to Google Forms
-            const formData = new FormData(this);
-            fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            }).then(() => {
-                alert('Job posting submitted successfully!');
-                this.reset();
-                updateProgress();
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
+        collapsibles.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                if (index + 1 <= currentStep) {
+                    collapsibles.forEach((otherButton, otherIndex) => {
+                        if (otherIndex !== index) {
+                            toggleCollapsible(otherButton, true);
+                        }
+                    });
+                    toggleCollapsible(button);
+                    updateProgress();
+                }
             });
         });
-    });
 
-    // Initial progress update
-    updateProgress();
-</script>
+        // Progress Bar Update Functionality
+        function updateProgress() {
+            const totalSections = collapsibles.length;
+            const completedSections = document.querySelectorAll('.collapsible.completed').length;
+            const progress = (completedSections / totalSections) * 100;
+
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Function to check if a section is complete
+        function isSectionComplete(section) {
+            const inputs = section.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Event listener for form changes to update progress and unlock next step
+        document.getElementById('hire-form').addEventListener('input', function(e) {
+            const currentSection = e.target.closest('section');
+            if (currentSection && isSectionComplete(currentSection)) {
+                const currentStepNumber = parseInt(currentSection.dataset.step);
+                if (currentStepNumber === currentStep) {
+                    currentStep++;
+                    const currentButton = currentSection.querySelector('.collapsible');
+                    currentButton.classList.add('completed');
+                    const nextButton = document.querySelector(`[data-step="${currentStep}"] .collapsible`);
+                    if (nextButton) {
+                        nextButton.disabled = false;
+                    }
+                }
+            }
+            updateProgress();
+        });
+
+        // Initial setup
+        updateProgress();
+        collapsibles[0].disabled = false;
+
+        // Handle "Other" options
+        document.getElementById('otherFacilityType').addEventListener('change', function() {
+            document.getElementById('otherFacilityTypeContainer').style.display = this.checked ? 'block' : 'none';
+        });
+
+        document.getElementById('otherClinicalStaff').addEventListener('change', function() {
+            document.getElementById('otherClinicalStaffContainer').style.display = this.checked ? 'block' : 'none';
+        });
+
+        document.getElementById('otherOptionalService').addEventListener('change', function() {
+            document.getElementById('otherOptionalServiceContainer').style.display = this.checked ? 'block' : 'none';
+        });
+
+        // Form submission
+        document.getElementById('hire-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add form submission logic here
+            alert('Form submitted successfully!');
+        });
+    </script>
 </body>
-
 </html>
