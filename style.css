@@ -7068,12 +7068,18 @@ footer {
   display: inline-block;
   font-weight: normal;
 }
-/* Global Reset */
+
+ /* Global Reset */
+ * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: 'Roboto', sans-serif;
   line-height: 1.4;
-  background-color: #ffffff;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
 }
@@ -7088,7 +7094,7 @@ body {
 label {
   font-weight: 500;
   margin-top: 5px;
-  color: #040e1cdb;
+  color: #333;
   text-align: left;
   font-size: 12px;
   display: block;
@@ -7109,6 +7115,18 @@ select:focus {
   border-color: #204ECF;
   outline: none;
 }
+.progress-container {
+  width: 100%;
+  height: 4px;
+  background: #f0f0f0;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(to right, #0834ab, #04a34e);
+  transition: width 0.3s ease;
+}
 
 /* Collapsible Button */
 .collapsible {
@@ -7116,9 +7134,9 @@ select:focus {
   color: #204ECF;
   cursor: pointer;
   padding: 8px;
-  border: 10px;
+  border: none;
   font-size: 14px;
-  text-align: right;
+  text-align: left;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7146,7 +7164,7 @@ select:focus {
 .content {
   display: none;
   padding: 0 20px;
-  margin-left: 10;
+  margin-left: 10px;
   font-size: 15px;
 }
 
@@ -7181,8 +7199,7 @@ select:focus {
   padding-left: 30px;
 }
 
-/*  comfirmation checkbox */
-
+/* confirmation checkbox */
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -7198,7 +7215,6 @@ select:focus {
 }
 
 /* Submit and Clear Buttons */
-
 .button-container {
   display: flex;
   justify-content: center;
@@ -7358,25 +7374,6 @@ select:focus {
   display: none;
 }
 
-/* Progress Dots */
-.progress-dots {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ccc;
-  margin: 0 5px;
-}
-
-.dot.active {
-  background-color: #204ECF;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
@@ -7391,26 +7388,6 @@ select:focus {
 
   .input-pair>div {
       width: 100%;
-  }
-
-  .progress-container {
-      width: 100%;
-      height: 5px;
-      top: 60px;
-      right: 0;
-  }
-
-  .progress-bar {
-      width: 0;
-      height: 100%;
-  }
-
-  .progress-message {
-      position: static;
-      width: auto;
-      text-align: center;
-      transform: none;
-      margin: 10px 0;
   }
 
   .signature-container {

@@ -15,32 +15,21 @@
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav id="nav" aria-label="Main Navigation">
-        <div>
+     <!-- Navigation -->
+     <nav id="nav" aria-label="Main Navigation">
+        <div class="nav-content">
             <a href="index.html" title="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
             </a>
         </div>
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
     </nav>
 
-    <!-- Progress Dots -->
-    <div class="progress-dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
-
     <div class="container">
-        <!-- Form --> <!--// Kindly replace form ID with Actura Google Form ID -->
+        <!-- Form -->
         <form id="join-us-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="post" target="_self">
-            <!-- Progress Bar -->
-            <div class="progress-container">
-                <div id="progress-bar" class="progress-bar"></div>
-            </div>
-
             <!-- Personal Information -->
             <section id="personal-info">
                 <button type="button" class="collapsible" aria-expanded="false">
@@ -438,74 +427,23 @@
                 arrow.classList.toggle('closed', isOpen);
                 arrow.classList.toggle('open', !isOpen);
                 button.setAttribute('aria-expanded', !isOpen);
+
+                updateProgress();
             });
         });
 
-        // Progress Bar and Message Update Functionality
+        // Progress Bar Update Functionality
         function updateProgress() {
-            let progress = 0;
-            const totalFields = document.querySelectorAll('input, select').length;
-            const filledFields = document.querySelectorAll('input:not([type="file"]):not([type="hidden"]), select').filter(field => field.value).length;
-            progress = (filledFields / totalFields) * 100;
+            const totalSections = collapsibles.length;
+            const openSections = document.querySelectorAll('.collapsible[aria-expanded="true"]').length;
+            const progress = (openSections / totalSections) * 100;
 
             const progressBar = document.getElementById('progress-bar');
-            progressBar.style.height = `${progress}%`;
-            progressBar.classList.toggle('complete', progress === 100);
-
-            const progressMessage = document.getElementById('progress-message');
-            if (progress === 0) {
-                progressMessage.textContent = "Please fill in the form to get started.";
-            } else if (progress < 50) {
-                progressMessage.textContent = "You're making progress, keep going!";
-            } else if (progress < 100) {
-                progressMessage.textContent = "Almost there, just a few more steps!";
-            } else {
-                progressMessage.textContent = "Great job! You're all set.";
-            }
-
-            updateProgressDots();
-
-            if (progress > 0 && progress % 25 === 0) {
-                showModal(`You've completed ${progress}% of the form!`);
-            }
+            progressBar.style.width = `${progress}%`;
         }
 
-        function updateProgressDots() {
-            const totalSections = document.querySelectorAll('section').length;
-            const completedSections = Array.from(document.querySelectorAll('section')).filter(section => {
-                const inputs = section.querySelectorAll('input, select');
-                return Array.from(inputs).every(input => input.value.trim() !== '');
-            }).length;
-
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index < (completedSections / totalSections) * dots.length);
-            });
-        }
-
-        // Modal functionality
-        function showModal(message) {
-            const modal = document.getElementById("popup-modal");
-            const popupMessage = document.getElementById("popup-message");
-            const closeButton = document.querySelector(".close");
-
-            popupMessage.textContent = message;
-            modal.style.display = "block";
-
-            closeButton.onclick = function () {
-                modal.style.display = "none";
-            };
-
-            // Close the modal if the user clicks anywhere outside the modal
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            };
-        }
-
-        // Event listener for form changes to update progress and confirmation message
-        document.getElementById('join-us-form').addEventListener('input', updateProgress);
+        // Event listener for form changes to update progress
+        document.getElementById('hire-form').addEventListener('input', updateProgress);
 
         // Signature Pad functionality
         document.addEventListener('DOMContentLoaded', function () {
@@ -543,7 +481,7 @@
                 }
             });
 
-            document.getElementById('join-us-form').addEventListener('submit', function (e) {
+            document.getElementById('hire-form').addEventListener('submit', function (e) {
                 e.preventDefault();
                 if (signaturePad.isEmpty() && !signatureInput.value) {
                     alert('Please provide a signature.');
@@ -567,7 +505,7 @@
                     body: formData,
                     mode: 'no-cors'
                 }).then(() => {
-                    alert('Form submitted successfully!');
+                    alert('Job posting submitted successfully!');
                     this.reset();
                     updateProgress();
                 }).catch(error => {
@@ -577,35 +515,9 @@
             });
         });
 
-        // Function to update file input labels
-        function updateFileInputLabel(input) {
-            const label = input.previousElementSibling;
-            label.textContent = input.files[0] ? input.files[0].name : label.getAttribute('data-default-text');
-        }
-
-        // Add event listeners for file inputs
-        document.querySelectorAll('input[type="file"]').forEach(input => {
-            input.addEventListener('change', () => updateFileInputLabel(input));
-            const label = input.previousElementSibling;
-            label.setAttribute('data-default-text', label.textContent);
-        });
-
-        // Function to toggle visibility of "other" input fields
-        function toggleOtherField(selectElement, otherFieldId) {
-            const otherField = document.getElementById(otherFieldId);
-            otherField.style.display = selectElement.value === 'other' ? 'block' : 'none';
-        }
-
-        // Add event listeners for select elements with "other" option
-        document.getElementById('position').addEventListener('change', function () {
-            toggleOtherField(this, 'other-position-container');
-        });
-
-        document.getElementById('education').addEventListener('change', function () {
-            toggleOtherField(this, 'other-education-container');
-        });
+        // Initial progress update
+        updateProgress();
     </script>
 </body>
 
 </html>
-
