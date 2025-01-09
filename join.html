@@ -31,7 +31,7 @@
         <!-- Form -->
         <form id="join-us-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="post" target="_self">
             <!-- Personal Information -->
-            <section id="personal-info">
+            <section id="personal-info" data-step="1">
                 <button type="button" class="collapsible" aria-expanded="false">
                     <span>Personal Information</span>
                     <span class="arrow closed">➞</span>
@@ -108,8 +108,8 @@
             </section>
 
             <!-- Professional Information -->
-            <section id="professional-info">
-                <button type="button" class="collapsible" aria-expanded="false">
+            <section id="professional-info" data-step="2">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Professional Information</span>
                     <span class="arrow closed">➞</span>
                 </button>
@@ -190,8 +190,8 @@
             </section>
 
             <!-- Employment Details -->
-            <section id="employment-details">
-                <button type="button" class="collapsible" aria-expanded="false">
+            <section id="employment-details" data-step="3">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Employment Details</span>
                     <span class="arrow closed">➞</span>
                 </button>
@@ -223,8 +223,8 @@
             </section>
 
             <!-- Skills and Certifications -->
-            <section id="skills-certifications">
-                <button type="button" class="collapsible" aria-expanded="false">
+            <section id="skills-certifications" data-step="4">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Skills and Certifications</span>
                     <span class="arrow closed">➞</span>
                 </button>
@@ -244,8 +244,8 @@
             </section>
 
             <!-- Availability -->
-            <section id="availability">
-                <button type="button" class="collapsible" aria-expanded="false">
+            <section id="availability" data-step="5">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Availability</span>
                     <span class="arrow closed">➞</span>
                 </button>
@@ -285,8 +285,8 @@
             </section>
 
             <!-- References -->
-            <section id="references">
-                <button type="button" class="collapsible" aria-expanded="false">
+            <section id="references" data-step="6">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>References</span>
                     <span class="arrow closed">➞</span>
                 </button>
@@ -345,8 +345,8 @@
             </section>
 
             <!-- Supporting Documents -->
-            <section id="supporting-documents">
-                <button type="button" class="collapsible" aria-expanded="false">
+            <section id="supporting-documents" data-step="7">
+                <button type="button" class="collapsible" aria-expanded="false" disabled>
                     <span>Supporting Documents</span>
                     <span class="arrow closed">➞</span>
                 </button>
@@ -380,6 +380,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- Declaration -->
             <section id="declaration" class="declaration-section">
                 <div class="shared-content">
@@ -416,34 +417,92 @@
     <script>
         // Collapsible Section Toggle Functionality
         const collapsibles = document.querySelectorAll('.collapsible');
+        let currentStep = 1;
 
-        collapsibles.forEach((button) => {
+        function toggleCollapsible(button, forceClose = false) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.arrow');
+            const isOpen = content.style.display === 'block';
+
+            if (forceClose || isOpen) {
+                content.style.display = 'none';
+                arrow.classList.remove('open');
+                arrow.classList.add('closed');
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                content.style.display = 'block';
+                arrow.classList.remove('closed');
+                arrow.classList.add('open');
+                button.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        collapsibles.forEach((button, index) => {
             button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const arrow = button.querySelector('.arrow');
-                const isOpen = content.style.display === 'block';
-
-                content.style.display = isOpen ? 'none' : 'block';
-                arrow.classList.toggle('closed', isOpen);
-                arrow.classList.toggle('open', !isOpen);
-                button.setAttribute('aria-expanded', !isOpen);
-
-                updateProgress();
+                if (index + 1 <= currentStep) {
+                    collapsibles.forEach((otherButton, otherIndex) => {
+                        if (otherIndex !== index) {
+                            toggleCollapsible(otherButton, true);
+                        }
+                    });
+                    toggleCollapsible(button);
+                    updateProgress();
+                }
             });
         });
 
         // Progress Bar Update Functionality
         function updateProgress() {
             const totalSections = collapsibles.length;
-            const openSections = document.querySelectorAll('.collapsible[aria-expanded="true"]').length;
-            const progress = (openSections / totalSections) * 100;
+            const completedSections = document.querySelectorAll('.collapsible.completed').length;
+            const progress = (completedSections / totalSections) * 100;
 
             const progressBar = document.getElementById('progress-bar');
             progressBar.style.width = `${progress}%`;
         }
 
-        // Event listener for form changes to update progress
-        document.getElementById('hire-form').addEventListener('input', updateProgress);
+        // Function to check if a section is complete
+        function isSectionComplete(section) {
+            const inputs = section.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Event listener for form changes to update progress and unlock next step
+        document.getElementById('join-us-form').addEventListener('input', function(e) {
+            const currentSection = e.target.closest('section');
+            if (currentSection && isSectionComplete(currentSection)) {
+                const currentStepNumber = parseInt(currentSection.dataset.step);
+                if (currentStepNumber === currentStep) {
+                    currentStep++;
+                    const currentButton = currentSection.querySelector('.collapsible');
+                    currentButton.classList.add('completed');
+                    currentButton.style.color = 'green';
+                    const nextButton = document.querySelector(`[data-step="${currentStep}"] .collapsible`);
+                    if (nextButton) {
+                        nextButton.disabled = false;
+                    }
+                }
+            }
+            updateProgress();
+        });
+
+        // Initial setup
+        updateProgress();
+        collapsibles[0].disabled = false;
+
+        // Handle "Other" options
+        document.getElementById('position').addEventListener('change', function() {
+            document.getElementById('other-position-container').style.display = this.value === 'other' ? 'block' : 'none';
+        });
+
+        document.getElementById('education').addEventListener('change', function() {
+            document.getElementById('other-education-container').style.display = this.value === 'other' ? 'block' : 'none';
+        });
 
         // Signature Pad functionality
         document.addEventListener('DOMContentLoaded', function () {
@@ -481,7 +540,7 @@
                 }
             });
 
-            document.getElementById('hire-form').addEventListener('submit', function (e) {
+            document.getElementById('join-us-form').addEventListener('submit', function (e) {
                 e.preventDefault();
                 if (signaturePad.isEmpty() && !signatureInput.value) {
                     alert('Please provide a signature.');
@@ -505,7 +564,7 @@
                     body: formData,
                     mode: 'no-cors'
                 }).then(() => {
-                    alert('Job posting submitted successfully!');
+                    alert('Application submitted successfully!');
                     this.reset();
                     updateProgress();
                 }).catch(error => {
@@ -519,5 +578,4 @@
         updateProgress();
     </script>
 </body>
-
 </html>
