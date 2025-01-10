@@ -56,7 +56,6 @@ button {
   font-family: inherit
 }
 
-
 @font-face {
   font-display: swap;
   font-family: Proxima Nova;
@@ -7125,7 +7124,7 @@ select:focus {
 /* Collapsible Button */
 .collapsible {
     background-color: transparent;
-    color: #204ECF;
+    color: #012997;
     cursor: pointer;
     padding: 8px;
     border: none;
@@ -7216,7 +7215,7 @@ select:focus {
     -webkit-appearance: none;
     width: 18px;
     height: 18px;
-    border: 2px solid #0035c8;
+    border: 2px solid #204ECF;
     border-radius: 4px;
     margin-right: 8px;
     display: inline-block;
@@ -7225,13 +7224,13 @@ select:focus {
 }
 
 .checkbox-group input[type="checkbox"]:checked {
-    background-color: #0447ff;
+    background-color: #204ECF;
 }
 
 .checkbox-group input[type="checkbox"]:checked::after {
     content: '\2714';
     font-size: 14px;
-    color: rgb(162, 255, 212);
+    color: white;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -7256,14 +7255,14 @@ select:focus {
     display: flex;
     flex-direction: column;
     align-items: left;
-    margin-top: 15px;
+    margin-top: 20px;
     padding: 20px;
     background-color: #f9f9f9;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .shared-content {
-    text-align: left;
+    text-align: center;
     margin-bottom: 20px;
     font-size: 12px;
     color: #555;
@@ -7272,8 +7271,8 @@ select:focus {
 .signature-container {
     display: flex;
     justify-content: space-between;
-    width: 150%;
-    max-width: 350px;
+    width: 100%;
+    max-width: 600px;
     margin-bottom: 10px;
 }
 
@@ -7313,7 +7312,7 @@ select:focus {
 }
 
 .button-container button {
-    background-color: #204ECF;
+    background-color: #00327d;
     color: white;
     cursor: pointer;
     width: 45%;
@@ -7399,15 +7398,14 @@ textarea {
     position: relative;
     padding-left: 35px;
 }
-
 .guidance-message::before {
-    content: '\f05a';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 400;
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #0077ff;
-    font-size: 1.2em;
+  content: '\f05a';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 400;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #0077ff;
+  font-size: 1.2em;
 }
