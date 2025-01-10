@@ -7216,7 +7216,7 @@ select:focus {
     -webkit-appearance: none;
     width: 18px;
     height: 18px;
-    border: 2px solid #204ECF;
+    border: 2px solid #0035c8;
     border-radius: 4px;
     margin-right: 8px;
     display: inline-block;
@@ -7225,13 +7225,13 @@ select:focus {
 }
 
 .checkbox-group input[type="checkbox"]:checked {
-    background-color: #204ECF;
+    background-color: #0447ff;
 }
 
 .checkbox-group input[type="checkbox"]:checked::after {
     content: '\2714';
     font-size: 14px;
-    color: white;
+    color: rgb(162, 255, 212);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -7256,14 +7256,14 @@ select:focus {
     display: flex;
     flex-direction: column;
     align-items: left;
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 20px;
     background-color: #f9f9f9;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .shared-content {
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
     font-size: 12px;
     color: #555;
@@ -7272,8 +7272,8 @@ select:focus {
 .signature-container {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    max-width: 600px;
+    width: 150%;
+    max-width: 350px;
     margin-bottom: 10px;
 }
 
