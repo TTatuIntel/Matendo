@@ -7118,7 +7118,7 @@ select:focus {
 #progress-bar {
     height: 100%;
     width: 0;
-    background: linear-gradient(to right, #5900ff, #00e1c3);
+    background: linear-gradient(to right, #5900ff, #02b790db);
     transition: width 0.3s ease;
 }
 
