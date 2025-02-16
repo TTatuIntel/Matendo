@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <title>Matendo Medics - Hire Top Medical Professionals</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team." />
+    <meta name="description"
+        content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team." />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
             font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
             line-height: 1.4;
             color: #333;
             scroll-behavior: smooth;
         }
+
         .nav-container {
             position: fixed;
             top: 0;
@@ -28,11 +37,17 @@
             align-items: center;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
         }
-        .logo-img { 
-            width: 250px;
-            height: auto; 
+
+        .logo-img {
+            width: 300px;
+            height: auto;
         }
-        .nav-links { display: flex; gap: 20px; }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
         .nav-link {
             text-decoration: none;
             font-weight: 600;
@@ -42,104 +57,156 @@
             border-radius: 4px;
             letter-spacing: 0.2px;
         }
-        .nav-link:nth-child(1) { 
+
+        .nav-link:nth-child(1) {
             color: #28a745;
             border: 1px solid #28a745;
         }
-        .nav-link:nth-child(2) { 
+
+        .nav-link:nth-child(2) {
             color: #007bff;
             border: 1px solid #007bff;
         }
-        .nav-link:nth-child(1):hover { 
+
+        .nav-link:nth-child(1):hover {
             color: #006ee3ee;
             border-color: #006ee3ee;
-            
+
         }
-        .nav-link:nth-child(2):hover { 
+
+        .nav-link:nth-child(2):hover {
             color: #1e7e34;
             border-color: #1e7e34;
-         }
+        }
+
         .hero-section {
             background-color: #f8f9fa;
-            padding: 90px 5% 30px;
+            padding: 20px 5% 10px;
+            /* Reduced padding */
             position: relative;
             overflow: hidden;
         }
+
         .hero-content {
-            max-width: 1100px;
+            max-width: 1200px;
+            /* Increased from 1200px to allow more space for the extended image */
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
         }
+
         .hero-text {
             flex: 1;
             max-width: 450px;
         }
+
         .hero-title {
-            font-size: 2.2rem;
+            font-size: 2rem;
+            /* Updated from 1.8rem */
             color: #333;
             margin-bottom: 12px;
             line-height: 1.2;
         }
+
         .hero-description {
-            font-size: 1rem;
+            font-size: 1.2rem;
+            /* Updated from 0.9rem */
             color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             line-height: 1.5;
         }
+
         .hero-btn {
             display: inline-block;
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
+            background-color: white;
+            color: #28a745;
+            padding: 8px 16px;
+            /* Updated padding */
             text-decoration: none;
             border-radius: 4px;
             font-weight: 600;
             font-size: 1rem;
+            /* Updated font size */
             transition: all 0.3s ease;
+            border: 1px solid #28a745;
         }
-        .hero-btn:hover { 
-            background-color: #218838;
-            transform: translateY(-1px);
+
+        .hero-btn:hover {
+            color: #1e7e7c;
+            border-color: #1e7e7c;
+            background-color: transparent;
         }
+
+        /* Adjusted hero image styles */
         .hero-image {
             flex: 1;
             text-align: left;
-            max-width: 450px;
+            max-width: 400%;
+            /* Reduced from 150% */
+            position: relative;
+            left: 80px;
+            /* Adjusted from 35px */
+        }
+
+        .hero-img {
+            max-width: 500%;
+            /* No change needed */
+            height: auto;
+            border-radius: 10px;
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            /* Adjusted gradient */
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        /* Adjusted blur effect */
+        .blur-effect {
             position: relative;
         }
-        .hero-img {
-            max-width: 60%;
-            height: auto;
-            border-radius: 8px;
-            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+
+        .blur-effect::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            /* Reduced from 40% */
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0), rgba(248, 249, 250, 1));
+            pointer-events: none;
         }
+
         .talent-section {
             padding: 30px 5%;
             background-color: #fff;
             overflow: hidden;
             position: relative;
         }
+
         .talent-container {
             max-width: 1000px;
             margin: 0 auto;
             position: relative;
         }
+
         .section-title {
             text-align: center;
             margin-bottom: 20px;
-            font-size: 1.6rem;
+            font-size: 1rem;
+            /* Updated from 1.6rem */
             color: #333;
         }
+
         .talent-grid {
             display: flex;
             overflow-x: hidden;
             scroll-behavior: smooth;
             padding: 10px 0;
         }
+
         .talent-card {
             flex: 0 0 200px;
             margin-right: 20px;
@@ -149,30 +216,38 @@
             overflow: hidden;
             transition: all 0.3s ease;
         }
+
         .talent-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+
         .talent-img {
             width: 100%;
             height: 150px;
             object-fit: cover;
             object-position: center 15%;
         }
+
         .talent-info {
             padding: 10px;
             border-top: 1px solid #f0f0f0;
         }
+
         .talent-name {
-            font-size: 0.85rem;
+            font-size: 1rem;
+            /* Updated from 0.85rem */
             font-weight: 600;
             margin-bottom: 2px;
             color: #333;
         }
+
         .talent-specialty {
-            font-size: 0.75rem;
+            font-size: 1rem;
+            /* Updated from 0.75rem */
             color: #666;
         }
+
         .talent-nav-btn {
             position: absolute;
             top: 50%;
@@ -191,20 +266,25 @@
             justify-content: center;
             z-index: 10;
         }
+
         .talent-nav-btn:hover {
             background-color: rgba(255, 255, 255, 1);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
         #prevBtn {
             left: 5px;
         }
+
         #nextBtn {
             right: 5px;
         }
+
         .features {
             padding: 30px 5%;
             background-color: #f8f9fa;
         }
+
         .features-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -212,37 +292,46 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
+
         .feature {
             text-align: center;
             padding: 15px;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease;
         }
+
         .feature:hover {
             transform: translateY(-2px);
         }
+
         .feature i {
             font-size: 1.5rem;
             color: #28a745;
             margin-bottom: 10px;
         }
+
         .feature h3 {
             font-size: 1rem;
+            /* No change needed */
             margin-bottom: 5px;
             color: #333;
         }
+
         .feature p {
-            font-size: 0.8rem;
+            font-size: 1rem;
+            /* Updated from 0.8rem */
             color: #666;
             line-height: 1.4;
         }
+
         .footer {
             background: #f8f9fa;
             padding: 30px 5%;
             border-top: 1px solid #eee;
         }
+
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -250,70 +339,91 @@
             max-width: 1000px;
             margin: 0 auto;
         }
+
         .footer-column h3 {
             font-size: 1rem;
+            /* No change needed */
             margin-bottom: 10px;
             color: #333;
         }
+
         .footer-column ul {
             list-style: none;
         }
+
         .footer-column ul li {
             margin-bottom: 5px;
         }
+
         .footer-column a {
             color: #666;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 1rem;
+            /* Updated from 0.8rem */
             transition: color 0.3s ease;
         }
-        .footer-column a:hover { color: #28a745; }
+
+        .footer-column a:hover {
+            color: #28a745;
+        }
+
         .social-icons {
             display: flex;
             gap: 10px;
             margin-top: 10px;
         }
+
         .social-icons a {
             color: #666;
             font-size: 1rem;
             transition: all 0.3s ease;
         }
+
         .social-icons a:hover {
             color: #28a745;
             transform: translateY(-2px);
         }
+
         @media (max-width: 768px) {
             .nav-container {
                 padding: 8px 4%;
             }
+
             .nav-link {
                 padding: 4px 8px;
                 font-size: 0.8rem;
             }
+
             .hero-content {
                 flex-direction: column;
                 text-align: center;
             }
+
             .hero-image {
                 display: none;
             }
+
             .features-container {
                 grid-template-columns: 1fr;
             }
         }
+
         @media (max-width: 480px) {
             .logo-img {
                 width: 150px;
             }
+
             .hero-title {
                 font-size: 1.6rem;
             }
+
             .talent-card {
                 flex: 0 0 150px;
             }
         }
     </style>
 </head>
+
 <body>
     <nav class="nav-container">
         <a href="index.html" title="Matendo" aria-label="Matendo">
@@ -327,19 +437,22 @@
 
     <section class="hero-section">
         <div class="hero-content">
-            <div class="hero-text">              
+            <div class="hero-text">
 
-                <h1 class="hero-title text-gray-700 text-base leading-3 xl:text-lg xl:leading-4  p-0 heading-md md:heading-lg xl:heading-xl font-bold text-gray-900 [&amp;_a]:text-gray-900 [&amp;_a]:whitespace-nowrap [&amp;_a]:underline [&amp;_a]:decoration-2 [&amp;_a]:underline-offset-8 [&amp;_a:hover]:no-underline [&amp;_a:visited]:text-gray-900 [&amp;_a:focus]:outline-none [&amp;_a:focus]:outline-brand-blue/50 [&amp;_sup]:text-xl [&amp;_sup]:leading-none [&amp;_sup]:align-super">Hire Medical Professionals</h1>
+                <h1
+                    class="hero-title text-gray-700 text-base leading-3 xl:text-lg xl:leading-4  p-0 heading-md md:heading-lg xl:heading-xl font-bold text-gray-900 [&amp;_a]:text-gray-900 [&amp;_a]:whitespace-nowrap [&amp;_a]:underline [&amp;_a]:decoration-2 [&amp;_a]:underline-offset-8 [&amp;_a:hover]:no-underline [&amp;_a:visited]:text-gray-900 [&amp;_a:focus]:outline-none [&amp;_a:focus]:outline-brand-blue/50 [&amp;_sup]:text-xl [&amp;_sup]:leading-none [&amp;_sup]:align-super">
+                    Hire Medical Professionals</h1>
                 <p class="hero-description">
-                     Matendo provides fast, reliable access to certified doctors and medical professionals,
-                  ready to assist with your healthcare needs. Whether you're looking for advice, second opinions,
-                  or specialized care, Matendo connects you to the best experts in the field.
+                    Matendo provides fast, reliable access to certified doctors and medical professionals,
+                    ready to assist with your healthcare needs. Whether you're looking for advice, second opinions,
+                    or specialized care, Matendo connects you to the best experts in the field.
                 </p>
                 <a href="hire.html" class="hero-btn">Hire Medical Talent</a>
             </div>
-            
-            <div class="hero-image">
-                <img src="images/doc1.png" alt="Medical Professional" class="hero-img">
+
+            <div class="hero-image blur-effect">
+                <img src="images/doc1.png" alt="Medical Professional" style="height: 500px"
+                    class=" hero-img rounded-full w-100 h-95 object-cover">
             </div>
         </div>
     </section>
@@ -420,14 +533,16 @@
         <div class="footer-grid">
             <div class="footer-column">
                 <h3>About Us</h3>
-                <p style="font-size: 0.8rem; color: #666; line-height: 1.4;">
+                <p style="font-size: 1rem; color: #666; line-height: 1.4;">
                     Connecting healthcare facilities with top medical talent worldwide.
                 </p>
             </div>
             <div class="footer-column">
                 <h3>Contact</h3>
                 <ul>
-                    <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                    <li><a href="/cdn-cgi/l/email-protection#d9b0b7bfb699b4b8adbcb7bdb6f7bab6b4"><span
+                                class="__cf_email__"
+                                data-cfemail="97fef9f1f8d7faf6e3f2f9f3f8b9f4f8fa">[email&#160;protected]</span></a></li>
                     <li><a href="tel:+123456789">+123 456 7890</a></li>
                 </ul>
             </div>
@@ -456,12 +571,13 @@
         </div>
     </footer>
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         const talentGrid = document.getElementById('talentGrid');
         const talentCards = talentGrid.querySelectorAll('.talent-card');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        
+
         let scrollAmount = 0;
         const cardWidth = 220; // 200px width + 20px margin
         const scrollSpeed = 10;
@@ -537,4 +653,5 @@
         adjustCardWidth();
     </script>
 </body>
+
 </html>

@@ -1,661 +1,845 @@
-<!DOCTYPE html>
-<html lang="en">
+/* Import Bootstrap 5 */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css");
 
-<head>
-  <meta charset="utf-8" />
-  <title>Matendo Medics</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description"
-    content="Matendo Medics Outsourcing enables start-ups, businesses, and organizations to hire medical professionals from a growing network of top talent in the world. Find quality talent to work full-time, part-time, or hourly who will seamlessly integrate into your team." />
-  <meta property="og:title" content="We connect expertly vetted talent with world-class clients." />
-  <meta property="og:description" content="Learn why the top companies trust Matendo Medics Outsourcing." />
+/* Custom styles */
 
-  <link rel="stylesheet" href="style.css" />
+body,
+html {
+  font-family: Proxima Nova, proxima-nova, Proxima Nova Fallback, Arial,
+    sans-serif;
+  font-weight: 400;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+* {
+  box-sizing: border-box;
+}
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link rel="stylesheet" href="tw-77fc006f29d392641ce5.css" />
-  <link rel="stylesheet" href="f86e3eeebd61c50b.css" media="print" onload="this.media='all'" />
+a {
+  text-decoration: none;
+}
 
-</head>
+a,
+body,
+div,
+figure,
+footer,
+h1,
+h2,
+h3,
+html,
+i,
+img,
+li,
+nav,
+p,
+section,
+span,
+strong,
+ul {
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
 
-<body>
-  <main id="page-root" style="margin-bottom: 2rem;">
-    <div id="cookie-banner-host"></div>
-    <div id="skip-links" class="_2krRG6TW">
-      <ul>
-        <li><a href="#nav">Skip to navigation</a></li>
-        <li><a href="#main">Skip to content</a></li>
-        <li><a href="#footer">Skip to footer</a></li>
-      </ul>
-    </div>
-    <div data-cid="home-0">
-      <nav id="nav" class="CV4YLXjk _5J4FYFpA l6LO0mFG _1fUWJptL" aria-label="Main"
-        style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
-        <div data-testid="nav-container" class="_10M8yw-N _1fA2l0Sj">
-          <div class="_2SKZhefz">
-            <div class="_2zFNtrUH">
-              <a href="index.html" title="Matendo" aria-label="Matendo" class="_1lqQP1In">
-                <div data-testid="wordmark" class="aowwyHr4 _2s8qlRft _3sedtAc7"
-                  style="display: flex; align-items: center; margin-top: 20px;">
-                  <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
-                </div>
-              </a>
-            </div>
-            <div class="flex justify-end items-center space-x-8 text-base desktop-nav"
-              style="text-align: right; margin-left: 650px; margin-right: 20px;">
-              <a href="join.html" class="text-brand-green-darker hover:underline transition duration-300"
-                style="margin-right: 20px;">
-                <span class="md:inline">Join Matendo</span>
-              </a>
-              <a href="login.html" class="text-brand-blue-darker hover:underline transition duration-300">
-                Login
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
+figure,
+footer,
+nav,
+section {
+  display: block;
+}
 
-      <div data-cid="home-1">
-        <section class="relative z-0 pb-8 md:pb-12 lg:pb-0 mb-1 lg:!bg-transparent" style="background-color:#d2d6e2"
-          id="main">
-          <div style="background-color:#d2d6e2">
-            <div
-              class="grid grid-cols-12 mx-6 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-4 md:gap-6 xl:gap-8 lg:pb-2 xl:pb-0 mb-24 last:mb-0">
-              <div class="col-span-12">
-                <div class="mx-auto">
-                  <div class="relative flex flex-col my-0 mx-auto lg:block">
-                    <div
-                      class="z-10 mt-28 mx-auto lg:absolute lg:top-22 lg:left-0 lg:flex lg:flex-col lg:justify-center lg:max-w-[42%] lg:m-0 lg:text-left">
-                      <h1
-                        class="mx-auto mb-4 p-0 heading-md md:heading-lg xl:heading-xl font-bold text-gray-900 [&amp;_a]:text-gray-900 [&amp;_a]:whitespace-nowrap [&amp;_a]:underline [&amp;_a]:decoration-2 [&amp;_a]:underline-offset-8 [&amp;_a:hover]:no-underline [&amp;_a:visited]:text-gray-900 [&amp;_a:focus]:outline-none [&amp;_a:focus]:outline-brand-blue/50 [&amp;_sup]:text-xl [&amp;_sup]:leading-none [&amp;_sup]:align-super"
-                        data-testid="hero-title" style="max-width:500px">
-                        Hire Medical Professionals
-                      </h1>
-                      <p class="mb-8 text-gray-700 text-base leading-3 xl:text-lg xl:leading-4">
-                        Matendo provides fast, reliable access to certified doctors and medical professionals,
-                        ready to assist with your healthcare needs. Whether you're looking for advice, second opinions,
-                        or specialized care, Matendo connects you to the best experts in the field.
-                      </p>
-                      <div
-                        class="flex flex-col justify-start items-stretch sm:block sm:w-auto mb-2 w-full !mb-6 lg:!mb-12">
-                        <a class="box-border border-0 border-solid inline-block text-decoration-inherit text-center rounded-md outline-none focus-visible:ring-4 focus-visible:ring-brand-blue/50 font-semibold disabled:pointer-events-none cursor-pointer disabled:cursor-default transition-colors text-white bg-brand-green disabled:bg-gray-300 hover:bg-brand-green-dark active:bg-brand-green-darker heading-xs gap-6 py-3 px-[33px] md:px-[65px]"
-                          href="hire.html" data-testid="hero-cta" target="_blank">
-                          Hire Medics
-                        </a>
-                        <nav class="mobile-nav">
-                          <a href="join.html"
-                            class="mobile-nav-link text-brand-green-darker hover:underline transition duration-300 text-base">
-                            Join Matendo </a>
-                          <a href="login.html"
-                            class="mobile-nav-link text-brand-blue-darker hover:underline transition duration-300 text-base">
-                            Login </a>
-                        </nav>
-                      </div>
-                    </div>
-                    <div class="hidden lg:block relative max-w-full h-0" style="padding-top: 45%;">
-                      <div
-                        class="absolute w-full h-full top-0 right-0 pt-12 flex justify-end items-end text-right focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-brand-blue focus-within:overflow-visible">
-                        <div class="w-100 h-100 overflow-hidden rounded-full flex justify-center items-center"
-                          style="padding-left: 350px">
-                          <img src="images/doc1.png" style="height: 600px"
-                            class="rounded-full w-95 h-95 object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="absolute h-41 right-0 bottom-0 left-0"
-                      style="background: linear-gradient(0deg, rgb(210, 214, 226) 10%, rgba(214, 214, 214, 0));"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div class="_21yCG_iO _2WCXFkQt C-WFb9I5 is-viewport-regular" style="margin-bottom: -15px;">
-        <div
-          class="grid grid-cols-4 py-4 mx-4 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-2 md:gap-2 xl:gap- last:mb-0">
-          <div class="col-span-4 flex justify-center items-center">
-            <div class="_3OWYe9UK">
-              <p class="_1WFc0gTx text-center text-xs" style="margin-top: 0; margin-bottom: 0;">Trusted by leading
-                brands and&nbsp;startups</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="grid grid-cols-12 mx-4 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-4 md:gap-6 xl:gap-8 _1E1PULg9 last:mb-4"
-        role="none">
-        <div class="col-span-12">
-          <div role="region" aria-label="Featured Talent"
-            class="_1OimJyyD flex justify-center pt-8 lg:pt-6 px-0 select-none mb-4 md:mb-6 lg:mb-0">
-            <button id="card-button" aria-hidden="false"
-              class="group relative my-1 bg-transparent border-0 lg:flex items-center justify-center flex-none basis-10 cursor-pointer"
-              tabindex="0" data-ga-category="homepage" data-ga-event="medics" data-ga-label="click_left_arrow"
-              onclick="scrollLeft()">
-              <svg viewBox="0 0 13 38" width="13" height="38" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 1L2 19l10 18" stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd">
-                </path>
-              </svg>
-              <div
-                class="absolute w-full h-full -z-10 bg-brand-blue-lighter opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus:opacity-100">
-              </div>
-            </button>
-            <div class="relative flex gap-3 p-4 w-full overflow-x-auto scrollbar-hide snap-x snap-mandatory">
-              <!-- Talent Profile 1: General Practitioner -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide" aria-label="Dr. Sarah Williams, MD"
-                  class="flex flex-col h-full text-left">
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full">
-                    <div class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400">
-                      <img alt="Dr. Sarah Williams, MD" src="images/doc1.png" loading="lazy" decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-2"> <!-- Reduced padding and gap -->
-                    <h2 class="text-base lg:text-sm mb-1"> <!-- Added margin-bottom utility -->
-                      Dr. Sarah Williams, MD
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-start text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
-                          <path class="text-white dark:text-transparent" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.1465 5.64374L7.39254 8.4091L6.02535 7.03518L5.05485 8.01039L6.42204 9.38364L7.39254 10.3575L11.117 6.61761L10.1465 5.64374Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <strong class="font-bold">Verified Expert&nbsp;</strong>in Medicine</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Talent Profile 2: Cardiologist -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide"
-                  aria-label="Dr. James Smith, Cardiologist" class="flex flex-col h-full text-left">
-                  <!-- Ensure text-left class is here -->
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full">
-                    <div class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400">
-                      <img alt="Dr. James Smith, Cardiologist" src="images/doc2.png" loading="lazy" decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                    <svg class="block align-middle absolute z-30 text-brand-blue pointer-events-none"
-                      fill="currentColor" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg"
-                      style="bottom: 2.88px; left: 2.88px; height: 14.4px;">
-                    </svg>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-4">
-                    <h2 class="text-base lg:text-sm">
-                      <div>
-                        <a class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue"
-                          href="" data-ga-category="homepage" data-ga-event="top_carousel"
-                          data-ga-label="click_talent_name_2">Dr. James Smith, Cardiologist</a>
-                      </div>
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-center text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
-                          <path class="text-white dark:text-transparent" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.1465 5.64374L7.39254 8.4091L6.02535 7.03518L5.05485 8.01039L6.42204 9.38364L7.39254 10.3575L11.117 6.61761L10.1465 5.64374Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <strong class="font-bold">Verified Expert&nbsp;</strong>in Cardiology</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+ul {
+  list-style: none;
+}
 
-              <!-- Talent Profile 3: Pediatrician -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide"
-                  aria-label="Dr. Emily Brown, Pediatrician" class="flex flex-col h-full text-left">
-                  <!-- Ensure text-left class is here -->
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full"
-                    style="--caliber-avatar-clip-path-x: 16.363636363636363%; --caliber-avatar-clip-path-y: 80%; --caliber-avatar-clip-path-x-percentage: 0.16363636363636364; --caliber-avatar-clip-path-y-percentage: 0.8;">
-                    <div
-                      class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400 h-40 md:h-60 lg:h-36">
-                      <img alt="Dr. Emily Brown, Pediatrician" src="images/doc3.png" loading="lazy" decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                    <svg class="block align-middle absolute z-30 text-brand-blue pointer-events-none"
-                      fill="currentColor" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg"
-                      style="bottom: 2.88px; left: 2.88px; height: 14.4px;">
-                    </svg>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-4">
-                    <h2 class="text-base lg:text-sm">
-                      <div>
-                        <a class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue"
-                          href="" data-ga-category="homepage" data-ga-event="top_carousel"
-                          data-ga-label="click_talent_name_3">Dr. Emily Brown, Pediatrician</a>
-                      </div>
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-center text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
-                          <path class="text-white dark:text-transparent" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.1465 5.64374L7.39254 8.4091L6.02535 7.03518L5.05485 8.01039L6.42204 9.38364L7.39254 10.3575L11.117 6.61761L10.1465 5.64374Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <strong class="font-bold">Verified Expert&nbsp;</strong> in Pediatrics</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+button {
+  font-family: inherit;
+}
 
-              <!-- Talent Profile 4: Orthopedic Surgeon -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide"
-                  aria-label="Dr. Mark Johnson, Orthopedic Surgeon" class="flex flex-col h-full text-left">
-                  <!-- Ensure text-left class is here -->
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full"
-                    style="--caliber-avatar-clip-path-x: 16.363636363636363%; --caliber-avatar-clip-path-y: 80%; --caliber-avatar-clip-path-x-percentage: 0.16363636363636364; --caliber-avatar-clip-path-y-percentage: 0.8;">
-                    <div
-                      class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400 h-40 md:h-60 lg:h-36">
-                      <img alt="Dr. Mark Johnson, Orthopedic Surgeon" src="images/doc4.png" loading="lazy"
-                        decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                    <svg class="block align-middle absolute z-30 text-brand-blue pointer-events-none"
-                      fill="currentColor" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg"
-                      style="bottom: 2.88px; left: 2.88px; height: 14.4px;">
-                    </svg>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-4">
-                    <h2 class="text-base lg:text-sm">
-                      <div>
-                        <a class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue"
-                          href="" data-ga-category="homepage" data-ga-event="top_carousel"
-                          data-ga-label="click_talent_name_4">Dr. Mark Johnson, Orthopedic Surgeon</a>
-                      </div>
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-center text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
-                        </svg>
-                        <strong class="font-bold">Verified Expert&nbsp;</strong>​<span class="inline-block">in
-                          Orthopedic Surgery</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+@font-face {
+  font-display: swap;
+  font-family: Proxima Nova;
+  font-weight: 100;
+  src: url(https://frontier-assets.matendo.com/0d334d6378eced47.woff2)
+      format("woff2"),
+    url(https://frontier-assets.matendo.com/8022270c98c44680.woff)
+      format("woff"),
+    url(https://frontier-assets.matendo.com/3a3d434803adb427.otf)
+      format("opentype");
+}
 
-              <!-- Talent Profile 5: Neurologist -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide"
-                  aria-label="Dr. Sophia Chen, Neurologist" class="flex flex-col h-full text-left">
-                  <!-- Ensure text-left class is here -->
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full"
-                    style="--caliber-avatar-clip-path-x: 16.363636363636363%; --caliber-avatar-clip-path-y: 80%; --caliber-avatar-clip-path-x-percentage: 0.16363636363636364; --caliber-avatar-clip-path-y-percentage: 0.8;">
-                    <div
-                      class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400 h-40 md:h-60 lg:h-36">
-                      <img alt="Dr. Sophia Chen, Neurologist" src="images/doc5.png" loading="lazy" decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                    <svg class="block align-middle absolute z-30 text-brand-blue pointer-events-none"
-                      fill="currentColor" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg"
-                      style="bottom: 2.88px; left: 2.88px; height: 14.4px;">
-                    </svg>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-4">
-                    <h2 class="text-base lg:text-sm">
-                      <div>
-                        <a class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue"
-                          href="" data-ga-category="homepage" data-ga-event="top_carousel"
-                          data-ga-label="click_talent_name_5">Dr. Sophia Chen, Neurologist</a>
-                      </div>
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-center text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
-                          <path class="text-white dark:text-transparent" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.1465 5.64374L7.39254 8.4091L6.02535 7.03518L5.05485 8.01039L6.42204 9.38364L7.39254 10.3575L11.117 6.61761L10.1465 5.64374Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <strong class="font-bold">Verified Expert&nbsp;</strong>​<span class="inline-block">in
-                          Neurology</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+@font-face {
+  size-adjust: 95.3341%;
+  ascent-override: 92.9364%;
+  descent-override: 29.1606%;
+  font-display: swap;
+  font-family: Proxima Nova Fallback;
+  font-weight: 100;
+  line-gap-override: 0%;
+  src: local(Arial);
+}
 
-              <!-- Talent Profile 6: Oncologist -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide"
-                  aria-label="Dr. Robert Taylor, Oncologist" class="flex flex-col h-full text-left">
-                  <!-- Ensure text-left class is here -->
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full"
-                    style="--caliber-avatar-clip-path-x: 16.363636363636363%; --caliber-avatar-clip-path-y: 80%; --caliber-avatar-clip-path-x-percentage: 0.16363636363636364; --caliber-avatar-clip-path-y-percentage: 0.8;">
-                    <div
-                      class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400 h-40 md:h-60 lg:h-36">
-                      <img alt="Dr. Robert Taylor, Oncologist" src="images/doc6.png" loading="lazy" decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                    <svg class="block align-middle absolute z-30 text-brand-blue pointer-events-none"
-                      fill="currentColor" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg"
-                      style="bottom: 2.88px; left:height 14.4px">
-                    </svg>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-4">
-                    <h2 class="text-base lg:text-sm">
-                      <div><a
-                          class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue"
-                          href="" data-ga-category="homepage" data-ga-event="top_carousel"
-                          data-ga-label="click_talent_name_6">Dr. Robert Taylor, Oncologist</a></div>
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-center text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
+@font-face {
+  font-display: swap;
+  font-family: Proxima Nova;
+  font-weight: 300;
+  src: url(https://frontier-assets.matendo.com/537cdd0465a548f0.woff2)
+      format("woff2"),
+    url(https://frontier-assets.matendo.com/f9510317aef3a1d2.woff)
+      format("woff"),
+    url(https://frontier-assets.matendo.com/5bc35956b6aaec48.otf)
+      format("opentype");
+}
 
-                          <path class="text-white dark:text-transparent" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.1465 5.64374L7.39254 8.4091L6.02535 7.03518L5.05485 8.01039L6.42204 9.38364L7.39254 10.3575L11.117 6.61761L10.1465 5.64374Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <strong class="font-bold">Verified Expert&nbsp;</strong>​<span class="inline-block">in
-                          Oncology</span>
-                      </div>
-                    </div>
+@font-face {
+  size-adjust: 96.9043%;
+  ascent-override: 111.347%;
+  descent-override: 33.4351%;
+  font-display: swap;
+  font-family: Proxima Nova Fallback;
+  font-weight: 300;
+  line-gap-override: 0%;
+  src: local(Arial);
+}
 
-                  </div>
-                </div>
-              </div>
-              <!-- Talent Profile 7: Psychiatrist -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide"
-                  aria-label="Dr. Olivia Martinez, Psychiatrist" class="flex flex-col h-full">
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full"
-                    style="--caliber-avatar-clip-path-x: 16.363636363636363%; --caliber-avatar-clip-path-y: 80%; --caliber-avatar-clip-path-x-percentage: 0.16363636363636364; --caliber-avatar-clip-path-y-percentage: 0.8;">
-                    <div
-                      class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400 h-40 md:h-60 lg:h-36">
-                      <img alt="Dr. Olivia Martinez, Psychiatrist" src="images/doc7.png" loading="lazy" decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                    <svg class="block align-middle absolute z-30 text-brand-blue pointer-events-none"
-                      fill="currentColor" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg"
-                      style="bottom: 2.88px; left: 2.88px; height: 14.4px;">
+@font-face {
+  font-display: swap;
+  font-family: Proxima Nova;
+  font-weight: 400;
+  src: url(https://frontier-assets.matendo.com/bc447dcd2473a499.woff2)
+      format("woff2"),
+    url(https://frontier-assets.matendo.com/31a7fb48a0c14d38.woff)
+      format("woff"),
+    url(https://frontier-assets.matendo.com/f68460597dbfd4ac.otf)
+      format("opentype");
+}
 
-                    </svg>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-4">
-                    <h2 class="text-base lg:text-sm">
-                      <div><a
-                          class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue"
-                          href="" data-ga-category="homepage" data-ga-event="top_carousel"
-                          data-ga-label="click_talent_name_7">Dr. Olivia Martinez, Psychiatrist</a></div>
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-center text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
-                        </svg>
-                        <strong class="font-bold">Verified Expert&nbsp;</strong>​<span class="inline-block">in
-                          Psychiatry</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Talent Profile 8: Gynecologist -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide"
-                  aria-label="Dr. Amanda Lee, Gynecologist" class="flex flex-col h-full">
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full"
-                    style="--caliber-avatar-clip-path-x: 16.363636363636363%; --caliber-avatar-clip-path-y: 80%; --caliber-avatar-clip-path-x-percentage: 0.16363636363636364; --caliber-avatar-clip-path-y-percentage: 0.8;">
-                    <div
-                      class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400 h-40 md:h-60 lg:h-36">
-                      <img alt="Dr. Amanda Lee, Gynecologist" src="images/doc8.png" loading="lazy" decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                    <svg class="block align-middle absolute z-30 text-brand-blue pointer-events-none"
-                      fill="currentColor" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg"
-                      style="bottom: 2.88px; left: 2.88px; height: 14.4px;">
-                    </svg>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-4">
-                    <h2 class="text-base lg:text-sm">
-                      <div><a
-                          class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue"
-                          href="" data-ga-category="homepage" data-ga-event="top_carousel"
-                          data-ga-label="click_talent_name_8">Dr. Amanda Lee, Gynecologist</a></div>
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-center text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
+@font-face {
+  size-adjust: 98.4745%;
+  ascent-override: 109.5715%;
+  descent-override: 35.0345%;
+  font-display: swap;
+  font-family: Proxima Nova Fallback;
+  font-weight: 400;
+  line-gap-override: 0%;
+  src: local(Arial);
+}
 
-                          <path class="text-white dark:text-transparent" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.1465 5.64374L7.39254 8.4091L6.02535 7.03518L5.05485 8.01039L6.42204 9.38364L7.39254 10.3575L11.117 6.61761L10.1465 5.64374Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <strong class="font-bold">Verified Expert&nbsp;</strong>​<span class="inline-block">in
-                          Gynecology</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Talent Profile 9: Dermatologist -->
-              <div role="none" data-testid="talent-card"
-                class="bg-white shadow-md flex-none basis-40 md:basis-60 lg:basis-44 cursor-pointer transition-opacity duration-500 hover:opacity-100 opacity-80">
-                <div aria-current="false" role="group" aria-roledescription="Slide"
-                  aria-label="Dr. Michael Chang, Dermatologist" class="flex flex-col h-full">
-                  <figure class="m-0 z-0 relative flex bg-white caliber-avatar flex-none w-full"
-                    style="--caliber-avatar-clip-path-x: 16.363636363636363%; --caliber-avatar-clip-path-y: 80%; --caliber-avatar-clip-path-x-percentage: 0.16363636363636364; --caliber-avatar-clip-path-y-percentage: 0.8;">
-                    <div
-                      class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400 h-40 md:h-60 lg:h-36">
-                      <img alt="Dr. Michael Chang, Dermatologist" src="images/doc9.png" loading="lazy" decoding="async"
-                        class="max-w-full h-auto block align-middle basis-full font-family-inherit object-cover object-center">
-                    </div>
-                    <svg class="block align-middle absolute z-30 text-brand-blue pointer-events-none"
-                      fill="currentColor" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg"
-                      style="bottom: 2.88px; left: 2.88px; height: 14.4px;">
-                    </svg>
-                  </figure>
-                  <div class="flex flex-col basis-full gap-1 p-4">
-                    <h2 class="text-base lg:text-sm">
-                      <div><a
-                          class="text-decoration-inherit hover:underline focus-visible:outline outline-2 outline-offset-1 outline-brand-blue/50 text-brand-blue visited:text-brand-blue"
-                          href="" data-ga-category="homepage" data-ga-event="top_carousel"
-                          data-ga-label="click_talent_name_9">Dr. Michael Chang, Dermatologist</a></div>
-                    </h2>
-                    <div
-                      class="pl-4 paragraph-xs relative flex flex-wrap items-center text-brand-green-darker dark:text-white">
-                      <div data-testid="tooltip-trigger" tabindex="0" class="inline-block" data-state="closed">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                          class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-4">
-                          <rect class="text-white dark:text-transparent" fill="currentColor" x="4.5" y="4.5" width="7"
-                            height="7"></rect>
-                        </svg>
-                        <strong class="font-bold">Verified Expert</strong><span class="inline-block">in
-                          Dermatology</span>
-                      </div>
-                    </div>
+@font-face {
+  font-display: swap;
+  font-family: Proxima Nova;
+  font-weight: 600 700;
+  src: url(b514066e53e79bf0.woff2) format("woff2"),
+    url(cac11883ad6397e3.woff) format("woff"),
+    url(4ce555f565b723fa.otf) format("opentype");
+}
 
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button id="card-button" aria-hidden="false"
-              class="group relative my-1 bg-transparent border-0 lg:flex items-center justify-center flex-none basis-10 cursor-pointer rotate-180"
-              tabindex="0" data-ga-category="homepage" data-ga-event="top_carousel" data-ga-label="click_right_arrow"
-              onclick="scrollRight()">
-              <svg viewBox="0 0 13 38" width="13" height="38" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 1L2 19l10 18" stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd">
-                </path>
-              </svg>
-              <div
-                class="absolute w-full h-full -z-10 bg-brand-blue-lighter opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus:opacity-100">
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
-      <section class="features" style="margin-top: 10px; margin-bottom: 5px;">
-        <div class="feature">
-            <i class="fas fa-user-md"></i>
-            <h3>Vetted Professionals</h3>
-            <p>All professionals are thoroughly screened for qualifications and experience.</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-clock"></i>
-            <h3>Fast Onboarding</h3>
-            <p>Get matched with a professional quickly to meet your urgent needs.</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-handshake"></i>
-            <h3>Flexible Contracts</h3>
-            <p>Choose from full-time, part-time, or contract-based arrangements.</p>
-        </div>
-    </section>
-    
-    </div>
-  </main>
-  <footer id="footer" class="footer bg-gray-800 text-brand-blue py-8">
-    <div class="container mx-auto px-4">
-      <div class="footer-grid">
-        <div class="footer-column">
-          <h3 class="text-xl font-bold mb-4">About Us</h3>
-          <p class="text-sm">Matendo Medics Outsourcing enables start-ups, businesses, and organizations to hire medical
-            professionals from a growing network of top talent in the world.</p>
-        </div>
-        <div class="footer-column">
-          <h3 class="text-xl font-bold mb-4">Contact Us</h3>
-          <ul class="text-sm">
-            <li class="mb-2"><i class="fas fa-envelope mr-2"></i><span>Email: <a href="mailto:info@matendomedics.com"
-                  class="hover:underline">info@matendomedics.com</a></span></li>
-            <li class="mb-2"><i class="fas fa-phone mr-2"></i><span>Phone: +123 456 7890</span></li>
-            <li class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i><span>123 Medical Street, Kampala, Uganda</span>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-          <ul class="text-sm">
-            <li class="mb-2"><a href="about.html" class="hover:underline">About</a></li>
-            <li class="mb-2"><a href="services.html" class="hover:underline">Services</a></li>
-            <li class="mb-2"><a href="contact.html" class="hover:underline">Contact</a></li>
-            <li class="mb-2"><a href="careers.html" class="hover:underline">Careers</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3 class="text-xl font-bold mb-4">Follow Us</h3>
-          <div class="social-icons">
-            <a href="https://facebook.com/matendomedics" target="_blank" aria-label="Facebook"><i
-                class="fab fa-facebook"></i></a>
-            <a href="https://twitter.com/matendomedics" target="_blank" aria-label="Twitter"><i
-                class="fab fa-twitter"></i></a>
-            <a href="https://linkedin.com/company/matendomedics" target="_blank" aria-label="LinkedIn"><i
-                class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="mt-8 text-center">
-        <p class="text-sm">&copy; 2023 Matendo Medics. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-  <script>
-    // Amount to scroll each time
-    const scrollInterval = 3000; // Interval in milliseconds for auto-scroll
-    const talentCards = document.querySelectorAll('[data-testid="talent-card"]'); // Select all talent cards
-    const scrollContainer = document.querySelector('.relative.flex.gap-3.p-4.w-full.overflow-x-auto'); // Select the scroll container
-    let currentIndex = 0; // Track the currently selected index
-    let autoScrollInterval;
+@font-face {
+  size-adjust: 100.4933%;
+  ascent-override: 107.3703%;
+  descent-override: 37.3159%;
+  font-display: swap;
+  font-family: Proxima Nova Fallback;
+  font-weight: 600 700;
+  line-gap-override: 0%;
+  src: local(Arial);
+}
 
-    const highlightCard = (index) => {
-      // Remove highlight from all cards
-      talentCards.forEach((card) => {
-        card.classList.remove('selected-card');
-      });
-      // Add highlight to the current card
-      if (talentCards[index]) {
-        talentCards[index].classList.add('selected-card');
-      }
-    };
+body,
+html {
+  scroll-behavior: smooth;
+}
 
-    const scrollLeft = () => {
-      currentIndex = (currentIndex > 0) ? currentIndex - 1 : talentCards.length - 1; // Loop to the last card if at the start
-      scrollToCard(currentIndex); // Scroll to the new card
-    };
+#page-root,
+body,
+html {
+  min-height: 100%;
+}
 
-    const scrollRight = () => {
-      currentIndex = (currentIndex < talentCards.length - 1) ? currentIndex + 1 : 0; // Loop to the first card if at the end
-      scrollToCard(currentIndex); // Scroll to the new card
-    };
+._2s8qlRft {
+  color: inherit;
+}
 
-    const scrollToCard = (index) => {
-      const cardWidth = talentCards[index].offsetWidth; // Get the width of the current card
-      scrollContainer.scrollTo({ left: index * cardWidth, behavior: 'smooth' }); // Scroll to the current card
-      highlightCard(index); // Highlight the current card
-    };
+._1lqQP1In:focus {
+  outline-offset: 2px;
+  outline-style: solid;
+  outline-width: 2px;
+}
 
-    const startAutoScroll = () => {
-      autoScrollInterval = setInterval(scrollRight, scrollInterval); // Automatically scroll right
-    };
+._1lqQP1In:focus:not(:focus-visible) {
+  outline: 0;
+  outline-offset: 0;
+}
 
-    const stopAutoScroll = () => {
-      clearInterval(autoScrollInterval); // Stop auto-scroll
-    };
+._2zFNtrUH {
+  align-items: baseline;
+  color: #455065;
+  display: flex;
+  flex-shrink: 0;
+  font-size: 29px;
+  line-height: 29px;
+  max-width: 100%;
+}
 
-    // Event listeners for hover to pause auto-scroll
-    scrollContainer.addEventListener('mouseenter', stopAutoScroll);
-    scrollContainer.addEventListener('mouseleave', startAutoScroll);
+._2zFNtrUH img {
+  display: inline-block;
+  vertical-align: -17.5%;
+}
 
-    // Event listeners for the buttons
-    const leftButton = document.querySelector('[data-ga-label="click_left_arrow"]');
-    const rightButton = document.querySelector('[data-ga-label="click_right_arrow"]');
+._1lqQP1In {
+  align-items: baseline;
+  color: inherit;
+  display: flex;
+}
 
-    leftButton.addEventListener('click', scrollLeft);
-    rightButton.addEventListener('click', scrollRight);
+._1lqQP1In:focus {
+  outline-color: #204ecf;
+  z-index: 1;
+}
 
-    // Initial highlight and start auto-scroll
-    highlightCard(currentIndex);
-    startAutoScroll();
-  </script>
+._3sedtAc7 {
+  height: 29px;
+  margin: 0 9px 0 1px;
+}
 
-</body>
+html {
+  scroll-padding-top: 64px;
+}
 
-</html>
+._2SKZhefz {
+  align-items: center;
+  display: flex;
+  height: 64px;
+  min-height: 64px;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  ._2SKZhefz {
+    margin-right: 40px;
+  }
+}
+
+._19S1Pxiu a._1rZ7kgJi:has(~ [data-expanded="true"]) {
+  opacity: 0.7;
+}
+
+@media (min-width: 1024px) {
+  ._19S1Pxiu:hover ._1rZ7kgJi:not(:hover) button,
+  ._19S1Pxiu:hover a._1rZ7kgJi:not(:hover) {
+    opacity: 0.7;
+  }
+}
+
+._1H08x506 {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  ._1H08x506 {
+    margin-left: auto;
+  }
+}
+
+._10M8yw-N {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  height: 64px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 56px 0 16px;
+  position: relative;
+  width: 100%;
+}
+
+@media (min-width: 1440px) {
+  ._10M8yw-N {
+    max-width: 1216px;
+    padding: 0;
+  }
+}
+
+._10M8yw-N:focus-within {
+  overflow: visible;
+}
+
+@media (min-width: 1070px) {
+  ._10M8yw-N._1fA2l0Sj {
+    padding: 0 max(44px, (100vw - 1216px)/2);
+  }
+}
+
+@media (min-width: 1440px) {
+  ._10M8yw-N._1fA2l0Sj {
+    padding: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9) {
+    padding: 0 max(80px, (100vw - 1216px)/2) 0 max(44px, (100vw - 1216px)/2);
+  }
+}
+
+@media (min-width: 1272px) {
+  ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9) {
+    padding: 0 max(44px, (100vw - 1216px)/2);
+  }
+}
+
+@media (min-width: 1440px) {
+  ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9) {
+    padding: 0;
+  }
+}
+
+._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9):not(._1IQj-k77) {
+  max-width: 100%;
+}
+
+@media (min-width: 1440px) {
+  ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9):not(._1IQj-k77) {
+    padding: 0 max(112px, (100vw - 1448px)/2);
+  }
+}
+
+@media (min-width: 1920px) {
+  ._10M8yw-N.USHuY6CH:is(._2x_SsRBi, ._1fA2l0Sj, ._3Hr0AWy9):not(._1IQj-k77) {
+    max-width: 1448px;
+    padding: 0;
+  }
+}
+
+.Vt5M1_D_:focus:not(:focus-visible) {
+  outline: 0;
+  outline-offset: 0;
+}
+
+.Vt5M1_D_._2Ag8qsoM._31BAhWCT:not(:hover):after {
+  display: none;
+}
+
+._2-oDGCM5:focus:not(:focus-visible),
+._3D9T9QSe:focus:not(:focus-visible) {
+  outline: 0;
+  outline-offset: 0;
+}
+
+.CV4YLXjk {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  font-weight: 400;
+  height: 64px;
+  left: 0;
+  position: fixed; /* Change from absolute to fixed */
+  right: 0;
+  top: 0;
+  z-index: 99;
+  background: rgba(255, 255, 255, 0.98); /* Add background */
+  backdrop-filter: blur(8px); /* Add blur effect */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Add shadow */
+  transition: transform 0.3s ease; /* Add transition */
+}
+
+.CV4YLXjk:focus-within {
+  overflow: visible;
+}
+
+@media (max-width: 1049px) {
+  .l6LO0mFG {
+    background: #fff; /* Change from #d2d6e2 to white */
+    position: fixed;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+._2krRG6TW a:focus {
+  outline-offset: 2px;
+  outline-style: solid;
+  outline-width: 2px;
+}
+
+._2krRG6TW a:focus:not(:focus-visible) {
+  outline: 0;
+  outline-offset: 0;
+}
+
+._2krRG6TW {
+  color: inherit;
+}
+
+._2krRG6TW a {
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  text-decoration: none;
+  text-transform: capitalize;
+  top: -3em;
+  width: 1px;
+}
+
+._2krRG6TW a:focus {
+  clip: auto;
+  background: #204ecf;
+  color: #fff;
+  height: auto;
+  left: 5px;
+  outline-color: #204ecf;
+  padding: 8px 16px;
+  top: 5px;
+  width: auto;
+  z-index: 200;
+}
+
+._3pqDgecg:focus:not(:focus-visible) {
+  outline: 0;
+  outline-offset: 0;
+}
+
+._24nc1VRa:focus:not(:focus-visible) {
+  outline: 0;
+  outline-offset: 0;
+}
+
+._21yCG_iO {
+  max-width: 100%;
+  width: 100%;
+}
+
+._2WCXFkQt {
+  color: #262d3d;
+}
+
+@media (min-width: 1024px) {
+  ._2WCXFkQt {
+    background-color: #f6f8fb;
+    min-height: 92px;
+  }
+}
+
+._3OWYe9UK {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto !important;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+}
+
+._3OWYe9UK:focus-within {
+  overflow: visible;
+}
+
+@media (min-width: 768px) {
+  ._3OWYe9UK {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  ._2WCXFkQt ._3OWYe9UK {
+    flex-direction: column;
+  }
+}
+
+._1WFc0gTx {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 0;
+  min-width: 220px;
+  opacity: 0.7;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  ._1WFc0gTx {
+    width: 700px;
+  }
+}
+
+@media (max-width: 767px) {
+  ._1WFc0gTx {
+    align-items: flex-end;
+    min-height: 48px;
+    padding: 4px 0;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) and (max-width: 410px) {
+  ._1WFc0gTx {
+    margin-top: 20px;
+  }
+}
+
+.C-WFb9I5 ._1WFc0gTx {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1.57px;
+}
+
+@media (min-width: 768px) {
+  ._2WCXFkQt ._1WFc0gTx {
+    padding: 24px 0 4px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  ._2WCXFkQt ._1WFc0gTx {
+    padding: 0;
+    text-align: left;
+    width: 700px;
+  }
+}
+
+@media (max-width: 1023px) {
+  ._1E1PULg9 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+._1OimJyyD {
+  min-height: 398px;
+}
+
+@media (min-width: 768px) {
+  ._1OimJyyD {
+    min-height: 455px;
+  }
+}
+
+@media (min-width: 1024px) {
+  ._1OimJyyD {
+    min-height: 348px;
+  }
+
+  /* Basic styling for the carousel container */
+
+  .scrollbar-hide {
+    display: flex;
+    transition: scroll 0.3s ease;
+  }
+
+  /* Carousel item styling */
+  .flex-none {
+    flex: none;
+    width: 200px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  /* Image and profile card */
+
+  /* Styling for selected profile */
+
+  /* Dynamic image display */
+
+  #footer {
+    background: linear-gradient(
+      135deg,
+      rgba(245, 245, 245, 0.763),
+      rgba(245, 245, 245, 0.763)
+    );
+    color: #333;
+    /* Set the text color to dark gray */
+    padding: 2rem 0;
+    transition: background 0.3s;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for container */
+  }
+
+  .footer-column {
+    flex: 1;
+    min-width: 200px;
+    margin: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Subtle background for columns */
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .footer-column:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Slightly darker on hover */
+    transform: translateY(-5px);
+    /* Lift effect on hover */
+  }
+
+  .footer-column h3 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    /* Semi-bold font weight */
+    font-size: 1.25rem;
+    /* Larger font size for headings */
+  }
+
+  .footer-column p {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-column ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .footer-column ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-column ul li a {
+    color: #333;
+    /* Set the link color to dark gray */
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-column ul li a:hover {
+    color: #b8c2cc;
+    /* gray-300 */
+  }
+
+  /* Ensure all icons have the same size and color */
+  .footer-column i {
+    font-size: 1.25rem;
+    /* Larger size for icons */
+    color: #000;
+    /* Black color for icons */
+  }
+
+  /* Larger size for Follow Us icons */
+
+  /* Copyright section */
+
+  /* Logo Container Spacing */
+  ._2zFNtrUH {
+    margin-bottom: 1rem;
+    /* 16px */
+    padding: 0.5rem 0;
+    /* 8px top/bottom */
+  }
+
+  /* Logo Image Specific Spacing */
+
+  /* Navigation Container Spacing */
+  ._10M8yw-N {
+    padding: 0.75rem 0;
+    /* 12px */
+  }
+
+  /* Section Spacing after Navigation */
+  [data-cid="home-1"] {
+    margin-top: 1.5rem;
+    /* 24px */
+  }
+
+  /* Hero Section Top Spacing */
+  .z-10.mt-28 {
+    margin-top: 2rem;
+    /* 32px */
+  }
+
+  /* Add to style.css */
+
+  /* Hero Title */
+  [data-testid="hero-title"] {
+    font-size: 3.5rem !important;
+    /* Increased from 2.5rem */
+    line-height: 1.2;
+  }
+
+  /* Hero Description */
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    [data-testid="hero-title"] {
+      font-size: 2.75rem !important;
+    }
+  }
+}
+
+/* Base Styles and Variables */
+:root {
+  --primary-color: #204ECF;
+  --secondary-color: #262D3D;
+  --bg-light: #F6F8FB;
+  --text-dark: #455065;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --nav-height: 64px;
+}
+
+/* Reset and Global Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Navigation Styles */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.space-x-4 > * + * {
+  margin-left: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .md\:inline {
+    display: inline;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+}
+
+.text-brand-green-darker {
+  color: #006400;
+}
+
+.hover\:underline:hover {
+  text-decoration: underline;
+}
+
+.transition {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.hover\:text-brand-green-darker:hover {
+  color: #004d00;
+}
+
+/* Logo Container */
+._2SKZhefz {
+  position: relative;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+/* Logo Image */
+
+/* Navigation Links */
+
+/* Mobile Navigation */
+
+/* Hero Section */
+
+/* Talent Cards */
+
+/* Carousel Navigation */
+
+/* Animations */
+
+/* Responsive Utilities */
+
+/* Footer Enhancements */
+.footer {
+  background: linear-gradient(135deg, rgba(245,245,245,0.95), rgba(255,255,255,0.95));
+  padding: 4rem 0 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Performance Optimizations */
+
+/* Accessibility */
+
+:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Update the navigation styles */
+.CV4YLXjk {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 999;
+  transition: all 0.3s ease;
+  background: transparent; /* Start with transparent background */
+}
+
+/* Add styles for scroll state */
+
+/* Remove shadows when scrolling over colored sections */
+
+/* Navigation scroll states */
+.caliber-avatar-clip {
+  height: 150px;
+  overflow: hidden;
+}
+.caliber-avatar-clip img {
+  object-fit: cover;
+  object-position: center top;
+  height: 100%;
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
