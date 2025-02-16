@@ -42,39 +42,49 @@
             padding: 15px;
         }
 
-        .main-nav {
-            background: var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
         .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: transparent;
+            backdrop-filter: blur(50px);
+            z-index: 1000;
+            padding: 12px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
         }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
+        .logo-img { 
+            width: 250px;
+            height: auto; 
         }
-
+        .nav-links { display: flex; gap: 20px; }
         .nav-link {
-            color: var(--text);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: color 0.3s;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 4px;
+            letter-spacing: 0.2px;
         }
-
-        .nav-link:hover {
-            color: var(--primary);
+        .nav-link:nth-child(1) { 
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+        .nav-link:nth-child(2) { 
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+        .nav-link:nth-child(1):hover { 
+            background-color: #28a745;
+            color: white;
+        }
+        .nav-link:nth-child(2):hover { 
+            background-color: #007bff;
+            color: white;
         }
 
         .progress-container {
@@ -498,15 +508,13 @@
     </style>
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="/">
-                <img src="images/matelogo4.png" alt="Matendo Logo" width="180">
-            </a>
-            <div class="nav-links">
-                <a href="join.html" class="nav-link">Join</a>
-                <a href="login.html" class="nav-link">Login</a>
-            </div>
+    <nav class="nav-container">
+        <a href="index.html" title="Matendo" aria-label="Matendo">
+            <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="join.html" class="nav-link">Join Matendo</a>
+            <a href="login.html" class="nav-link">Login</a>
         </div>
     </nav>
     <div class="progress-container">

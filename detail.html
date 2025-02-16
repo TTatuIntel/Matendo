@@ -3,222 +3,761 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Matendo Resume</title>
-    <meta name="theme-color" content="#204ECF" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <title>Hire Medical Professionals - Matendo Medics</title>
+    <meta name="theme-color" content="#204ECF" />
+    <meta name="description"
+        content="Hire top medical professionals through Matendo Medics, connecting leading hospitals and clinics with skilled healthcare experts worldwide." />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="tw-f6d60ba79024b80a0eb2.css" />
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <style>
+        /* Global Reset */
+ * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.4;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 80px;
+}
+
+label {
+  font-weight: 500;
+  margin-top: 5px;
+  color: #333;
+  text-align: left;
+  font-size: 12px;
+  display: block;
+  margin-bottom: 3px;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+input:focus,
+select:focus {
+  border-color: #204ECF;
+  outline: none;
+}
+.progress-container {
+  width: 100%;
+  height: 4px;
+  background: #f0f0f0;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(to right, #0834ab, #04a34e);
+  transition: width 0.3s ease;
+}
+
+/* Collapsible Button */
+.collapsible {
+  background-color: transparent;
+  color: #204ECF;
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  font-size: 14px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.collapsible:hover {
+  background-color: #f0f0f0;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.arrow.closed {
+  transform: rotate(0deg);
+}
+
+.arrow.open {
+  transform: rotate(90deg);
+}
+
+.content {
+  display: none;
+  padding: 0 20px;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+/* Input Pair */
+.input-pair {
+  display: flex;
+  margin-bottom: 8px;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.input-pair>div {
+  width: 45%;
+  margin: 0;
+}
+
+.input-pair input,
+.input-pair select {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* For datalist inputs */
+.input-pair input[type="text"][list] {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px 20px;
+  padding-left: 30px;
+}
+
+/* confirmation checkbox */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.checkbox-container input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+/* Submit and Clear Buttons */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.button-container button {
+  background-color: #204ECF;
+  color: white;
+  cursor: pointer;
+  width: 45%;
+  max-width: 200px;
+  padding: 10px 20px;
+  font-size: 15px;
+  transition: background-color 0.3s;
+  border: none;
+  border-radius: 4px;
+}
+
+.button-container button:hover {
+  background-color: #1a3fa3;
+}
+
+#clear-signature {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+#clear-signature:hover {
+  background-color: #e0e0e0;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.modal-header {
+  font-size: 18px;
+  font-weight: 600;
+  color: #204ECF;
+  margin-bottom: 10px;
+}
+
+.modal-body {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.modal-footer {
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Declaration Section Styles */
+.declaration-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.shared-content {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: #555;
+}
+
+.signature-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 10px;
+}
+
+.signature-input,
+.date-input {
+  width: 50%;
+}
+
+#signature-pad {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+#signature-upload {
+  display: none;
+}
+
+.signature-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.signature-options button {
+  width: 48%;
+  padding: 8px;
+  font-size: 12px;
+}
+
+/* Supporting Documents Styles */
+.file-input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.file-input-container label {
+  flex: 1;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #204ECF;
+  text-decoration: underline;
+}
+
+.file-input-container input[type="file"] {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+      padding: 10px;
+      padding-top: 70px;
+  }
+
+  .input-pair {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .input-pair>div {
+      width: 100%;
+  }
+
+  .signature-container {
+      flex-direction: column;
+  }
+
+  .signature-input,
+  .date-input {
+      width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .collapsible {
+      font-size: 12px;
+      padding: 6px;
+  }
+
+  input,
+  select,
+  button {
+      font-size: 10px;
+  }
+}
+    </style>
 </head>
 
 <body>
-    <main id="page-root">
-        <div id="cookie-banner-host"></div>
-        <div data-cid="resume-0">
-            <nav id="nav" class="CV4YLXjk _5J4FYFpA l6LO0mFG _1fUWJptL" aria-label="Main">
-                <div data-testid="nav-container" class="_10M8yw-N _1fA2l0Sj">
-                  <div class="_2SKZhefz">
-                    <div class="_2zFNtrUH">
-                        <a href="index.html" title="Matendo" aria-label="Matendo" class="_1lqQP1In">
-                        <div data-testid="wordmark" class="aowwyHr4 _2s8qlRft _3sedtAc7"
-                          style="display: flex; align-items: center; margin-top: 25px;">
-                          <!-- Replace the wordmark SVG with an image logo -->
-                          <img src="images/matelogo44.png" alt="Matendo Wordmark" width="250" height="50" />
-                          <!-- Logo suffix "Nurses" (aligned next to the ® symbol) -->
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </nav>
-            <div class="h-16 bg-brand-blue-darker"></div>
-            <div class="mt-6 mb-24 last:mb-0">
-                <div
-                    class="grid grid-cols-12 mx-6 sm:mx-page-grid-sm md:mx-page-grid-md lg:mx-page-grid-lg xl:mx-auto xl:w-page-grid-xl gap-4 md:gap-6 xl:gap-8">
-                    <div data-cid="resume-manager-1" class="col-span-12 md:col-span-4 self-start">
+    <!-- Navigation -->
+    <nav id="nav" aria-label="Main Navigation">
+        <div class="nav-content">
+            <a href="index.html" title="Matendo">
+                <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
+            </a>
+        </div>
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Form -->
+        <form id="hire-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="post" target="_self">
+            <!-- Job Details -->
+            <section id="job-details">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Job Details</span>
+                    <span class="arrow closed">➞</span>
+                </button>
+                <div class="content">
+                    <div class="input-pair">
                         <div>
-                            <figure
-                                class="m-0 z-0 relative flex flex-1 bg-white caliber-avatar max-w-screen-sm mx-auto w-full lg:mb-3"
-                                style="--caliber-avatar-clip-path-x: 12.5%; --caliber-avatar-clip-path-y: 87.5%; --caliber-avatar-clip-path-x-percentage: 0.125; --caliber-avatar-clip-path-y-percentage: 0.875;">
-                                <div class="caliber-avatar-clip flex flex-auto overflow-hidden z-20 bg-gray-400"><img
-                                        alt="Adan Perez, Product Manager in Washington, DC, United States"
-                                        src="images/doc7.png"
-                                        class="max-w-full h-auto block align-middle basis-full font-family-inherit aspect-square object-cover"
-                                        data-testid="talent-avatar"></div>
-                            </figure>
-                           
+                            <label for="job-title">Job Title</label>
+                            <input type="text" id="job-title" name="entry.123456789" placeholder="Enter job title" required>
+                        </div>
+                        <div>
+                            <label for="specialization">Specialization</label>
+                            <input type="text" id="specialization" name="entry.987654321" placeholder="Enter specialization">
                         </div>
                     </div>
-                    <div class="col-span-12 md:col-span-8">
-                        <section class="break-words pb-8 border-b-1 border-solid border-gray-300 mb-8"
-                            data-testid="talent-intro-section">
-                            <div class="mt-4 md:mt-0 mb-1">
-                                <h1 class="heading-sm font-bold text-brand-blue" data-testid="talent-intro-name">Adan
-                                    Perez</h1>
-                            </div>
-                            <div data-cid="talent-intro-1">
-                                <div class="flex mb-6">
-                                    <div data-testid="tooltip-trigger" tabindex="0" class="inline-block"
-                                        data-state="closed">
-                                        <h2
-                                            class="pl-5 paragraph-sm relative flex flex-wrap items-center text-brand-green-darker dark:text-white font-regular">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="absolute top-0.5 text-brand-green-darker dark:text-white -ml-5">
-                                                <rect class="text-white dark:text-transparent" fill="currentColor"
-                                                    x="4.5" y="4.5" width="7" height="7"></rect>
-                                                <path fill="currentColor"
-                                                    d="m2.3438,5.6562l-2.3438,2.3438,2.3438,2.3438v3.3137h3.3137l2.3425,2.3425,2.3425-2.3425h3.315v-3.315l2.3425-2.3425-2.3425-2.3425v-3.3137h-3.3138l-2.3437-2.3438-2.3438,2.3438h-3.3125v3.3125Zm5.0488,2.7528l2.754-2.7654.9705.9739-3.7245,3.7399-.9705-.9739-1.3672-1.3733.9705-.9752,1.3672,1.3739Z">
-                                                </path>
-                                                <path class="text-white dark:text-transparent" fill-rule="evenodd"
-                                                    clip-rule="evenodd"
-                                                    d="M10.1465 5.64374L7.39254 8.4091L6.02535 7.03518L5.05485 8.01039L6.42204 9.38364L7.39254 10.3575L11.117 6.61761L10.1465 5.64374Z"
-                                                    fill="currentColor"></path>
-                                            </svg><strong class="font-bold">Verified Expert<!-- -->&nbsp;</strong> in
-                                            <!-- -->General Practitioner
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div data-cid="talent-intro-2">
-                                <div class="mb-6 transition-opacity opacity-100">
-                                    <div class="flex gap-2 mb-4 items-center" data-testid="talent-intro-job-title"><svg
-                                            viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" width="24"
-                                            height="24" class="w-6 h-6">
-                                            <path d="m20.57 20.21-3.35-3.36.71-.7 2.64 2.64 6.65-6.64.71.7z"
-                                                fill="#455065"></path>
-                                            <path
-                                                d="m14.57 29.06-12.5-6.25v-15.62l12.5-6.25 12.3 6.16v.8l-12.3 6.16-11.5-5.75v13.88l11.5 5.75 11.78-5.89.45.89-12.22 6.11zm-10.88-21.56 10.88 5.44 10.86-5.44-10.86-5.44z"
-                                                fill="#455065"></path>
-                                            <path d="m0 0h30v30h-30z" fill="none"></path>
-                                        </svg>
-                                        <h3 class="paragraph-md font-regular text-gray-700"
-                                            data-testid="talent-intro-location">Nurse</h3>
-                                    </div>
-                                    <div class="flex gap-2 mb-4 items-center" data-testid="talent-intro-location"><svg
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M12 24C18 17.3137 21 12.3137 21 9C21 4.02944 16.9706 0 12 0C7.02944 0 3 4.02944 3 9C3 12.3137 6 17.3137 12 24ZM4 9C4 4.58172 7.58172 1 12 1C16.4183 1 20 4.58172 20 9C20 11.8551 17.3441 16.4056 12 22.4937C6.65591 16.4056 4 11.8551 4 9ZM12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12ZM10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9C14 10.1046 13.1046 11 12 11C10.8954 11 10 10.1046 10 9Z"
-                                                fill="#455065"></path>
-                                        </svg>
-                                        <h3 class="paragraph-md font-regular text-gray-700"
-                                            data-testid="talent-intro-location">Kampala ,Uganda</h3>
-                                    </div>
-                                    <div class="flex gap-2 mb-4 items-center" data-testid="talent-intro-date"><svg
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M6 2H5V4H0V9V10V22H24V10V9V4H19V2H18V4H6V2ZM5 5V7H6V5H18V7H19V5H23V9H1V5H5ZM1 10V21H23V10H1Z"
-                                                fill="#455065"></path>
-                                        </svg>
-                                        <h3 class="paragraph-md font-regular text-gray-700"
-                                            data-testid="talent-intro-location">Matendo member since November 14, 2018
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="mb-6">
-                                    <div class="mb-2 text-xs text-gray-700 uppercase">Expertise</div>
-                                    <div class="flex flex-wrap gap-2 transition-opacity opacity-100">
-                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
-                                            tabindex="0" data-testid="skill-tag"
-                                            href="https://www.example.com/nurses">Nurses</a>
-                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
-                                            tabindex="0" data-testid="skill-tag"
-                                            href="https://www.example.com/doctors">Doctors</a>
-                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
-                                            tabindex="0" data-testid="skill-tag"
-                                            href="https://www.example.com/nurse-practitioners">Nurse Practitioners</a>
-                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
-                                            tabindex="0" data-testid="skill-tag"
-                                            href="https://www.example.com/medical-consultants">Medical Consultants</a>
-                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
-                                            tabindex="0" data-testid="skill-tag"
-                                            href="https://www.example.com/healthcare-coaching">Healthcare Coaching</a>
-                                        <a class="bg-transparent decoration-inherit no-underline align-top overflow-hidden whitespace-nowrap text-ellipsis rounded-xl ring-1 border-none ring-inset outline-0 focus-visible:ring-4 focus-visible:ring-brand-blue/50 focus-visible:ring-outset hover:cursor-pointer max-w-full inline-flex items-center justify-center gap-1 ring-brand-blue text-brand-blue hover:bg-brand-blue-lighter hover:text-brand-blue-darker py-1 px-3 paragraph-xs"
-                                            tabindex="0" data-testid="skill-tag"
-                                            href="https://www.example.com/virtual-healthcare">Virtual Healthcare</a>
-                                    </div>
-                                </div>
-                                <div class="mb-6" id="ai-summary-talent-intro-host"></div>
-                                <div>
-                                    <div class="mb-2 text-xs text-gray-700 uppercase">Bio</div>
-                                    <p data-testid="talent-intro-description"
-                                        class="text-base font-regular text-gray-700">
-                                        Dr. Adan is a highly experienced healthcare professional specializing in
-                                        providing expert care and innovative medical solutions. With years of experience
-                                        in clinical practice, he is skilled in diagnosing, treating, and managing a wide
-                                        range of health conditions. His approach combines evidence-based practices with
-                                        a compassionate, patient-centered methodology. Dr. Adan is also passionate about
-                                        advancing healthcare through continuous learning, education, and mentoring the
-                                        next generation of medical professionals.</p>
-                                </div>
-                            </div>
-                        </section>
+                    <div class="input-pair">
+                        <div>
+                            <label for="job-type">Job Type</label>
+                            <select id="job-type" name="entry.246813579" required>
+                                <option value="">Select job type</option>
+                                <option value="full-time">Full-time</option>
+                                <option value="part-time">Part-time</option>
+                                <option value="contract">Contract</option>
+                                <option value="temporary">Temporary</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="experience-level">Experience Level</label>
+                            <select id="experience-level" name="entry.135792468" required>
+                                <option value="">Select experience level</option>
+                                <option value="entry">Entry Level</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="senior">Senior</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="job-description">Job Description</label>
+                        <textarea id="job-description" name="entry.369258147" rows="4" placeholder="Enter detailed job description" required></textarea>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
-  <footer id="footer" class="footer mt-2 bg-gray-800 text-brand-blue py-8">
-    <div class="container mx-auto px-4">
-        <div class="footer-grid">
-            <div class="footer-column">
-                <h3 class="text-xl font-bold mb-4">About Us</h3>
-                <p class="text-sm">
-                    Matendo Medics Outsourcing enables start-ups, businesses, and
-                    organizations to hire medical professionals from a growing network
-                    of top talent in the world.
-                </p>
-            </div>
-            <div class="footer-column">
-                <h3 class="text-xl font-bold mb-4">Contact Us</h3>
-                <ul class="text-sm">
-                    <li class="mb-2">
-                        <i class="fas fa-envelope mr-2"></i>
-                        <span>Email: <a href="mailto:info@matendomedics.com" class="hover:underline">info@matendomedics.com</a></span>
-                    </li>
-                    <li class="mb-2">
-                        <i class="fas fa-phone mr-2"></i>
-                        <span>Phone: +123 456 7890</span>
-                    </li>
-                    <li class="mb-2">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        <span>123 Medical Street, Kampala, Uganda</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-                <ul class="text-sm">
-                    <li class="mb-2"><a href="about.html" class="hover:underline">About</a></li>
-                    <li class="mb-2"><a href="services.html" class="hover:underline">Services</a></li>
-                    <li class="mb-2"><a href="contact.html" class="hover:underline">Contact</a></li>
-                    <li class="mb-2"><a href="careers.html" class="hover:underline">Careers</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3 class="text-xl font-bold mb-4">Follow Us</h3>
-                <div class="social-icons">
-                    <a href="https://facebook.com/matendomedics" target="_blank" aria-label="Facebook">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                    <a href="https://twitter.com/matendomedics" target="_blank" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://linkedin.com/company/matendomedics" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
+            </section>
+
+            <!-- Requirements -->
+            <section id="requirements">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Requirements</span>
+                    <span class="arrow closed">➞</span>
+                </button>
+                <div class="content">
+                    <div>
+                        <label for="qualifications">Qualifications</label>
+                        <textarea id="qualifications" name="entry.741852963" rows="4" placeholder="Enter required qualifications" required></textarea>
+                    </div>
+                    <div>
+                        <label>Required Skills</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="entry.159753456" value="Pediatric care"> Pediatric care</label>
+                            <label><input type="checkbox" name="entry.159753456" value="Surgery"> Surgery</label>
+                            <label><input type="checkbox" name="entry.159753456" value="ICU experience"> ICU experience</label>
+                            <label><input type="checkbox" name="entry.159753456" value="Geriatric care"> Geriatric care</label>
+                            <label><input type="checkbox" name="entry.159753456" value="Rehabilitation therapy"> Rehabilitation therapy</label>
+                            <label><input type="checkbox" name="entry.159753456" value="Medical Research"> Medical Research</label>
+                            <label><input type="checkbox" name="entry.159753456" value="Diagnostic Skills"> Diagnostic Skills</label>
+                            <label><input type="checkbox" name="entry.159753456" value="Surgical Skills"> Surgical Skills</label>
+                            <label><input type="checkbox" name="entry.159753456" value="Patient Care"> Patient Care</label>
+                            <label><input type="checkbox" name="entry.159753456" value="Healthcare IT/EMR"> Healthcare IT/EMR Systems</label>
+                        </div>
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="education">Minimum Education</label>
+                            <select id="education" name="entry.951753852" required>
+                                <option value="">Select education level</option>
+                                <option value="high-school">High School</option>
+                                <option value="associate">Associate's Degree</option>
+                                <option value="bachelor">Bachelor's Degree</option>
+                                <option value="master">Master's Degree</option>
+                                <option value="doctorate">Doctorate</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="experience">Minimum Experience (Years)</label>
+                            <input type="number" id="experience" name="entry.753951852" placeholder="Enter years of experience" required min="0">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="mt-8 text-center">
-            <p class="text-sm">&copy; 2023 Matendo Medics. All rights reserved.</p>
-        </div>
+            </section>
+
+            <!-- Compensation -->
+            <section id="compensation">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Compensation</span>
+                    <span class="arrow closed">➞</span>
+                </button>
+                <div class="content">
+                    <div class="input-pair">
+                        <div>
+                            <label for="salary-range-min">Salary Range (Min)</label>
+                            <input type="number" id="salary-range-min" name="entry.159753654" placeholder="Enter minimum salary" required min="0">
+                        </div>
+                        <div>
+                            <label for="salary-range-max">Salary Range (Max)</label>
+                            <input type="number" id="salary-range-max" name="entry.951753654" placeholder="Enter maximum salary" required min="0">
+                        </div>
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="benefits">Benefits</label>
+                            <textarea id="benefits" name="entry.357159654" rows="4" placeholder="Enter job benefits" required></textarea>
+                        </div>
+                        <div>
+                            <label for="bonus-structure">Bonus Structure (if any)</label>
+                            <textarea id="bonus-structure" name="entry.753951654" rows="4" placeholder="Enter bonus structure details"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Location and Schedule -->
+            <section id="location-schedule">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Location and Schedule</span>
+                    <span class="arrow closed">➞</span>
+                </button>
+                <div class="content">
+                    <div class="input-pair">
+                        <div>
+                            <label for="location">Job Location</label>
+                            <input type="text" id="location" name="entry.159753756" placeholder="Enter job location" required>
+                        </div>
+                        <div>
+                            <label for="remote-option">Remote Work Option</label>
+                            <select id="remote-option" name="entry.951753756" required>
+                                <option value="">Select remote work option</option>
+                                <option value="on-site">On-site only</option>
+                                <option value="remote">Remote only</option>
+                                <option value="hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="work-hours">Work Hours</label>
+                            <input type="text" id="work-hours" name="entry.357159756" placeholder="Enter work hours" required>
+                        </div>
+                        <div>
+                            <label for="shift-type">Shift Type</label>
+                            <select id="shift-type" name="entry.753951756" required>
+                                <option value="">Select shift type</option>
+                                <option value="day">Day shift</option>
+                                <option value="night">Night shift</option>
+                                <option value="rotating">Rotating shifts</option>
+                                <option value="flexible">Flexible hours</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Company Information -->
+            <section id="company-info">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Company Information</span>
+                    <span class="arrow closed">➞</span>
+                </button>
+                <div class="content">
+                    <div class="input-pair">
+                        <div>
+                            <label for="company-name">Company Name</label>
+                            <input type="text" id="company-name" name="entry.159753858" placeholder="Enter company name" required>
+                        </div>
+                        <div>
+                            <label for="company-website">Company Website</label>
+                            <input type="url" id="company-website" name="entry.951753858" placeholder="Enter company website URL">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="company-description">Company Description</label>
+                        <textarea id="company-description" name="entry.357159858" rows="4" placeholder="Enter company description" required></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Application Process -->
+            <section id="application-process">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Application Process</span>
+                    <span class="arrow closed">➞</span>
+                </button>
+                <div class="content">
+                    <div class="input-pair">
+                        <div>
+                            <label for="application-deadline">Application Deadline</label>
+                            <input type="date" id="application-deadline" name="entry.753951858" required>
+                        </div>
+                        <div>
+                            <label for="start-date">Expected Start Date</label>
+                            <input type="date" id="start-date" name="entry.159753960" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="application-instructions">Application Instructions</label>
+                        <textarea id="application-instructions" name="entry.951753960" rows="4" placeholder="Enter application instructions" required></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information -->
+            <section id="contact-info">
+                <button type="button" class="collapsible" aria-expanded="false">
+                    <span>Contact Information</span>
+                    <span class="arrow closed">➞</span>
+                </button>
+                <div class="content">
+                    <div class="input-pair">
+                        <div>
+                            <label for="contact-name">Contact Person Name</label>
+                            <input type="text" id="contact-name" name="entry.357159960" placeholder="Enter contact person's name" required>
+                        </div>
+                        <div>
+                            <label for="contact-email">Contact Email</label>
+                            <input type="email" id="contact-email" name="entry.753951960" placeholder="Enter contact email" required>
+                        </div>
+                    </div>
+                    <div class="input-pair">
+                        <div>
+                            <label for="contact-phone">Contact Phone</label>
+                            <input type="tel" id="contact-phone" name="entry.159754062" placeholder="Enter contact phone number">
+                        </div>
+                        <div>
+                            <label for="preferred-contact">Preferred Contact Method</label>
+                            <select id="preferred-contact" name="entry.951754062" required>
+                                <option value="">Select preferred contact method</option>
+                                <option value="email">Email</option>
+                                <option value="phone">Phone</option>
+                                <option value="either">Either</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Declaration -->
+            <section id="declaration" class="declaration-section">
+                <div class="shared-content">
+                    <p>By submitting this form, you confirm that all provided information is accurate and complete.</p>
+
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="entry.357160470" required />
+                        I confirm the information is true and accurate.
+                    </label>
+                </div>
+                <div class="signature-container">
+                    <div class="signature-input">
+                        <label for="signature">Signature</label>
+                        <canvas id="signature-pad" width="300" height="50"></canvas>
+                        <input type="file" id="signature-upload" name="entry.753952470" accept="image/*">
+                        <div class="signature-options">
+                            <button type="button" id="clear-signature">Clear</button>
+                            <button type="button" id="upload-signature">Upload</button>
+                        </div>
+                        <input type="hidden" id="signature" name="entry.159754572">
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button type="submit">Submit Job Posting</button>
+                </div>
+            </section>
+        </form>
     </div>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Matendo Medics. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Collapsible Section Toggle Functionality
+        const collapsibles = document.querySelectorAll('.collapsible');
+
+        collapsibles.forEach((button) => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const arrow = button.querySelector('.arrow');
+                const isOpen = content.style.display === 'block';
+
+                content.style.display = isOpen ? 'none' : 'block';
+                arrow.classList.toggle('closed', isOpen);
+                arrow.classList.toggle('open', !isOpen);
+                button.setAttribute('aria-expanded', !isOpen);
+
+                updateProgress();
+            });
+        });
+
+        // Progress Bar Update Functionality
+        function updateProgress() {
+            const totalSections = collapsibles.length;
+            const openSections = document.querySelectorAll('.collapsible[aria-expanded="true"]').length;
+            const progress = (openSections / totalSections) * 100;
+
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Event listener for form changes to update progress
+        document.getElementById('hire-form').addEventListener('input', updateProgress);
+
+        // Signature Pad functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const canvas = document.getElementById('signature-pad');
+            const signaturePad = new SignaturePad(canvas);
+            const clearButton = document.getElementById('clear-signature');
+            const uploadButton = document.getElementById('upload-signature');
+            const signatureUpload = document.getElementById('signature-upload');
+            const signatureInput = document.getElementById('signature');
+
+            clearButton.addEventListener('click', function () {
+                signaturePad.clear();
+                signatureInput.value = '';
+            });
+
+            uploadButton.addEventListener('click', function () {
+                signatureUpload.click();
+            });
+
+            signatureUpload.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        const img = new Image();
+                        img.onload = function () {
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            canvas.getContext('2d').drawImage(img, 0, 0);
+                            signatureInput.value = canvas.toDataURL();
+                        };
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.getElementById('hire-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (signaturePad.isEmpty() && !signatureInput.value) {
+                    alert('Please provide a signature.');
+                    return;
+                }
+                if (!signatureInput.value) {
+                    signatureInput.value = signaturePad.toDataURL();
+                }
+                // Automatically capture the current date on form submission
+                const currentDate = new Date().toISOString().split('T')[0];
+                const hiddenDateInput = document.createElement('input');
+                hiddenDateInput.type = 'hidden';
+                hiddenDateInput.name = 'entry.159754674';
+                hiddenDateInput.value = currentDate;
+                this.appendChild(hiddenDateInput);
+
+                // Submit the form data to Google Forms
+                const formData = new FormData(this);
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                }).then(() => {
+                    alert('Job posting submitted successfully!');
+                    this.reset();
+                    updateProgress();
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            });
+        });
+
+        // Initial progress update
+        updateProgress();
+    </script>
 </body>
+
 </html>
-
-
