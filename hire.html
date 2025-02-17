@@ -604,7 +604,6 @@
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
                         <button type="button" class="nav-button next-button">Next</button>
-                        <button type="button" class="nav-button skip-button">Skip</button>
                     </div>
                 </div>
             </section>
@@ -634,7 +633,6 @@
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
                         <button type="button" class="nav-button next-button">Next</button>
-                        <button type="button" class="nav-button skip-button">Skip</button>
                     </div>
                 </div>
             </section>
@@ -671,48 +669,53 @@
                         </div>
                         <div class="input-field">
                             <label for="startDate">Start Date *</label>
-                            <input type="date" id="startDate" name="entry.753951654_date" required>
+                            <input type="date" id="startDate"  name="entry.753951654_date" required>
                         </div>
                     </div>
 
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
                         <button type="button" class="nav-button next-button">Next</button>
-                        <button type="button" class="nav-button skip-button">Skip</button>
                     </div>
                 </div>
             </section>
 
-            <!-- Step 5: Requirements -->
+            <!-- Step 5: Job Requirements -->
             <section class="form-section" data-step="5">
                 <div class="section-header">
                     <h2>Job Requirements</h2>
                 </div>
                 <div class="section-content">
-                    <div class="input-field">
-                        <label for="qualifications">Qualifications *</label>
-                        <textarea id="qualifications" name="entry.951753654" rows="4" required></textarea>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="include-job-requirements" name="include-job-requirements">
+                        <label for="include-job-requirements">Include Job Requirements</label>
                     </div>
-                    <div class="input-field">
-                        <label for="experience">Experience Required *</label>
-                        <textarea id="experience" name="entry.456789123" rows="4" required></textarea>
-                    </div>
-                    <div class="input-field">
-                        <label for="jobDescription">Job Description *</label>
-                        <textarea id="jobDescription" name="entry.789123456" rows="6" required></textarea>
-                    </div>
-                    <div class="file-upload">
-                        <label for="jobDescriptionFile">
-                            <i class="fas fa-upload"></i> Upload Job Description (Optional)
-                        </label>
-                        <input type="file" id="jobDescriptionFile" name="jobDescriptionFile" accept=".pdf,.doc,.docx">
-                        <span id="fileName"></span>
+                    
+                    <div id="job-requirements-section" style="display: none;">
+                        <div class="input-field">
+                            <label for="qualifications">Qualifications</label>
+                            <textarea id="qualifications" name="entry.951753654" rows="4"></textarea>
+                        </div>
+                        <div class="input-field">
+                            <label for="experience">Experience Required</label>
+                            <textarea id="experience" name="entry.456789123" rows="4"></textarea>
+                        </div>
+                        <div class="input-field">
+                            <label for="jobDescription">Job Description</label>
+                            <textarea id="jobDescription" name="entry.789123456" rows="6"></textarea>
+                        </div>
+                        <div class="file-upload">
+                            <label for="jobDescriptionFile">
+                                <i class="fas fa-upload"></i> Upload Job Description
+                            </label>
+                            <input type="file" id="jobDescriptionFile" name="jobDescriptionFile" accept=".pdf,.doc,.docx">
+                            <span id="fileName"></span>
+                        </div>
                     </div>
 
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
                         <button type="button" class="nav-button next-button">Next</button>
-                        <button type="button" class="nav-button skip-button">Skip</button>
                     </div>
                 </div>
             </section>
@@ -742,9 +745,9 @@
                 <div class="section-content">
                     <div class="confirmation-container">
                         <div class="checkbox-container">
-                            <input type="checkbox" id="confirm-checkbox" name="entry.357160470" required>
+                            <input type="checkbox" id="confirm-checkbox" name="entry.357160471" required>
                             <label for="confirm-checkbox">
-                                I confirm that all information provided is accurate and complete. I understand that submitting this form does not guarantee placement, and Matendo Medics will contact me for further steps. *
+                                I confirm that all information provided is accurate and complete. I understand that submitting this request does not guarantee placement, and Matendo Medics will contact me for further steps. *
                             </label>
                         </div>
                     </div>
@@ -759,25 +762,25 @@
 
         <!-- Add submission confirmation message -->
         <div class="submission-confirmation" id="submission-confirmation">
-            <h3>Thank you for your submission!</h3>
-            <p>We have received your request and will contact you shortly.</p>
+            <h3>Thank you for your request!</h3>
+            <p>We have received your information and will review it shortly.</p>
             <button class="view-additional-info" id="view-additional-info">View Additional Information</button>
         </div>
 
         <!-- Add additional info section -->
         <div class="additional-info" id="additional-info">
             <h3>Additional Information</h3>
-            <p>Here you can find more details about our hiring process and what to expect next:</p>
+            <p>Here's what you can expect next in our process:</p>
             <ul>
-                <li>Our team will review your request within 2-3 business days.</li>
-                <li>If your request matches our current openings, we'll reach out to schedule an interview.</li>
+                <li>Our team will review your request within 1-2 business days.</li>
+                <li>We'll reach out to discuss your specific needs and potential candidates.</li>
                 <li>Please ensure your contact information is up to date.</li>
-                <li>For any questions, contact our support team at support@matendomedics.com</li>
+                <li>For any questions, contact our support team at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5b6b0b5b5aab7b185a8a4b1a0aba1aaa8a0a1aca6b6eba6aaa8">[email&#160;protected]</a></li>
             </ul>
         </div>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
     <script>
         // Google Maps Integration
         let map;
@@ -890,17 +893,23 @@
                 button.addEventListener('click', () => showStep(currentStep - 1));
             });
 
-            document.querySelectorAll('.skip-button').forEach(button => {
-                button.addEventListener('click', () => showStep(currentStep + 1));
-            });
-
             // Conditional Fields
             document.getElementById('otherFacilityType').addEventListener('change', function() {
-                document.getElementById('otherFacilityTypeContainer').style.display = this.checked ? 'block' : 'none';
+                document.getElementById('otherFacilityTypeContainer').style.display = 
+                    this.checked ? 'block' : 'none';
             });
 
             document.getElementById('otherClinicalStaff').addEventListener('change', function() {
-                document.getElementById('otherClinicalStaffContainer').style.display = this.checked ? 'block' : 'none';
+                document.getElementById('otherClinicalStaffContainer').style.display = 
+                    this.checked ? 'block' : 'none';
+            });
+
+            // Job requirements checkbox
+            const includeJobRequirementsCheckbox = document.getElementById('include-job-requirements');
+            const jobRequirementsSection = document.getElementById('job-requirements-section');
+
+            includeJobRequirementsCheckbox.addEventListener('change', function() {
+                jobRequirementsSection.style.display = this.checked ? 'block' : 'none';
             });
 
             // File upload handling
@@ -958,9 +967,13 @@
                     <p><strong>Start Date:</strong> ${document.getElementById('startDate').value}</p>
 
                     <h3>Job Requirements</h3>
-                    <p><strong>Qualifications:</strong> ${document.getElementById('qualifications').value}</p>
-                    <p><strong>Experience Required:</strong> ${document.getElementById('experience').value}</p>
-                    <p><strong>Job Description:</strong> ${document.getElementById('jobDescription').value}</p>
+                    <p><strong>Include Job Requirements:</strong> ${document.getElementById('include-job-requirements').checked ? 'Yes' : 'No'}</p>
+                    ${document.getElementById('include-job-requirements').checked ? `
+                        <p><strong>Qualifications:</strong> ${document.getElementById('qualifications').value}</p>
+                        <p><strong>Experience Required:</strong> ${document.getElementById('experience').value}</p>
+                        <p><strong>Job Description:</strong> ${document.getElementById('jobDescription').value}</p>
+                        <p><strong>Uploaded Job Description:</strong> ${document.getElementById('fileName').textContent}</p>
+                    ` : ''}
                 `;
             }
 
