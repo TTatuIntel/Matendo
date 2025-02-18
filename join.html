@@ -13,10 +13,13 @@
             --primary-light: #E6EEFF;
             --primary-dark: #1a3fa6;
             --success: #4CAF50;
+            --info: #2196F3;
+            --warning: #FFC107;
+            --danger: #F44336;
             --error: #e74c3c;
             --text: #333;
             --text-light: #666;
-            --background: #f8f9fa;
+            --background: #ffffffc1;
             --white: #ffffff;
             --gray: #e0e0e0;
             --border: #d1d1d1;
@@ -315,8 +318,8 @@
         }
 
         .file-upload label {
-            background-color: var(--primary);
-            color: white;
+            background-color: var(--background);
+            color: var(--success);
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
@@ -608,16 +611,32 @@
                     <div id="otherProfessionContainer" style="display: none; margin-top: 10px;">
                         <input type="text" id="otherProfessionInput" name="entry.357159852_other" placeholder="Specify profession">
                     </div>
-
                     <div class="input-field">
                         <label for="specialization">Specialization (if applicable)</label>
                         <input type="text" id="specialization" name="entry.123456790">
                     </div>
-
                     <div class="input-field">
-                        <label for="license-number">License Number *</label>
-                        <input type="text" id="license-number" name="entry.357159654" required>
+                        <button type="button" id="toggle-license" class="nav-button">Add License Information</button>
                     </div>
+                    <div id="license-info" style="display: none;">
+                        <div class="input-field">
+                            <label for="license-number">License Number</label>
+                            <input type="text" id="license-number" name="entry.357159654">
+                        </div>
+                        <div class="file-upload">
+                            <label for="license-doc-optional">
+                                <i class="fas fa-upload"></i> Upload License Document (PDF, JPG, PNG)
+                            </label>
+                            <input type="file" id="license-doc-optional" name="license-doc-optional" accept=".pdf,.jpg,.png">
+                            <span id="licenseFileNameOptional" class="file-name"></span>
+                        </div>
+                    </div>
+                    <script>
+                        document.getElementById('toggle-license').addEventListener('click', function() {
+                            const licenseInfo = document.getElementById('license-info');
+                            licenseInfo.style.display = licenseInfo.style.display === 'none' ? 'block' : 'none';
+                        });
+                    </script>
 
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
@@ -662,7 +681,7 @@
                 <div class="section-content">
                     <div class="input-field">
                         <label>Preferred Work Type *</label>
-                        <div class="checkbox-group">
+                        <div class="checkbox-group two-columns">
                             <label><input type="checkbox" name="entry.789123456" value="Full-Time"> Full-Time</label>
                             <label><input type="checkbox" name="entry.789123456" value="Part-Time"> Part-Time</label>
                             <label><input type="checkbox" name="entry.789123456" value="Short-Term"> Short-Term</label>
