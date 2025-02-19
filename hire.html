@@ -1,532 +1,1000 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#204ECF" />
-    <meta name="description"
-        content="Matendo Medics connects you with top-tier, certified medical professionals ready to meet your healthcare needs. Hire experts for full-time, part-time, or contract work." />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#204ECF">
+    <title>Hire Medical Professionals | Matendo Medics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #204ECF;
+            --primary-light: #E6EEFF;
+            --primary-dark: #1a3fa6;
+            --success: #4CAF50;
+            --error: #e74c3c;
+            --text: #333;
+            --text-light: #666;
+            --background: #f8f9fa;
+            --white: #ffffff;
+            --gray: #e0e0e0;
+            --border: #d1d1d1;
+        }
 
-    <link rel="stylesheet" href="style.css" />
-    <!-- Added Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+            padding-top: 50px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: transparent;
+            backdrop-filter: blur(50px);
+            z-index: 1000;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+        .logo-img { 
+            width: 250px;
+            height: auto; 
+        }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 4px;
+            letter-spacing: 0.2px;
+        }
+        .nav-link:nth-child(1) { 
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+        .nav-link:nth-child(2) { 
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+        .nav-link:nth-child(1):hover { 
+            background-color: #28a745;
+            color: white;
+        }
+        .nav-link:nth-child(2):hover { 
+            background-color: #007bff;
+            color: white;
+        }
+
+        .progress-container {
+            height: 4px;
+            background: var(--gray);
+            position: fixed;
+            top: 50px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #204ECF, #4CAF50);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .form-section {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            overflow: hidden;
+            display: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            padding: 10px 15px;
+            background: transparent;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .section-content {
+            padding: 15px;
+        }
+
+        .input-pair {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .input-field {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: var(--white);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .checkbox-group.two-columns {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        #map-container {
+            height: 200px;
+            margin: 10px 0;
+            border-radius: 6px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .map-toggle {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background-color 0.3s;
+            margin-top: 5px;
+        }
+
+        .map-toggle:hover {
+            background: var(--primary-dark);
+        }
+
+        .location-error {
+            color: var(--error);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: flex-end;
+        }
+
+        .nav-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button.next-button, .nav-button[type="submit"] {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .nav-button.next-button:hover, .nav-button[type="submit"]:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-button.back-button {
+            background: var(--white);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .nav-button.back-button:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-button.skip-button {
+            background: var(--gray);
+            color: var(--text);
+        }
+
+        .nav-button.skip-button:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-button:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        input:invalid, textarea:invalid {
+            border-color: var(--error);
+        }
+
+        input:invalid + .error-message,
+        textarea:invalid + .error-message {
+            display: block;
+        }
+
+        .file-upload {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload label {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .file-upload label:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .file-name {
+            margin-left: 10px;
+            font-size: 13px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 8px;
+            margin-top: 2px;
+        }
+
+        .checkbox-container label {
+            line-height: 1.2;
+            flex: 1;
+        }
+
+        .form-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: var(--background);
+            border-radius: 8px;
+        }
+
+        .progress-step {
+            font-size: 12px;
+            color: var(--text-light);
+            position: relative;
+            text-align: center;
+            flex: 1;
+        }
+
+        .progress-step::after {
+            content: '';
+            height: 2px;
+            width: 100%;
+            background-color: var(--gray);
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            z-index: 1;
+        }
+
+        .progress-step:last-child::after {
+            display: none;
+        }
+
+        .progress-step.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .progress-step.active::before {
+            content: '';
+            height: 10px;
+            width: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 25px;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .confirmation-container {
+            background-color: var(--primary-light);
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-container .checkbox-container {
+            margin-bottom: 0;
+        }
+
+        .confirmation-container label {
+            font-size: 14px;
+            color: var(--primary-dark);
+        }
+
+        .confirmation-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+        }
+
+        .submission-confirmation {
+            background-color: var(--success);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .view-additional-info {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .view-additional-info:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .additional-info {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--primary-light);
+            border-radius: 8px;
+        }
+
+        .review-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--primary-light);
+            border-radius: 8px;
+        }
+
+        .review-section h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .review-section p {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .input-pair {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group.two-columns {
+                grid-template-columns: 1fr;
+            }
+
+            #map-container {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .nav-button {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .section-content {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <!-- Navigation -->
-    <!-- Navigation -->
-    <nav id="nav" class="CV4YLXjk _5J4FYFpA l6LO0mFG _1fUWJptL" aria-label="Main"
-        style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
-        <div data-testid="nav-container" class="_10M8yw-N _1fA2l0Sj">
-            <div class="_2SKZhefz">
-                <div class="_2zFNtrUH">
-                    <a href="index.html" title="Matendo" aria-label="Matendo" class="_1lqQP1In">
-                        <div data-testid="wordmark" class="aowwyHr4 _2s8qlRft _3sedtAc7"
-                            style="display: flex; align-items: center; margin-top: 20px;">
-                            <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
-                        </div>
-                    </a>
-                </div>
-                <div class="flex justify-end items-center space-x-8 text-base desktop-nav"
-                    style="text-align: right; margin-left: 650px; margin-right: 20px;">
-                    <a href="join.html" class="text-brand-green-darker hover:underline transition duration-300"
-                        style="margin-right: 20px;">
-                        <span class="md:inline">Join Matendo</span>
-                    </a>
-                    <a href="login.html" class="text-brand-blue-darker hover:underline transition duration-300">
-                        Login
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Progress Bar -->
-        <div class="progress-container" style="width: 100%; position: absolute; top: 100%; left: 0;">
-            <div id="progress-bar" style="height: 4px; background-color: #4CAF50;"></div>
+    <nav class="nav-container">
+        <a href="index.html" title="Matendo" aria-label="Matendo">
+            <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="join.html" class="nav-link">Join Matendo</a>
+            <a href="login.html" class="nav-link">Login</a>
         </div>
     </nav>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
     <div class="container">
-        <!-- Form -->
-        <form id="hire-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="post"
-            target="_self">
-            <!-- Contact Information -->
-            <section id="contact-info" data-step="1">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Contact Information</span>
-                    <span class="arrow">➞</span>
-                </button>
-                <div class="content">
+        <form id="hire-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="POST" enctype="multipart/form-data">
+            <div class="form-progress">
+                <div class="progress-step" data-step="1">Contact</div>
+                <div class="progress-step" data-step="2">Workplace</div>
+                <div class="progress-step" data-step="3">Positions</div>
+                <div class="progress-step" data-step="4">Employment</div>
+                <div class="progress-step" data-step="5">Requirements</div>
+                <div class="progress-step" data-step="6">Review</div>
+                <div class="progress-step" data-step="7">Submit</div>
+            </div>
+            <!-- Step 1: Contact Information -->
+            <section class="form-section active" data-step="1">
+                <div class="section-header">
+                    <h2>Contact Information</h2>
+                </div>
+                <div class="section-content">
                     <div class="input-pair">
-                        <div>
-                            <label for="name">Facility Name</label>
-                            <input type="text" id="name" name="entry.123456789" placeholder="Enter facility name"
-                                required>
+                        <div class="input-field">
+                            <label for="facility-name">Facility Name *</label>
+                            <input type="text" id="facility-name" name="entry.123456789" required>
+                            <span class="error-message">Please enter facility name</span>
                         </div>
-                        <div>
-                            <label for="location">Location</label>
-                            <input type="text" id="location" name="entry.987654321"
-                                placeholder="City, State/Region, Country" required>
+                        <div class="input-field">
+                            <label for="contact-person">Contact Person *</label>
+                            <input type="text" id="contact-person" name="entry.135792468" required>
+                            <span class="error-message">Required field</span>
                         </div>
                     </div>
+
                     <div class="input-pair">
-                        <div>
-                            <label for="pin">Facility PIN</label>
-                            <input type="text" id="pin" name="entry.246813579" placeholder="Enter PIN if applicable">
+                        <div class="input-field">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="entry.741852963" required>
+                            <span class="error-message">Valid email required</span>
                         </div>
-                        <div>
-                            <label for="contactPerson">Facility Contact Person</label>
-                            <input type="text" id="contactPerson" name="entry.135792468"
-                                placeholder="Enter contact person" required>
+                        <div class="input-field">
+                            <label for="phone">Phone *</label>
+                            <input type="tel" id="phone" name="entry.369258147" pattern="^\+?[0-9\s\-$$$$]{7,20}$" required>
+                            <span class="error-message">Valid phone number required</span>
                         </div>
                     </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="entry.369258147" placeholder="Enter phone number"
-                                required pattern="\+?[0-9]{1,4}?[0-9]{7,15}">
-                        </div>
-                        <div>
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="entry.741852963" placeholder="Enter email address"
-                                required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-                        </div>
+
+                    <div class="input-field">
+                        <label for="autocomplete">Facility Location (Optional)</label>
+                        <input type="text" id="autocomplete" placeholder="Search location (optional)">
+                        <div class="location-error" id="location-error">Please select a valid location</div>
+                        <button type="button" class="map-toggle" onclick="toggleMap()">
+                            <i class="fas fa-map-marker-alt"></i> <span id="map-toggle-text">Show Map</span>
+                        </button>
+                        <div id="map-container"></div>
+                        <input type="hidden" id="coordinates" name="entry.246813579">
                     </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="emergencyContact">Emergency Contact Information (Optional)</label>
-                            <input type="text" id="emergencyContact" name="entry.159753456"
-                                placeholder="Enter emergency contact">
-                        </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-button next-button">Next</button>
                     </div>
                 </div>
             </section>
 
-            <!-- Workplace Information -->
-            <section id="workplace-info" data-step="2">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
-                    <span>Workplace Information</span>
-                    <span class="arrow">➞</span>
-                </button>
-                <div class="content">
-                    <div class="guidance-message">
-                        Select the type of facility you operate. This helps us understand your specific needs and match
-                        you with appropriate staff.
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label>Type of Facility</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="facilityType" value="Hospital"> Hospital</label>
-                                <label><input type="checkbox" name="facilityType" value="Clinic"> Clinic</label>
-                                <label><input type="checkbox" name="facilityType" value="Laboratory"> Laboratory</label>
-                                <label><input type="checkbox" name="facilityType" value="Pharmacy"> Pharmacy</label>
-                                <label><input type="checkbox" name="facilityType" value="Other" id="otherFacilityType">
-                                    Other</label>
-                            </div>
-                        </div>
-                        <div id="otherFacilityTypeContainer" style="display: none;">
-                            <label for="otherFacilityTypeInput">Specify Other Facility Type</label>
-                            <input type="text" id="otherFacilityTypeInput" name="entry.357159852"
-                                placeholder="Specify other type">
-                        </div>
-                    </div>
+            <!-- Step 2: Workplace Information -->
+            <section class="form-section" data-step="2">
+                <div class="section-header">
+                    <h2>Workplace Information</h2>
                 </div>
-            </section>
-
-            <!-- Position(s) Required -->
-            <section id="positions-required" data-step="3">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
-                    <span>Position(s) Required</span>
-                    <span class="arrow">➞</span>
-                </button>
-                <div class="content">
-                    <div class="guidance-message">
-                        Select all positions you need to fill. If you need a position not listed, please use the "Other"
-                        option and specify.
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label>Clinical Staff</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="clinicalStaff" value="Medical Officers"> Medical
-                                    Officers</label>
-                                <label><input type="checkbox" name="clinicalStaff" value="Nurses/Midwives">
-                                    Nurses/Midwives</label>
-                                <label><input type="checkbox" name="clinicalStaff"
-                                        value="Lab Technologists/Technicians"> Lab Technologists/Technicians</label>
-                                <label><input type="checkbox" name="clinicalStaff" value="Radiographers">
-                                    Radiographers</label>
-                                <label><input type="checkbox" name="clinicalStaff" value="Pharmacy Dispensers"> Pharmacy
-                                    Dispensers</label>
-                                <label><input type="checkbox" name="clinicalStaff" value="Pharmacists">
-                                    Pharmacists</label>
-                                <label><input type="checkbox" name="clinicalStaff" value="Other"
-                                        id="otherClinicalStaff"> Other</label>
-                            </div>
-                        </div>
-                        <div id="otherClinicalStaffContainer" style="display: none;">
-                            <label for="otherClinicalStaffInput">Specify Other Clinical Staff</label>
-                            <input type="text" id="otherClinicalStaffInput" name="entry.123456790"
-                                placeholder="Specify other clinical staff">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Employment Details -->
-            <section id="employment-details" data-step="4">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
-                    <span>Employment Details</span>
-                    <span class="arrow">➞</span>
-                </button>
-                <div class="content">
-                    <div class="guidance-message">
-                        Provide details about the employment terms. This helps us match you with candidates who meet
-                        your specific needs.
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label>Duration of Employment</label>
-                            <div class="checkbox-group two-columns">
-                                <label><input type="checkbox" name="employmentDuration" value="Short-Term"> Short-Term
-                                    (less than 3 months)</label>
-                                <label><input type="checkbox" name="employmentDuration" value="Part-Time">
-                                    Part-Time</label>
-                                <label><input type="checkbox" name="employmentDuration" value="Full-Time">
-                                    Full-Time</label>
-                            </div>
-                        </div>
-                        <div>
-                            <label>Shift Type</label>
-                            <div class="checkbox-group two-columns">
-                                <label><input type="checkbox" name="shiftType" value="Day Shift"> Day Shift</label>
-                                <label><input type="checkbox" name="shiftType" value="Night Shift"> Night Shift</label>
-                                <label><input type="checkbox" name="shiftType" value="Rotating Shifts"> Rotating
-                                    Shifts</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label>Remote Work Option</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="remoteWork" value="Yes"> Yes</label>
-                                <label><input type="checkbox" name="remoteWork" value="No"> No</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="staffNumber">Number of Staff Needed per Position</label>
-                            <input type="number" id="staffNumber" name="entry.357159654" placeholder="Enter number"
-                                required min="1">
-                        </div>
-                        <div>
-                            <label for="startDate">Preferred Start Date</label>
-                            <input type="date" id="startDate" name="entry.753951654" required>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Specific Requirements -->
-            <section id="specific-requirements" data-step="5">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
-                    <span>Specific Requirements</span>
-                    <span class="arrow">➞</span>
-                </button>
-                <div class="content">
-                    <div class="guidance-message">
-                        Specify any particular qualifications, experience, or preferences for the positions. This helps
-                        us find the most suitable candidates for your needs.
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="qualifications">Qualifications or Experience Required</label>
-                            <textarea id="qualifications" name="entry.159753756" placeholder="Enter details"
-                                required></textarea>
-                        </div>
-                        <div>
-                            <label>Preferred Gender</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="preferredGender" value="Male"> Male</label>
-                                <label><input type="checkbox" name="preferredGender" value="Female"> Female</label>
-                                <label><input type="checkbox" name="preferredGender" value="No Preference"> No
-                                    Preference</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="salaryRange">Expected Salary Range (Optional)</label>
-                            <input type="text" id="salaryRange" name="entry.357159756" placeholder="Enter range">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Job Description or Duties -->
-            <section id="job-description" data-step="6">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
-                    <span>Job Description or Duties (Optional)</span>
-                    <span class="arrow">➞</span>
-                </button>
-                <div class="content">
-                    <div class="guidance-message">
-                        Provide a detailed description of the job duties and responsibilities. This helps potential
-                        candidates understand the role better.
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="jobDescription">Job Description/Duties</label>
-                            <textarea id="jobDescription" name="entry.753951756"
-                                placeholder="Outline responsibilities"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Additional Information -->
-            <section id="additional-info" data-step="7">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
-                    <span>Additional Information</span>
-                    <span class="arrow">➞</span>
-                </button>
-                <div class="content">
-                    <div class="guidance-message">
-                        Provide any additional information that might be relevant to your hiring request. This helps us
-                        process your request more efficiently.
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label>Urgency of Hiring</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="urgencyHiring" value="Immediate"> Immediate (within
-                                    a week)</label>
-                                <label><input type="checkbox" name="urgencyHiring" value="Soon"> Soon (within a
-                                    month)</label>
-                                <label><input type="checkbox" name="urgencyHiring" value="Flexible"> Flexible</label>
-                            </div>
-                        </div>
-                        <div>
-                            <label>Preferred Method of Communication for Follow-Up</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="preferredCommunication" value="Phone Call"> Phone
-                                    Call</label>
-                                <label><input type="checkbox" name="preferredCommunication" value="Email"> Email</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="additionalComments">Any Additional Comments or Requirements</label>
-                            <textarea id="additionalComments" name="entry.357159858"
-                                placeholder="Enter any additional comments"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Optional Services -->
-            <section id="optional-services" data-step="8">
-                <button type="button" class="collapsible" aria-expanded="false" disabled>
-                    <span>Optional Services</span>
-                    <span class="arrow">➞</span>
-                </button>
-                <div class="content">
-                    <div class="guidance-message">
-                        Select any additional services you might need. These services can help ensure a smooth
-                        onboarding process for new staff.
-                    </div>
-                    <div class="input-pair">
+                <div class="section-content">
+                    <div class="input-field">
+                        <label>Facility Type *</label>
                         <div class="checkbox-group">
-                            <label><input type="checkbox" name="optionalServices" value="Staff Training/Orientation">
-                                Staff Training/Orientation</label>
-                            <label><input type="checkbox" name="optionalServices"
-                                    value="Assistance with Licensure or Documentation"> Assistance with Licensure or
-                                Documentation</label>
-                            <label><input type="checkbox" name="optionalServices"
-                                    value="Temporary Staff for Emergency Coverage"> Temporary Staff for Emergency
-                                Coverage</label>
-                            <label><input type="checkbox" name="optionalServices" value="Other"
-                                    id="otherOptionalService"> Other</label>
+                            <label><input type="checkbox" name="entry.357159852" value="Hospital"> Hospital</label>
+                            <label><input type="checkbox" name="entry.357159852" value="Clinic"> Clinic</label>
+                            <label><input type="checkbox" name="entry.357159852" value="Laboratory"> Laboratory</label>
+                            <label><input type="checkbox" name="entry.357159852" value="Pharmacy"> Pharmacy</label>
+                            <label><input type="checkbox" name="entry.357159852" value="Other" id="otherFacilityType"> Other</label>
+                        </div>
+                        <div id="otherFacilityTypeContainer" style="display: none; margin-top: 10px;">
+                            <input type="text" id="otherFacilityTypeInput" name="entry.357159852_other" placeholder="Specify facility type">
                         </div>
                     </div>
-                    <div id="otherOptionalServiceContainer" style="display: none;">
-                        <label for="otherOptionalServiceInput">Specify Other Optional Service</label>
-                        <input type="text" id="otherOptionalServiceInput" name="entry.159754062"
-                            placeholder="Enter service">
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-button back-button">Back</button>
+                        <button type="button" class="nav-button next-button">Next</button>
                     </div>
                 </div>
             </section>
 
-            <!-- Declaration -->
-            <section id="declaration" class="declaration-section">
-                <div class="shared-content">
-                    <p>By submitting this form, you confirm that all provided information is accurate and complete.</p>
-
-                    <label class="checkbox-container">
-                        <input type="checkbox" name="entry.357160470" required />
-                        I confirm the information is true.
-                    </label>
+            <!-- Step 3: Positions Required -->
+            <section class="form-section" data-step="3">
+                <div class="section-header">
+                    <h2>Positions Required</h2>
                 </div>
-                <div class="button-container">
-                    <button type="submit">Submit Hiring Request</button>
+                <div class="section-content">
+                    <div class="input-field">
+                        <label>Clinical Staff *</label>
+                        <div class="checkbox-group two-columns">
+                            <label><input type="checkbox" name="entry.123456790" value="Medical Officers"> Medical Officers</label>
+                            <label><input type="checkbox" name="entry.123456790" value="Nurses/Midwives"> Nurses/Midwives</label>
+                            <label><input type="checkbox" name="entry.123456790" value="Lab Technologists"> Lab Technologists</label>
+                            <label><input type="checkbox" name="entry.123456790" value="Radiographers"> Radiographers</label>
+                            <label><input type="checkbox" name="entry.123456790" value="Pharmacy Dispensers"> Pharmacy Dispensers</label>
+                            <label><input type="checkbox" name="entry.123456790" value="Pharmacists"> Pharmacists</label>
+                            <label><input type="checkbox" name="entry.123456790" value="Other" id="otherClinicalStaff"> Other</label>
+                        </div>
+                        <div id="otherClinicalStaffContainer" style="display: none; margin-top: 10px;">
+                            <input type="text" id="otherClinicalStaffInput" name="entry.123456790_other" placeholder="Specify position">
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-button back-button">Back</button>
+                        <button type="button" class="nav-button next-button">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: Employment Details -->
+            <section class="form-section" data-step="4">
+                <div class="section-header">
+                    <h2>Employment Details</h2>
+                </div>
+                <div class="section-content">
+                    <div class="input-pair">
+                        <div class="input-field">
+                            <label>Duration *</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="entry.357159654" value="Short-Term"> Short-Term (&lt;3 months)</label>
+                                <label><input type="checkbox" name="entry.357159654" value="Part-Time"> Part-Time</label>
+                                <label><input type="checkbox" name="entry.357159654" value="Full-Time"> Full-Time</label>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <label>Shift Type *</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="entry.753951654" value="Day Shift"> Day Shift</label>
+                                <label><input type="checkbox" name="entry.753951654" value="Night Shift"> Night Shift</label>
+                                <label><input type="checkbox" name="entry.753951654" value="Rotating"> Rotating</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-pair">
+                        <div class="input-field">
+                            <label for="staffNumber">Number of Staff Needed *</label>
+                            <input type="number" id="staffNumber" name="entry.357159654_num" min="1" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="startDate">Start Date *</label>
+                            <input type="date" id="startDate"  name="entry.753951654_date" required>
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-button back-button">Back</button>
+                        <button type="button" class="nav-button next-button">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 5: Job Requirements -->
+            <section class="form-section" data-step="5">
+                <div class="section-header">
+                    <h2>Job Requirements</h2>
+                </div>
+                <div class="section-content">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="include-job-requirements" name="include-job-requirements">
+                        <label for="include-job-requirements">Include Job Requirements</label>
+                    </div>
+                    
+                    <div id="job-requirements-section" style="display: none;">
+                        <div class="input-field">
+                            <label for="qualifications">Qualifications</label>
+                            <textarea id="qualifications" name="entry.951753654" rows="4"></textarea>
+                        </div>
+                        <div class="input-field">
+                            <label for="experience">Experience Required</label>
+                            <textarea id="experience" name="entry.456789123" rows="4"></textarea>
+                        </div>
+                        <div class="input-field">
+                            <label for="jobDescription">Job Description</label>
+                            <textarea id="jobDescription" name="entry.789123456" rows="6"></textarea>
+                        </div>
+                        <div class="file-upload">
+                            <label for="jobDescriptionFile">
+                                <i class="fas fa-upload"></i> Upload Job Description
+                            </label>
+                            <input type="file" id="jobDescriptionFile" name="jobDescriptionFile" accept=".pdf,.doc,.docx">
+                            <span id="fileName"></span>
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-button back-button">Back</button>
+                        <button type="button" class="nav-button next-button">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 6: Review -->
+            <section class="form-section" data-step="6">
+                <div class="section-header">
+                    <h2>Review Your Information</h2>
+                </div>
+                <div class="section-content">
+                    <div class="review-section">
+                        <!-- This will be populated dynamically with JavaScript -->
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-button back-button">Back</button>
+                        <button type="button" class="nav-button next-button">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 7: Final Submission -->
+            <section class="form-section" data-step="7">
+                <div class="section-header">
+                    <h2>Submit Request</h2>
+                </div>
+                <div class="section-content">
+                    <div class="confirmation-container">
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="confirm-checkbox" name="entry.357160471" required>
+                            <label for="confirm-checkbox">
+                                I confirm that all information provided is accurate and complete. I understand that submitting this request does not guarantee placement, and Matendo Medics will contact me for further steps. *
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-button back-button">Back</button>
+                        <button type="submit" class="nav-button">Submit Request</button>
+                    </div>
                 </div>
             </section>
         </form>
-    </div>
-    <!-- Footer -->
 
-    <footer id="footer" class="footer bg-gray-800 text-brand-blue py-8">
-        <div class="container mx-auto px-4">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h3 class="text-xl font-bold mb-4">About Us</h3>
-                    <p class="text-sm">Matendo Medics Outsourcing enables start-ups, businesses, and organizations to
-                        hire medical
-                        professionals from a growing network of top talent in the world.</p>
-                </div>
-                <div class="footer-column">
-                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
-                    <ul class="text-sm">
-                        <li class="mb-2"><i class="fas fa-envelope mr-2"></i><span>Email: <a
-                                    href="mailto:info@matendomedics.com"
-                                    class="hover:underline">info@matendomedics.com</a></span></li>
-                        <li class="mb-2"><i class="fas fa-phone mr-2"></i><span>Phone: +123 456 7890</span></li>
-                        <li class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i><span>123 Medical Street, Kampala,
-                                Uganda</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-                    <ul class="text-sm">
-                        <li class="mb-2"><a href="about.html" class="hover:underline">About</a></li>
-                        <li class="mb-2"><a href="services.html" class="hover:underline">Services</a></li>
-                        <li class="mb-2"><a href="contact.html" class="hover:underline">Contact</a></li>
-                        <li class="mb-2"><a href="careers.html" class="hover:underline">Careers</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3 class="text-xl font-bold mb-4">Follow Us</h3>
-                    <div class="social-icons">
-                        <a href="https://facebook.com/matendomedics" target="_blank" aria-label="Facebook"><i
-                                class="fab fa-facebook"></i></a>
-                        <a href="https://twitter.com/matendomedics" target="_blank" aria-label="Twitter"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="https://linkedin.com/company/matendomedics" target="_blank" aria-label="LinkedIn"><i
-                                class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-8 text-center">
-                <p class="text-sm">&copy; 2023 Matendo Medics. All rights reserved.</p>
-            </div>
+        <!-- Add submission confirmation message -->
+        <div class="submission-confirmation" id="submission-confirmation">
+            <h3>Thank you for your request!</h3>
+            <p>We have received your information and will review it shortly.</p>
+            <button class="view-additional-info" id="view-additional-info">View Additional Information</button>
         </div>
-    </footer>
+
+        <!-- Add additional info section -->
+        <div class="additional-info" id="additional-info">
+            <h3>Additional Information</h3>
+            <p>Here's what you can expect next in our process:</p>
+            <ul>
+                <li>Our team will review your request within 1-2 business days.</li>
+                <li>We'll reach out to discuss your specific needs and potential candidates.</li>
+                <li>Please ensure your contact information is up to date.</li>
+                <li>For any questions, contact our support team at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5b6b0b5b5aab7b185a8a4b1a0aba1aaa8a0a1aca6b6eba6aaa8">[email&#160;protected]</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
     <script>
-        // Collapsible Section Toggle Functionality
-        const collapsibles = document.querySelectorAll('.collapsible');
-        let currentStep = 1;
+        // Google Maps Integration
+        let map;
+        let marker;
+        let autocomplete;
+        let mapVisible = false;
 
-        function toggleCollapsible(button, forceClose = false) {
-            const content = button.nextElementSibling;
-            const arrow = button.querySelector('.arrow');
-            const isOpen = content.style.display === 'block';
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map-container'), {
+                center: {lat: 0.3476, lng: 32.5825},
+                zoom: 12,
+                gestureHandling: 'cooperative'
+            });
 
-            if (forceClose || isOpen) {
-                content.style.display = 'none';
-                arrow.classList.remove('open');
-                arrow.classList.add('closed');
-                button.setAttribute('aria-expanded', 'false');
-            } else {
-                content.style.display = 'block';
-                arrow.classList.remove('closed');
-                arrow.classList.add('open');
-                button.setAttribute('aria-expanded', 'true');
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('autocomplete'),
+                {types: ['geocode']}
+            );
+
+            autocomplete.addListener('place_changed', onPlaceChanged);
+        }
+
+        function onPlaceChanged() {
+            const place = autocomplete.getPlace();
+            if (!place.geometry) {
+                document.getElementById('location-error').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('location-error').style.display = 'none';
+
+            if (marker) marker.setMap(null);
+            marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+            });
+
+            map.panTo(place.geometry.location);
+            map.setZoom(16);
+            document.getElementById('coordinates').value = 
+                `${place.geometry.location.lat()},${place.geometry.location.lng()}`;
+
+            if (!mapVisible) {
+                toggleMap();
             }
         }
 
-        collapsibles.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                if (index + 1 <= currentStep) {
-                    collapsibles.forEach((otherButton, otherIndex) => {
-                        if (otherIndex !== index) {
-                            toggleCollapsible(otherButton, true);
-                        }
-                    });
-                    toggleCollapsible(button);
-                    updateProgress();
+        function toggleMap() {
+            const mapContainer = document.getElementById('map-container');
+            const toggleButton = document.getElementById('map-toggle-text');
+            
+            mapVisible = !mapVisible;
+            mapContainer.style.display = mapVisible ? 'block' : 'none';
+            toggleButton.textContent = mapVisible ? 'Hide Map' : 'Show Map';
+
+            if (mapVisible && !map) initMap();
+        }
+
+        // Form Navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('hire-form');
+            const sections = Array.from(document.querySelectorAll('.form-section'));
+            let currentStep = 0;
+
+            function showStep(step) {
+                sections.forEach((section, index) => {
+                    section.classList.toggle('active', index === step);
+                });
+                document.querySelectorAll('.progress-step').forEach((stepEl, index) => {
+                    stepEl.classList.toggle('active', index === step);
+                });
+                currentStep = step;
+                updateProgress();
+            }
+
+            function validateStep() {
+                const currentSection = sections[currentStep];
+                const requiredFields = Array.from(currentSection.querySelectorAll('[required]'));
+                
+                let isValid = true;
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('invalid');
+                    } else {
+                        field.classList.remove('invalid');
+                    }
+                });
+
+                return isValid;
+            }
+
+            function updateProgress() {
+                const progress = ((currentStep + 1) / sections.length) * 100;
+                document.getElementById('progress-bar').style.width = `${progress}%`;
+            }
+
+            // Navigation Handlers
+            document.querySelectorAll('.next-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (validateStep()) {
+                        showStep(currentStep + 1);
+                    } else {
+                        alert('Please complete all required fields');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.back-button').forEach(button => {
+                button.addEventListener('click', () => showStep(currentStep - 1));
+            });
+
+            // Conditional Fields
+            document.getElementById('otherFacilityType').addEventListener('change', function() {
+                document.getElementById('otherFacilityTypeContainer').style.display = 
+                    this.checked ? 'block' : 'none';
+            });
+
+            document.getElementById('otherClinicalStaff').addEventListener('change', function() {
+                document.getElementById('otherClinicalStaffContainer').style.display = 
+                    this.checked ? 'block' : 'none';
+            });
+
+            // Job requirements checkbox
+            const includeJobRequirementsCheckbox = document.getElementById('include-job-requirements');
+            const jobRequirementsSection = document.getElementById('job-requirements-section');
+
+            includeJobRequirementsCheckbox.addEventListener('change', function() {
+                jobRequirementsSection.style.display = this.checked ? 'block' : 'none';
+            });
+
+            // File upload handling
+            const fileInput = document.getElementById('jobDescriptionFile');
+            const fileName = document.getElementById('fileName');
+
+            fileInput.addEventListener('change', function(e) {
+                if (this.files && this.files.length > 0) {
+                    fileName.textContent = this.files[0].name;
+                } else {
+                    fileName.textContent = 'No file chosen';
                 }
             });
-        });
 
-        // Progress Bar Update Functionality
-        function updateProgress() {
-            const totalSections = collapsibles.length;
-            const completedSections = document.querySelectorAll('.collapsible.completed').length;
-            const progress = (completedSections / totalSections) * 100;
-
-            const progressBar = document.getElementById('progress-bar');
-            progressBar.style.width = `${progress}%`;
-        }
-
-        // Function to check if a section is complete
-        function isSectionComplete(section) {
-            const inputs = section.querySelectorAll('input[required], textarea[required], select[required]');
-            for (let input of inputs) {
-                if (!input.value) {
-                    return false;
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateStep()) {
+                    // Simulate form submission (replace with actual submission logic)
+                    setTimeout(() => {
+                        form.style.display = 'none';
+                        document.getElementById('submission-confirmation').style.display = 'block';
+                    }, 1000);
+                } else {
+                    alert('Please complete all required fields');
                 }
-            }
-            return true;
-        }
+            });
 
-        // Event listener for form changes to update progress and unlock next step
-        document.getElementById('hire-form').addEventListener('input', function (e) {
-            const currentSection = e.target.closest('section');
-            if (currentSection && isSectionComplete(currentSection)) {
-                const currentStepNumber = parseInt(currentSection.dataset.step);
-                if (currentStepNumber === currentStep) {
-                    currentStep++;
-                    const currentButton = currentSection.querySelector('.collapsible');
-                    currentButton.classList.add('completed');
-                    const nextButton = document.querySelector(`[data-step="${currentStep}"] .collapsible`);
-                    if (nextButton) {
-                        nextButton.disabled = false;
-                    }
+            // View additional info button handler
+            document.getElementById('view-additional-info').addEventListener('click', function() {
+                document.getElementById('additional-info').style.display = 'block';
+                this.style.display = 'none';
+            });
+
+            // Populate review section
+            function populateReview() {
+                const reviewSection = document.querySelector('.review-section');
+                reviewSection.innerHTML = `
+                    <h3>Contact Information</h3>
+                    <p><strong>Facility Name:</strong> ${document.getElementById('facility-name').value}</p>
+                    <p><strong>Contact Person:</strong> ${document.getElementById('contact-person').value}</p>
+                    <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+                    <p><strong>Phone:</strong> ${document.getElementById('phone').value}</p>
+
+                    <h3>Workplace Information</h3>
+                    <p><strong>Facility Type:</strong> ${getCheckedValues('entry.357159852')}</p>
+
+                    <h3>Positions Required</h3>
+                    <p><strong>Clinical Staff:</strong> ${getCheckedValues('entry.123456790')}</p>
+
+                    <h3>Employment Details</h3>
+                    <p><strong>Duration:</strong> ${getCheckedValues('entry.357159654')}</p>
+                    <p><strong>Shift Type:</strong> ${getCheckedValues('entry.753951654')}</p>
+                    <p><strong>Number of Staff Needed:</strong> ${document.getElementById('staffNumber').value}</p>
+                    <p><strong>Start Date:</strong> ${document.getElementById('startDate').value}</p>
+
+                    <h3>Job Requirements</h3>
+                    <p><strong>Include Job Requirements:</strong> ${document.getElementById('include-job-requirements').checked ? 'Yes' : 'No'}</p>
+                    ${document.getElementById('include-job-requirements').checked ? `
+                        <p><strong>Qualifications:</strong> ${document.getElementById('qualifications').value}</p>
+                        <p><strong>Experience Required:</strong> ${document.getElementById('experience').value}</p>
+                        <p><strong>Job Description:</strong> ${document.getElementById('jobDescription').value}</p>
+                        <p><strong>Uploaded Job Description:</strong> ${document.getElementById('fileName').textContent}</p>
+                    ` : ''}
+                `;
+            }
+
+            function getCheckedValues(name) {
+                return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`))
+                    .map(input => input.value)
+                    .join(', ');
+            }
+
+            // Update showStep function to populate review
+            const originalShowStep = showStep;
+            showStep = (step) => {
+                originalShowStep(step);
+                if (step === 5) {
+                    populateReview();
                 }
-            }
-            updateProgress();
-        });
+            };
 
-        // Initial setup
-        updateProgress();
-        collapsibles[0].disabled = false;
-
-        // Handle "Other" options
-        document.getElementById('otherFacilityType').addEventListener('change', function () {
-            document.getElementById('otherFacilityTypeContainer').style.display = this.checked ? 'block' : 'none';
-        });
-
-        document.getElementById('otherClinicalStaff').addEventListener('change', function () {
-            document.getElementById('otherClinicalStaffContainer').style.display = this.checked ? 'block' : 'none';
-        });
-
-        document.getElementById('otherOptionalService').addEventListener('change', function () {
-            document.getElementById('otherOptionalServiceContainer').style.display = this.checked ? 'block' : 'none';
-        });
-
-        // Form submission
-        document.getElementById('hire-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            // Add form submission logic here
-            alert('Form submitted successfully!');
+            // Initialize
+            showStep(0);
         });
     </script>
 </body>
-
 </html>
