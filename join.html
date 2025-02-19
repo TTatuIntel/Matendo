@@ -13,13 +13,10 @@
             --primary-light: #E6EEFF;
             --primary-dark: #1a3fa6;
             --success: #4CAF50;
-            --info: #2196F3;
-            --warning: #FFC107;
-            --danger: #F44336;
             --error: #e74c3c;
             --text: #333;
             --text-light: #666;
-            --background: #ffffffc1;
+            --background: #f8f9fa;
             --white: #ffffff;
             --gray: #e0e0e0;
             --border: #d1d1d1;
@@ -145,14 +142,13 @@
         }
 
         .input-pair {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 10px;
             margin-bottom: 10px;
         }
 
         .input-field {
-            flex: 1 1 200px;
             margin-bottom: 10px;
         }
 
@@ -178,13 +174,18 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: grid;
+            gap: 8px;
             margin-top: 5px;
+        }
+
+        .checkbox-group.two-columns {
+            grid-template-columns: repeat(2, 1fr);
         }
 
         .checkbox-group label {
@@ -198,12 +199,6 @@
         .checkbox-group input[type="checkbox"] {
             width: auto;
             margin-right: 8px;
-        }
-
-        /* Remove blue highlight when checking boxes */
-        .checkbox-group input[type="checkbox"]:focus {
-            outline: none;
-            box-shadow: none;
         }
 
         #map-container {
@@ -300,6 +295,15 @@
             display: none;
         }
 
+        input:invalid, textarea:invalid {
+            border-color: var(--error);
+        }
+
+        input:invalid + .error-message,
+        textarea:invalid + .error-message {
+            display: block;
+        }
+
         .file-upload {
             display: flex;
             align-items: center;
@@ -311,24 +315,22 @@
         }
 
         .file-upload label {
-            background-color: var(--background);
-            color: var(--primary);
+            background-color: var(--primary-light);
+            color: #324fc3;
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 13px;
-            transition: all 0.3s ease;
         }
 
         .file-upload label:hover {
             background-color: var(--primary-light);
+            color: #198a6f;
         }
 
         .file-name {
             margin-left: 10px;
             font-size: 13px;
-            color: var(--primary);
-            text-decoration: underline;
         }
 
         .checkbox-container {
@@ -471,58 +473,6 @@
             margin-bottom: 5px;
         }
 
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        .input-field:focus-within label {
-            color: var(--primary);
-        }
-
-        .input-field input:focus,
-        .input-field textarea:focus,
-        .input-field select:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        .checkbox-group label:focus-within {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        .nav-button:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .loading::after {
-            content: "Loading...";
-            display: inline-block;
-            animation: ellipsis 1.25s infinite;
-        }
-
-        @keyframes ellipsis {
-            0% { content: "Loading"; }
-            25% { content: "Loading."; }
-            50% { content: "Loading.."; }
-            75% { content: "Loading..."; }
-        }
-
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -530,7 +480,11 @@
             }
 
             .input-pair {
-                flex-direction: column;
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group.two-columns {
+                grid-template-columns: 1fr;
             }
 
             #map-container {
@@ -857,12 +811,12 @@
                 <li>Our team will review your application within 3-5 business days.</li>
                 <li>If your qualifications match our current openings, we'll reach out to schedule an interview.</li>
                 <li>Please ensure your contact information is up to date.</li>
-                <li>For any questions, contact our support team at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5b6b0b5b5aab7b185a8a4b1a0aba1aaa8a0a1aca6b6eba6aaa8">[email&#160;protected]</a></li>
+                <li>For any questions, contact our support team at info@matendohealth.com</li>
             </ul>
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
     <script>
         // Google Maps Integration
         let map;
