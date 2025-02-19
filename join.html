@@ -145,13 +145,14 @@
         }
 
         .input-pair {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 10px;
         }
 
         .input-field {
+            flex: 1 1 200px;
             margin-bottom: 10px;
         }
 
@@ -177,18 +178,13 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .checkbox-group {
-            display: grid;
-            gap: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-top: 5px;
-        }
-
-        .checkbox-group.two-columns {
-            grid-template-columns: repeat(2, 1fr);
         }
 
         .checkbox-group label {
@@ -202,6 +198,12 @@
         .checkbox-group input[type="checkbox"] {
             width: auto;
             margin-right: 8px;
+        }
+
+        /* Remove blue highlight when checking boxes */
+        .checkbox-group input[type="checkbox"]:focus {
+            outline: none;
+            box-shadow: none;
         }
 
         #map-container {
@@ -298,15 +300,6 @@
             display: none;
         }
 
-        input:invalid, textarea:invalid {
-            border-color: var(--error);
-        }
-
-        input:invalid + .error-message,
-        textarea:invalid + .error-message {
-            display: block;
-        }
-
         .file-upload {
             display: flex;
             align-items: center;
@@ -319,20 +312,23 @@
 
         .file-upload label {
             background-color: var(--background);
-            color: var(--success);
+            color: var(--primary);
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 13px;
+            transition: all 0.3s ease;
         }
 
         .file-upload label:hover {
-            background-color: var(--primary-dark);
+            background-color: var(--primary-light);
         }
 
         .file-name {
             margin-left: 10px;
             font-size: 13px;
+            color: var(--primary);
+            text-decoration: underline;
         }
 
         .checkbox-container {
@@ -475,6 +471,58 @@
             margin-bottom: 5px;
         }
 
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        .input-field:focus-within label {
+            color: var(--primary);
+        }
+
+        .input-field input:focus,
+        .input-field textarea:focus,
+        .input-field select:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .checkbox-group label:focus-within {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .nav-button:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading::after {
+            content: "Loading...";
+            display: inline-block;
+            animation: ellipsis 1.25s infinite;
+        }
+
+        @keyframes ellipsis {
+            0% { content: "Loading"; }
+            25% { content: "Loading."; }
+            50% { content: "Loading.."; }
+            75% { content: "Loading..."; }
+        }
+
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -482,11 +530,7 @@
             }
 
             .input-pair {
-                grid-template-columns: 1fr;
-            }
-
-            .checkbox-group.two-columns {
-                grid-template-columns: 1fr;
+                flex-direction: column;
             }
 
             #map-container {
@@ -544,33 +588,33 @@
                     <div class="input-pair">
                         <div class="input-field">
                             <label for="first-name">First Name *</label>
-                            <input type="text" id="first-name" name="entry.123456789" required>
-                            <span class="error-message">Please enter your first name</span>
+                            <input type="text" id="first-name" name="entry.123456789" required aria-required="true">
+                            <span class="error-message" id="first-name-error">Please enter your first name</span>
                         </div>
                         <div class="input-field">
                             <label for="last-name">Last Name *</label>
-                            <input type="text" id="last-name" name="entry.135792468" required>
-                            <span class="error-message">Please enter your last name</span>
+                            <input type="text" id="last-name" name="entry.135792468" required aria-required="true">
+                            <span class="error-message" id="last-name-error">Please enter your last name</span>
                         </div>
                     </div>
 
                     <div class="input-pair">
                         <div class="input-field">
                             <label for="email">Email *</label>
-                            <input type="email" id="email" name="entry.741852963" required>
-                            <span class="error-message">Valid email required</span>
+                            <input type="email" id="email" name="entry.741852963" required aria-required="true">
+                            <span class="error-message" id="email-error">Valid email required</span>
                         </div>
                         <div class="input-field">
                             <label for="phone">Phone *</label>
-                            <input type="tel" id="phone" name="entry.369258147" pattern="^\+?[0-9\s\-$$$$]{7,20}$" required>
-                            <span class="error-message">Valid phone number required</span>
+                            <input type="tel" id="phone" name="entry.369258147" pattern="^\+?[0-9\s\-()]{7,20}$" required aria-required="true">
+                            <span class="error-message" id="phone-error">Valid phone number required</span>
                         </div>
                     </div>
 
                     <div class="input-field">
                         <label for="address">Current Address *</label>
-                        <input type="text" id="address" name="entry.246813579" required>
-                        <span class="error-message">Please enter your current address</span>
+                        <input type="text" id="address" name="entry.246813579" required aria-required="true">
+                        <span class="error-message" id="address-error">Please enter your current address</span>
                     </div>
 
                     <div class="input-field">
@@ -598,7 +642,7 @@
                 <div class="section-content">
                     <div class="input-field">
                         <label for="profession">Profession *</label>
-                        <select id="profession" name="entry.357159852" required>
+                        <select id="profession" name="entry.357159852" required aria-required="true">
                             <option value="">Select your profession</option>
                             <option value="Medical Officer">Medical Officer</option>
                             <option value="Nurse">Nurse</option>
@@ -607,6 +651,7 @@
                             <option value="Pharmacist">Pharmacist</option>
                             <option value="Other">Other</option>
                         </select>
+                        <span class="error-message" id="profession-error">Please select your profession</span>
                     </div>
                     <div id="otherProfessionContainer" style="display: none; margin-top: 10px;">
                         <input type="text" id="otherProfessionInput" name="entry.357159852_other" placeholder="Specify profession">
@@ -631,12 +676,6 @@
                             <span id="licenseFileNameOptional" class="file-name"></span>
                         </div>
                     </div>
-                    <script>
-                        document.getElementById('toggle-license').addEventListener('click', function() {
-                            const licenseInfo = document.getElementById('license-info');
-                            licenseInfo.style.display = licenseInfo.style.display === 'none' ? 'block' : 'none';
-                        });
-                    </script>
 
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
@@ -653,7 +692,8 @@
                 <div class="section-content">
                     <div class="input-field">
                         <label for="years-experience">Years of Experience *</label>
-                        <input type="number" id="years-experience" name="entry.753951654" min="0" required>
+                        <input type="number" id="years-experience" name="entry.753951654" min="0" required aria-required="true">
+                        <span class="error-message" id="years-experience-error">Please enter your years of experience</span>
                     </div>
 
                     <div class="input-field">
@@ -681,11 +721,12 @@
                 <div class="section-content">
                     <div class="input-field">
                         <label>Preferred Work Type *</label>
-                        <div class="checkbox-group two-columns">
+                        <div class="checkbox-group">
                             <label><input type="checkbox" name="entry.789123456" value="Full-Time"> Full-Time</label>
                             <label><input type="checkbox" name="entry.789123456" value="Part-Time"> Part-Time</label>
                             <label><input type="checkbox" name="entry.789123456" value="Short-Term"> Short-Term</label>
                         </div>
+                        <span class="error-message" id="work-type-error">Please select at least one work type</span>
                     </div>
 
                     <div class="input-field">
@@ -695,6 +736,7 @@
                             <label><input type="checkbox" name="entry.159753456" value="Night Shift"> Night Shift</label>
                             <label><input type="checkbox" name="entry.159753456" value="Rotating"> Rotating</label>
                         </div>
+                        <span class="error-message" id="shift-type-error">Please select at least one shift type</span>
                     </div>
 
                     <div class="input-field">
@@ -704,7 +746,8 @@
 
                     <div class="input-field">
                         <label for="start-date">Earliest Start Date *</label>
-                        <input type="date" id="start-date" name="entry.753951654_date" required>
+                        <input type="date" id="start-date" name="entry.753951654_date" required aria-required="true">
+                        <span class="error-message" id="start-date-error">Please select your earliest start date</span>
                     </div>
 
                     <div class="navigation-buttons">
@@ -724,24 +767,31 @@
                         <label for="resume">
                             <i class="fas fa-upload"></i> Upload Resume/CV (PDF, DOC, DOCX) *
                         </label>
-                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required aria-required="true">
                         <span id="resumeFileName" class="file-name"></span>
+                        <span class="error-message" id="resume-error">Please upload your resume/CV</span>
                     </div>
 
-                    <div class="file-upload">
-                        <label for="license-doc">
-                            <i class="fas fa-upload"></i> Upload License Document (PDF, JPG, PNG) *
-                        </label>
-                        <input type="file" id="license-doc" name="license-doc" accept=".pdf,.jpg,.png" required>
-                        <span id="licenseFileName" class="file-name"></span>
+                    <div class="input-field">
+                        <button type="button" id="toggle-optional-docs" class="nav-button">Add Optional Documents</button>
                     </div>
 
-                    <div class="file-upload">
-                        <label for="certifications">
-                            <i class="fas fa-upload"></i> Upload Certifications (PDF, JPG, PNG)
-                        </label>
-                        <input type="file" id="certifications" name="certifications" accept=".pdf,.jpg,.png" multiple>
-                        <span id="certificationsFileName" class="file-name"></span>
+                    <div id="optional-docs" style="display: none;">
+                        <div class="file-upload">
+                            <label for="license-doc">
+                                <i class="fas fa-upload"></i> Upload License Document (PDF, JPG, PNG)
+                            </label>
+                            <input type="file" id="license-doc" name="license-doc" accept=".pdf,.jpg,.png">
+                            <span id="licenseFileName" class="file-name"></span>
+                        </div>
+
+                        <div class="file-upload">
+                            <label for="certifications">
+                                <i class="fas fa-upload"></i> Upload Certifications (PDF, JPG, PNG)
+                            </label>
+                            <input type="file" id="certifications" name="certifications" accept=".pdf,.jpg,.png" multiple>
+                            <span id="certificationsFileName" class="file-name"></span>
+                        </div>
                     </div>
 
                     <div class="navigation-buttons">
@@ -776,16 +826,17 @@
                 <div class="section-content">
                     <div class="confirmation-container">
                         <div class="checkbox-container">
-                            <input type="checkbox" id="confirm-checkbox" name="entry.357160471" required>
+                            <input type="checkbox" id="confirm-checkbox" name="entry.357160471" required aria-required="true">
                             <label for="confirm-checkbox">
                                 I confirm that all information provided is accurate and complete. I understand that submitting this application does not guarantee placement, and Matendo Medics will contact me for further steps. *
                             </label>
                         </div>
+                        <span class="error-message" id="confirm-checkbox-error">Please confirm the information accuracy</span>
                     </div>
 
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
-                        <button type="submit" class="nav-button">Submit Application</button>
+                        <button type="submit" class="nav-button" id="submit-button">Submit Application</button>
                     </div>
                 </div>
             </section>
@@ -896,10 +947,38 @@
                     if (!field.value.trim()) {
                         isValid = false;
                         field.classList.add('invalid');
+                        const errorElement = document.getElementById(`${field.id}-error`);
+                        if (errorElement) {
+                            errorElement.style.display = 'block';
+                        }
                     } else {
                         field.classList.remove('invalid');
+                        const errorElement = document.getElementById(`${field.id}-error`);
+                        if (errorElement) {
+                            errorElement.style.display = 'none';
+                        }
                     }
                 });
+
+                // Validate checkboxes
+                if (currentStep === 3) {
+                    const workTypeChecked = document.querySelectorAll('input[name="entry.789123456"]:checked').length > 0;
+                    const shiftTypeChecked = document.querySelectorAll('input[name="entry.159753456"]:checked').length > 0;
+                    
+                    if (!workTypeChecked) {
+                        isValid = false;
+                        document.getElementById('work-type-error').style.display = 'block';
+                    } else {
+                        document.getElementById('work-type-error').style.display = 'none';
+                    }
+                    
+                    if (!shiftTypeChecked) {
+                        isValid = false;
+                        document.getElementById('shift-type-error').style.display = 'block';
+                    } else {
+                        document.getElementById('shift-type-error').style.display = 'none';
+                    }
+                }
 
                 return isValid;
             }
@@ -914,8 +993,6 @@
                 button.addEventListener('click', () => {
                     if (validateStep()) {
                         showStep(currentStep + 1);
-                    } else {
-                        alert('Please complete all required fields');
                     }
                 });
             });
@@ -931,33 +1008,53 @@
             });
 
             // File upload handling
-            const fileInputs = ['resume', 'license-doc', 'certifications'];
+            const fileInputs = ['resume', 'license-doc', 'certifications', 'license-doc-optional'];
             fileInputs.forEach(inputId => {
                 const fileInput = document.getElementById(inputId);
                 const fileName = document.getElementById(`${inputId}FileName`);
 
                 fileInput.addEventListener('change', function(e) {
                     if (this.files && this.files.length > 0) {
-                        fileName.textContent = Array.from(this.files)
-                            .map(file => file.name)
-                            .join(', ');
+                        const fileNames = Array.from(this.files).map(file => file.name);
+                        fileName.innerHTML = fileNames.map(name => `<a href="#" class="file-link">${name}</a>`).join(', ');
+                        fileName.style.display = 'inline';
+                        fileName.style.color = '#4CAF50';  // Success color
                     } else {
-                        fileName.textContent = 'No file chosen';
+                        fileName.textContent = '';
+                        fileName.style.display = 'none';
                     }
                 });
+            });
+
+            // Toggle license info
+            document.getElementById('toggle-license').addEventListener('click', function() {
+                const licenseInfo = document.getElementById('license-info');
+                licenseInfo.style.display = licenseInfo.style.display === 'none' ? 'block' : 'none';
+                this.textContent = licenseInfo.style.display === 'none' ? 'Add License Information' : 'Hide License Information';
+            });
+
+            // Toggle optional documents
+            document.getElementById('toggle-optional-docs').addEventListener('click', function() {
+                const optionalDocs = document.getElementById('optional-docs');
+                optionalDocs.style.display = optionalDocs.style.display === 'none' ? 'block' : 'none';
+                this.textContent = optionalDocs.style.display === 'none' ? 'Add Optional Documents' : 'Hide Optional Documents';
             });
 
             // Form submission
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 if (validateStep()) {
+                    // Show loading indicator
+                    document.getElementById('submit-button').textContent = 'Submitting...';
+                    document.getElementById('submit-button').disabled = true;
+
                     // Simulate form submission (replace with actual submission logic)
                     setTimeout(() => {
                         form.style.display = 'none';
                         document.getElementById('submission-confirmation').style.display = 'block';
-                    }, 1000);
-                } else {
-                    alert('Please complete all required fields');
+                        document.getElementById('submit-button').textContent = 'Submit Application';
+                        document.getElementById('submit-button').disabled = false;
+                    }, 2000);
                 }
             });
 
@@ -994,9 +1091,9 @@
                     <p><strong>Earliest Start Date:</strong> ${document.getElementById('start-date').value}</p>
 
                     <h3>Supporting Documents</h3>
-                    <p><strong>Resume/CV:</strong> ${document.getElementById('resumeFileName').textContent}</p>
-                    <p><strong>License Document:</strong> ${document.getElementById('licenseFileName').textContent}</p>
-                    <p><strong>Certifications:</strong> ${document.getElementById('certificationsFileName').textContent}</p>
+                    <p><strong>Resume/CV:</strong> ${document.getElementById('resumeFileName').innerHTML}</p>
+                    <p><strong>License Document:</strong> ${document.getElementById('licenseFileName').innerHTML}</p>
+                    <p><strong>Certifications:</strong> ${document.getElementById('certificationsFileName').innerHTML}</p>
                 `;
             }
 
