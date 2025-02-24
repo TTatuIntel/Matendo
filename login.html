@@ -1,282 +1,312 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log in | Matendo Medic</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #f0f4f8, #e0e8f0);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matendo Medics - Secure Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2D87F0;
+            --medical-teal: #00B4B4;
+            --background: #F8FAFF;
+            --text-dark: #1A2B49;
+            --accent-orange: #FF6B35;
+        }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 340px;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 1.25rem;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(31, 38, 135, 0.1);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--background);
+        }
 
-    header {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+        .nav-container {
+            padding: 1rem 5%;
+            background: transparent;
+        }
 
-    header img {
-      max-width: 120px;
-      height: auto;
-      margin-bottom: 0.5rem;
-    }
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    header h1 {
-      font-size: 1.1rem;
-      color: #204ECF;
-      margin: 0;
-      font-weight: 600;
-    }
+        .logo-img {
+            width: 200px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
 
-    header div {
-      font-size: 0.75rem;
-      color: #666;
-      margin-top: 0.25rem;
-    }
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
 
-    form div {
-      margin-bottom: 0.75rem;
-    }
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 5%;
+        }
 
-    label {
-      display: block;
-      font-size: 0.75rem;
-      color: #333;
-      margin-bottom: 0.3rem;
-    }
+        .login-box {
+            width: 100%;
+            max-width: 440px;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 12px 24px rgba(45, 135, 240, 0.08);
+            text-align: center;
+            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-    input[type="text"],
-    input[type="password"],
-    button {
-      padding: 0.55rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      transition: all 0.3s ease;
-      width: 90%; /* Moderate reduction in width */
-      display: inline-block;
-    }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      border-color: #204ECF;
-      box-shadow: 0 0 0 2px rgba(32, 78, 207, 0.1);
-      outline: none;
-    }
+        .brand-title {
+            margin-bottom: 0.5rem;
+        }
 
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      font-size: 0.75rem;
-      color: #666;
-    }
+        .brand-title .logo-img {
+            width: 250px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
 
-    .checkbox-label input {
-      margin-right: 0.5rem;
-    }
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 1rem 0 1.5rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+        }
 
-    .forgot-password {
-      font-size: 0.75rem;
-      color: #204ECF;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
+        .login-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--medical-teal));
+            border-radius: 2px;
+        }
 
-    .forgot-password:hover {
-      color: #183b9a;
-    }
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
 
-    .btn {
-      width: 85%; /* Reduced width to 85% */
-      padding: 0.6rem;
-      background-color: #204ECF;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 0.5rem;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #E3EDFF;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
 
-    .btn:hover {
-      background-color: #183b9a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+        .form-input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(45, 135, 240, 0.15);
+        }
 
-    .social-login {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #8CA3C4;
+            transition: color 0.3s ease;
+        }
 
-    .social-login a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 0.75rem;
-      color: #333;
-      padding: 0.6rem;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      border: 1px solid #e0e0e0;
-    }
+        .password-toggle:hover {
+            color: var(--primary-blue);
+        }
 
-    .social-login a:hover {
-      background-color: #f8f8f8;
-      transform: translateY(-2px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--medical-teal));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .social-login i {
-      margin-right: 0.5rem;
-      font-size: 1rem;
-    }
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent);
+            transition: 0.5s;
+        }
 
-    .or-divider {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      color: #666;
-      font-size: 0.75rem;
-      margin: 1rem 0;
-    }
+        .submit-btn:hover::before {
+            left: 100%;
+        }
 
-    .or-divider::before,
-    .or-divider::after {
-      content: '';
-      flex: 1;
-      border-bottom: 1px solid #e0e0e0;
-    }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 135, 240, 0.2);
+        }
 
-    .or-divider span {
-      padding: 0 0.5rem;
-    }
+        .footer-links {
+            text-align: center;
+            margin-top: 2rem;
+            color: #8CA3C4;
+        }
 
-    footer {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.65rem;
-      color: #666;
-    }
+        .footer-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin: 0 0.5rem;
+            position: relative;
+        }
 
-    @media (max-width: 480px) {
-      .container {
-        padding: 1rem;
-      }
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
 
-      header h1 {
-        font-size: 1rem;
-      }
+        .footer-links a:hover::after {
+            width: 100%;
+        }
 
-      .btn {
-        font-size: 0.8rem;
-      }
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 2rem;
+            }
+            
+            .brand-title .logo-img {
+                width: 200px;
+            }
+            
+            .login-title {
+                font-size: 1.6rem;
+            }
+        }
 
-      input[type="text"],
-      input[type="password"] {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-      }
-    }
-  </style>
+        @media (max-width: 480px) {
+            .logo-img {
+                width: 160px;
+            }
+            
+            .login-box {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+
+            .brand-title .logo-img {
+                width: 180px;
+            }
+
+            .login-title {
+                font-size: 1.5rem;
+                margin: 0.8rem 0 1.2rem;
+            }
+
+            .login-title::after {
+                bottom: -5px;
+                height: 2px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <a href="index.html">
-        <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50">
-      </a>
-      
-      <div>Secured connection</div>
-    </header>
-    <form action="" method="post" novalidate>
-      <div>
-        <label for="user_email">Email</label>
-        <input type="text" name="user[email]" id="user_email" placeholder="Email" required aria-label="Email" autofocus>
-      </div>
-      <div>
-        <label for="user_password">Password</label>
-        <input type="password" name="user[password]" id="user_password" placeholder="Password" required minlength="6" aria-label="Password">
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <label class="checkbox-label">
-          <input type="checkbox" name="user[remember_me]" id="user_remember_me">
-          Remember me
-        </label>
-        <a href="#" class="forgot-password">Forgot password?</a>
-      </div>       
-      <div>
-        <button type="submit" class="btn">Log in</button>
-      </div>
-      <div class="or-divider">
-        <span>OR</span>
-      </div> 
+    <div class="login-container">
+        <div class="login-box">
+            <div class="brand-title">
+                <img src="images/matelogo4.png" alt="Matendo Medics" class="logo-img">
+            </div>
+            <h1 class="login-title">Login</h1>            
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Email Address" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" class="form-input" placeholder="Password" required>
+                    <i class="fas fa-eye password-toggle"></i>
+                </div>
 
-      <div class="social-login">
-        <a href="/users/auth/google">
-          <i class="fab fa-google" style="color: #DB4437;"></i>
-          Log in with Google
-        </a>
-        <a href="/users/auth/linkedin">
-          <i class="fab fa-linkedin" style="color: #0077B5;"></i>
-          Sign in with LinkedIn
-        </a>
-      </div>       
-    </form>
-    <footer>
-      &copy; 2024 Matendo Medic. All rights reserved.
-    </footer>
-  </div>
+                <button type="submit" class="submit-btn">Access Portal</button>
+            </form>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      const form = document.querySelector('form');
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const btn = this.querySelector('.btn');
-        btn.textContent = 'Logging in...';
-        btn.disabled = true;
-        setTimeout(() => {
-          btn.textContent = 'Log in';
-          btn.disabled = false;
-          alert('Login functionality would be implemented here.');
-        }, 2000);
-      });
-    });
-  </script>
+            <div class="footer-links">
+                <a href="#">Forgot Password?</a>
+                <a href="#">Create Account</a>
+                <a href="#">Contact Support</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password Visibility Toggle
+        document.querySelectorAll('.password-toggle').forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                const input = e.target.closest('.form-group').querySelector('input');
+                input.type = input.type === 'password' ? 'text' : 'password';
+                e.target.classList.toggle('fa-eye-slash');
+            });
+        });
+
+        // Form Submission Handling
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = 'Authenticating...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = 'Access Portal';
+            }, 1500);
+        });
+    </script>
 </body>
 </html>

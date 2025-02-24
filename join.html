@@ -33,13 +33,14 @@
             line-height: 1.6;
             color: var(--text);
             background-color: var(--background);
-            padding-top: 50px;
+            padding-top: 70px;
         }
 
         .container {
             max-width: 700px;
             margin: 0 auto;
             padding: 15px;
+            width: 100%;
         }
 
         .nav-container {
@@ -50,17 +51,26 @@
             background: transparent;
             backdrop-filter: blur(50px);
             z-index: 1000;
-            padding: 12px 5%;
+            padding: 12px 0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
         }
+
         .logo-img { 
-            width: 250px;
+            width: 200px;
             height: auto; 
         }
-        .nav-links { display: flex; gap: 20px; }
+
+        .nav-links { 
+            display: flex; 
+            gap: 20px; 
+        }
+
         .nav-link {
             text-decoration: none;
             font-weight: 600;
@@ -70,18 +80,22 @@
             border-radius: 4px;
             letter-spacing: 0.2px;
         }
+
         .nav-link:nth-child(1) { 
             color: #28a745;
             border: 1px solid #28a745;
         }
+
         .nav-link:nth-child(2) { 
             color: #007bff;
             border: 1px solid #007bff;
         }
+
         .nav-link:nth-child(1):hover { 
             background-color: #28a745;
             color: white;
         }
+
         .nav-link:nth-child(2):hover { 
             background-color: #007bff;
             color: white;
@@ -91,7 +105,7 @@
             height: 4px;
             background: var(--gray);
             position: fixed;
-            top: 50px;
+            top: 70px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -295,15 +309,6 @@
             display: none;
         }
 
-        input:invalid, textarea:invalid {
-            border-color: var(--error);
-        }
-
-        input:invalid + .error-message,
-        textarea:invalid + .error-message {
-            display: block;
-        }
-
         .file-upload {
             display: flex;
             align-items: center;
@@ -473,10 +478,40 @@
             margin-bottom: 5px;
         }
 
+        a[href^="mailto:"] {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        a[href^="mailto:"]:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
-            .nav-container {
+            .nav-content {
                 flex-direction: column;
                 gap: 10px;
+            }
+
+            .logo-img {
+                width: 150px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+
+            body {
+                padding-top: 100px;
+            }
+
+            .progress-container {
+                top: 100px;
             }
 
             .input-pair {
@@ -506,16 +541,24 @@
                 padding: 15px;
             }
         }
+
+        .invalid {
+            border-color: var(--error);
+        }
     </style>
 </head>
 <body>
     <nav class="nav-container">
-        <a href="index.html" title="Matendo" aria-label="Matendo">
-            <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-        </a>
-        <div class="nav-links">
-            <a href="hire.html" class="nav-link">Hire Matendo</a>
-            <a href="login.html" class="nav-link">Login</a>
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" title="Matendo" aria-label="Matendo">
+                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="hire.html" class="nav-link">Hire Matendo</a>
+                    <a href="login.html" class="nav-link">Login</a>
+                </div>
+            </div>
         </div>
     </nav>
     <div class="progress-container">
@@ -587,7 +630,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- Step 2: Professional Information -->
             <section class="form-section" data-step="2">
                 <div class="section-header">
@@ -626,7 +668,7 @@
                             <label for="license-doc-optional">
                                 <i class="fas fa-upload"></i> Upload License Document (PDF, JPG, PNG)
                             </label>
-                            <input type="file" id="license-doc-optional" name="license-doc-optional" accept=".pdf,.jpg,.png">
+                            <input type="file" id="license-doc-optional" name="entry.357159654_optional" accept=".pdf,.jpg,.png">
                             <span id="licenseFileNameOptional" class="file-name"></span>
                         </div>
                     </div>
@@ -637,7 +679,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- Step 3: Work Experience -->
             <section class="form-section" data-step="3">
                 <div class="section-header">
@@ -666,7 +707,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- Step 4: Work Preferences -->
             <section class="form-section" data-step="4">
                 <div class="section-header">
@@ -682,7 +722,6 @@
                         </div>
                         <span class="error-message" id="work-type-error">Please select at least one work type</span>
                     </div>
-
                     <div class="input-field">
                         <label>Preferred Shift Type *</label>
                         <div class="checkbox-group">
@@ -692,18 +731,15 @@
                         </div>
                         <span class="error-message" id="shift-type-error">Please select at least one shift type</span>
                     </div>
-
                     <div class="input-field">
                         <label for="preferred-location">Preferred Work Location</label>
                         <input type="text" id="preferred-location" name="entry.357160470">
                     </div>
-
                     <div class="input-field">
                         <label for="start-date">Earliest Start Date *</label>
                         <input type="date" id="start-date" name="entry.753951654_date" required aria-required="true">
                         <span class="error-message" id="start-date-error">Please select your earliest start date</span>
                     </div>
-
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
                         <button type="button" class="nav-button next-button">Next</button>
@@ -795,10 +831,10 @@
                 </div>
             </section>
         </form>
-
+        
         <!-- Add submission confirmation message -->
         <div class="submission-confirmation" id="submission-confirmation">
-            <h3>Thank you for your application!</h3>
+            <h3>Thank you for your request!</h3>
             <p>We have received your information and will review it shortly.</p>
             <button class="view-additional-info" id="view-additional-info">View Additional Information</button>
         </div>
@@ -806,12 +842,12 @@
         <!-- Add additional info section -->
         <div class="additional-info" id="additional-info">
             <h3>Additional Information</h3>
-            <p>Here's what you can expect next in our application process:</p>
+            <p>Here's what you can expect next in our process:</p>
             <ul>
-                <li>Our team will review your application within 3-5 business days.</li>
-                <li>If your qualifications match our current openings, we'll reach out to schedule an interview.</li>
+                <li>Our team will review your request within 1-2 business days.</li>
+                <li>We'll reach out to discuss your specific needs and potential candidates.</li>
                 <li>Please ensure your contact information is up to date.</li>
-                <li>For any questions, contact our support team at info@matendohealth.com</li>
+                <li>For any questions, contact our support team at <a href="mailto:support@matendo.com">support@matendo.com</a></li>
             </ul>
         </div>
     </div>

@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <title>Matendo Medics - Hire Top Medical Professionals</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-        content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team." />
+    <meta name="description" content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team." />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         * {
@@ -15,8 +13,7 @@
             box-sizing: border-box;
         }
 
-        body,
-        html {
+        body, html {
             font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
             line-height: 1.4;
             color: #333;
@@ -29,17 +26,22 @@
             left: 0;
             width: 100%;
             background: transparent;
-            backdrop-filter: blur(50px);
+            backdrop-filter: blur(25px);
             z-index: 1000;
             padding: 12px 5%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .logo-img {
-            width: 300px;
+            width: 200px;
             height: auto;
         }
 
@@ -55,7 +57,6 @@
             transition: all 0.3s ease;
             padding: 8px 16px;
             border-radius: 4px;
-            letter-spacing: 0.2px;
         }
 
         .nav-link:nth-child(1) {
@@ -69,14 +70,13 @@
         }
 
         .nav-link:nth-child(1):hover {
-            color: #006ee3ee;
-            border-color: #006ee3ee;
-
+            color: #218838;
+            border-color: #218838;
         }
 
         .nav-link:nth-child(2):hover {
-            color: #1e7e34;
-            border-color: #1e7e34;
+            color: #0056b3;
+            border-color: #0056b3;
         }
 
         .hero-section {
@@ -197,7 +197,7 @@
             margin-bottom: 20px;
             font-size: 1rem;
             /* Updated from 1.6rem */
-            color: #333;
+            color: #323030;
         }
 
         .talent-grid {
@@ -425,16 +425,19 @@
 </head>
 
 <body>
-    <nav class="nav-container">
-        <a href="index.html" title="Matendo" aria-label="Matendo">
-            <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-        </a>
-        <div class="nav-links">
-            <a href="join.html" class="nav-link">Join Matendo</a>
-            <a href="login.html" class="nav-link">Login</a>
+     <nav class="nav-container">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" title="Matendo" aria-label="Matendo">
+                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="join.html" class="nav-link">Join Matendo</a>
+                    <a href="login.html" class="nav-link">Login</a>
+                </div>
+            </div>
         </div>
     </nav>
-
     <section class="hero-section">
         <div class="hero-content">
             <div class="hero-text">
