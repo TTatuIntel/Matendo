@@ -12,7 +12,8 @@
             --medical-teal: #00B4B4;
             --background: #F8FAFF;
             --text-dark: #1A2B49;
-            --accent-orange: #FF6B35;
+            --error-red: #e74c3c;
+            --success-green: #2ecc71;
         }
 
         * {
@@ -63,7 +64,7 @@
         .login-box {
             width: 100%;
             max-width: 440px;
-            padding: 3rem;
+            padding: 2rem;
             background: rgba(255, 255, 255, 0.98);
             border-radius: 24px;
             box-shadow: 0 12px 24px rgba(45, 135, 240, 0.08);
@@ -72,14 +73,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .brand-title {
@@ -87,7 +82,7 @@
         }
 
         .brand-title .logo-img {
-            width: 250px;
+            width: 220px;
             height: auto;
             margin-bottom: 0.5rem;
         }
@@ -199,6 +194,7 @@
             transition: color 0.3s ease;
             margin: 0 0.5rem;
             position: relative;
+            cursor: pointer;
         }
 
         .footer-links a::after {
@@ -214,6 +210,14 @@
 
         .footer-links a:hover::after {
             width: 100%;
+        }
+
+        .error-message {
+            color: var(--error-red);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-align: left;
+            display: none;
         }
 
         @media (max-width: 768px) {
@@ -260,24 +264,29 @@
     <div class="login-container">
         <div class="login-box">
             <div class="brand-title">
-                <img src="images/matelogo4.png" alt="Matendo Medics" class="logo-img">
+                <a href="index.html" aria-label="Return to Home">
+                    <img src="images/matelogo4.png" alt="Matendo Medics" class="logo-img">
+                </a>
             </div>
-            <h1 class="login-title">Login</h1>            
+            <h1 class="login-title">Login</h1>
+            
             <form id="loginForm">
                 <div class="form-group">
                     <input type="email" class="form-input" placeholder="Email Address" required>
+                    <div class="error-message" id="emailError"></div>
                 </div>
                 
                 <div class="form-group">
                     <input type="password" class="form-input" placeholder="Password" required>
                     <i class="fas fa-eye password-toggle"></i>
+                    <div class="error-message" id="passwordError"></div>
                 </div>
 
                 <button type="submit" class="submit-btn">Access Portal</button>
             </form>
 
             <div class="footer-links">
-                <a href="#">Forgot Password?</a>
+                <a id="forgotPassword">Forgot Password?</a>
                 <a href="#">Create Account</a>
                 <a href="#">Contact Support</a>
             </div>
@@ -294,19 +303,106 @@
             });
         });
 
-        // Form Submission Handling
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
+        // Form Validation
+        const form = document.getElementById('loginForm');
+        const emailInput = form.querySelector('input[type="email"]');
+        const passwordInput = form.querySelector('input[type="password"]');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.querySelector('.submit-btn');
-            btn.disabled = true;
-            btn.innerHTML = 'Authenticating...';
-            
-            // Simulate API call
-            setTimeout(() => {
-                btn.disabled = false;
-                btn.innerHTML = 'Access Portal';
-            }, 1500);
+            let isValid = true;
+
+            // Email validation
+            if (!emailInput.value || !/\S+@\S+\.\S+/.test(emailInput.value)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Password validation
+            if (passwordInput.value.length < 8) {
+                passwordError.textContent = 'Password must be at least 8 characters';
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            if (isValid) {
+                const btn = document.querySelector('.submit-btn');
+                btn.disabled = true;
+                btn.innerHTML = 'Authenticating...';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Access Portal';
+                    alert('Login successful!');
+                }, 1500);
+            }
         });
+
+        // Secure Password Reset Handling
+        document.getElementById('forgotPassword').addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const email = prompt('Please enter your registered email address:');
+                if (!email) {
+                    alert('Password reset canceled');
+                    return;
+                }
+
+                if (!/\S+@\S+\.\S+/.test(email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
+
+                // Generate secure 8-character code with crypto API
+                const resetCode = generateSecureCode(8);
+                
+                // Simulate backend email service
+                const response = await simulateEmailService(email, resetCode);
+                
+                if (response.success) {
+                    const userCode = prompt('Enter the verification code sent to your email:');
+                    if (userCode === resetCode) {
+                        alert('Code verified! Redirecting to password reset...');
+                        // window.location.href = `/reset-password?email=${encodeURIComponent(email)}`;
+                    } else {
+                        alert('Invalid verification code');
+                    }
+                }
+            } catch (error) {
+                console.error('Password reset error:', error);
+                alert('Error processing request');
+            }
+        });
+
+        function generateSecureCode(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const crypto = window.crypto || window.msCrypto;
+            const values = new Uint32Array(length);
+            crypto.getRandomValues(values);
+            
+            return Array.from(values)
+                .map((x) => chars[x % chars.length])
+                .join('');
+        }
+
+        async function simulateEmailService(email, code) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    console.log('Secure code generated:', code); // Remove in production
+                    alert(`Password reset instructions sent to ${email}`);
+                    resolve({ success: true });
+                }, 1000);
+            });
+        }
     </script>
 </body>
 </html>
