@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#204ECF">
-    <title>Hire Medical Professionals | Matendo Medics</title>
+    <title>Hire Matendo Medics | Medical Staffing Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -33,13 +33,14 @@
             line-height: 1.6;
             color: var(--text);
             background-color: var(--background);
-            padding-top: 50px;
+            padding-top: 70px;
         }
 
         .container {
             max-width: 700px;
             margin: 0 auto;
             padding: 15px;
+            width: 100%;
         }
 
         .nav-container {
@@ -50,17 +51,26 @@
             background: transparent;
             backdrop-filter: blur(50px);
             z-index: 1000;
-            padding: 12px 5%;
+            padding: 12px 0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
         }
+
         .logo-img { 
-            width: 250px;
+            width: 200px;
             height: auto; 
         }
-        .nav-links { display: flex; gap: 20px; }
+
+        .nav-links { 
+            display: flex; 
+            gap: 20px; 
+        }
+
         .nav-link {
             text-decoration: none;
             font-weight: 600;
@@ -70,18 +80,22 @@
             border-radius: 4px;
             letter-spacing: 0.2px;
         }
+
         .nav-link:nth-child(1) { 
             color: #28a745;
             border: 1px solid #28a745;
         }
+
         .nav-link:nth-child(2) { 
             color: #007bff;
             border: 1px solid #007bff;
         }
+
         .nav-link:nth-child(1):hover { 
             background-color: #28a745;
             color: white;
         }
+
         .nav-link:nth-child(2):hover { 
             background-color: #007bff;
             color: white;
@@ -91,7 +105,7 @@
             height: 4px;
             background: var(--gray);
             position: fixed;
-            top: 50px;
+            top: 70px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -295,15 +309,6 @@
             display: none;
         }
 
-        input:invalid, textarea:invalid {
-            border-color: var(--error);
-        }
-
-        input:invalid + .error-message,
-        textarea:invalid + .error-message {
-            display: block;
-        }
-
         .file-upload {
             display: flex;
             align-items: center;
@@ -315,8 +320,8 @@
         }
 
         .file-upload label {
-            background-color: var(--primary);
-            color: white;
+            background-color: var(--primary-light);
+            color: #324fc3;
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
@@ -324,7 +329,8 @@
         }
 
         .file-upload label:hover {
-            background-color: var(--primary-dark);
+            background-color: var(--primary-light);
+            color: #198a6f;
         }
 
         .file-name {
@@ -472,10 +478,40 @@
             margin-bottom: 5px;
         }
 
+        a[href^="mailto:"] {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        a[href^="mailto:"]:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
-            .nav-container {
+            .nav-content {
                 flex-direction: column;
                 gap: 10px;
+            }
+
+            .logo-img {
+                width: 150px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+
+            body {
+                padding-top: 100px;
+            }
+
+            .progress-container {
+                top: 100px;
             }
 
             .input-pair {
@@ -505,22 +541,29 @@
                 padding: 15px;
             }
         }
+
+        .invalid {
+            border-color: var(--error);
+        }
     </style>
 </head>
 <body>
     <nav class="nav-container">
-        <a href="index.html" title="Matendo" aria-label="Matendo">
-            <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-        </a>
-        <div class="nav-links">
-            <a href="join.html" class="nav-link">Join Matendo</a>
-            <a href="login.html" class="nav-link">Login</a>
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" title="Matendo" aria-label="Matendo">
+                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="join.html" class="nav-link">Join Matendo</a>
+                    <a href="login.html" class="nav-link">Login</a>
+                </div>
+            </div>
         </div>
     </nav>
     <div class="progress-container">
         <div class="progress-bar" id="progress-bar"></div>
     </div>
-
     <div class="container">
         <form id="hire-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="POST" enctype="multipart/form-data">
             <div class="form-progress">
@@ -775,7 +818,7 @@
                 <li>Our team will review your request within 1-2 business days.</li>
                 <li>We'll reach out to discuss your specific needs and potential candidates.</li>
                 <li>Please ensure your contact information is up to date.</li>
-                <li>For any questions, contact our support team at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5b6b0b5b5aab7b185a8a4b1a0aba1aaa8a0a1aca6b6eba6aaa8">[email&#160;protected]</a></li>
+                <li>For any questions, contact our support team at <a href="mailto:info@matendohealth.com" style="color: blue;">info@matendohealth.com</a></li>
             </ul>
         </div>
     </div>
