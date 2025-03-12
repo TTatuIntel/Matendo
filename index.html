@@ -26,15 +26,14 @@
             left: 0;
             width: 100%;
             background: transparent;
+            backdrop-filter: blur(15px);
             z-index: 1000;
             padding: 12px 5%;
-            transition: all 0.3s ease;
         }
 
         .nav-container.scrolled {
             background-color: transparent;
             backdrop-filter: blur(10px);
-            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
         }
 
         .nav-content {
@@ -85,12 +84,11 @@
         }
 
         .hero-section {
-            background-color: #f8f9fa;
-            padding: 20px 5% 10px;
+            background-color: #ffffff;
+            padding: 15px 5% 10px 10%;
+            margin-top: 60px;
             position: relative;
             overflow: hidden;
-            margin-top: 0;
-            padding-top: 20px; /* Reduced padding to minimize space */
         }
 
         .hero-content {
@@ -105,6 +103,7 @@
         .hero-text {
             flex: 1;
             max-width: 450px;
+            margin-left: 50px;
         }
 
         .hero-title {
@@ -175,11 +174,10 @@
 
         /* Enhanced talent section */
         .talent-section {
-            padding: 40px 5%;
+            padding: 30px 5%;
             background-color: #fff;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
         }
 
         .talent-container {
@@ -190,7 +188,7 @@
 
         .section-title {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 1.5rem;
             color: #323030;
             position: relative;
@@ -322,7 +320,7 @@
         }
 
         .features {
-            padding: 30px 5%;
+            padding: 25px 5%;
             background-color: #f8f9fa;
         }
 
@@ -331,7 +329,7 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 15px;
         }
 
         .feature {
@@ -367,8 +365,7 @@
 
         .footer {
             background: #f8f9fa;
-            padding: 30px 5%;
-            border-top: 1px solid #eee;
+            padding: 25px 5%;
         }
 
         .footer-grid {
@@ -376,7 +373,7 @@
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 20px;
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 0 auto 20px;
         }
 
         .footer-column h3 {
@@ -421,6 +418,15 @@
             transform: translateY(-2px);
         }
 
+        .design-credit {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #3b3b3b;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ffffff;
+        }
+
         /* Improved mobile responsiveness */
         @media (max-width: 768px) {
             .nav-container {
@@ -456,7 +462,7 @@
             }
             
             .hero-section {
-                padding-top: 40px; /* Reduced padding for mobile */
+                padding-top: 30px; 
             }
         }
 
@@ -486,7 +492,7 @@
             }
             
             .hero-section {
-                padding-top: 45px; /* Further reduced padding for small mobile */
+                padding-top: 35px; 
             }
         }
     </style>
@@ -516,13 +522,13 @@
                     ready to assist with your healthcare needs. Whether you're looking for advice, second opinions,
                     or specialized care, Matendo connects you to the best experts in the field.
                 </p>
-                <div style="margin-top: 40px;">
+                <div style="margin-top: 30px;">
                     <a href="hire.html" class="hero-btn">Hire Medical Talent</a>
                 </div>
             </div>
 
             <div class="hero-image blur-effect">
-                <img src="images/doc1.png" alt="Medical Professional" style="height: 500px"
+                <img src="images/doc1.png" alt="Medical Professional" style="height: 400px"
                     class="hero-img rounded-full w-100 h-95 object-cover">
             </div>
         </div>
@@ -641,6 +647,9 @@
                 </div>
             </div>
         </div>
+        <div class="design-credit">
+            Website designed by Tattu Intel - <a href="mailto:tattuintel@gmail.com" style="color: blue;">tattuintel@gmail.com</a>
+        </div>
     </footer>
 
     <script>
@@ -654,7 +663,7 @@
             
             // Handle navbar transparency on scroll
             function handleScroll() {
-                if (window.scrollY > 10) { // Reduced threshold to make navbar change sooner
+                if (window.scrollY > 10) { 
                     navContainer.classList.add('scrolled');
                 } else {
                     navContainer.classList.remove('scrolled');
