@@ -666,10 +666,10 @@
                         </div>
                         <div class="file-upload">
                             <label for="license-doc-optional">
-                                <i class="fas fa-upload"></i> Upload License Document (PDF, JPG, PNG)
+                                <i class="fas fa-upload"></i> Upload License Document (Optional, PDF, JPG, PNG)
                             </label>
                             <input type="file" id="license-doc-optional" name="entry.357159654_optional" accept=".pdf,.jpg,.png">
-                            <span id="licenseFileNameOptional" class="file-name"></span>
+                            <span id="license-doc-optionalFileName" class="file-name"></span>
                         </div>
                     </div>
 
@@ -769,15 +769,15 @@
                     <div id="optional-docs" style="display: none;">
                         <div class="file-upload">
                             <label for="license-doc">
-                                <i class="fas fa-upload"></i> Upload License Document (PDF, JPG, PNG)
+                                <i class="fas fa-upload"></i> Upload License Document (Optional, PDF, JPG, PNG)
                             </label>
                             <input type="file" id="license-doc" name="license-doc" accept=".pdf,.jpg,.png">
-                            <span id="licenseFileName" class="file-name"></span>
+                            <span id="license-docFileName" class="file-name"></span>
                         </div>
 
                         <div class="file-upload">
                             <label for="certifications">
-                                <i class="fas fa-upload"></i> Upload Certifications (PDF, JPG, PNG)
+                                <i class="fas fa-upload"></i> Upload Certifications (Optional, PDF, JPG, PNG)
                             </label>
                             <input type="file" id="certifications" name="certifications" accept=".pdf,.jpg,.png" multiple>
                             <span id="certificationsFileName" class="file-name"></span>
@@ -807,7 +807,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- Step 7: Final Submission -->
             <section class="form-section" data-step="7">
                 <div class="section-header">
@@ -832,14 +831,14 @@
             </section>
         </form>
         
-        <!-- Add submission confirmation message -->
+        <!-- Submission Confirmation -->
         <div class="submission-confirmation" id="submission-confirmation">
             <h3>Thank you for your request!</h3>
             <p>We have received your information and will review it shortly.</p>
             <button class="view-additional-info" id="view-additional-info">View Additional Information</button>
         </div>
 
-        <!-- Add additional info section -->
+        <!-- Additional Info Section -->
         <div class="additional-info" id="additional-info">
             <h3>Additional Information</h3>
             <p>Here's what you can expect next in our process:</p>
@@ -851,7 +850,6 @@
             </ul>
         </div>
     </div>
-
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
     <script>
         // Google Maps Integration
@@ -911,7 +909,7 @@
             if (mapVisible && !map) initMap();
         }
 
-        // Form Navigation
+        // Form Navigation and Logic
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('join-form');
             const sections = Array.from(document.querySelectorAll('.form-section'));
@@ -926,6 +924,14 @@
                 });
                 currentStep = step;
                 updateProgress();
+                if (step === 5) {
+                    populateReview();
+                }
+            }
+
+            function updateProgress() {
+                const progress = ((currentStep + 1) / sections.length) * 100;
+                document.getElementById('progress-bar').style.width = `${progress}%`;
             }
 
             function validateStep() {
@@ -934,7 +940,15 @@
                 
                 let isValid = true;
                 requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
+                    let isFieldValid;
+                    if (field.type === 'file') {
+                        isFieldValid = field.files.length > 0;
+                    } else if (field.type === 'checkbox') {
+                        isFieldValid = field.checked;
+                    } else {
+                        isFieldValid = field.value.trim() !== '';
+                    }
+                    if (!isFieldValid) {
                         isValid = false;
                         field.classList.add('invalid');
                         const errorElement = document.getElementById(`${field.id}-error`);
@@ -950,7 +964,7 @@
                     }
                 });
 
-                // Validate checkboxes
+                // Validate checkbox groups in Work Preferences (Step 4, index 3)
                 if (currentStep === 3) {
                     const workTypeChecked = document.querySelectorAll('input[name="entry.789123456"]:checked').length > 0;
                     const shiftTypeChecked = document.querySelectorAll('input[name="entry.159753456"]:checked').length > 0;
@@ -973,11 +987,6 @@
                 return isValid;
             }
 
-            function updateProgress() {
-                const progress = ((currentStep + 1) / sections.length) * 100;
-                document.getElementById('progress-bar').style.width = `${progress}%`;
-            }
-
             // Navigation Handlers
             document.querySelectorAll('.next-button').forEach(button => {
                 button.addEventListener('click', () => {
@@ -997,7 +1006,7 @@
                     this.value === 'Other' ? 'block' : 'none';
             });
 
-            // File upload handling
+            // File Upload Handling
             const fileInputs = ['resume', 'license-doc', 'certifications', 'license-doc-optional'];
             fileInputs.forEach(inputId => {
                 const fileInput = document.getElementById(inputId);
@@ -1016,21 +1025,21 @@
                 });
             });
 
-            // Toggle license info
+            // Toggle License Info
             document.getElementById('toggle-license').addEventListener('click', function() {
                 const licenseInfo = document.getElementById('license-info');
                 licenseInfo.style.display = licenseInfo.style.display === 'none' ? 'block' : 'none';
                 this.textContent = licenseInfo.style.display === 'none' ? 'Add License Information' : 'Hide License Information';
             });
 
-            // Toggle optional documents
+            // Toggle Optional Documents
             document.getElementById('toggle-optional-docs').addEventListener('click', function() {
                 const optionalDocs = document.getElementById('optional-docs');
                 optionalDocs.style.display = optionalDocs.style.display === 'none' ? 'block' : 'none';
                 this.textContent = optionalDocs.style.display === 'none' ? 'Add Optional Documents' : 'Hide Optional Documents';
             });
 
-            // Form submission
+            // Form Submission
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 if (validateStep()) {
@@ -1048,13 +1057,13 @@
                 }
             });
 
-            // View additional info button handler
+            // View Additional Info Button Handler
             document.getElementById('view-additional-info').addEventListener('click', function() {
                 document.getElementById('additional-info').style.display = 'block';
                 this.style.display = 'none';
             });
 
-            // Populate review section
+            // Populate Review Section
             function populateReview() {
                 const reviewSection = document.querySelector('.review-section');
                 reviewSection.innerHTML = `
@@ -1082,7 +1091,7 @@
 
                     <h3>Supporting Documents</h3>
                     <p><strong>Resume/CV:</strong> ${document.getElementById('resumeFileName').innerHTML}</p>
-                    <p><strong>License Document:</strong> ${document.getElementById('licenseFileName').innerHTML}</p>
+                    <p><strong>License Document:</strong> ${document.getElementById('license-docFileName').innerHTML}</p>
                     <p><strong>Certifications:</strong> ${document.getElementById('certificationsFileName').innerHTML}</p>
                 `;
             }
@@ -1093,18 +1102,9 @@
                     .join(', ');
             }
 
-            // Update showStep function to populate review
-            const originalShowStep = showStep;
-            showStep = (step) => {
-                originalShowStep(step);
-                if (step === 5) {
-                    populateReview();
-                }
-            };
-
             // Initialize
             showStep(0);
         });
     </script>
-</body>
+</body> 
 </html>

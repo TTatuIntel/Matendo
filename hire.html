@@ -989,30 +989,30 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Step 7: Final Submission -->
-            <section class="form-section" data-step="7">
+              <!-- Step 7: Final Submission -->
+              <section class="form-section" data-step="7">
                 <div class="section-header">
-                    <h2>Submit Request</h2>
+                    <h2>Submit Application</h2>
                 </div>
                 <div class="section-content">
                     <div class="confirmation-container">
                         <div class="checkbox-container">
-                            <input type="checkbox" id="confirm-checkbox" name="confirmation" required aria-required="true">
+                            <input type="checkbox" id="confirm-checkbox" name="entry.357160471" required aria-required="true">
                             <label for="confirm-checkbox">
-                                I confirm that all information provided is accurate and complete. I understand that submitting this request does not guarantee placement, and Matendo Medics will contact me for further steps. *
+                                I confirm that all information provided is accurate and complete. I understand that submitting this application does not guarantee placement, and Matendo Medics will contact me for further steps. *
                             </label>
                         </div>
+                        <span class="error-message" id="confirm-checkbox-error">Please confirm the information accuracy</span>
                     </div>
 
                     <div class="navigation-buttons">
                         <button type="button" class="nav-button back-button">Back</button>
-                        <button type="submit" class="nav-button">Submit Request</button>
+                        <button type="submit" class="nav-button" id="submit-button">Submit Application</button>
                     </div>
                 </div>
             </section>
         </form>
-
+        
         <!-- Add submission confirmation message -->
         <div class="submission-confirmation" id="submission-confirmation">
             <h3>Thank you for your request!</h3>
@@ -1028,11 +1028,10 @@
                 <li>Our team will review your request within 1-2 business days.</li>
                 <li>We'll reach out to discuss your specific needs and potential candidates.</li>
                 <li>Please ensure your contact information is up to date.</li>
-                <li>For any questions, contact our support team at <a href="mailto:info@matendohealth.com" style="color: blue;">info@matendohealth.com</a></li>
+                <li>For any questions, contact our support team at <a href="mailto:support@matendo.com">support@matendo.com</a></li>
             </ul>
         </div>
     </div>
-
     <script>
         // Google Maps Integration
         let map;
