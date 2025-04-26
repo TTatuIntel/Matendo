@@ -1,1297 +1,1775 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Matendo Medics - Hire Top Medical Professionals</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team." />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, html {
-            font-family: 'Roboto', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            scroll-behavior: smooth;
-            background-color: #f5f7fa;
-        }
-
-        /* Navbar Styles */
-        .nav-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(135deg, #ffffff, #f0f4f8);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 15px 5%;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container.scrolled {
-            background: linear-gradient(135deg, #ffffff, #e8ecef);
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .logo-img {
-            width: 180px;
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-img:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            width: 100%;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            color: #2c3e50;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: #28a745;
-            background-color: #e8f5e9;
-        }
-
-        .nav-link.join {
-            color: #28a745;
-            border: 2px solid #28a745;
-            font-weight: 600;
-        }
-
-        .nav-link.login {
-            color: #007bff;
-            border: 2px solid #007bff;
-            font-weight: 600;
-        }
-
-        .nav-link.join:hover {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .nav-link.login:hover {
-            background-color: #007bff;
-            color: white;
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 80px 5%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #e3f2fd, #ffffff);
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.2rem;
-            color: #1a3c34;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #28a745, #34c759);
-            border-radius: 2px;
-        }
-
-        /* Hero Section */
-        .hero-content {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .hero-text {
-            flex: 1;
-            max-width: 600px;
-        }
-
-        .hero-title {
-            font-size: 2.8rem;
-            color: #1a3c34;
-            margin-bottom: 15px;
-            line-height: 1.2;
-            font-weight: 700;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            color: #5a6268;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .hero-btn {
-            display: inline-block;
-            background: linear-gradient(90deg, #28a745, #34c759);
-            color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-        }
-
-        .hero-btn:hover {
-            background: linear-gradient(90deg, #218838, #2ea44f);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.5);
-        }
-
-        .hero-image {
-            flex: 1;
-            text-align: right;
-            max-width: 350px; /* Reduced size */
-        }
-
-        .hero-img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease;
-        }
-
-        .hero-img:hover {
-            transform: scale(1.02);
-        }
-
-        /* Talent Section */
-        .talent-container {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .talent-grid {
-            display: flex;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            padding: 20px 0;
-            gap: 20px;
-        }
-
-        .talent-card {
-            flex: 0 0 240px;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #e8ecef;
-        }
-
-        .talent-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .talent-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            object-position: center 15%;
-            transition: transform 0.5s ease;
-        }
-
-        .talent-card:hover .talent-img {
-            transform: scale(1.08);
-        }
-
-        .talent-info {
-            padding: 20px;
-            background: #fafafa;
-            text-align: center;
-        }
-
-        .talent-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #1a3c34;
-        }
-
-        .talent-specialty {
-            font-size: 1rem;
-            color: #5a6268;
-        }
-
-        .talent-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ffffff;
-            color: #28a745;
-            border: 2px solid #28a745;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .talent-nav-btn:hover {
-            background: #28a745;
-            color: white;
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
-        }
-
-        #prevBtn {
-            left: 15px;
-        }
-
-        #nextBtn {
-            right: 15px;
-        }
-
-        .pagination-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 25px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #d1d8e0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: #28a745;
-            transform: scale(1.3);
-        }
-
-        /* Features Section */
-        .features-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 25px;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature i {
-            font-size: 2rem;
-            color: #28a745;
-            margin-bottom: 15px;
-        }
-
-        .feature h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #1a3c34;
-            font-weight: 600;
-        }
-
-        .feature p {
-            font-size: 1rem;
-            color: #5a6268;
-            line-height: 1.5;
-        }
-
-        /* General Section Content */
-        .section-content {
-            max-width: 800px;
-            text-align: center;
-            color: #5a6268;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .section-content p {
-            margin-bottom: 20px;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .contact-info a {
-            color: #28a745;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-info a:hover {
-            color: #218838;
-        }
-
-        /* Footer Section */
-        .footer {
-            background: linear-gradient(135deg, #2c3e50, #1a3c34);
-            padding: 40px 5%;
-            color: #ecf0f1;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
-            max-width: 1300px;
-            margin: 0 auto 30px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-column a {
-            color: #bdc3c7;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-column a:hover {
-            color: #28a745;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .social-icons a {
-            color: #bdc3c7;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: #28a745;
-            transform: translateY(-3px);
-        }
-
-        .design-credit {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #bdc3c7;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .design-credit a {
-            color: #28a745;
-            text-decoration: none;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: 15px;
-            }
-
-            .nav-link {
-                font-size: 0.9rem;
-                padding: 6px 12px;
-            }
-
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-image {
-                max-width: 250px;
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .features-container {
-                grid-template-columns: 1fr;
-            }
-
-            .talent-card {
-                flex: 0 0 calc(50% - 20px);
-            }
-
-            .talent-nav-btn {
-                width: 40px;
-                height: 40px;
-            }
-
-            .section {
-                padding: 50px 5%;
-                min-height: auto;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo-img {
-                width: 140px;
-            }
-
-            .nav-link {
-                font-size: 0.8rem;
-                padding: 5px 10px;
-            }
-
-            .hero-title {
-                font-size: 1.8rem;
-            }
-
-            .hero-image {
-                max-width: 200px;
-            }
-
-            .talent-card {
-                flex: 0 0 calc(100% - 40px);
-                margin: 0 auto;
-            }
-
-            .talent-nav-btn {
-                width: 35px;
-                height: 35px;
-                top: 45%;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <nav class="nav-container">
-        <div class="nav-content">
-            <a href="#home" title="Matendo" aria-label="Matendo">
-                <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-            </a>
-            <div class="nav-links">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About Us</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#professionals" class="nav-link">Professionals</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <a href="#join" class="nav-link join">Join Matendo</a>
-                <a href="#login" class="nav-link login">Login</a>
-            </div>
-        </div>
-    </nav>
-
-    <section id="home" class="section">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">Hire Medical Professionals</h1>
-                <p class="hero-description">
-                    Matendo provides fast, reliable access to certified doctors and medical professionals,
-                    ready to assist with your healthcare needs. Whether you're looking for advice, second opinions,
-                    or specialized care, Matendo connects you to the best experts in the field.
-                </p>
-                <a href="hire.html" class="hero-btn">Hire Medical Talent</a>
-            </div>
-            <div class="hero-image">
-                <img src="images/doc1.png" alt="Medical Professional" class="hero-img">
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="section">
-        <h2 class="section-title">About Us</h2>
-        <div class="section-content">
-            <p>
-                Matendo Medics is dedicated to bridging the gap between healthcare facilities and top medical talent worldwide.
-                Our mission is to provide seamless access to certified professionals who can deliver exceptional care.
-            </p>
-            <p>
-                With years of experience in medical recruitment, we ensure that every professional we connect you with is thoroughly vetted
-                and meets the highest standards of qualifications and expertise.
-            </p>
-        </div>
-    </section>
-
-    <section id="services" class="section">
-        <h2 class="section-title">Our Services</h2>
-        <div class="section-content">
-            <div class="features-container">
-                <div class="feature">
-                    <i class="fas fa-user-md"></i>
-                    <h3>Vetted Professionals</h3>
-                    <p>Thoroughly screened for qualifications and experience.</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-clock"></i>
-                    <h3>Fast Onboarding</h3>
-                    <p>Quickly matched with professionals for urgent needs.</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-handshake"></i>
-                    <h3>Flexible Contracts</h3>
-                    <p>Full-time, part-time, or contract-based arrangements.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="professionals" class="section">
-        <div class="talent-container">
-            <h2 class="section-title">Featured Medical Professionals</h2>
-            <div class="talent-grid" id="talentGrid">
-                <div class="talent-card">
-                    <img src="images/doc1.png" alt="Dr. Sarah Williams" class="talent-img">
-                    <div class="talent-info">
-                        <h3 class="talent-name">Dr. Sarah Williams</h3>
-                        <p class="talent-specialty">General Practice</p>
-                    </div>
-                </div>
-                <div class="talent-card">
-                    <img src="images/doc2.png" alt="Dr. James Smith" class="talent-img">
-                    <div class="talent-info">
-                        <h3 class="talent-name">Dr. James Smith</h3>
-                        <p class="talent-specialty">Cardiology</p>
-                    </div>
-                </div>
-                <div class="talent-card">
-                    <img src="images/doc3.png" alt="Dr. Emily Brown" class="talent-img">
-                    <div class="talent-info">
-                        <h3 class="talent-name">Dr. Emily Brown</h3>
-                        <p class="talent-specialty">Pediatrics</p>
-                    </div>
-                </div>
-                <div class="talent-card">
-                    <img src="images/doc4.png" alt="Dr. Mark Johnson" class="talent-img">
-                    <div class="talent-info">
-                        <h3 class="talent-name">Dr. Mark Johnson</h3>
-                        <p class="talent-specialty">Orthopedics</p>
-                    </div>
-                </div>
-                <div class="talent-card">
-                    <img src="images/doc5.png" alt="Dr. Sophia Chen" class="talent-img">
-                    <div class="talent-info">
-                        <h3 class="talent-name">Dr. Sophia Chen</h3>
-                        <p class="talent-specialty">Neurology</p>
-                    </div>
-                </div>
-                <div class="talent-card">
-                    <img src="images/doc6.png" alt="Dr. Robert Taylor" class="talent-img">
-                    <div class="talent-info">
-                        <h3 class="talent-name">Dr. Robert Taylor</h3>
-                        <p class="talent-specialty">Oncology</p>
-                    </div>
-                </div>
-            </div>
-            <button class="talent-nav-btn" id="prevBtn" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-            <button class="talent-nav-btn" id="nextBtn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
-            <div class="pagination-dots" id="paginationDots"></div>
-        </div>
-    </section>
-
-    <section id="contact" class="section">
-        <h2 class="section-title">Contact Us</h2>
-        <div class="section-content">
-            <p>Reach out to us for any inquiries or to get started with hiring top medical talent.</p>
-            <div class="contact-info">
-                <p><strong>Email:</strong> <a href="mailto:info@matendo.com">info@matendo.com</a></p>
-                <p><strong>Phone:</strong> <a href="tel:+256781053105">+256 781053105</a></p>
-            </div>
-        </div>
-    </section>
-
-    <section id="join" class="section">
-        <h2 class="section-title">Join Matendo</h2>
-        <div class="section-content">
-            <p>
-                Become a part of Matendo and connect with top healthcare facilities worldwide.
-                Join our network of certified medical professionals today.
-            </p>
-            <a href="join.html" class="hero-btn">Join Now</a>
-        </div>
-    </section>
-
-    <section id="login" class="section">
-        <h2 class="section-title">Login</h2>
-        <div class="section-content">
-            <p>
-                Access your Matendo account to manage your profile, view opportunities, and connect with clients.
-            </p>
-            <a href="login.html" class="hero-btn">Login Now</a>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-column">
-                <h3>About Us</h3>
-                <p style="font-size: 1rem; color: #bdc3c7; line-height: 1.5;">
-                    Connecting healthcare facilities with top medical talent worldwide.
-                </p>
-            </div>
-            <div class="footer-column">
-                <h3>Contact</h3>
-                <ul>
-                    <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
-                    <li><a href="tel:+256781053105">+256 781053105</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="design-credit">
-            Designed by Tattu Intel - <a href="mailto:tattuintel@gmail.com">tattuintel@gmail.com</a>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const talentGrid = document.getElementById('talentGrid');
-            const talentCards = talentGrid.querySelectorAll('.talent-card');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const paginationDots = document.getElementById('paginationDots');
-            const navContainer = document.querySelector('.nav-container');
-
-            function handleScroll() {
-                if (window.scrollY > 10) {
-                    navContainer.classList.add('scrolled');
-                } else {
-                    navContainer.classList.remove('scrolled');
-                }
-            }
-
-            window.addEventListener('scroll', handleScroll);
-            handleScroll();
-
-            let cardsToShow = window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 3;
-            let currentIndex = 0;
-            let cardWidth = 0;
-            let maxIndex = 0;
-
-            function createPaginationDots() {
-                paginationDots.innerHTML = '';
-                maxIndex = Math.ceil(talentCards.length / cardsToShow) - 1;
-
-                for (let i = 0; i <= maxIndex; i++) {
-                    const dot = document.createElement('div');
-                    dot.classList.add('dot');
-                    if (i === 0) dot.classList.add('active');
-                    dot.addEventListener('click', () => {
-                        goToSlide(i);
-                    });
-                    paginationDots.appendChild(dot);
-                }
-            }
-
-            function updateActiveDot() {
-                const dots = paginationDots.querySelectorAll('.dot');
-                dots.forEach((dot, index) => {
-                    if (index === currentIndex) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
-            }
-
-            function calculateDimensions() {
-                cardsToShow = window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 3;
-                const cardStyle = window.getComputedStyle(talentCards[0]);
-                const marginRight = parseInt(cardStyle.marginRight);
-                cardWidth = talentCards[0].offsetWidth + marginRight;
-                maxIndex = Math.ceil(talentCards.length / cardsToShow) - 1;
-                createPaginationDots();
-                goToSlide(0);
-            }
-
-            function goToSlide(index) {
-                if (index < 0) index = maxIndex;
-                if (index > maxIndex) index = 0;
-
-                currentIndex = index;
-                const scrollPosition = index * cardsToShow * cardWidth;
-
-                talentGrid.scrollTo({
-                    left: scrollPosition,
-                    behavior: 'smooth'
-                });
-
-                updateActiveDot();
-            }
-
-            function nextSlide() {
-                goToSlide(currentIndex + 1);
-            }
-
-            function prevSlide() {
-                goToSlide(currentIndex - 1);
-            }
-
-            calculateDimensions();
-
-            prevBtn.addEventListener('click', prevSlide);
-            nextBtn.addEventListener('click', nextSlide);
-
-            let autoScrollInterval = setInterval(nextSlide, 3000);
-
-            talentGrid.addEventListener('mouseenter', () => {
-                clearInterval(autoScrollInterval);
-            });
-
-            talentGrid.addEventListener('mouseleave', () => {
-                autoScrollInterval = setInterval(nextSlide, 3000);
-            });
-
-            window.addEventListener('resize', calculateDimensions);
-
-            let touchStartX = 0;
-            let touchEndX = 0;
-
-            talentGrid.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-                clearInterval(autoScrollInterval);
-            }, { passive: true });
-
-            talentGrid.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-                autoScrollInterval = setInterval(nextSlide, 3000);
-            }, { passive: true });
-
-            function handleSwipe() {
-                const swipeThreshold = 50;
-                if (touchEndX < touchStartX - swipeThreshold) {
-                    nextSlide();
-                }
-                if (touchEndX > touchStartX + swipeThreshold) {
-                    prevSlide();
-                }
-            }
-        });
-    </script>
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matendo Medics - Hire Top Medical Professionals</title>
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>tailwind.config={theme:{extend:{colors:{primary:'#1e40af',secondary:'#60a5fa'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-    <style>
-        :where([class^="ri-"])::before { content: "\f3c2"; }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .hero-gradient {
-            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
-        }
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
-            transition: background-color 0.3s ease;
-            z-index: 1000;
-        }
-        header.scrolled {
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-        .professional-img {
-            border: 2px solid #e5e7eb; /* Light gray border for visibility */
-        }
-    </style>
-</head>
-<body class="min-h-screen bg-white">
-    <!-- Header -->
-    <header class="w-full shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" title="Matendo" aria-label="Matendo">
-                <img src="images/matelogo4.png" alt="Matendo Logo" class="h-12">
-            </a>
-            
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-gray-700 hover:text-primary font-medium">Home</a>
-                <a href="#" class="text-gray-700 hover:text-primary font-medium">Services</a>
-                <a href="#" class="text-gray-700 hover:text-primary font-medium">Specialists</a>
-                <a href="#" class="text-gray-700 hover:text-primary font-medium">About Us</a>
-                <a href="#" class="text-gray-700 hover:text-primary font-medium">Contact</a>
-            </nav>
-            
-            <div class="flex items-center space-x-4">
-                <a href="join.html" class="px-5 py-2 border border-primary text-primary hover:bg-primary/5 transition-colors duration-300 font-medium !rounded-button whitespace-nowrap">Join Matendo</a>
-                <a href="login.html" class="px-5 py-2 bg-primary text-white hover:bg-primary/90 transition-colors duration-300 font-medium !rounded-button whitespace-nowrap">Login</a>
-                
-                <button class="md:hidden w-10 h-10 flex items-center justify-center text-gray-700">
-                    <i class="ri-menu-line ri-lg"></i>
-                </button>
-            </div>
-        </div>
-    </header>
+<meta charset="utf-8" />
+<title>Matendo Medics - Hire Top Medical Professionals</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team." />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-    <!-- Hero Section -->
-    <section class="relative w-full overflow-hidden pt-20">
-        <div class="absolute inset-0 z-0" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20medical%20setting%20with%20modern%20hospital%20or%20clinic%20environment%2C%20soft%20lighting%2C%20medical%20equipment%2C%20clean%20and%20sterile%20environment%2C%20blue%20and%20white%20color%20scheme%2C%20no%20people%20visible%2C%20perfect%20for%20healthcare%20website%20hero%20background&width=1920&height=800&seq=123&orientation=landscape'); background-size: cover; background-position: center;"></div>
+    body, html {
+        font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+        line-height: 1.4;
+        color: #333;
+        scroll-behavior: smooth;
+    }
+
+    .nav-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: transparent;
+        z-index: 1000;
+        padding: 12px 5%;
+        transition: all 0.3s ease;
+    }
+
+    .nav-container.scrolled {
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .logo-img {
+        width: 200px;
+        height: auto;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        padding: 8px 16px;
+        border-radius: 4px;
+    }
+
+    .nav-link:nth-child(1) {
+        color: #28a745;
+        border: 1px solid #28a745;
+    }
+
+    .nav-link:nth-child(2) {
+        color: #007bff;
+        border: 1px solid #007bff;
+    }
+
+    .nav-link:nth-child(1):hover {
+        color: #218838;
+        border-color: #218838;
+    }
+
+    .nav-link:nth-child(2):hover {
+        color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    /* Mobile Menu Styles */
+    .mobile-menu-button {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #333;
+        cursor: pointer;
+    }
+
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    .mobile-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .mobile-menu-link {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        font-size: 1.1rem;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .hero-section {
+        background-color: #f8f9fa;
+        padding: 20px 5% 10px;
+        position: relative;
+        overflow: hidden;
+        margin-top: 0;
+        padding-top: 20px; /* Reduced padding to minimize space */
+    }
+
+    .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .hero-text {
+        flex: 1;
+        max-width: 450px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 12px;
+        line-height: 1.2;
+    }
+
+    .hero-description {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .hero-btn {
+        display: inline-block;
+        background-color: white;
+        color: #28a745;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        border: 1px solid #28a745;
+    }
+
+    .hero-btn:hover {
+        color: #1e7e7c;
+        border-color: #1e7e7c;
+        background-color: transparent;
+    }
+
+    .hero-image {
+        flex: 1;
+        text-align: left;
+        max-width: 400%;
+        position: relative;
+        left: 150px;
+    }
+
+    .hero-img {
+        max-width: 500%;
+        height: auto;
+        border-radius: 10px;
+        mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        object-fit: cover;
+        object-position: center 20%;
+    }
+
+    .blur-effect {
+        position: relative;
+    }
+
+    .blur-effect::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40%;
+        background: linear-gradient(to bottom, rgba(248, 249, 250, 0), rgba(248, 249, 250, 1));
+        pointer-events: none;
+    }
+
+    /* Enhanced talent section */
+    .talent-section {
+        padding: 40px 5% 40px;
+        background-color: #fff;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .talent-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        color: #323030;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: #28a745;
+        border-radius: 3px;
+    }
+
+    .talent-grid {
+        display: flex;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        padding: 15px 0;
+        position: relative;
+    }
+
+    .talent-card {
+        flex: 0 0 220px;
+        margin-right: 20px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+    }
+
+    .talent-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        border-color: #e0e0e0;
+    }
+
+    .talent-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        object-position: center 15%;
+        transition: transform 0.5s ease;
+    }
+
+    .talent-card:hover .talent-img {
+        transform: scale(1.05);
+    }
+
+    .talent-info {
+        padding: 15px;
+        border-top: 1px solid #f0f0f0;
+        background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+    }
+
+    .talent-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .talent-specialty {
+        font-size: 1rem;
+        color: #666;
+    }
+
+    /* Enhanced navigation buttons */
+    .talent-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #28a745;
+        border: 2px solid #28a745;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .talent-nav-btn:hover {
+        background-color: #28a745;
+        color: white;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    #prevBtn {
+        left: 10px;
+    }
+
+    #nextBtn {
+        right: 10px;
+    }
+
+    /* Pagination indicators */
+    .pagination-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #ddd;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .dot.active {
+        background-color: #28a745;
+        transform: scale(1.2);
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+        padding: 20px 5% 40px; /* Reduced top padding */
+        background-color: #f8f9fa;
+    }
+
+    .how-it-works-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .how-it-works-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .how-it-works-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .how-it-works-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .how-it-works-icon {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(40, 167, 69, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    .how-it-works-icon i {
+        font-size: 1.5rem;
+        color: #28a745;
+    }
+
+    .features {
+        padding: 30px 5%;
+        background-color: #f8f9fa;
+    }
+
+    .features-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .feature {
+        text-align: center;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .feature:hover {
+        transform: translateY(-2px);
+    }
+
+    .feature i {
+        font-size: 1.5rem;
+        color: #28a745;
+        margin-bottom: 10px;
+    }
+
+    .feature h3 {
+        font-size: 1rem;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .feature p {
+        font-size: 1rem;
+        color: #666;
+        line-height: 1.4;
+    }
+
+    /* Personal Healthcare Support Section */
+    .personal-healthcare {
+        padding: 20px 5% 40px; /* Reduced top padding */
+        background-color: white;
+    }
+
+    .personal-healthcare-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .personal-healthcare-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .personal-healthcare-card {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .personal-healthcare-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .personal-healthcare-icon {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(40, 167, 69, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    .personal-healthcare-icon i {
+        font-size: 1.5rem;
+        color: #28a745;
+    }
+
+    .personal-healthcare-list {
+        list-style: none;
+        margin-top: 15px;
+    }
+
+    .personal-healthcare-list li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .personal-healthcare-list i {
+        color: #28a745;
+        margin-right: 10px;
+    }
+
+    /* Platform Benefits Section */
+    .platform-benefits {
+        padding: 20px 5% 0px; /* Reduced bottom padding to 0 */
+        background-color: #f8f9fa;
+    }
+
+    .platform-benefits-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .platform-benefits-row {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 20px;
+    }
+
+    .platform-benefits-row:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    .platform-benefits-image {
+        flex: 1;
+    }
+
+    .platform-benefits-image img {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .platform-benefits-content {
+        flex: 1;
+    }
+
+    .platform-benefits-item {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .platform-benefits-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(40, 167, 69, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    .platform-benefits-icon i {
+        font-size: 1.2rem;
+        color: #28a745;
+    }
+
+    /* Get Started Modal */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal {
+        background-color: white;
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #999;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .modal-close:hover {
+        color: #333;
+    }
+
+    .modal-body {
+        margin-bottom: 20px;
+    }
+
+    .modal-option {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .modal-option-primary {
+        background-color: #28a745;
+        color: white;
+        border: none;
+    }
+
+    .modal-option-primary:hover {
+        background-color: #218838;
+    }
+
+    .modal-option-secondary {
+        background-color: white;
+        color: #28a745;
+        border: 2px solid #28a745;
+    }
+
+    .modal-option-secondary:hover {
+        background-color: rgba(40, 167, 69, 0.05);
+    }
+
+    /* App Download Section */
+    .app-download {
+        padding: 20px 5% 40px;
+        margin-top: -30px; /* Significant negative margin to pull the entire section up */
+        background-color: rgba(40, 167, 69, 0.05);
+        position: relative; /* Added to ensure proper stacking */
+        z-index: 1; /* Ensure it's above previous section */
+    }
+
+    .app-download-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .app-download-image {
+        flex: 1;
+        text-align: center;
+    }
+
+    .app-download-image img {
+        max-width: 300px;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .app-download-content {
+        flex: 1;
+    }
+
+    .app-store-buttons {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .app-store-button {
+        display: flex;
+        align-items: center;
+        background-color: #000;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .app-store-button:hover {
+        background-color: #333;
+    }
+
+    .app-store-button i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    .app-store-button-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .app-store-button-text small {
+        font-size: 0.7rem;
+    }
+
+    .app-store-button-text strong {
+        font-size: 1rem;
+    }
+
+    .app-features-list {
+        list-style: none;
+    }
+
+    .app-features-list li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .app-features-list i {
+        color: #28a745;
+        margin-right: 10px;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+        padding: 40px 5%;
+        background-color: white;
+    }
+
+    .newsletter-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: rgba(40, 167, 69, 0.05);
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .newsletter-form {
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .newsletter-input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px 0 0 4px;
+        font-size: 1rem;
+    }
+
+    .newsletter-button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 0 4px 4px 0;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .newsletter-button:hover {
+        background-color: #218838;
+    }
+
+    /* Cookie Consent */
+    .cookie-consent {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        padding: 15px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .cookie-text {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    .cookie-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .cookie-accept {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .cookie-accept:hover {
+        background-color: #218838;
+    }
+
+    .cookie-decline {
+        background-color: #f8f9fa;
+        color: #333;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .cookie-decline:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Floating Elements */
+    .floating-chat {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #28a745;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        transition: all 0.3s ease;
+    }
+
+    .floating-chat:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+    }
+
+    .floating-chat i {
+        font-size: 1.5rem;
+    }
+
+    .back-to-top {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #333;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .back-to-top:hover {
+        background-color: #555;
+    }
+
+    .back-to-top i {
+        font-size: 1.2rem;
+    }
+
+    .footer {
+        background: #f8f9fa;
+        padding: 30px 5%;
+        border-top: 1px solid #eee;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .footer-column h3 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .footer-column ul {
+        list-style: none;
+    }
+
+    .footer-column ul li {
+        margin-bottom: 5px;
+    }
+
+    .footer-column a {
+        color: #666;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+    }
+
+    .footer-column a:hover {
+        color: #28a745;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .social-icons a {
+        color: #666;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+        color: #28a745;
+        transform: translateY(-2px);
+    }
+
+    /* Improved mobile responsiveness */
+    @media (max-width: 768px) {
+        .nav-container {
+            padding: 8px 4%;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .mobile-menu-button {
+            display: block;
+        }
+
+        .hero-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .hero-image {
+            display: none;
+        }
+
+        .features-container,
+        .how-it-works-grid,
+        .personal-healthcare-grid {
+            grid-template-columns: 1fr;
+        }
         
-        <div class="container relative z-10 mx-auto px-4 py-16 md:py-24">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="w-full md:w-1/2 hero-gradient p-8 rounded-lg">
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Hire Medical Professionals</h1>
-                    <p class="text-lg text-gray-700 mb-8 max-w-xl">
-                        Matendo provides fast, reliable access to certified doctors and medical professionals, ready to assist with your healthcare needs. Whether you're looking for advice, second opinions, or specialized care, Matendo connects you to the best experts in the field.
-                    </p>
-                    <a href="#" class="inline-block px-6 py-3 bg-primary text-white font-medium transition-colors duration-300 hover:bg-primary/90 !rounded-button whitespace-nowrap">Hire Medical Talent</a>
+        /* Show only 2 cards at a time on tablets */
+        .talent-card {
+            flex: 0 0 calc(50% - 20px);
+        }
+        
+        .talent-nav-btn {
+            width: 36px;
+            height: 36px;
+        }
+        
+        .hero-section {
+            padding-top: 40px; /* Reduced padding for mobile */
+        }
+
+        .platform-benefits-row {
+            flex-direction: column !important;
+        }
+
+        .app-download-container {
+            flex-direction: column;
+        }
+
+        .newsletter-form {
+            flex-direction: column;
+        }
+
+        .newsletter-input {
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-button {
+            border-radius: 4px;
+        }
+
+        .cookie-consent {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .cookie-text {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo-img {
+            width: 150px;
+        }
+
+        .hero-title {
+            font-size: 1.6rem;
+        }
+        
+        /* Show only 1 card at a time on small mobile */
+        .talent-card {
+            flex: 0 0 calc(100% - 40px);
+            margin: 0 auto;
+        }
+        
+        .talent-nav-btn {
+            width: 32px;
+            height: 32px;
+            top: 40%;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+        }
+        
+        .hero-section {
+            padding-top: 45px; /* Further reduced padding for small mobile */
+        }
+
+        .app-store-buttons {
+            flex-direction: column;
+        }
+    }
+</style>
+</head>
+
+<body>
+ <nav class="nav-container">
+    <div class="container">
+        <div class="nav-content">
+            <a href="index.html" title="Matendo" aria-label="Matendo">
+                <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="join.html" class="nav-link">Join Matendo</a>
+                <a href="login.html" class="nav-link">Login</a>
+            </div>
+            <button class="mobile-menu-button" id="mobileMenuButton">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-links">
+        <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+        <a href="#for-professionals" class="mobile-menu-link">For Professionals</a>
+        <a href="#for-facilities" class="mobile-menu-link">For Facilities</a>
+        <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
+        <a href="join.html" class="mobile-menu-link">Join Matendo</a>
+        <a href="login.html" class="mobile-menu-link">Login</a>
+    </div>
+</div>
+
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title" style="text-align: center; margin-right: 20px;">Hire Medical Professionals</h1>
+            <br>
+            <p class="hero-description" style="margin-right: 20px;">
+                Matendo provides fast, reliable access to certified doctors and medical professionals,
+                ready to assist with your healthcare needs. Whether you're looking for advice, second opinions,
+                or specialized care, Matendo connects you to the best experts in the field.
+            </p>
+            <div style="margin-top: 40px;">
+                <a href="hire.html" class="hero-btn">Hire Medical Talent</a>
+            </div>
+        </div>
+
+        <div class="hero-image blur-effect">
+            <img src="images/doc1.png" alt="Medical Professional" style="height: 500px"
+                class="hero-img rounded-full w-100 h-95 object-cover">
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works" id="how-it-works">
+    <div class="how-it-works-container">
+        <h2 class="section-title">How It Works</h2>
+        <div class="how-it-works-grid">
+            <div class="how-it-works-card">
+                <div class="how-it-works-icon">
+                    <i class="fas fa-user-md"></i>
                 </div>
-                
-                <div class="w-full md:w-1/2 mt-12 md:mt-0 flex justify-center">
-                    <img src="images/doc1.png" alt="Medical Professional" class="rounded-lg shadow-lg max-w-md object-cover object-top">
+                <h3>Create Profile</h3>
+                <p>Build your professional profile and showcase your qualifications</p>
+            </div>
+            <div class="how-it-works-card">
+                <div class="how-it-works-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Find Opportunities</h3>
+                <p>Browse and apply for positions that match your preferences</p>
+            </div>
+            <div class="how-it-works-card">
+                <div class="how-it-works-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <h3>Start Working</h3>
+                <p>Begin your assignments with full platform support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="talent-section">
+    <div class="talent-container">
+        <h2 class="section-title">Featured Medical Professionals</h2>
+        <div class="talent-grid" id="talentGrid">
+            <div class="talent-card">
+                <img src="images/doc1.png" alt="Dr. Sarah Williams" class="talent-img">
+                <div class="talent-info">
+                    <h3 class="talent-name">Dr. Sarah Williams</h3>
+                    <p class="talent-specialty">General Practice</p>
+                </div>
+            </div>
+            <div class="talent-card">
+                <img src="images/doc2.png" alt="Dr. James Smith" class="talent-img">
+                <div class="talent-info">
+                    <h3 class="talent-name">Dr. James Smith</h3>
+                    <p class="talent-specialty">Cardiology</p>
+                </div>
+            </div>
+            <div class="talent-card">
+                <img src="images/doc3.png" alt="Dr. Emily Brown" class="talent-img">
+                <div class="talent-info">
+                    <h3 class="talent-name">Dr. Emily Brown</h3>
+                    <p class="talent-specialty">Pediatrics</p>
+                </div>
+            </div>
+            <div class="talent-card">
+                <img src="images/doc4.png" alt="Dr. Mark Johnson" class="talent-img">
+                <div class="talent-info">
+                    <h3 class="talent-name">Dr. Mark Johnson</h3>
+                    <p class="talent-specialty">Orthopedics</p>
+                </div>
+            </div>
+            <div class="talent-card">
+                <img src="images/doc5.png" alt="Dr. Sophia Chen" class="talent-img">
+                <div class="talent-info">
+                    <h3 class="talent-name">Dr. Sophia Chen</h3>
+                    <p class="talent-specialty">Neurology</p>
+                </div>
+            </div>
+            <div class="talent-card">
+                <img src="images/doc6.png" alt="Dr. Robert Taylor" class="talent-img">
+                <div class="talent-info">
+                    <h3 class="talent-name">Dr. Robert Taylor</h3>
+                    <p class="talent-specialty">Oncology</p>
                 </div>
             </div>
         </div>
-    </section>
+        <button class="talent-nav-btn" id="prevBtn" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <button class="talent-nav-btn" id="nextBtn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+        
+        <!-- Added pagination dots -->
+        <div class="pagination-dots" id="paginationDots"></div>
+    </div>
+</section>
 
-    <!-- Services Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Healthcare Services</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-stethoscope-line ri-xl text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Primary Care</h3>
-                    <p class="text-gray-600">Access to general practitioners for routine check-ups, preventive care, and management of common health issues.</p>
+<!-- Personal Healthcare Support Section -->
+<section class="personal-healthcare" id="personal-healthcare">
+    <div class="personal-healthcare-container">
+        <h2 class="section-title">Personal Healthcare Support</h2>
+        <p style="text-align: center; margin-bottom: 30px; color: #666;">Find qualified healthcare professionals for your personal care needs</p>
+        <div class="personal-healthcare-grid">
+            <div class="personal-healthcare-card">
+                <div class="personal-healthcare-icon">
+                    <i class="fas fa-user-nurse"></i>
                 </div>
-                
-                <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-mental-health-line ri-xl text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Specialist Consultations</h3>
-                    <p class="text-gray-600">Connect with specialists in cardiology, neurology, dermatology, pediatrics, and many other medical fields.</p>
+                <h3>Home Care Services</h3>
+                <p>Access qualified nurses and caregivers for personalized home healthcare support.</p>
+                <ul class="personal-healthcare-list">
+                    <li><i class="fas fa-check"></i> Post-surgery care</li>
+                    <li><i class="fas fa-check"></i> Elderly care support</li>
+                    <li><i class="fas fa-check"></i> Medication management</li>
+                </ul>
+            </div>
+            <div class="personal-healthcare-card">
+                <div class="personal-healthcare-icon">
+                    <i class="fas fa-heartbeat"></i>
                 </div>
-                
-                <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-24-hours-line ri-xl text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Urgent Care</h3>
-                    <p class="text-gray-600">Quick access to medical professionals for non-emergency but urgent health concerns.</p>
+                <h3>Specialized Care</h3>
+                <p>Connect with specialists for specific health conditions and rehabilitation needs.</p>
+                <ul class="personal-healthcare-list">
+                    <li><i class="fas fa-check"></i> Physical therapy</li>
+                    <li><i class="fas fa-check"></i> Chronic condition care</li>
+                    <li><i class="fas fa-check"></i> Rehabilitation support</li>
+                </ul>
+            </div>
+            <div class="personal-healthcare-card">
+                <div class="personal-healthcare-icon">
+                    <i class="fas fa-calendar-check"></i>
                 </div>
+                <h3>Flexible Scheduling</h3>
+                <p>Book healthcare professionals according to your schedule and requirements.</p>
+                <ul class="personal-healthcare-list">
+                    <li><i class="fas fa-check"></i> Short-term assistance</li>
+                    <li><i class="fas fa-check"></i> Regular appointments</li>
+                    <li><i class="fas fa-check"></i> Emergency coverage</li>
+                </ul>
             </div>
         </div>
-    </section>
-
-    <!-- Featured Professionals Section -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Featured Medical Professionals</h2>
-            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Our network includes board-certified physicians and specialists with years of experience in their respective fields.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="images/doc1.png" alt="Dr. Sarah Williams" class="w-full h-full object-cover object-top professional-img">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">Dr. Sarah Williams</h3>
-                        <p class="text-primary font-medium mb-2">General Practice</p>
-                        <p class="text-gray-600 text-sm mb-3">Experienced in providing comprehensive primary care for all ages.</p>
-                        <div class="flex justify-end">
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="images/doc2.png" alt="Dr. James Smith" class="w-full h-full object-cover object-top professional-img">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">Dr. James Smith</h3>
-                        <p class="text-primary font-medium mb-2">Cardiology</p>
-                        <p class="text-gray-600 text-sm mb-3">Specialist in cardiovascular health with over 15 years of experience.</p>
-                        <div class="flex justify-end">
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="images/doc3.png" alt="Dr. Emily Brown" class="w-full h-full object-cover object-top professional-img">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">Dr. Emily Brown</h3>
-                        <p class="text-primary font-medium mb-2">Pediatrics</p>
-                        <p class="text-gray-600 text-sm mb-3">Dedicated to the health and well-being of children and adolescents.</p>
-                        <div class="flex justify-end">
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="images/doc4.png" alt="Dr. Mark Johnson" class="w-full h-full object-cover object-top professional-img">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">Dr. Mark Johnson</h3>
-                        <p class="text-primary font-medium mb-2">Orthopedics</p>
-                        <p class="text-gray-600 text-sm mb-3">Expert in musculoskeletal conditions and surgical interventions.</p>
-                        <div class="flex justify-end">
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="images/doc5.png" alt="Dr. Sophia Chen" class="w-full h-full object-cover object-top professional-img">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">Dr. Sophia Chen</h3>
-                        <p class="text-primary font-medium mb-2">Neurology</p>
-                        <p class="text-gray-600 text-sm mb-3">Specializing in neurological disorders with a focus on patient care.</p>
-                        <div class="flex justify-end">
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="images/doc6.png" alt="Dr. Robert Taylor" class="w-full h-full object-cover object-top professional-img">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">Dr. Robert Taylor</h3>
-                        <p class="text-primary font-medium mb-2">Oncology</p>
-                        <p class="text-gray-600 text-sm mb-3">Experienced in cancer treatment and patient support.</p>
-                        <div class="flex justify-end">
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="images/doc1.png" alt="Dr. Angela Davis" class="w-full h-full object-cover object-top professional-img">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">Dr. Angela Davis</h3>
-                        <p class="text-primary font-medium mb-2">Dermatology</p>
-                        <p class="text-gray-600 text-sm mb-3">Focused on skin health and cosmetic dermatology.</p>
-                        <div class="flex justify-end">
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="images/doc2.png" alt="Dr. Thomas Lee" class="w-full h-full object-cover object-top professional-img">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">Dr. Thomas Lee</h3>
-                        <p class="text-primary font-medium mb-2">Endocrinology</p>
-                        <p class="text-gray-600 text-sm mb-3">Specialist in hormonal disorders and diabetes management.</p>
-                        <div class="flex justify-end">
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="#" class="inline-block px-6 py-3 border border-primary text-primary hover:bg-primary/5 transition-colors duration-300 font-medium !rounded-button whitespace-nowrap">View All Professionals</a>
-            </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="#" class="hero-btn">Find Care Now <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- How It Works Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">How Matendo Works</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-xl font-bold">1</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Create an Account</h3>
-                    <p class="text-gray-600">Sign up and complete your profile with your healthcare needs and preferences.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-xl font-bold">2</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Browse Professionals</h3>
-                    <p class="text-gray-600">Search and filter through our network of certified medical professionals.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-xl font-bold">3</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Schedule Appointment</h3>
-                    <p class="text-gray-600">Book a consultation at your preferred time, either in-person or via telehealth.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-xl font-bold">4</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Receive Care</h3>
-                    <p class="text-gray-600">Connect with your healthcare provider and get the medical attention you need.</p>
-                </div>
-            </div>
+<section class="features">
+    <div class="features-container">
+        <div class="feature">
+            <i class="fas fa-user-md"></i>
+            <h3>Vetted Professionals</h3>
+            <p>Thoroughly screened for qualifications and experience.</p>
         </div>
-    </section>
+        <div class="feature">
+            <i class="fas fa-clock"></i>
+            <h3>Fast Onboarding</h3>
+            <p>Quickly matched with professionals for urgent needs.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-handshake"></i>
+            <h3>Flexible Contracts</h3>
+            <p>Full-time, part-time, or contract-based arrangements.</p>
+        </div>
+    </div>
+</section>
 
-    <!-- Testimonials Section -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">What Our Clients Say</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-lg shadow-sm">
-                    <p class="text-gray-600 mb-6">"Matendo made it incredibly easy to find a specialist for my condition. The appointment was scheduled within 24 hours, and the doctor was excellent. Highly recommend!"</p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Rebecca Thompson</h4>
-                            <p class="text-gray-600 text-sm">Patient</p>
-                        </div>
+<!-- Platform Benefits Section -->
+<section class="platform-benefits" id="for-professionals">
+    <div class="platform-benefits-container">
+        <div class="platform-benefits-row">
+            <div class="platform-benefits-image">
+                <img src="images/healthcare-professional.jpg" alt="Healthcare professional using the platform">
+            </div>
+            <div class="platform-benefits-content">
+                <h2 class="section-title" style="text-align: left; padding-bottom: 20px;">For Healthcare Professionals</h2>
+                <div class="platform-benefits-item">
+                    <div class="platform-benefits-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div>
+                        <h3>Complete Schedule Control</h3>
+                        <p>Choose when and where you work with our intuitive scheduling system. Pick up shifts that fit your lifestyle and preferences.</p>
                     </div>
                 </div>
-                
-                <div class="bg-white p-8 rounded-lg shadow-sm">
-                    <p class="text-gray-600 mb-6">"As someone who travels frequently, having access to quality healthcare professionals through Matendo has been a game-changer. I can connect with my doctor from anywhere."</p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Daniel Okafor</h4>
-                            <p class="text-gray-600 text-sm">Business Executive</p>
-                        </div>
+                <div class="platform-benefits-item">
+                    <div class="platform-benefits-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div>
+                        <h3>Competitive Compensation</h3>
+                        <p>Earn what you're worth with transparent pay rates and timely payments directly to your account.</p>
                     </div>
                 </div>
-                
-                <div class="bg-white p-8 rounded-lg shadow-sm">
-                    <p class="text-gray-600 mb-6">"The pediatrician we found through Matendo has been wonderful with our children. She takes the time to listen and explain everything clearly. We're very satisfied with the service."</p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Jennifer and Mark Wilson</h4>
-                            <p class="text-gray-600 text-sm">Parents</p>
-                        </div>
+                <div class="platform-benefits-item">
+                    <div class="platform-benefits-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div>
+                        <h3>Professional Growth</h3>
+                        <p>Expand your experience by working in diverse healthcare settings and building a robust professional network.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-16 bg-primary/10">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Ready to Connect with Top Medical Professionals?</h2>
-            <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">Join thousands of patients who have found the right healthcare provider through Matendo.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="join.html" class="px-8 py-3 bg-primary text-white font-medium transition-colors duration-300 hover:bg-primary/90 !rounded-button whitespace-nowrap">Join Matendo Today</a>
-                <a href="#" class="px-8 py-3 border border-primary text-primary hover:bg-primary/5 transition-colors duration-300 font-medium !rounded-button whitespace-nowrap">Learn More</a>
+        <div class="platform-benefits-row" id="for-facilities">
+            <div class="platform-benefits-image">
+                <img src="images/healthcare-facility.jpg" alt="Healthcare facility manager using the platform">
             </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <a href="/" title="Matendo" aria-label="Matendo">
-                        <img src="images/matelogo4.png" alt="Matendo Logo" class="h-12 mb-4">
-                    </a>
-                    <p class="text-gray-400">Connecting patients with qualified healthcare professionals for better health outcomes.</p>
+            <div class="platform-benefits-content">
+                <h2 class="section-title" style="text-align: left; padding-bottom: 20px;">For Healthcare Facilities</h2>
+                <div class="platform-benefits-item">
+                    <div class="platform-benefits-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <h3>Access to Verified Talent</h3>
+                        <p>Quickly find and secure qualified healthcare professionals with verified credentials and experience.</p>
+                    </div>
                 </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Find a Doctor</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-                    </ul>
+                <div class="platform-benefits-item">
+                    <div class="platform-benefits-icon">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <div>
+                        <h3>Fill Shifts Rapidly</h3>
+                        <p>Post open positions and get them filled quickly, even for last-minute staffing needs.</p>
+                    </div>
                 </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">For Professionals</h4>
-                    <ul class="space-y-2">
-                        <li><a href="join.html" class="text-gray-400 hover:text-white transition-colors">Join Our Network</a></li>
-                        <li><a href="login.html" class="text-gray-400 hover:text-white transition-colors">Provider Login</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Resources</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Partner With Us</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-gray-400">
-                            <i class="ri-map-pin-line mr-2"></i> 123 Medical Plaza, Suite 456
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="ri-phone-line mr-2"></i> (800) 123-4567
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="ri-mail-line mr-2"></i> info@matendo.com
-                        </li>
-                    </ul>
-                    <div class="flex space-x-4 mt-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-facebook-fill"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-twitter-x-fill"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-linkedin-fill"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-instagram-fill"></i>
-                        </a>
+                <div class="platform-benefits-item">
+                    <div class="platform-benefits-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h3>Cost-Effective Staffing</h3>
+                        <p>Reduce overhead costs associated with traditional staffing methods while maintaining high-quality care.</p>
                     </div>
                 </div>
             </div>
-            
-            <div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm">© 2025 Matendo. All rights reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm">Cookie Policy</a>
-                </div>
+        </div>
+    </div>
+</section>
+
+<!-- App Download Section -->
+<section class="app-download">
+    <div class="app-download-container">
+        <div class="app-download-image">
+            <img src="images/app-screenshot.jpg" alt="Matendo Health Mobile App">
+        </div>
+        <div class="app-download-content">
+            <h2 class="section-title" style="text-align: left; padding-bottom: 20px;">Get Real-Time Alerts</h2>
+            <p style="margin-bottom: 20px; color: #666; font-size: 1.1rem;">Never miss an opportunity with our mobile app. Receive instant notifications about new shifts that match your preferences.</p>
+            <div class="app-store-buttons">
+                <a href="#" class="app-store-button">
+                    <i class="fab fa-apple"></i>
+                    <div class="app-store-button-text">
+                        <small>Download on the</small>
+                        <strong>App Store</strong>
+                    </div>
+                </a>
+                <a href="#" class="app-store-button">
+                    <i class="fab fa-google-play"></i>
+                    <div class="app-store-button-text">
+                        <small>Get it on</small>
+                        <strong>Google Play</strong>
+                    </div>
+                </a>
+            </div>
+            <ul class="app-features-list">
+                <li><i class="fas fa-check"></i> Instant shift notifications based on your preferences</li>
+                <li><i class="fas fa-check"></i> One-tap shift acceptance and scheduling</li>
+                <li><i class="fas fa-check"></i> Secure messaging with facilities and patients</li>
+                <li><i class="fas fa-check"></i> Real-time earnings tracking and reports</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter">
+    <div class="newsletter-container">
+        <h2 class="section-title">Stay Updated</h2>
+        <p style="margin-bottom: 20px; color: #666;">Get the latest healthcare staffing trends and opportunities delivered to your inbox</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email address" class="newsletter-input">
+            <button type="submit" class="newsletter-button">Subscribe</button>
+        </form>
+        <p style="margin-top: 10px; font-size: 0.8rem; color: #999;">We respect your privacy. Unsubscribe at any time.</p>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-column">
+            <h3>About Us</h3>
+            <p style="font-size: 1rem; color: #666; line-height: 1.4;">
+                Connecting healthcare facilities with top medical talent worldwide.
+            </p>
+            <div class="social-icons">
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
             </div>
         </div>
-    </footer>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:info@matendo.com" style="color: blue;">info@matendo.com</a></li>
+                <li><a href="tel:+256781053105">+256 781 053 105</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Careers</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Testimonials</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const menuButton = document.querySelector('.ri-menu-line').parentElement;
-            const nav = document.querySelector('nav');
-            
-            menuButton.addEventListener('click', function() {
-                nav.classList.toggle('hidden');
-            });
+<!-- Get Started Modal -->
+<div class="modal-overlay" id="getStartedModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Get Started</h3>
+            <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <a href="join.html" class="modal-option modal-option-primary">
+                <i class="fas fa-user-md"></i> Join as Healthcare Professional
+            </a>
+            <a href="#for-facilities" class="modal-option modal-option-secondary" id="hireTalentBtn">
+                <i class="fas fa-hospital"></i> Hire Healthcare Staff
+            </a>
+        </div>
+    </div>
+</div>
 
-            // Navbar transparency on scroll
-            const header = document.querySelector('header');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+<!-- Floating Elements -->
+<div class="floating-chat" id="chatButton">
+    <i class="fas fa-headset"></i>
+</div>
+<div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+<div class="cookie-consent" id="cookieConsent">
+    <div class="cookie-text">
+        <p>We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+    </div>
+    <div class="cookie-buttons">
+        <button class="cookie-accept" id="acceptCookies">Accept</button>
+        <button class="cookie-decline" id="declineCookies">Decline</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const talentGrid = document.getElementById('talentGrid');
+        const talentCards = talentGrid.querySelectorAll('.talent-card');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const paginationDots = document.getElementById('paginationDots');
+        const navContainer = document.querySelector('.nav-container');
+        const backToTop = document.getElementById('backToTop');
+        const cookieConsent = document.getElementById('cookieConsent');
+        const acceptCookies = document.getElementById('acceptCookies');
+        const declineCookies = document.getElementById('declineCookies');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const getStartedModal = document.getElementById('getStartedModal');
+        const closeModal = document.getElementById('closeModal');
+        const hireTalentBtn = document.getElementById('hireTalentBtn');
+        const chatButton = document.getElementById('chatButton');
+        
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', function() {
+            if (mobileMenu.style.display === 'block') {
+                mobileMenu.style.display = 'none';
+                mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+            } else {
+                mobileMenu.style.display = 'block';
+                mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
+                mobileMenu.style.display = 'none';
+                mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // Get Started Modal
+        function openGetStartedModal() {
+            getStartedModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeGetStartedModal() {
+            getStartedModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Add click event to any "Get Started" buttons
+        document.querySelectorAll('.hero-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.textContent.includes('Hire Medical Talent')) {
+                    e.preventDefault();
+                    openGetStartedModal();
                 }
             });
         });
-    </script>
+        
+        closeModal.addEventListener('click', closeGetStartedModal);
+        
+        // Close modal when clicking outside
+        getStartedModal.addEventListener('click', function(e) {
+            if (e.target === getStartedModal) {
+                closeGetStartedModal();
+            }
+        });
+        
+        hireTalentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeGetStartedModal();
+            const targetElement = document.getElementById('for-facilities');
+            if (targetElement) {
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Chat button functionality
+        chatButton.addEventListener('click', function() {
+            alert('Live chat support is coming soon!');
+        });
+        
+        // Handle navbar transparency on scroll
+        function handleScroll() {
+            if (window.scrollY > 10) { // Reduced threshold to make navbar change sooner
+                navContainer.classList.add('scrolled');
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            } else {
+                navContainer.classList.remove('scrolled');
+            }
+        }
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        
+        // Initialize navbar state
+        handleScroll();
+        
+        // Back to top functionality
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Cookie consent
+        if (localStorage.getItem('cookieConsent') === 'accepted' || localStorage.getItem('cookieConsent') === 'declined') {
+            cookieConsent.style.display = 'none';
+        }
+        
+        acceptCookies.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.style.display = 'none';
+        });
+        
+        declineCookies.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.style.display = 'none';
+        });
+        
+        // Calculate how many cards to show based on screen width
+        let cardsToShow = window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 3;
+        let currentIndex = 0;
+        let cardWidth = 0;
+        let maxIndex = 0;
+        
+        // Create pagination dots
+        function createPaginationDots() {
+            paginationDots.innerHTML = '';
+            maxIndex = Math.ceil(talentCards.length / cardsToShow) - 1;
+            
+            for (let i = 0; i <= maxIndex; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                });
+                paginationDots.appendChild(dot);
+            }
+        }
+        
+        // Update active dot
+        function updateActiveDot() {
+            const dots = paginationDots.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Calculate card width and max index
+        function calculateDimensions() {
+            // Determine cards to show based on screen width
+            cardsToShow = window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 3;
+            
+            // Calculate card width including margin
+            const cardStyle = window.getComputedStyle(talentCards[0]);
+            const marginRight = parseInt(cardStyle.marginRight);
+            cardWidth = talentCards[0].offsetWidth + marginRight;
+            
+            // Calculate max index
+            maxIndex = Math.ceil(talentCards.length / cardsToShow) - 1;
+            
+            // Recreate pagination dots
+            createPaginationDots();
+            
+            // Reset to first slide when resizing
+            goToSlide(0);
+        }
+        
+        // Go to specific slide
+        function goToSlide(index) {
+            if (index < 0) index = maxIndex;
+            if (index > maxIndex) index = 0;
+            
+            currentIndex = index;
+            const scrollPosition = index * cardsToShow * cardWidth;
+            
+            talentGrid.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+            
+            updateActiveDot();
+        }
+        
+        // Next slide
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+        
+        // Previous slide
+        function prevSlide() {
+            goToSlide(currentIndex - 1);
+        }
+        
+        // Initialize dimensions
+        calculateDimensions();
+        
+        // Event listeners
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        
+        // Auto scroll every 3 seconds
+        let autoScrollInterval = setInterval(nextSlide, 3000);
+        
+        // Pause auto-scroll when hovering over the carousel
+        talentGrid.addEventListener('mouseenter', () => {
+            clearInterval(autoScrollInterval);
+        });
+        
+        talentGrid.addEventListener('mouseleave', () => {
+            autoScrollInterval = setInterval(nextSlide, 3000);
+        });
+        
+        // Recalculate on window resize
+        window.addEventListener('resize', calculateDimensions);
+        
+        // Touch events for mobile swipe
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        talentGrid.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            clearInterval(autoScrollInterval);
+        }, { passive: true });
+        
+        talentGrid.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            autoScrollInterval = setInterval(nextSlide, 3000);
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextSlide(); // Swipe left
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                prevSlide(); // Swipe right
+            }
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu.style.display === 'block') {
+                        mobileMenu.style.display = 'none';
+                        mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
