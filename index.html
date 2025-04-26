@@ -952,9 +952,6 @@
         background-color: rgba(40, 167, 69, 0.05);
         padding: 25px; /* Reduced from 30px to 25px */
         border-radius: 16px;
-        text167,69,0.05);
-        padding: 25px; /* Reduced from 30px to 25px */
-        border-radius: 16px;
         text-align: center;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
         border: 1px solid rgba(40, 167, 69, 0.1);
@@ -1256,7 +1253,7 @@
         padding-left: 0;
     }
 
-    /* Modal Styles */
+    /* Updated Modal Styles - focusing on the popup container itself */
     .modal-overlay {
         display: none;
         position: fixed;
@@ -1264,41 +1261,85 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.3);
         z-index: 2000;
         justify-content: center;
         align-items: center;
+        transition: all 0.3s ease;
     }
 
     .modal-container {
-        background-color: white;
-        border-radius: 12px;
+        background-color: rgba(255, 255, 255, 0.65); /* More transparent background */
+        border-radius: 24px; /* Increased border radius for softer look */
         max-width: 500px;
         width: 90%;
-        padding: 30px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        padding: 35px; /* Increased padding */
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.1),
+            0 1px 8px rgba(255, 255, 255, 0.2) inset,
+            0 -1px 8px rgba(0, 0, 0, 0.05) inset; /* Multi-layered shadow for depth */
         transform: scale(0.95);
         opacity: 0;
         transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.4); /* Brighter border */
+        backdrop-filter: blur(15px); /* Stronger blur for the container */
+        -webkit-backdrop-filter: blur(15px); /* For Safari */
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Add decorative elements to the popup */
+    .modal-container::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(40, 167, 69, 0.15) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
+    }
+    
+    .modal-container::after {
+        content: '';
+        position: absolute;
+        bottom: -50px;
+        left: -50px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(0, 123, 255, 0.15) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
     }
 
     .modal-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border */
+        padding-bottom: 15px;
+        position: relative;
+        z-index: 1;
     }
 
     .modal-title {
-        font-size: 1.6rem; /* Reduced from 1.8rem to 1.6rem */
+        font-size: 1.8rem; /* Larger title */
         font-weight: 700;
         color: #333;
+        position: relative;
+        background: linear-gradient(to right, #28a745, #1e7e7c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
     }
 
     .modal-close {
-        background: none;
+        background: rgba(255, 255, 255, 0.3);
         border: none;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         cursor: pointer;
         color: #666;
         width: 36px;
@@ -1307,71 +1348,143 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
     }
 
     .modal-close:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(255, 255, 255, 0.5);
         color: #333;
+        transform: rotate(90deg);
     }
 
     .modal-body {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
     }
 
     .option-button {
         display: flex;
         align-items: center;
         width: 100%;
-        padding: 15px 20px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-        border: 2px solid #eee;
-        background-color: white;
+        padding: 20px 25px; /* Increased padding */
+        margin-bottom: 20px; /* Increased margin */
+        border-radius: 16px; /* Increased border radius */
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.3);
         text-align: left;
         font-size: 1.1rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Add subtle hover animation to buttons */
+    .option-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(120deg, 
+            rgba(255, 255, 255, 0) 0%, 
+            rgba(255, 255, 255, 0.1) 50%, 
+            rgba(255, 255, 255, 0) 100%);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+    
+    .option-button:hover::before {
+        transform: translateX(100%);
     }
 
     .option-button.professional {
         color: #28a745;
-        border-color: #28a745;
+        border-color: rgba(40, 167, 69, 0.3);
     }
 
     .option-button.professional:hover {
-        background-color: rgba(40, 167, 69, 0.05);
+        background-color: rgba(40, 167, 69, 0.15);
         transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(40, 167, 69, 0.15);
     }
 
     .option-button.facility {
         color: #007bff;
-        border-color: #007bff;
+        border-color: rgba(0, 123, 255, 0.3);
     }
 
     .option-button.facility:hover {
-        background-color: rgba(0, 123, 255, 0.05);
+        background-color: rgba(0, 123, 255, 0.15);
         transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 123, 255, 0.15);
     }
 
     .option-button i {
-        margin-right: 12px;
+        margin-right: 15px;
         font-size: 1.3rem;
+        background: rgba(255, 255, 255, 0.5);
+        width: 45px; /* Larger icon container */
+        height: 45px; /* Larger icon container */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .option-button.professional i {
+        color: #28a745;
+        background-color: rgba(40, 167, 69, 0.15);
+    }
+
+    .option-button.facility i {
+        color: #007bff;
+        background-color: rgba(0, 123, 255, 0.15);
+    }
+
+    .option-button:hover i {
+        transform: scale(1.1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .option-button span {
+        flex: 1;
+        transition: all 0.3s ease;
     }
 
     .option-button .arrow {
         margin-left: auto;
         transition: transform 0.3s ease;
+        opacity: 0.7;
+        background: transparent;
+        width: auto;
+        height: auto;
+        box-shadow: none;
     }
 
     .option-button:hover .arrow {
         transform: translateX(5px);
+        opacity: 1;
     }
 
     .modal-footer {
         text-align: center;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         color: #666;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border */
+        position: relative;
+        z-index: 1;
     }
 
     .modal-show {
@@ -1383,152 +1496,44 @@
         opacity: 1;
     }
 
-    /* Improved mobile responsiveness */
+    /* Responsive adjustments for the modal */
     @media (max-width: 768px) {
-        .nav-container {
-            padding: 10px 4%;
-        }
-
-        .nav-links {
-            display: none;
-        }
-
-        .mobile-menu-button {
-            display: block;
-        }
-
-        .hero-content {
-            flex-direction: column;
-            text-align: center;
-            padding-top: 40px;
-        }
-
-        .hero-title::after {
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .hero-image {
-            display: none;
-        }
-
-        .features-container,
-        .how-it-works-grid,
-        .personal-healthcare-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        /* Show only 2 cards at a time on tablets */
-        .talent-card {
-            flex: 0 0 calc(50% - 20px);
-        }
-        
-        .talent-nav-btn {
-            width: 36px;
-            height: 36px;
-        }
-        
-        .section-title {
-            font-size: 1.4rem; /* Reduced from 1.6rem to 1.4rem */
-        }
-
-        .platform-benefits-row {
-            flex-direction: column !important;
-            gap: 0;
-        }
-
-        .platform-benefits-image {
-            min-height: 250px;
-        }
-
-        .platform-benefits-content {
+        .modal-container {
+            width: 85%;
             padding: 30px;
         }
-
-        .app-download-container {
-            flex-direction: column;
+        
+        .option-button {
+            padding: 18px 20px;
         }
-
-        .newsletter-form {
-            flex-direction: column;
-        }
-
-        .newsletter-input {
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .newsletter-button {
-            border-radius: 8px;
-        }
-
-        .cookie-consent {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .cookie-text {
-            margin-right: 0;
-            margin-bottom: 15px;
+        
+        .option-button i {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
         }
     }
 
     @media (max-width: 480px) {
-        .logo-img {
-            width: 150px;
-        }
-
-        .hero-title {
-            font-size: 1.8rem; /* Reduced from 2rem to 1.8rem */
-        }
-        
-        /* Show only 1 card at a time on small mobile */
-        .talent-card {
-            flex: 0 0 calc(100% - 40px);
-            margin: 0 auto;
-        }
-        
-        .talent-nav-btn {
-            width: 32px;
-            height: 32px;
-            top: 40%;
-        }
-        
-        .section-title {
-            font-size: 1.3rem; /* Reduced from 1.4rem to 1.3rem */
-        }
-        
-        .hero-section {
-            padding-top: 80px;
-        }
-
-        .app-store-buttons {
-            flex-direction: column;
-        }
-        
         .modal-container {
-            padding: 20px;
-            width: 95%;
+            width: 90%;
+            padding: 25px;
         }
-
-        .how-it-works-card,
-        .personal-healthcare-card,
-        .feature {
-            padding: 20px;
+        
+        .modal-title {
+            font-size: 1.5rem;
         }
-
-        .platform-benefits-content {
-            padding: 20px;
+        
+        .option-button {
+            padding: 15px 18px;
+            font-size: 1rem;
         }
-
-        .platform-benefits-item {
-            padding: 10px;
-        }
-
-        .platform-benefits-icon {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
+        
+        .option-button i {
+            width: 35px;
+            height: 35px;
+            font-size: 1.1rem;
+            margin-right: 12px;
         }
     }
 </style>
@@ -1858,7 +1863,7 @@
     </div>
 </div>
 
-<!-- Get Started Modal -->
+<!-- Updated Get Started Modal with enhanced glass morphism effect -->
 <div class="modal-overlay" id="getStartedModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -1870,12 +1875,12 @@
         <div class="modal-body">
             <button class="option-button professional" id="joinAsProfessional">
                 <i class="fas fa-user-md"></i>
-                Join as Healthcare Professional
+                <span>Join as Healthcare Professional</span>
                 <i class="fas fa-arrow-right arrow"></i>
             </button>
             <button class="option-button facility" id="hireHealthcareStaff">
                 <i class="fas fa-hospital"></i>
-                Hire Healthcare Staff
+                <span>Hire Healthcare Staff</span>
                 <i class="fas fa-arrow-right arrow"></i>
             </button>
         </div>
@@ -1953,15 +1958,19 @@
             showGetStartedModal();
         });
         
-        joinPlatformBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            showGetStartedModal();
-        });
+        if (joinPlatformBtn) {
+            joinPlatformBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showGetStartedModal();
+            });
+        }
         
         // Close modal when clicking the close button
-        closeModal.addEventListener('click', hideGetStartedModal);
+        closeModal.addEventListener('click', function() {
+            hideGetStartedModal();
+        });
         
-        // Close modal when clicking outside
+        // Close modal when clicking outside the modal
         getStartedModal.addEventListener('click', function(e) {
             if (e.target === getStartedModal) {
                 hideGetStartedModal();
@@ -1987,6 +1996,29 @@
                 });
             }
         });
+        
+        // Cookie consent functionality
+        function checkCookieConsent() {
+            if (localStorage.getItem('cookieConsent') === 'accepted' || 
+                localStorage.getItem('cookieConsent') === 'declined') {
+                cookieConsent.style.display = 'none';
+            } else {
+                cookieConsent.style.display = 'flex';
+            }
+        }
+        
+        acceptCookies.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.style.display = 'none';
+        });
+        
+        declineCookies.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.style.display = 'none';
+        });
+        
+        // Check cookie consent on page load
+        checkCookieConsent();
         
         // Mobile menu toggle
         mobileMenuButton.addEventListener('click', function() {
@@ -2035,21 +2067,6 @@
                 top: 0,
                 behavior: 'smooth'
             });
-        });
-        
-        // Cookie consent
-        if (localStorage.getItem('cookieConsent') === 'accepted' || localStorage.getItem('cookieConsent') === 'declined') {
-            cookieConsent.style.display = 'none';
-        }
-        
-        acceptCookies.addEventListener('click', function() {
-            localStorage.setItem('cookieConsent', 'accepted');
-            cookieConsent.style.display = 'none';
-        });
-        
-        declineCookies.addEventListener('click', function() {
-            localStorage.setItem('cookieConsent', 'declined');
-            cookieConsent.style.display = 'none';
         });
         
         // Calculate how many cards to show based on screen width
