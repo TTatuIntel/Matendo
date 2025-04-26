@@ -20,6 +20,45 @@
         scroll-behavior: smooth;
     }
 
+    /* Add subtle section dividers and alternating patterns */
+    section {
+        position: relative;
+        padding: 25px 5%; /* Reduced from 40px to 25px */
+        overflow: hidden;
+    }
+
+    section:nth-child(odd) {
+        background-image: linear-gradient(rgba(248, 249, 250, 0.7), rgba(248, 249, 250, 0.7)),
+                        url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    section:nth-child(even) {
+        background-color: white;
+    }
+
+    /* Enhanced section title styling with reduced size */
+    .section-title {
+        text-align: center;
+        margin-bottom: 20px; /* Reduced from 25px to 20px */
+        font-size: 1.5rem; /* Reduced from 1.8rem to 1.5rem */
+        color: #323030;
+        position: relative;
+        padding-bottom: 10px; /* Reduced from 12px to 10px */
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px; /* Reduced from 60px to 50px */
+        height: 3px;
+        background: linear-gradient(to right, #28a745, #1e7e7c);
+        border-radius: 3px;
+    }
+
+    /* Keeping the exact navigation code as provided */
     .nav-container {
         position: fixed;
         top: 0;
@@ -121,6 +160,7 @@
         border-bottom: 1px solid #eee;
     }
 
+    /* Keeping the exact hero section code as provided */
     .hero-section {
         background-color: #f8f9fa;
         padding: 20px 5% 10px;
@@ -212,38 +252,13 @@
 
     /* Enhanced talent section */
     .talent-section {
-        padding: 40px 5% 40px;
-        background-color: #fff;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        padding: 25px 5%; /* Reduced from 40px to 25px */
     }
 
     .talent-container {
         max-width: 1000px;
         margin: 0 auto;
         position: relative;
-    }
-
-    .section-title {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 1.5rem;
-        color: #323030;
-        position: relative;
-        padding-bottom: 10px;
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 3px;
-        background-color: #28a745;
-        border-radius: 3px;
     }
 
     .talent-grid {
@@ -259,16 +274,16 @@
         margin-right: 20px;
         background-color: white;
         border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         overflow: hidden;
         transition: all 0.3s ease;
         border: 1px solid #f0f0f0;
     }
 
     .talent-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-        border-color: #e0e0e0;
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        border-color: rgba(40, 167, 69, 0.2);
     }
 
     .talent-img {
@@ -319,13 +334,13 @@
         align-items: center;
         justify-content: center;
         z-index: 10;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .talent-nav-btn:hover {
         background-color: #28a745;
         color: white;
-        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3);
     }
 
     #prevBtn {
@@ -360,8 +375,7 @@
 
     /* How It Works Section */
     .how-it-works {
-        padding: 20px 5% 40px; /* Reduced top padding */
-        background-color: #f8f9fa;
+        padding: 25px 5%; /* Reduced from 40px to 25px */
     }
 
     .how-it-works-container {
@@ -377,15 +391,30 @@
 
     .how-it-works-card {
         background-color: white;
-        padding: 20px;
+        padding: 25px;
         border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .how-it-works-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, #28a745, #1e7e7c);
+        z-index: 2;
     }
 
     .how-it-works-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
     }
 
     .how-it-works-icon {
@@ -397,6 +426,12 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .how-it-works-card:hover .how-it-works-icon {
+        background-color: rgba(40, 167, 69, 0.2);
+        transform: scale(1.1);
     }
 
     .how-it-works-icon i {
@@ -404,9 +439,25 @@
         color: #28a745;
     }
 
+    .how-it-works-card h3 {
+        font-size: 1.2rem; /* Reduced from 1.3rem to 1.2rem */
+        margin-bottom: 10px;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .how-it-works-card h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: rgba(40, 167, 69, 0.5);
+    }
+
     .features {
-        padding: 30px 5%;
-        background-color: #f8f9fa;
+        padding: 25px 5%; /* Reduced from 40px to 25px */
     }
 
     .features-container {
@@ -419,39 +470,59 @@
 
     .feature {
         text-align: center;
-        padding: 15px;
+        padding: 25px;
         background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        transition: transform 0.3s ease;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, transparent 100%);
+        z-index: 0;
     }
 
     .feature:hover {
-        transform: translateY(-2px);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
     .feature i {
-        font-size: 1.5rem;
+        font-size: 2rem;
         color: #28a745;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
     }
 
     .feature h3 {
-        font-size: 1rem;
-        margin-bottom: 5px;
+        font-size: 1.1rem; /* Reduced from 1.2rem to 1.1rem */
+        margin-bottom: 10px;
         color: #333;
+        position: relative;
+        z-index: 1;
     }
 
     .feature p {
         font-size: 1rem;
         color: #666;
-        line-height: 1.4;
+        line-height: 1.5;
+        position: relative;
+        z-index: 1;
     }
 
     /* Personal Healthcare Support Section */
     .personal-healthcare {
-        padding: 20px 5% 40px; /* Reduced top padding */
-        background-color: white;
+        padding: 25px 5%; /* Reduced from 40px to 25px */
     }
 
     .personal-healthcare-container {
@@ -467,15 +538,29 @@
 
     .personal-healthcare-card {
         background-color: #f8f9fa;
-        padding: 20px;
+        padding: 25px;
         border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
         transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .personal-healthcare-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(40, 167, 69, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
     }
 
     .personal-healthcare-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
     .personal-healthcare-icon {
@@ -487,6 +572,8 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
     }
 
     .personal-healthcare-icon i {
@@ -502,7 +589,21 @@
     .personal-healthcare-list li {
         display: flex;
         align-items: center;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 10px;
+    }
+
+    .personal-healthcare-list li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 15px;
+        background-color: rgba(40, 167, 69, 0.3);
+        border-radius: 3px;
     }
 
     .personal-healthcare-list i {
@@ -510,22 +611,79 @@
         margin-right: 10px;
     }
 
-    /* Platform Benefits Section */
+    .personal-healthcare-card h3 {
+        font-size: 1.1rem; /* Added to reduce title size */
+    }
+
+    /* IMPROVED Platform Benefits Section */
     .platform-benefits {
-        padding: 20px 5% 0px; /* Reduced bottom padding to 0 */
-        background-color: #f8f9fa;
+        padding: 30px 5%; /* Reduced from 50px to 30px */
+        background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .platform-benefits::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(to right, transparent, rgba(40, 167, 69, 0.4), transparent);
     }
 
     .platform-benefits-container {
-        max-width: 1000px;
+        max-width: 1100px;
         margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .platform-benefits-intro {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 30px; /* Reduced from 40px to 30px */
+    }
+
+    .platform-benefits-intro p {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-top: 15px;
     }
 
     .platform-benefits-row {
         display: flex;
-        align-items: center;
-        gap: 30px;
-        margin-bottom: 20px;
+        align-items: stretch;
+        gap: 40px;
+        margin-bottom: 40px; /* Reduced from 50px to 40px */
+        position: relative;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .platform-benefits-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .platform-benefits-row::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, #28a745, #1e7e7c);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .platform-benefits-row:hover::after {
+        opacity: 1;
     }
 
     .platform-benefits-row:nth-child(even) {
@@ -534,134 +692,137 @@
 
     .platform-benefits-image {
         flex: 1;
+        position: relative;
+        overflow: hidden;
+        min-height: 400px;
     }
 
     .platform-benefits-image img {
         width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.5s ease;
+    }
+
+    .platform-benefits-row:hover .platform-benefits-image img {
+        transform: scale(1.05);
     }
 
     .platform-benefits-content {
         flex: 1;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .platform-benefits-content h2 {
+        font-size: 1.5rem; /* Reduced from 1.8rem to 1.5rem */
+        margin-bottom: 20px;
+        color: #333;
+        position: relative;
+        padding-bottom: 15px;
+        text-align: left;
+    }
+
+    .platform-benefits-content h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px; /* Reduced from 60px to 50px */
+        height: 3px;
+        background: linear-gradient(to right, #28a745, #1e7e7c);
+        border-radius: 3px;
     }
 
     .platform-benefits-item {
         display: flex;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .platform-benefits-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .platform-benefits-item:hover {
+        background-color: rgba(40, 167, 69, 0.05);
+        transform: translateX(5px);
     }
 
     .platform-benefits-icon {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         background-color: rgba(40, 167, 69, 0.1);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 15px;
+        margin-right: 20px;
         flex-shrink: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .platform-benefits-item:hover .platform-benefits-icon {
+        background-color: rgba(40, 167, 69, 0.2);
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 6px 15px rgba(40, 167, 69, 0.15);
     }
 
     .platform-benefits-icon i {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         color: #28a745;
     }
 
-    /* Get Started Modal */
-    .modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 2000;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .modal {
-        background-color: white;
-        border-radius: 12px;
-        padding: 30px;
-        max-width: 500px;
-        width: 90%;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
-
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .modal-title {
-        font-size: 1.5rem;
-        font-weight: 700;
+    .platform-benefits-item h3 {
+        font-size: 1.1rem; /* Reduced from 1.2rem to 1.1rem */
+        margin-bottom: 8px;
         color: #333;
     }
 
-    .modal-close {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: #999;
-        cursor: pointer;
-        transition: color 0.3s ease;
+    .platform-benefits-item p {
+        color: #666;
+        line-height: 1.6;
     }
 
-    .modal-close:hover {
-        color: #333;
-    }
-
-    .modal-body {
-        margin-bottom: 20px;
-    }
-
-    .modal-option {
-        display: block;
-        width: 100%;
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 8px;
+    .platform-benefits-cta {
         text-align: center;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
+        margin-top: 30px; /* Reduced from 40px to 30px */
     }
 
-    .modal-option-primary {
+    .platform-benefits-btn {
+        display: inline-block;
         background-color: #28a745;
         color: white;
+        padding: 12px 30px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
         border: none;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
     }
 
-    .modal-option-primary:hover {
+    .platform-benefits-btn:hover {
         background-color: #218838;
-    }
-
-    .modal-option-secondary {
-        background-color: white;
-        color: #28a745;
-        border: 2px solid #28a745;
-    }
-
-    .modal-option-secondary:hover {
-        background-color: rgba(40, 167, 69, 0.05);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
     }
 
     /* App Download Section */
     .app-download {
-        padding: 20px 5% 40px;
-        margin-top: -30px; /* Significant negative margin to pull the entire section up */
+        padding: 25px 5%; /* Reduced from 40px to 25px */
         background-color: rgba(40, 167, 69, 0.05);
-        position: relative; /* Added to ensure proper stacking */
-        z-index: 1; /* Ensure it's above previous section */
+        position: relative;
+        z-index: 1;
     }
 
     .app-download-container {
@@ -675,12 +836,32 @@
     .app-download-image {
         flex: 1;
         text-align: center;
+        position: relative;
+    }
+
+    .app-download-image::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(40, 167, 69, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: -1;
     }
 
     .app-download-image img {
         max-width: 300px;
         border-radius: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        border: 5px solid white;
+        transition: all 0.3s ease;
+    }
+
+    .app-download-image img:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
     }
 
     .app-download-content {
@@ -698,19 +879,22 @@
         align-items: center;
         background-color: #000;
         color: white;
-        padding: 10px 15px;
-        border-radius: 8px;
+        padding: 12px 18px;
+        border-radius: 10px;
         text-decoration: none;
         transition: all 0.3s ease;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     }
 
     .app-store-button:hover {
         background-color: #333;
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
     }
 
     .app-store-button i {
-        font-size: 1.5rem;
-        margin-right: 10px;
+        font-size: 1.8rem;
+        margin-right: 12px;
     }
 
     .app-store-button-text {
@@ -720,10 +904,11 @@
 
     .app-store-button-text small {
         font-size: 0.7rem;
+        opacity: 0.8;
     }
 
     .app-store-button-text strong {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
     .app-features-list {
@@ -733,56 +918,102 @@
     .app-features-list li {
         display: flex;
         align-items: center;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        position: relative;
+        padding-left: 15px;
+    }
+
+    .app-features-list li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 20px;
+        background-color: rgba(40, 167, 69, 0.3);
+        border-radius: 3px;
     }
 
     .app-features-list i {
         color: #28a745;
-        margin-right: 10px;
+        margin-right: 12px;
+        font-size: 1.1rem;
     }
 
     /* Newsletter Section */
     .newsletter {
-        padding: 40px 5%;
-        background-color: white;
+        padding: 25px 5%; /* Reduced from 40px to 25px */
     }
 
     .newsletter-container {
         max-width: 600px;
         margin: 0 auto;
         background-color: rgba(40, 167, 69, 0.05);
-        padding: 30px;
-        border-radius: 12px;
+        padding: 25px; /* Reduced from 30px to 25px */
+        border-radius: 16px;
+        text167,69,0.05);
+        padding: 25px; /* Reduced from 30px to 25px */
+        border-radius: 16px;
         text-align: center;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(40, 167, 69, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .newsletter-container::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(40, 167, 69, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
     }
 
     .newsletter-form {
         display: flex;
-        margin-top: 20px;
-        margin-bottom: 10px;
+        margin-top: 15px; /* Reduced from 20px to 15px */
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
     }
 
     .newsletter-input {
         flex: 1;
-        padding: 10px 15px;
+        padding: 12px 15px;
         border: 1px solid #ddd;
-        border-radius: 4px 0 0 4px;
+        border-radius: 8px 0 0 8px;
         font-size: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        transition: all 0.3s ease;
+    }
+
+    .newsletter-input:focus {
+        outline: none;
+        border-color: rgba(40, 167, 69, 0.5);
+        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.1);
     }
 
     .newsletter-button {
         background-color: #28a745;
         color: white;
         border: none;
-        padding: 10px 20px;
-        border-radius: 0 4px 4px 0;
+        padding: 12px 20px;
+        border-radius: 0 8px 8px 0;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
     }
 
     .newsletter-button:hover {
         background-color: #218838;
+        box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+        transform: translateY(-2px);
     }
 
     /* Cookie Consent */
@@ -791,13 +1022,16 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         padding: 15px;
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .cookie-text {
@@ -815,27 +1049,34 @@
         color: white;
         border: none;
         padding: 8px 15px;
-        border-radius: 4px;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
     }
 
     .cookie-accept:hover {
         background-color: #218838;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
     }
 
     .cookie-decline {
         background-color: #f8f9fa;
         color: #333;
-        border: none;
+        border: 1px solid #ddd;
         padding: 8px 15px;
-        border-radius: 4px;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
+        font-weight: 600;
     }
 
     .cookie-decline:hover {
         background-color: #e9ecef;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
 
     /* Floating Elements */
@@ -852,14 +1093,15 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         z-index: 100;
         transition: all 0.3s ease;
     }
 
     .floating-chat:hover {
         background-color: #218838;
-        transform: scale(1.05);
+        transform: scale(1.1);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
     }
 
     .floating-chat i {
@@ -879,7 +1121,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         z-index: 100;
         transition: all 0.3s ease;
         opacity: 0;
@@ -893,6 +1135,8 @@
 
     .back-to-top:hover {
         background-color: #555;
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
     }
 
     .back-to-top i {
@@ -901,22 +1145,45 @@
 
     .footer {
         background: #f8f9fa;
-        padding: 30px 5%;
+        padding: 40px 5% 30px;
         border-top: 1px solid #eee;
+        position: relative;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, transparent, rgba(40, 167, 69, 0.3), transparent);
     }
 
     .footer-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
         max-width: 1000px;
         margin: 0 auto;
     }
 
     .footer-column h3 {
-        font-size: 1rem;
-        margin-bottom: 10px;
+        font-size: 1.1rem; /* Reduced from 1.2rem to 1.1rem */
+        margin-bottom: 15px;
         color: #333;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: rgba(40, 167, 69, 0.5);
     }
 
     .footer-column ul {
@@ -924,41 +1191,202 @@
     }
 
     .footer-column ul li {
-        margin-bottom: 5px;
+        margin-bottom: 8px;
     }
 
     .footer-column a {
         color: #666;
         text-decoration: none;
         font-size: 1rem;
-        transition: color 0.3s ease;
+        transition: all 0.3s ease;
+        position: relative;
+        padding-left: 15px;
+    }
+
+    .footer-column a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: rgba(40, 167, 69, 0.3);
+        transition: all 0.3s ease;
     }
 
     .footer-column a:hover {
         color: #28a745;
+        padding-left: 20px;
+    }
+
+    .footer-column a:hover::before {
+        background-color: #28a745;
     }
 
     .social-icons {
         display: flex;
-        gap: 10px;
-        margin-top: 10px;
+        gap: 15px;
+        margin-top: 15px;
     }
 
     .social-icons a {
         color: #666;
-        font-size: 1rem;
+        font-size: 1.2rem;
         transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .social-icons a::before {
+        display: none;
     }
 
     .social-icons a:hover {
         color: #28a745;
-        transform: translateY(-2px);
+        background-color: rgba(40, 167, 69, 0.1);
+        transform: translateY(-5px);
+        padding-left: 0;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-container {
+        background-color: white;
+        border-radius: 12px;
+        max-width: 500px;
+        width: 90%;
+        padding: 30px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        transform: scale(0.95);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .modal-title {
+        font-size: 1.6rem; /* Reduced from 1.8rem to 1.6rem */
+        font-weight: 700;
+        color: #333;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-close:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #333;
+    }
+
+    .modal-body {
+        margin-bottom: 20px;
+    }
+
+    .option-button {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 2px solid #eee;
+        background-color: white;
+        text-align: left;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .option-button.professional {
+        color: #28a745;
+        border-color: #28a745;
+    }
+
+    .option-button.professional:hover {
+        background-color: rgba(40, 167, 69, 0.05);
+        transform: translateY(-3px);
+    }
+
+    .option-button.facility {
+        color: #007bff;
+        border-color: #007bff;
+    }
+
+    .option-button.facility:hover {
+        background-color: rgba(0, 123, 255, 0.05);
+        transform: translateY(-3px);
+    }
+
+    .option-button i {
+        margin-right: 12px;
+        font-size: 1.3rem;
+    }
+
+    .option-button .arrow {
+        margin-left: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .option-button:hover .arrow {
+        transform: translateX(5px);
+    }
+
+    .modal-footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .modal-show {
+        display: flex;
+    }
+
+    .modal-container-show {
+        transform: scale(1);
+        opacity: 1;
     }
 
     /* Improved mobile responsiveness */
     @media (max-width: 768px) {
         .nav-container {
-            padding: 8px 4%;
+            padding: 10px 4%;
         }
 
         .nav-links {
@@ -972,6 +1400,12 @@
         .hero-content {
             flex-direction: column;
             text-align: center;
+            padding-top: 40px;
+        }
+
+        .hero-title::after {
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .hero-image {
@@ -994,12 +1428,21 @@
             height: 36px;
         }
         
-        .hero-section {
-            padding-top: 40px; /* Reduced padding for mobile */
+        .section-title {
+            font-size: 1.4rem; /* Reduced from 1.6rem to 1.4rem */
         }
 
         .platform-benefits-row {
             flex-direction: column !important;
+            gap: 0;
+        }
+
+        .platform-benefits-image {
+            min-height: 250px;
+        }
+
+        .platform-benefits-content {
+            padding: 30px;
         }
 
         .app-download-container {
@@ -1011,12 +1454,12 @@
         }
 
         .newsletter-input {
-            border-radius: 4px;
+            border-radius: 8px;
             margin-bottom: 10px;
         }
 
         .newsletter-button {
-            border-radius: 4px;
+            border-radius: 8px;
         }
 
         .cookie-consent {
@@ -1036,7 +1479,7 @@
         }
 
         .hero-title {
-            font-size: 1.6rem;
+            font-size: 1.8rem; /* Reduced from 2rem to 1.8rem */
         }
         
         /* Show only 1 card at a time on small mobile */
@@ -1052,29 +1495,54 @@
         }
         
         .section-title {
-            font-size: 1.3rem;
+            font-size: 1.3rem; /* Reduced from 1.4rem to 1.3rem */
         }
         
         .hero-section {
-            padding-top: 45px; /* Further reduced padding for small mobile */
+            padding-top: 80px;
         }
 
         .app-store-buttons {
             flex-direction: column;
+        }
+        
+        .modal-container {
+            padding: 20px;
+            width: 95%;
+        }
+
+        .how-it-works-card,
+        .personal-healthcare-card,
+        .feature {
+            padding: 20px;
+        }
+
+        .platform-benefits-content {
+            padding: 20px;
+        }
+
+        .platform-benefits-item {
+            padding: 10px;
+        }
+
+        .platform-benefits-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
         }
     }
 </style>
 </head>
 
 <body>
- <nav class="nav-container">
+<nav class="nav-container">
     <div class="container">
         <div class="nav-content">
             <a href="index.html" title="Matendo" aria-label="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
             </a>
             <div class="nav-links">
-                <a href="join.html" class="nav-link">Join Matendo</a>
+                <a href="join.html" class="nav-link" id="getStartedBtn">Join Matendo</a>
                 <a href="login.html" class="nav-link">Login</a>
             </div>
             <button class="mobile-menu-button" id="mobileMenuButton">
@@ -1091,11 +1559,12 @@
         <a href="#for-professionals" class="mobile-menu-link">For Professionals</a>
         <a href="#for-facilities" class="mobile-menu-link">For Facilities</a>
         <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
-        <a href="join.html" class="mobile-menu-link">Join Matendo</a>
+        <a href="join.html" class="mobile-menu-link" id="getStartedBtnMobile">Join Matendo</a>
         <a href="login.html" class="mobile-menu-link">Login</a>
     </div>
 </div>
 
+<!-- Keeping the exact hero section as provided in the attachment -->
 <section class="hero-section">
     <div class="hero-content">
         <div class="hero-text">
@@ -1107,7 +1576,7 @@
                 or specialized care, Matendo connects you to the best experts in the field.
             </p>
             <div style="margin-top: 40px;">
-                <a href="hire.html" class="hero-btn">Hire Medical Talent</a>
+                <a href="#" class="hero-btn" id="hireTalentBtn">Get Started </a>
             </div>
         </div>
 
@@ -1203,11 +1672,31 @@
     </div>
 </section>
 
+<!-- Features Section -->
+<section class="features">
+    <div class="features-container">
+        <div class="feature">
+            <i class="fas fa-user-md"></i>
+            <h3>Vetted Professionals</h3>
+            <p>Thoroughly screened for qualifications and experience.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-clock"></i>
+            <h3>Fast Onboarding</h3>
+            <p>Quickly matched with professionals for urgent needs.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-handshake"></i>
+            <h3>Flexible Contracts</h3>
+            <p>Full-time, part-time, or contract-based arrangements.</p>
+        </div>
+    </div>
+</section>
+
 <!-- Personal Healthcare Support Section -->
 <section class="personal-healthcare" id="personal-healthcare">
     <div class="personal-healthcare-container">
         <h2 class="section-title">Personal Healthcare Support</h2>
-        <p style="text-align: center; margin-bottom: 30px; color: #666;">Find qualified healthcare professionals for your personal care needs</p>
         <div class="personal-healthcare-grid">
             <div class="personal-healthcare-card">
                 <div class="personal-healthcare-icon">
@@ -1246,104 +1735,8 @@
                 </ul>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="#" class="hero-btn">Find Care Now <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></a>
-        </div>
-    </div>
-</section>
-
-<section class="features">
-    <div class="features-container">
-        <div class="feature">
-            <i class="fas fa-user-md"></i>
-            <h3>Vetted Professionals</h3>
-            <p>Thoroughly screened for qualifications and experience.</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-clock"></i>
-            <h3>Fast Onboarding</h3>
-            <p>Quickly matched with professionals for urgent needs.</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-handshake"></i>
-            <h3>Flexible Contracts</h3>
-            <p>Full-time, part-time, or contract-based arrangements.</p>
-        </div>
-    </div>
-</section>
-
-<!-- Platform Benefits Section -->
-<section class="platform-benefits" id="for-professionals">
-    <div class="platform-benefits-container">
-        <div class="platform-benefits-row">
-            <div class="platform-benefits-image">
-                <img src="images/healthcare-professional.jpg" alt="Healthcare professional using the platform">
-            </div>
-            <div class="platform-benefits-content">
-                <h2 class="section-title" style="text-align: left; padding-bottom: 20px;">For Healthcare Professionals</h2>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div>
-                        <h3>Complete Schedule Control</h3>
-                        <p>Choose when and where you work with our intuitive scheduling system. Pick up shifts that fit your lifestyle and preferences.</p>
-                    </div>
-                </div>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <div>
-                        <h3>Competitive Compensation</h3>
-                        <p>Earn what you're worth with transparent pay rates and timely payments directly to your account.</p>
-                    </div>
-                </div>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <div>
-                        <h3>Professional Growth</h3>
-                        <p>Expand your experience by working in diverse healthcare settings and building a robust professional network.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="platform-benefits-row" id="for-facilities">
-            <div class="platform-benefits-image">
-                <img src="images/healthcare-facility.jpg" alt="Healthcare facility manager using the platform">
-            </div>
-            <div class="platform-benefits-content">
-                <h2 class="section-title" style="text-align: left; padding-bottom: 20px;">For Healthcare Facilities</h2>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div>
-                        <h3>Access to Verified Talent</h3>
-                        <p>Quickly find and secure qualified healthcare professionals with verified credentials and experience.</p>
-                    </div>
-                </div>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-stopwatch"></i>
-                    </div>
-                    <div>
-                        <h3>Fill Shifts Rapidly</h3>
-                        <p>Post open positions and get them filled quickly, even for last-minute staffing needs.</p>
-                    </div>
-                </div>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <h3>Cost-Effective Staffing</h3>
-                        <p>Reduce overhead costs associated with traditional staffing methods while maintaining high-quality care.</p>
-                    </div>
-                </div>
-            </div>
+        <div style="text-align: center; margin-top: 25px;">
+            <a href="#" class="hero-btn" id="findCareBtn">Find Care Now <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></a>
         </div>
     </div>
 </section>
@@ -1355,8 +1748,8 @@
             <img src="images/app-screenshot.jpg" alt="Matendo Health Mobile App">
         </div>
         <div class="app-download-content">
-            <h2 class="section-title" style="text-align: left; padding-bottom: 20px;">Get Real-Time Alerts</h2>
-            <p style="margin-bottom: 20px; color: #666; font-size: 1.1rem;">Never miss an opportunity with our mobile app. Receive instant notifications about new shifts that match your preferences.</p>
+            <h2 class="section-title" style="text-align: left; padding-bottom: 15px;">Get Real-Time Alerts</h2>
+            <p style="margin-bottom: 20px; color: #666; font-size: 1.1rem; line-height: 1.6;">Never miss an opportunity with our mobile app. Receive instant notifications about new shifts that match your preferences.</p>
             <div class="app-store-buttons">
                 <a href="#" class="app-store-button">
                     <i class="fab fa-apple"></i>
@@ -1421,7 +1814,7 @@
         <div class="footer-column">
             <h3>Contact</h3>
             <ul>
-                <li><a href="mailto:info@matendo.com" style="color: blue;">info@matendo.com</a></li>
+                <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
                 <li><a href="tel:+256781053105">+256 781 053 105</a></li>
             </ul>
         </div>
@@ -1448,24 +1841,6 @@
     </div>
 </footer>
 
-<!-- Get Started Modal -->
-<div class="modal-overlay" id="getStartedModal">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">Get Started</h3>
-            <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-body">
-            <a href="join.html" class="modal-option modal-option-primary">
-                <i class="fas fa-user-md"></i> Join as Healthcare Professional
-            </a>
-            <a href="#for-facilities" class="modal-option modal-option-secondary" id="hireTalentBtn">
-                <i class="fas fa-hospital"></i> Hire Healthcare Staff
-            </a>
-        </div>
-    </div>
-</div>
-
 <!-- Floating Elements -->
 <div class="floating-chat" id="chatButton">
     <i class="fas fa-headset"></i>
@@ -1483,6 +1858,33 @@
     </div>
 </div>
 
+<!-- Get Started Modal -->
+<div class="modal-overlay" id="getStartedModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title">Get Started</h3>
+            <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <button class="option-button professional" id="joinAsProfessional">
+                <i class="fas fa-user-md"></i>
+                Join as Healthcare Professional
+                <i class="fas fa-arrow-right arrow"></i>
+            </button>
+            <button class="option-button facility" id="hireHealthcareStaff">
+                <i class="fas fa-hospital"></i>
+                Hire Healthcare Staff
+                <i class="fas fa-arrow-right arrow"></i>
+            </button>
+        </div>
+        <div class="modal-footer">
+            <p>Choose your path to join our healthcare community</p>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const talentGrid = document.getElementById('talentGrid');
@@ -1497,10 +1899,94 @@
         const declineCookies = document.getElementById('declineCookies');
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const mobileMenu = document.getElementById('mobileMenu');
+        const chatButton = document.getElementById('chatButton');
+        
+        // Get Started Modal Elements
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const getStartedBtnMobile = document.getElementById('getStartedBtnMobile');
+        const hireTalentBtn = document.getElementById('hireTalentBtn');
+        const findCareBtn = document.getElementById('findCareBtn');
+        const joinPlatformBtn = document.getElementById('joinPlatformBtn');
         const getStartedModal = document.getElementById('getStartedModal');
         const closeModal = document.getElementById('closeModal');
-        const hireTalentBtn = document.getElementById('hireTalentBtn');
-        const chatButton = document.getElementById('chatButton');
+        const modalContainer = getStartedModal.querySelector('.modal-container');
+        const joinAsProfessional = document.getElementById('joinAsProfessional');
+        const hireHealthcareStaff = document.getElementById('hireHealthcareStaff');
+        
+        // Show Get Started Modal
+        function showGetStartedModal() {
+            getStartedModal.classList.add('modal-show');
+            setTimeout(() => {
+                modalContainer.classList.add('modal-container-show');
+            }, 10);
+        }
+        
+        // Hide Get Started Modal
+        function hideGetStartedModal() {
+            modalContainer.classList.remove('modal-container-show');
+            setTimeout(() => {
+                getStartedModal.classList.remove('modal-show');
+            }, 300);
+        }
+        
+        // Get Started Modal Event Listeners
+        getStartedBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showGetStartedModal();
+        });
+        
+        getStartedBtnMobile.addEventListener('click', function(e) {
+            e.preventDefault();
+            showGetStartedModal();
+            // Close mobile menu if open
+            mobileMenu.style.display = 'none';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+        
+        hireTalentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showGetStartedModal();
+        });
+        
+        findCareBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showGetStartedModal();
+        });
+        
+        joinPlatformBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showGetStartedModal();
+        });
+        
+        // Close modal when clicking the close button
+        closeModal.addEventListener('click', hideGetStartedModal);
+        
+        // Close modal when clicking outside
+        getStartedModal.addEventListener('click', function(e) {
+            if (e.target === getStartedModal) {
+                hideGetStartedModal();
+            }
+        });
+        
+        // Modal option buttons
+        joinAsProfessional.addEventListener('click', function() {
+            window.location.href = 'join.html';
+        });
+        
+        hireHealthcareStaff.addEventListener('click', function() {
+            hideGetStartedModal();
+            const facilitiesSection = document.getElementById('for-facilities');
+            if (facilitiesSection) {
+                const offset = 80;
+                const elementPosition = facilitiesSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
         
         // Mobile menu toggle
         mobileMenuButton.addEventListener('click', function() {
@@ -1521,60 +2007,14 @@
             }
         });
         
-        // Get Started Modal
-        function openGetStartedModal() {
-            getStartedModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeGetStartedModal() {
-            getStartedModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Add click event to any "Get Started" buttons
-        document.querySelectorAll('.hero-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                if (this.textContent.includes('Hire Medical Talent')) {
-                    e.preventDefault();
-                    openGetStartedModal();
-                }
-            });
-        });
-        
-        closeModal.addEventListener('click', closeGetStartedModal);
-        
-        // Close modal when clicking outside
-        getStartedModal.addEventListener('click', function(e) {
-            if (e.target === getStartedModal) {
-                closeGetStartedModal();
-            }
-        });
-        
-        hireTalentBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            closeGetStartedModal();
-            const targetElement = document.getElementById('for-facilities');
-            if (targetElement) {
-                const headerOffset = 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-        
         // Chat button functionality
         chatButton.addEventListener('click', function() {
             alert('Live chat support is coming soon!');
         });
         
-        // Handle navbar transparency on scroll
+        // Handle scroll for navbar and back-to-top button
         function handleScroll() {
-            if (window.scrollY > 10) { // Reduced threshold to make navbar change sooner
+            if (window.scrollY > 10) {
                 navContainer.classList.add('scrolled');
                 if (window.scrollY > 300) {
                     backToTop.classList.add('visible');
@@ -1586,11 +2026,8 @@
             }
         }
         
-        // Add scroll event listener
         window.addEventListener('scroll', handleScroll);
-        
-        // Initialize navbar state
-        handleScroll();
+        handleScroll(); // Initialize on load
         
         // Back to top functionality
         backToTop.addEventListener('click', function() {
