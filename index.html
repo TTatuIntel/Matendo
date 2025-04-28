@@ -64,16 +64,18 @@
         top: 0;
         left: 0;
         width: 100%;
-        background: transparent;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         z-index: 1000;
         padding: 12px 5%;
         transition: all 0.3s ease;
     }
 
     .nav-container.scrolled {
-        background-color: transparent;
+        background: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(10px);
-        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+        -webkit-backdrop-filter: blur(10px);
     }
 
     .nav-content {
@@ -1547,7 +1549,7 @@
                 <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
             </a>
             <div class="nav-links">
-                <a href="join.html" class="nav-link" id="getStartedBtn">Join Matendo</a>
+                <a href="join.html" class="nav-link">Join Matendo</a>
                 <a href="login.html" class="nav-link">Login</a>
             </div>
             <button class="mobile-menu-button" id="mobileMenuButton">
