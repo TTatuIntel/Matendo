@@ -617,189 +617,80 @@
         font-size: 1.1rem; /* Added to reduce title size */
     }
 
-    /* Platform Benefits Section */
-    .platform-benefits {
-        padding: 30px 5%; /* Reduced from 50px to 30px */
-        background: linear-gradient(to bottom, #f8f9fa, #ffffff);
-        position: relative;
-        overflow: hidden;
+    /* How to Hire Section */
+    .how-to-hire {
+        padding: 30px 5%;
+        background-color: #f8f9fa;
     }
 
-    .platform-benefits::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 6px;
-        background: linear-gradient(to right, transparent, rgba(40, 167, 69, 0.4), transparent);
-    }
-
-    .platform-benefits-container {
-        max-width: 1100px;
+    .how-to-hire-container {
+        max-width: 1000px;
         margin: 0 auto;
-        position: relative;
-        z-index: 1;
     }
 
-    .platform-benefits-intro {
-        text-align: center;
-        max-width: 700px;
-        margin: 0 auto 30px; /* Reduced from 40px to 30px */
+    .how-to-hire-steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 30px;
     }
 
-    .platform-benefits-intro p {
-        color: #666;
-        font-size: 1.1rem;
-        line-height: 1.6;
-        margin-top: 15px;
-    }
-
-    .platform-benefits-row {
-        display: flex;
-        align-items: stretch;
-        gap: 40px;
-        margin-bottom: 40px; /* Reduced from 50px to 40px */
-        position: relative;
+    .how-to-hire-step {
         background-color: white;
-        border-radius: 16px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .platform-benefits-row:last-child {
-        margin-bottom: 0;
-    }
-
-    .platform-benefits-row::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 5px;
-        background: linear-gradient(to right, #28a745, #1e7e7c);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .platform-benefits-row:hover::after {
-        opacity: 1;
-    }
-
-    .platform-benefits-row:nth-child(even) {
-        flex-direction: row-reverse;
-    }
-
-    .platform-benefits-image {
-        flex: 1;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
         position: relative;
-        overflow: hidden;
-        min-height: 400px;
-    }
-
-    .platform-benefits-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        transition: transform 0.5s ease;
-    }
-
-    .platform-benefits-row:hover .platform-benefits-image img {
-        transform: scale(1.05);
-    }
-
-    .platform-benefits-content {
-        flex: 1;
-        padding: 40px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .platform-benefits-content h2 {
-        font-size: 1.5rem; /* Reduced from 1.8rem to 1.5rem */
-        margin-bottom: 20px;
-        color: #333;
-        position: relative;
-        padding-bottom: 15px;
-        text-align: left;
-    }
-
-    .platform-benefits-content h2::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50px; /* Reduced from 60px to 50px */
-        height: 3px;
-        background: linear-gradient(to right, #28a745, #1e7e7c);
-        border-radius: 3px;
-    }
-
-    .platform-benefits-item {
-        display: flex;
-        margin-bottom: 25px;
-        position: relative;
-        z-index: 1;
         transition: all 0.3s ease;
-        padding: 15px;
-        border-radius: 10px;
+        text-align: center;
     }
 
-    .platform-benefits-item:last-child {
-        margin-bottom: 0;
+    .how-to-hire-step:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
-    .platform-benefits-item:hover {
-        background-color: rgba(40, 167, 69, 0.05);
-        transform: translateX(5px);
-    }
-
-    .platform-benefits-icon {
-        width: 50px;
-        height: 50px;
-        background-color: rgba(40, 167, 69, 0.1);
+    .step-number {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 30px;
+        background-color: #28a745;
+        color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 20px;
-        flex-shrink: 0;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        font-weight: bold;
+        font-size: 0.9rem;
     }
 
-    .platform-benefits-item:hover .platform-benefits-icon {
-        background-color: rgba(40, 167, 69, 0.2);
-        transform: scale(1.1) rotate(5deg);
-        box-shadow: 0 6px 15px rgba(40, 167, 69, 0.15);
-    }
-
-    .platform-benefits-icon i {
-        font-size: 1.3rem;
+    .how-to-hire-step i {
+        font-size: 2rem;
         color: #28a745;
+        margin-bottom: 15px;
     }
 
-    .platform-benefits-item h3 {
-        font-size: 1.1rem; /* Reduced from 1.2rem to 1.1rem */
-        margin-bottom: 8px;
+    .how-to-hire-step h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
         color: #333;
     }
 
-    .platform-benefits-item p {
+    .how-to-hire-step p {
+        font-size: 0.9rem;
         color: #666;
-        line-height: 1.6;
+        line-height: 1.5;
     }
 
-    .platform-benefits-cta {
+    .hire-cta {
         text-align: center;
-        margin-top: 30px; /* Reduced from 40px to 30px */
+        margin-top: 30px;
     }
 
-    .platform-benefits-btn {
+    .hire-btn {
         display: inline-block;
         background-color: #28a745;
         color: white;
@@ -813,7 +704,7 @@
         box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
     }
 
-    .platform-benefits-btn:hover {
+    .hire-btn:hover {
         background-color: #218838;
         transform: translateY(-3px);
         box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
@@ -1555,26 +1446,19 @@
             left: 0;
         }
         
-        .platform-benefits-row {
-            flex-direction: column;
-        }
-        
-        .platform-benefits-row:nth-child(even) {
-            flex-direction: column;
-        }
-        
-        .platform-benefits-image {
-            min-height: 300px;
-        }
-        
         .app-download-container {
             flex-direction: column;
         }
         
         .how-it-works-grid, 
         .features-container, 
-        .personal-healthcare-grid {
+        .personal-healthcare-grid,
+        .how-to-hire-steps {
             grid-template-columns: 1fr;
+        }
+        
+        .how-to-hire-steps {
+            grid-template-columns: 1fr 1fr;
         }
     }
 
@@ -1594,6 +1478,10 @@
         .cookie-text {
             margin-right: 0;
             margin-bottom: 15px;
+        }
+        
+        .how-to-hire-steps {
+            grid-template-columns: 1fr;
         }
     }
 </style>
@@ -1621,8 +1509,7 @@
 <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-links">
         <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
-        <a href="#for-professionals" class="mobile-menu-link">For Professionals</a>
-        <a href="#for-facilities" class="mobile-menu-link">For Facilities</a>
+        <a href="#how-to-hire" class="mobile-menu-link">How to Hire</a>
         <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
         <a href="join.html" class="mobile-menu-link" id="getStartedBtnMobile">Join Matendo</a>
         <a href="login.html" class="mobile-menu-link">Login</a>
@@ -1759,6 +1646,45 @@
     </div>
 </section>
 
+<!-- How to Hire Section -->
+<section class="how-to-hire" id="how-to-hire">
+    <div class="how-to-hire-container">
+        <h2 class="section-title">How to Hire Healthcare Staff</h2>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto 30px; color: #666;">
+            Whether you're an individual seeking personal care or a facility looking for staff, our simple process makes hiring healthcare professionals easy and efficient.
+        </p>
+        <div class="how-to-hire-steps">
+            <div class="how-to-hire-step">
+                <div class="step-number">1</div>
+                <i class="fas fa-user-plus"></i>
+                <h3>Create Account</h3>
+                <p>Sign up and complete your profile with your specific healthcare needs</p>
+            </div>
+            <div class="how-to-hire-step">
+                <div class="step-number">2</div>
+                <i class="fas fa-search"></i>
+                <h3>Search Professionals</h3>
+                <p>Browse our database of verified healthcare professionals</p>
+            </div>
+            <div class="how-to-hire-step">
+                <div class="step-number">3</div>
+                <i class="fas fa-comments"></i>
+                <h3>Connect & Interview</h3>
+                <p>Message candidates and conduct interviews through our platform</p>
+            </div>
+            <div class="how-to-hire-step">
+                <div class="step-number">4</div>
+                <i class="fas fa-file-contract"></i>
+                <h3>Hire & Manage</h3>
+                <p>Finalize contracts, schedules, and manage payments securely</p>
+            </div>
+        </div>
+        <div class="hire-cta">
+            <a href="hire.html" class="hire-btn">Start Hiring Now</a>
+        </div>
+    </div>
+</section>
+
 <!-- Personal Healthcare Support Section -->
 <section class="personal-healthcare" id="personal-healthcare">
     <div class="personal-healthcare-container">
@@ -1802,95 +1728,7 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 25px;">
-            <a href="#" class="hero-btn" id="findCareBtn">Find Care Now <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></a>
-        </div>
-    </div>
-</section>
-
-<!-- Platform Benefits Section -->
-<section class="platform-benefits">
-    <div class="platform-benefits-container">
-        <div class="platform-benefits-intro">
-            <h2 class="section-title">Platform Benefits</h2>
-            <p>Discover how Matendo helps both healthcare professionals and facilities achieve their goals</p>
-        </div>
-        
-        <!-- For Healthcare Professionals -->
-        <div class="platform-benefits-row" id="for-professionals">
-            <div class="platform-benefits-image">
-                <img src="images/professional-benefits.jpg" alt="Healthcare Professional Benefits">
-            </div>
-            <div class="platform-benefits-content">
-                <h2>For Healthcare Professionals</h2>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div>
-                        <h3>Complete Schedule Control</h3>
-                        <p>Choose when and where you work with our intuitive scheduling system. Pick up shifts that fit your lifestyle and preferences.</p>
-                    </div>
-                </div>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <div>
-                        <h3>Competitive Compensation</h3>
-                        <p>Earn what you're worth with transparent pay rates and timely payments directly to your account.</p>
-                    </div>
-                </div>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <div>
-                        <h3>Professional Growth</h3>
-                        <p>Expand your experience by working in diverse healthcare settings and building a robust professional network.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- For Healthcare Facilities -->
-        <div class="platform-benefits-row" id="for-facilities">
-            <div class="platform-benefits-image">
-                <img src="images/facility-benefits.jpg" alt="Healthcare Facility Benefits">
-            </div>
-            <div class="platform-benefits-content">
-                <h2>For Healthcare Facilities</h2>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div>
-                        <h3>Access to Verified Talent</h3>
-                        <p>Quickly find and secure qualified healthcare professionals with verified credentials and experience.</p>
-                    </div>
-                </div>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div>
-                        <h3>Fill Shifts Rapidly</h3>
-                        <p>Post open positions and get them filled quickly, even for last-minute staffing needs.</p>
-                    </div>
-                </div>
-                <div class="platform-benefits-item">
-                    <div class="platform-benefits-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <h3>Cost-Effective Staffing</h3>
-                        <p>Reduce overhead costs associated with traditional staffing methods while maintaining high-quality care.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="platform-benefits-cta">
-            <a href="#" class="platform-benefits-btn" id="joinPlatformBtn">Join Our Platform</a>
+            <a href="hire.html" class="hero-btn" id="findCareBtn">Find Care Now <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></a>
         </div>
     </div>
 </section>
@@ -2028,11 +1866,11 @@
                 <span>Join as Healthcare Professional</span>
                 <i class="fas fa-arrow-right arrow"></i>
             </button>
-            <button class="option-button facility" id="hireHealthcareStaff">
+            <a href="hire.html" class="option-button facility" id="hireHealthcareStaff">
                 <i class="fas fa-hospital"></i>
                 <span>Hire Healthcare Staff</span>
                 <i class="fas fa-arrow-right arrow"></i>
-            </button>
+            </a>
         </div>
         <div class="modal-footer">
             <p>Choose your path to join our healthcare community</p>
@@ -2057,16 +1895,13 @@
         const chatButton = document.getElementById('chatButton');
         
         // Get Started Modal Elements
-        const getStartedBtn = document.getElementById('getStartedBtn');
-        const getStartedBtnMobile = document.getElementById('getStartedBtnMobile');
         const hireTalentBtn = document.getElementById('hireTalentBtn');
         const findCareBtn = document.getElementById('findCareBtn');
-        const joinPlatformBtn = document.getElementById('joinPlatformBtn');
+        const getStartedBtnMobile = document.getElementById('getStartedBtnMobile');
         const getStartedModal = document.getElementById('getStartedModal');
         const closeModal = document.getElementById('closeModal');
         const modalContainer = getStartedModal.querySelector('.modal-container');
         const joinAsProfessional = document.getElementById('joinAsProfessional');
-        const hireHealthcareStaff = document.getElementById('hireHealthcareStaff');
         
         // Show Get Started Modal
         function showGetStartedModal() {
@@ -2095,14 +1930,7 @@
         if (findCareBtn) {
             findCareBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                showGetStartedModal();
-            });
-        }
-        
-        if (joinPlatformBtn) {
-            joinPlatformBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                showGetStartedModal();
+                window.location.href = 'hire.html';
             });
         }
         
@@ -2139,23 +1967,6 @@
             });
         }
         
-        if (hireHealthcareStaff) {
-            hireHealthcareStaff.addEventListener('click', function() {
-                hideGetStartedModal();
-                const facilitiesSection = document.getElementById('for-facilities');
-                if (facilitiesSection) {
-                    const offset = 80;
-                    const elementPosition = facilitiesSection.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - offset;
-                    
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        }
-        
         // Cookie consent functionality
         function checkCookieConsent() {
             if (localStorage.getItem('cookieConsent') === 'accepted' || 
@@ -2166,18 +1977,27 @@
             }
         }
         
+        // Check cookie consent on page load
+        checkCookieConsent();
+        
+        // Cookie accept/decline functionality
         acceptCookies.addEventListener('click', function() {
             localStorage.setItem('cookieConsent', 'accepted');
             cookieConsent.style.display = 'none';
+            
+            // Enable analytics or other cookie-dependent features
+            console.log('Cookies accepted - enabling analytics');
+            // Example: initializeAnalytics();
         });
         
         declineCookies.addEventListener('click', function() {
             localStorage.setItem('cookieConsent', 'declined');
             cookieConsent.style.display = 'none';
+            
+            // Disable analytics or other cookie-dependent features
+            console.log('Cookies declined - disabling analytics');
+            // Example: disableAnalytics();
         });
-        
-        // Check cookie consent on page load
-        checkCookieConsent();
         
         // Mobile menu toggle
         mobileMenuButton.addEventListener('click', function() {
