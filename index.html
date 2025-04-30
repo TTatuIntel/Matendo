@@ -22,15 +22,15 @@
             color: #333;
             scroll-behavior: smooth;
             font-size: 14px;
-            /* Added base font size */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         /* Add subtle section dividers and alternating patterns */
         section {
             position: relative;
             padding: 20px 5%;
-            /* Reduced from 25px to 20px */
             overflow: hidden;
+            width: 100%;
         }
 
         section:nth-child(odd) {
@@ -46,13 +46,10 @@
         .section-title {
             text-align: center;
             margin-bottom: 15px;
-            /* Reduced from 20px to 15px */
             font-size: 1.3rem;
-            /* Reduced from 1.5rem to 1.3rem */
             color: #323030;
             position: relative;
             padding-bottom: 8px;
-            /* Reduced from 10px to 8px */
         }
 
         .section-title::after {
@@ -62,9 +59,7 @@
             left: 50%;
             transform: translateX(-50%);
             width: 40px;
-            /* Reduced from 50px to 40px */
             height: 2px;
-            /* Reduced from 3px to 2px */
             background: linear-gradient(to right, #28a745, #1e7e7c);
             border-radius: 2px;
         }
@@ -80,7 +75,6 @@
             -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
             padding: 8px 5%;
-            /* Reduced from 12px to 8px */
             transition: all 0.3s ease;
         }
 
@@ -100,7 +94,6 @@
 
         .logo-img {
             width: 150px;
-            /* Reduced from 200px to 150px */
             height: auto;
         }
 
@@ -113,10 +106,8 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
-            /* Reduced from 1rem to 0.9rem */
             transition: all 0.3s ease;
             padding: 6px 12px;
-            /* Reduced from 8px 16px to 6px 12px */
             border-radius: 4px;
         }
 
@@ -177,15 +168,14 @@
             border-bottom: 1px solid #eee;
         }
 
-        /* Keeping the exact hero section code as provided */
+        /* Hero Section with improved responsive design */
         .hero-section {
             background-color: #f8f9fa;
             padding: 20px 5% 10px;
             position: relative;
             overflow: hidden;
-            margin-top: 0;
+            margin-top: 70px; /* Added to account for fixed navbar */
             padding-top: 20px;
-            /* Reduced padding to minimize space */
         }
 
         .hero-content {
@@ -200,23 +190,20 @@
         .hero-text {
             flex: 1;
             max-width: 450px;
+            transition: all 0.3s ease;
         }
 
         .hero-title {
             font-size: 1.6rem;
-            /* Reduced from 2rem to 1.6rem */
             color: #333;
             margin-bottom: 10px;
-            /* Reduced from 12px to 10px */
             line-height: 1.2;
         }
 
         .hero-description {
             font-size: 1rem;
-            /* Reduced from 1.2rem to 1rem */
             color: #666;
             margin-bottom: 12px;
-            /* Reduced from 15px to 12px */
             line-height: 1.5;
         }
 
@@ -241,20 +228,21 @@
 
         .hero-image {
             flex: 1;
-            text-align: left;
-            max-width: 400%;
+            text-align: right;
             position: relative;
-            left: 150px;
+            transition: all 0.3s ease;
         }
 
         .hero-img {
-            max-width: 500%;
+            max-width: 100%;
             height: auto;
+            max-height: 500px;
             border-radius: 10px;
             mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             object-fit: cover;
             object-position: center 20%;
+            transition: all 0.3s ease;
         }
 
         .blur-effect {
@@ -275,7 +263,6 @@
         /* Enhanced talent section */
         .talent-section {
             padding: 25px 5%;
-            /* Reduced from 40px to 25px */
         }
 
         .talent-container {
@@ -290,6 +277,7 @@
             scroll-behavior: smooth;
             padding: 15px 0;
             position: relative;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
 
         .talent-card {
@@ -329,16 +317,13 @@
 
         .talent-name {
             font-size: 0.95rem;
-            /* Reduced from 1.1rem to 0.95rem */
             font-weight: 600;
             margin-bottom: 4px;
-            /* Reduced from 5px to 4px */
             color: #333;
         }
 
         .talent-specialty {
             font-size: 0.9rem;
-            /* Reduced from 1rem to 0.9rem */
             color: #666;
         }
 
@@ -402,7 +387,6 @@
         /* How It Works Section */
         .how-it-works {
             padding: 25px 5%;
-            /* Reduced from 40px to 25px */
         }
 
         .how-it-works-container {
@@ -468,12 +452,9 @@
 
         .how-it-works-card h3 {
             font-size: 1.1rem;
-            /* Reduced from 1.2rem to 1.1rem */
             margin-bottom: 8px;
-            /* Reduced from 10px to 8px */
             position: relative;
             padding-bottom: 8px;
-            /* Reduced from 10px to 8px */
         }
 
         .how-it-works-card h3::after {
@@ -488,7 +469,6 @@
 
         .features {
             padding: 25px 5%;
-            /* Reduced from 40px to 25px */
         }
 
         .features-container {
@@ -537,9 +517,7 @@
 
         .feature h3 {
             font-size: 1rem;
-            /* Reduced from 1.1rem to 1rem */
             margin-bottom: 8px;
-            /* Reduced from 10px to 8px */
             color: #333;
             position: relative;
             z-index: 1;
@@ -547,10 +525,8 @@
 
         .feature p {
             font-size: 0.9rem;
-            /* Reduced from 1rem to 0.9rem */
             color: #666;
             line-height: 1.4;
-            /* Reduced from 1.5 to 1.4 */
             position: relative;
             z-index: 1;
         }
@@ -558,7 +534,6 @@
         /* Personal Healthcare Support Section */
         .personal-healthcare {
             padding: 25px 5%;
-            /* Reduced from 40px to 25px */
         }
 
         .personal-healthcare-container {
@@ -649,7 +624,6 @@
 
         .personal-healthcare-card h3 {
             font-size: 1rem;
-            /* Added to reduce title size */
         }
 
         /* How to Hire Section */
@@ -710,18 +684,14 @@
 
         .how-to-hire-step h3 {
             font-size: 1rem;
-            /* Reduced from 1.1rem to 1rem */
             margin-bottom: 8px;
-            /* Reduced from 10px to 8px */
             color: #333;
         }
 
         .how-to-hire-step p {
             font-size: 0.85rem;
-            /* Reduced from 0.9rem to 0.85rem */
             color: #666;
             line-height: 1.4;
-            /* Reduced from 1.5 to 1.4 */
         }
 
         .hire-cta {
@@ -752,7 +722,6 @@
         /* App Download Section */
         .app-download {
             padding: 25px 5%;
-            /* Reduced from 40px to 25px */
             background-color: rgba(40, 167, 69, 0.05);
             position: relative;
             z-index: 1;
@@ -805,6 +774,7 @@
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
         }
 
         .app-store-button {
@@ -877,7 +847,6 @@
         /* Newsletter Section */
         .newsletter {
             padding: 25px 5%;
-            /* Reduced from 40px to 25px */
         }
 
         .newsletter-container {
@@ -885,7 +854,6 @@
             margin: 0 auto;
             background-color: rgba(40, 167, 69, 0.05);
             padding: 25px;
-            /* Reduced from 30px to 25px */
             border-radius: 16px;
             text-align: center;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
@@ -909,7 +877,6 @@
         .newsletter-form {
             display: flex;
             margin-top: 15px;
-            /* Reduced from 20px to 15px */
             margin-bottom: 15px;
             position: relative;
             z-index: 1;
@@ -931,7 +898,7 @@
             box-shadow: 0 4px 10px rgba(40, 167, 69, 0.1);
         }
 
-        .newsletter- button {
+        .newsletter-button {
             background-color: #28a745;
             color: white;
             border: none;
@@ -965,13 +932,15 @@
             align-items: center;
             justify-content: space-between;
             border-top: 1px solid rgba(255, 255, 255, 0.3);
+        
+            position: relative;
+            z-index: 1;
         }
 
         .cookie-text {
             flex: 1;
             margin-right: 20px;
             font-size: 0.9rem;
-            /* Added to reduce text size */
         }
 
         .cookie-buttons {
@@ -990,13 +959,6 @@
             font-weight: 600;
             box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
             font-size: 0.9rem;
-            /* Slightly reduced from original */
-        }
-
-        .cookie-accept:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
         }
 
         .cookie-decline {
@@ -1009,7 +971,6 @@
             transition: all 0.3s ease;
             font-weight: 600;
             font-size: 0.9rem;
-            /* Slightly reduced from original */
         }
 
         .cookie-decline:hover {
@@ -1109,13 +1070,10 @@
 
         .footer-column h3 {
             font-size: 1rem;
-            /* Reduced from 1.1rem to 1rem */
             margin-bottom: 12px;
-            /* Reduced from 15px to 12px */
             color: #333;
             position: relative;
             padding-bottom: 8px;
-            /* Reduced from 10px to 8px */
         }
 
         .footer-column h3::after {
@@ -1140,7 +1098,6 @@
             color: #666;
             text-decoration: none;
             font-size: 0.9rem;
-            /* Reduced from 1rem to 0.9rem */
             transition: all 0.3s ease;
             position: relative;
             padding-left: 15px;
@@ -1168,6 +1125,40 @@
             background-color: #28a745;
         }
 
+        /* Social icons in footer */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            color: #28a745;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .social-icons a:hover {
+            background-color: #28a745;
+            color: white;
+            transform: translateY(-5px);
+            padding: 0;
+        }
+
+        .social-icons a::before {
+            display: none;
+        }
+
+        .social-icons i {
+            font-size: 1.2rem;
+        }
 
         /* Updated Modal Styles - focusing on the popup container itself */
         .modal-overlay {
@@ -1186,27 +1177,20 @@
 
         .modal-container {
             background-color: rgba(255, 255, 255, 0.65);
-            /* More transparent background */
             border-radius: 24px;
-            /* Increased border radius for softer look */
             max-width: 500px;
             width: 90%;
             padding: 35px;
-            /* Increased padding */
             box-shadow:
                 0 10px 30px rgba(0, 0, 0, 0.1),
                 0 1px 8px rgba(255, 255, 255, 0.2) inset,
                 0 -1px 8px rgba(0, 0, 0, 0.05) inset;
-            /* Multi-layered shadow for depth */
             transform: scale(0.95);
             opacity: 0;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.4);
-            /* Brighter border */
             backdrop-filter: blur(15px);
-            /* Stronger blur for the container */
             -webkit-backdrop-filter: blur(15px);
-            /* For Safari */
             position: relative;
             overflow: hidden;
         }
@@ -1242,7 +1226,6 @@
             align-items: center;
             margin-bottom: 25px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            /* Lighter border */
             padding-bottom: 15px;
             position: relative;
             z-index: 1;
@@ -1250,7 +1233,6 @@
 
         .modal-title {
             font-size: 1.6rem;
-            /* Restored from 1.4rem back closer to original 1.8rem */
             font-weight: 700;
             color: #333;
             position: relative;
@@ -1295,16 +1277,12 @@
             align-items: center;
             width: 100%;
             padding: 20px 25px;
-            /* Restored to original size */
             margin-bottom: 20px;
-            /* Restored to original size */
             border-radius: 16px;
-            /* Restored to original size */
             border: 1px solid rgba(255, 255, 255, 0.5);
             background-color: rgba(255, 255, 255, 0.3);
             text-align: left;
             font-size: 1rem;
-            /* Only reduced the font size */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1360,12 +1338,9 @@
         .option-button i {
             margin-right: 15px;
             font-size: 1.3rem;
-            /* Kept original size */
             background: rgba(255, 255, 255, 0.5);
             width: 45px;
-            /* Kept original size */
             height: 45px;
-            /* Kept original size */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1412,7 +1387,6 @@
         .modal-footer {
             text-align: center;
             font-size: 0.85rem;
-            /* Reduced from 0.95rem */
             color: #666;
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.3);
@@ -1429,97 +1403,87 @@
             opacity: 1;
         }
 
-        /* Responsive adjustments for the modal */
-        @media (max-width: 768px) {
-            .modal-container {
-                width: 85%;
-                padding: 30px;
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            .hero-text {
+                max-width: 400px;
             }
-
-            .option-button {
-                padding: 18px 20px;
-                /* Keep original */
-            }
-
-            .option-button i {
-                width: 40px;
-                /* Keep original */
-                height: 40px;
-                /* Keep original */
-                font-size: 1.2rem;
-                /* Keep original */
-            }
-
-            .modal-title {
-                font-size: 1.5rem;
-                /* Keep original */
+            
+            .hero-image {
+                max-width: 50%;
             }
         }
 
-        @media (max-width: 480px) {
-            .modal-container {
-                width: 90%;
-                padding: 25px;
-            }
-
-            .option-button {
-                padding: 15px 18px;
-                /* Keep original */
-                font-size: 0.9rem;
-                /* Only reduce font size */
-            }
-
-            .option-button i {
-                width: 35px;
-                /* Keep original */
-                height: 35px;
-                /* Keep original */
-                font-size: 1.1rem;
-                /* Keep original */
-                margin-right: 12px;
-                /* Keep original */
-            }
-        }
-
-        /* Mobile Responsiveness */
         @media (max-width: 992px) {
             .hero-content {
-                flex-direction: column;
+                justify-content: space-between;
             }
-
+            
             .hero-text {
-                max-width: 100%;
-                text-align: center;
-                margin-bottom: 30px;
+                max-width: 50%;
+                padding-right: 20px;
             }
-
+            
             .hero-image {
-                left: 0;
+                max-width: 45%;
             }
-
+            
+            .hero-img {
+                max-height: 450px;
+            }
+            
             .app-download-container {
                 flex-direction: column;
             }
-
+            
             .how-it-works-grid,
             .features-container,
-            .personal-healthcare-grid,
-            .how-to-hire-steps {
-                grid-template-columns: 1fr;
+            .personal-healthcare-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-
+            
             .how-to-hire-steps {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+            }
+
             .nav-links {
                 display: none;
             }
 
             .mobile-menu-button {
                 display: block;
+            }
+            
+            .hero-content {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .hero-text {
+                max-width: 55%;
+                padding-right: 15px;
+            }
+            
+            .hero-image {
+                max-width: 40%;
+            }
+            
+            .hero-img {
+                max-height: 350px;
+            }
+            
+            .hero-title {
+                font-size: 1.4rem;
+            }
+            
+            .hero-description {
+                font-size: 0.9rem;
             }
 
             .cookie-consent {
@@ -1531,8 +1495,237 @@
                 margin-bottom: 15px;
             }
 
+            .how-it-works-grid,
+            .features-container,
+            .personal-healthcare-grid,
             .how-to-hire-steps {
                 grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-input {
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-button {
+                border-radius: 8px;
+                width: 100%;
+            }
+
+            .modal-container {
+                width: 95%;
+                padding: 25px;
+            }
+
+            .option-button {
+                padding: 15px;
+            }
+
+            .option-button i {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+                margin-right: 10px;
+            }
+
+            .modal-title {
+                font-size: 1.3rem;
+            }
+
+            .talent-card {
+                flex: 0 0 180px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                max-width: 100%;
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .hero-image {
+                display: none; /* Only hide on phone-sized screens */
+            }
+            
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .hero-description {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .app-store-buttons {
+                flex-direction: column;
+            }
+
+            .app-store-button {
+                width: 100%;
+            }
+
+            .talent-card {
+                flex: 0 0 160px;
+            }
+
+            .talent-img {
+                height: 150px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-chat, .back-to-top {
+                width: 45px;
+                height: 45px;
+                right: 15px;
+            }
+
+            .floating-chat i, .back-to-top i {
+                font-size: 1.2rem;
+            }
+
+            .back-to-top {
+                bottom: 75px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .hero-image {
+                display: block; /* Show image on tablet screens */
+                left: 20px; /* Adjust position for tablets */
+            }
+            
+            .hero-text {
+                text-align: left; /* Left align text on tablets */
+                padding-left: 20px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hero-image {
+                display: block; /* Ensure the image is visible on larger screens */
+                flex: 1;
+                text-align: right;
+                max-width: 50%;
+                position: relative;
+                transition: all 0.3s ease;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .talent-card {
+                flex: 0 0 140px;
+            }
+
+            .talent-img {
+                height: 130px;
+            }
+
+            .option-button {
+                padding: 12px;
+            }
+
+            .option-button i {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+                margin-right: 10px;
+            }
+
+            .modal-container {
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Fix for iOS Safari 100vh issue */
+        @supports (-webkit-touch-callout: none) {
+            .modal-overlay, .cookie-consent {
+                height: -webkit-fill-available;
+            }
+        }
+
+        /* Additional responsive improvements */
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .hero-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .talent-card {
+                flex: 0 0 100%;
+                margin-right: 15px;
+                margin-left: 15px;
+            }
+
+            .talent-nav-btn {
+                width: 35px;
+                height: 35px;
+            }
+
+            .how-it-works-card, 
+            .personal-healthcare-card,
+            .how-to-hire-step,
+            .feature {
+                padding: 15px;
+            }
+
+            .option-button span {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Improve touch targets for mobile */
+        @media (max-width: 768px) {
+            .nav-link,
+            .mobile-menu-link,
+            .hero-btn,
+            .hire-btn,
+            .app-store-button,
+            .newsletter-button,
+            .cookie-accept,
+            .cookie-decline {
+                padding: 10px 15px;
+            }
+
+            .footer-column a {
+                padding: 8px 15px;
+                display: block;
+            }
+
+            .talent-nav-btn {
+                top: 40%;
+            }
+
+            /* Improve spacing for mobile */
+            section {
+                padding: 30px 4%;
+            }
+
+            .hero-section {
+                padding-top: 80px;
             }
         }
     </style>
@@ -1549,7 +1742,7 @@
                     <a href="join.html" class="nav-link">Join Matendo</a>
                     <a href="login.html" class="nav-link">Login</a>
                 </div>
-                <button class="mobile-menu-button" id="mobileMenuButton">
+                <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -1571,21 +1764,19 @@
     <section class="hero-section">
         <div class="hero-content">
             <div class="hero-text">
-                <h1 class="hero-title" style="text-align: center; margin-right: 20px;">Hire Medical Professionals</h1>
-                <br>
-                <p class="hero-description" style="margin-right: 20px;">
+                <h1 class="hero-title">Hire Medical Professionals</h1>
+                <p class="hero-description">
                     Matendo provides fast, reliable access to certified doctors and medical professionals,
                     ready to assist with your healthcare needs. Whether you're looking for advice, second opinions,
                     or specialized care, Matendo connects you to the best experts in the field.
                 </p>
-                <div style="margin-top: 40px;">
+                <div style="margin-top: 30px;">
                     <a href="#" class="hero-btn" id="hireTalentBtn">Get Started </a>
                 </div>
             </div>
 
             <div class="hero-image blur-effect">
-                <img src="images/doc1.png" alt="Medical Professional" style="height: 500px"
-                    class="hero-img rounded-full w-100 h-95 object-cover">
+                <img src="images/doc1.png" alt="Medical Professional" class="hero-img">
             </div>
         </div>
     </section>

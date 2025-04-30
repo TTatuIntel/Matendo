@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers at Matendo Health</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#27ae60',secondary:'#3498db'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.4;
+  color: #333;
+  scroll-behavior: smooth;
+  font-size: 14px;
+}
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+.job-card {
+  transition: all 0.3s ease;
+}
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Navigation styles from hire.html */
+.nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1000;
+    padding: 8px 5%;
+    transition: all 0.3s ease;
+}
+
+.nav-container.scrolled {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-img {
+    width: 150px;
+    height: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.nav-link:nth-child(1) {
+    color: #27ae60;
+    border: 1px solid #27ae60;
+}
+
+.nav-link:nth-child(2) {
+    color: #3498db;
+    border: 1px solid #3498db;
+}
+
+.nav-link:nth-child(1):hover {
+    color: #219653;
+    border-color: #219653;
+}
+
+.nav-link:nth-child(2):hover {
+    color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mobile-menu-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Footer styles from hire.html */
+.footer {
+    background: #f8f9fa;
+    padding: 40px 5% 30px;
+    border-top: 1px solid #eee;
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, transparent, rgba(39, 174, 96, 0.3), transparent);
+}
+
+.footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 180px;
+}
+
+.footer-title {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: rgba(39, 174, 96, 0.5);
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-link {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+.footer-link a {
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer-link a::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(39, 174, 96, 0.3);
+    transition: all 0.3s ease;
+}
+
+.footer-link a:hover {
+    color: #27ae60;
+    padding-left: 5px;
+}
+
+.footer-link a:hover::before {
+    background-color: #27ae60;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.social-link:hover {
+    color: #27ae60;
+    background-color: rgba(39, 174, 96, 0.1);
+    transform: translateY(-5px);
+}
+
+.footer-bottom {
+    max-width: 1000px;
+    margin: 25px auto 0;
+    padding: 15px 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .hero-content {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-content {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-button {
+        display: block;
+    }
+    
+    .nav-content {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .logo-img {
+        width: 130px;
+    }
+
+    body {
+        padding-top: 60px;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section .absolute {
+        display: none;
+    }
+    
+    .hero-content {
+        padding: 20px 0;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+    .hero-section .absolute {
+        opacity: 0.7;
+    }
+    
+    .hero-content {
+        padding: 30px 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .hero-section .absolute {
+        opacity: 1;
+    }
+    
+    .hero-content {
+        padding: 40px 0;
+    }
+}
+</style>
+</head>
+<body class="bg-white">
+<!-- Navigation Header from hire.html -->
+<nav class="nav-container">
+    <div class="nav-content">
+        <a href="index.html" title="Matendo" aria-label="Matendo">
+            <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="join.html" class="nav-link">Join Matendo</a>
+            <a href="login.html" class="nav-link">Login</a>
+        </div>
+        <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-links">
+        <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+        <a href="join.html" class="mobile-menu-link">Join Matendo</a>
+        <a href="login.html" class="mobile-menu-link">Login</a>
+    </div>
+</div>
+
+<!-- Main Content -->
+<main style="margin-top: 70px;">
+<!-- Hero Section -->
+<section class="hero-section relative bg-gradient-to-r from-[#e8f8f0] to-[#e6f3fa]">
+<div class="absolute inset-0 bg-[url('https://readdy.ai/api/search-image?query=Modern%2520healthcare%2520professionals%2520in%2520a%2520bright%2C%2520airy%2520medical%2520facility%2520with%2520blue%2520and%2520white%2520color%2520scheme.%2520The%2520scene%2520shows%2520advanced%2520medical%2520equipment%2520and%2520technology%2520with%2520clean%2520lines%2520and%2520minimalist%2520design.%2520Natural%2520light%2520streams%2520through%2520large%2520windows%2C%2520creating%2520a%2520welcoming%2520and%2520professional%2520atmosphere.&width=1200&height=600&seq=1&orientation=landscape')] bg-cover bg-center opacity-40"></div>
+<div class="container mx-auto px-6 py-16 relative z-10">
+<div class="max-w-2xl hero-content">
+<h1 class="text-4xl font-bold text-[#1E3A8A] mb-4">Join Our Team</h1>
+<p class="text-lg text-gray-700 mb-6">Help us transform healthcare staffing with innovative solutions that connect professionals with facilities.</p>
+<a href="#openings" class="bg-[#27ae60] text-white px-6 py-3 !rounded-button font-medium text-center hover:bg-[#219653] transition-colors inline-block">View Open Positions</a>
+</div>
+</div>
+</section>
+
+<!-- Company Culture Section -->
+<section class="py-12 bg-white">
+<div class="container mx-auto px-6">
+<div class="text-center max-w-3xl mx-auto mb-8">
+<h2 class="text-2xl font-bold mb-4 text-[#1E3A8A]">Our Company Culture</h2>
+<p class="text-gray-600">We're building a team that's passionate about transforming healthcare staffing.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-[#e8f8f0] p-6 rounded-xl shadow-sm">
+<div class="w-12 h-12 bg-[#27ae60]/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-lightbulb-line text-[#27ae60] ri-xl"></i>
+</div>
+<h3 class="text-lg font-semibold mb-2">Innovation</h3>
+<p class="text-gray-600 text-sm">We embrace new ideas and technologies to solve complex healthcare staffing challenges.</p>
+</div>
+<div class="bg-[#e8f8f0] p-6 rounded-xl shadow-sm">
+<div class="w-12 h-12 bg-[#27ae60]/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-heart-line text-[#27ae60] ri-xl"></i>
+</div>
+<h3 class="text-lg font-semibold mb-2">Compassion</h3>
+<p class="text-gray-600 text-sm">We care deeply about healthcare professionals and the patients they serve.</p>
+</div>
+<div class="bg-[#e8f8f0] p-6 rounded-xl shadow-sm">
+<div class="w-12 h-12 bg-[#27ae60]/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-team-line text-[#27ae60] ri-xl"></i>
+</div>
+<h3 class="text-lg font-semibold mb-2">Collaboration</h3>
+<p class="text-gray-600 text-sm">We believe in the power of teamwork to create better solutions.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Current Openings Section -->
+<section id="openings" class="py-12 bg-[#e6f3fa]">
+<div class="container mx-auto px-6">
+<div class="text-center max-w-3xl mx-auto mb-8">
+<h2 class="text-2xl font-bold mb-4 text-[#1E3A8A]">Current Openings</h2>
+<p class="text-gray-600">Explore our open positions and find your next career opportunity.</p>
+</div>
+
+<!-- Job Listings -->
+<div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+<div class="job-card bg-white border border-gray-200 rounded-lg p-6 hover:border-[#27ae60]">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-xl font-semibold mb-1">Senior Software Engineer</h3>
+<div class="flex items-center text-gray-500 text-sm">
+<div class="flex items-center mr-4">
+<i class="ri-map-pin-line mr-1"></i>
+<span>Remote</span>
+</div>
+<div class="flex items-center">
+<i class="ri-time-line mr-1"></i>
+<span>Full-time</span>
+</div>
+</div>
+</div>
+<span class="bg-[#27ae60]/10 text-[#27ae60] text-sm font-medium px-3 py-1 rounded-full">Engineering</span>
+</div>
+<p class="text-gray-600 mb-4 text-sm">Join our engineering team to build innovative solutions that connect healthcare professionals with facilities.</p>
+<a href="#" class="inline-block bg-[#27ae60] text-white px-4 py-2 !rounded-button font-medium hover:bg-[#219653] transition-colors text-sm">Apply Now</a>
+</div>
+
+<div class="job-card bg-white border border-gray-200 rounded-lg p-6 hover:border-[#27ae60]">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-xl font-semibold mb-1">Product Manager</h3>
+<div class="flex items-center text-gray-500 text-sm">
+<div class="flex items-center mr-4">
+<i class="ri-map-pin-line mr-1"></i>
+<span>New York, NY</span>
+</div>
+<div class="flex items-center">
+<i class="ri-time-line mr-1"></i>
+<span>Full-time</span>
+</div>
+</div>
+</div>
+<span class="bg-[#27ae60]/10 text-[#27ae60] text-sm font-medium px-3 py-1 rounded-full">Product</span>
+</div>
+<p class="text-gray-600 mb-4 text-sm">Lead product development for our healthcare staffing platform, working with engineering, design, and business teams.</p>
+<a href="#" class="inline-block bg-[#27ae60] text-white px-4 py-2 !rounded-button font-medium hover:bg-[#219653] transition-colors text-sm">Apply Now</a>
+</div>
+</div>
+
+<div class="text-center mt-8">
+<a href="#" class="inline-flex items-center text-[#27ae60] font-medium hover:text-[#219653] transition-colors text-sm">
+View All Positions
+<i class="ri-arrow-right-line ml-1"></i>
+</a>
+</div>
+</div>
+</section>
+
+<!-- Benefits Section -->
+<section class="py-12 bg-white">
+<div class="container mx-auto px-6">
+<div class="text-center max-w-3xl mx-auto mb-8">
+<h2 class="text-2xl font-bold mb-4 text-[#1E3A8A]">Benefits & Perks</h2>
+<p class="text-gray-600">We take care of our team so they can focus on our mission.</p>
+</div>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+<div class="bg-[#e8f8f0] p-4 rounded-lg text-center">
+<div class="w-10 h-10 bg-[#27ae60]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+<i class="ri-money-dollar-circle-line text-[#27ae60]"></i>
+</div>
+<h3 class="text-base font-semibold mb-1">Competitive Salary</h3>
+</div>
+
+<div class="bg-[#e8f8f0] p-4 rounded-lg text-center">
+<div class="w-10 h-10 bg-[#27ae60]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+<i class="ri-heart-pulse-line text-[#27ae60]"></i>
+</div>
+<h3 class="text-base font-semibold mb-1">Health Insurance</h3>
+</div>
+
+<div class="bg-[#e8f8f0] p-4 rounded-lg text-center">
+<div class="w-10 h-10 bg-[#27ae60]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+<i class="ri-calendar-line text-[#27ae60]"></i>
+</div>
+<h3 class="text-base font-semibold mb-1">Flexible Schedule</h3>
+</div>
+
+<div class="bg-[#e8f8f0] p-4 rounded-lg text-center">
+<div class="w-10 h-10 bg-[#27ae60]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+<i class="ri-graduation-cap-line text-[#27ae60]"></i>
+</div>
+<h3 class="text-base font-semibold mb-1">Professional Growth</h3>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-8 bg-[#3498db]/10">
+<div class="container mx-auto px-6">
+<div class="max-w-3xl mx-auto text-center">
+<h2 class="text-2xl font-bold mb-4 text-[#1E3A8A]">Ready to Join Our Team?</h2>
+<p class="text-gray-600 mb-6">Explore our open positions and take the next step in your career.</p>
+<a href="#openings" class="bg-[#27ae60] text-white px-6 py-3 !rounded-button font-medium hover:bg-[#219653] transition-colors inline-block">View Opportunities</a>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer from hire.html -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3 class="footer-title">About Us</h3>
+            <p>Connecting healthcare facilities with top medical talent worldwide.</p>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-column">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+                <li class="footer-link"><a href="#">About</a></li>
+                <li class="footer-link"><a href="#">Services</a></li>
+                <li class="footer-link"><a href="#">Contact</a></li>
+                <li class="footer-link"><a href="#">Blog</a></li>
+                <li class="footer-link"><a href="#">Careers</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3 class="footer-title">Contact</h3>
+            <ul class="footer-links">
+                <li class="footer-link"><a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                <li class="footer-link"><a href="tel:+256781053105">+256 781 053 105</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3 class="footer-title">Resources</h3>
+            <ul class="footer-links">
+                <li class="footer-link"><a href="#">Help Center</a></li>
+                <li class="footer-link"><a href="#">FAQs</a></li>
+                <li class="footer-link"><a href="#">Testimonials</a></li>
+                <li class="footer-link"><a href="#">Terms of Service</a></li>
+                <li class="footer-link"><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Matendo Health. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuButton.addEventListener('click', function() {
+        if (mobileMenu.style.display === 'block') {
+            mobileMenu.style.display = 'none';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        } else {
+            mobileMenu.style.display = 'block';
+            mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+        }
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('.nav-container');
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+});
+</script>
+</body>
+</html>
