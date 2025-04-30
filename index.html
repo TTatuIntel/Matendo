@@ -22,8 +22,7 @@
             color: #333;
             scroll-behavior: smooth;
             font-size: 14px;
-            overflow-x: hidden;
-            /* Prevent horizontal scroll */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         /* Add subtle section dividers and alternating patterns */
@@ -65,24 +64,24 @@
             border-radius: 2px;
         }
 
-        /* Keeping the exact navigation code as provided */
+        /* Updated navigation code with middle links */
         .nav-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(248, 249, 250, 0.9); /* Match hero background */
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
             padding: 8px 5%;
             transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .nav-container.scrolled {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(248, 249, 250, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .nav-content {
@@ -98,12 +97,48 @@
             height: auto;
         }
 
-        .nav-links {
+        /* Main navigation links */
+        .main-nav {
+            display: flex;
+            gap: 25px;
+            margin: 0 auto;
+        }
+
+        .main-nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .main-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav-link:hover {
+            color: #28a745;
+        }
+
+        .main-nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Auth navigation links */
+        .auth-nav {
             display: flex;
             gap: 20px;
         }
 
-        .nav-link {
+        .auth-nav-link {
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
@@ -112,22 +147,22 @@
             border-radius: 4px;
         }
 
-        .nav-link:nth-child(1) {
+        .auth-nav-link:nth-child(1) {
             color: #28a745;
             border: 1px solid #28a745;
         }
 
-        .nav-link:nth-child(2) {
+        .auth-nav-link:nth-child(2) {
             color: #007bff;
             border: 1px solid #007bff;
         }
 
-        .nav-link:nth-child(1):hover {
+        .auth-nav-link:nth-child(1):hover {
             color: #218838;
             border-color: #218838;
         }
 
-        .nav-link:nth-child(2):hover {
+        .auth-nav-link:nth-child(2):hover {
             color: #0056b3;
             border-color: #0056b3;
         }
@@ -172,40 +207,43 @@
         /* Hero Section with improved responsive design */
         .hero-section {
             background-color: #f8f9fa;
-            padding: 20px 5% 10px;
+            padding: 0 5%;
             position: relative;
             overflow: hidden;
-            margin-top: 70px;
-            /* Added to account for fixed navbar */
-            padding-top: 20px;
+            margin-top: 70px; /* Added to account for fixed navbar */
         }
 
         .hero-content {
-            max-width: 1200px;
+            max-width: 1000px; /* Reduced max-width for more compact look */
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
+            padding: 40px 0; /* Added vertical padding */
         }
 
         .hero-text {
             flex: 1;
-            max-width: 450px;
+            max-width: 450px; /* Adjusted max-width for text */
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 2; /* Ensure text stays above image */
+            padding-right: 20px; /* Added padding to create space between text and image */
         }
 
         .hero-title {
-            font-size: 1.6rem;
+            font-size: 2rem; /* Increased font size */
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 15px; /* Increased margin for better spacing */
             line-height: 1.2;
+            font-weight: 700; /* Added more weight to title */
         }
 
         .hero-description {
-            font-size: 1rem;
+            font-size: 1.2rem; /* Increased font size */
             color: #666;
-            margin-bottom: 12px;
+            margin-bottom: 20px; /* Increased margin for better spacing */
             line-height: 1.5;
         }
 
@@ -213,11 +251,11 @@
             display: inline-block;
             background-color: white;
             color: #28a745;
-            padding: 8px 16px;
+            padding: 10px 20px; /* Slightly larger button */
             text-decoration: none;
             border-radius: 4px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem; /* Increased font size */
             transition: all 0.3s ease;
             border: 1px solid #28a745;
         }
@@ -230,21 +268,24 @@
 
         .hero-image {
             flex: 1;
-            text-align: right;
+            text-align: center; /* Center the image */
             position: relative;
             transition: all 0.3s ease;
+            max-width: 45%; /* Reduced max-width to match content size */
+            margin-right: 20px; /* Added margin to move away from right edge */
         }
 
         .hero-img {
             max-width: 100%;
             height: auto;
-            max-height: 500px;
+            max-height: 400px; /* Reduced height for better proportion */
             border-radius: 10px;
             mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             object-fit: cover;
             object-position: center 20%;
             transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
         }
 
         .blur-effect {
@@ -279,8 +320,7 @@
             scroll-behavior: smooth;
             padding: 15px 0;
             position: relative;
-            -webkit-overflow-scrolling: touch;
-            /* Smooth scrolling on iOS */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
 
         .talent-card {
@@ -777,8 +817,7 @@
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
-            flex-wrap: wrap;
-            /* Allow wrapping on small screens */
+            flex-wrap: wrap; /* Allow wrapping on small screens */
         }
 
         .app-store-button {
@@ -936,7 +975,7 @@
             align-items: center;
             justify-content: space-between;
             border-top: 1px solid rgba(255, 255, 255, 0.3);
-
+        
             position: relative;
             z-index: 1;
         }
@@ -1410,53 +1449,72 @@
         /* Enhanced Mobile Responsiveness */
         @media (max-width: 1200px) {
             .hero-text {
-                max-width: 400px;
+                max-width: 450px;
             }
-
+            
             .hero-image {
-                max-width: 50%;
-
+                max-width: 45%;
+                margin-right: 15px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .main-nav {
+                gap: 15px;
             }
         }
 
         @media (max-width: 992px) {
             .hero-content {
                 justify-content: space-between;
+                padding: 30px 0;
             }
-
+            
             .hero-text {
                 max-width: 50%;
-                padding-right: 20px;
+                padding-right: 15px;
             }
-
+            
             .hero-image {
                 max-width: 45%;
-                flex: 1;
-                text-align: right;
-                position: relative;
-                transition: all 0.3s ease;
-                margin-left: -40px;
-                /* Added to extend the image to the left */
+                margin-right: 10px;
             }
-        }
-
-        .hero-img {
-            max-height: 450px;
-        }
-
-        .app-download-container {
-            flex-direction: column;
-        }
-
-        .how-it-works-grid,
-        .features-container,
-        .personal-healthcare-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .how-to-hire-steps {
-            grid-template-columns: repeat(2, 1fr);
-        }
+            
+            .hero-img {
+                max-height: 350px;
+            }
+            
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            .hero-description {
+                font-size: 1.05rem;
+            }
+            
+            .app-download-container {
+                flex-direction: column;
+            }
+            
+            .how-it-works-grid,
+            .features-container,
+            .personal-healthcare-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .how-to-hire-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .main-nav {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1467,35 +1525,44 @@
             .nav-links {
                 display: none;
             }
+            
+            .auth-nav {
+                display: none;
+            }
 
             .mobile-menu-button {
                 display: block;
             }
-
+            
             .hero-content {
-                flex-direction: row;
+                flex-direction: column;
                 align-items: center;
+                padding: 25px 0;
             }
-
+            
             .hero-text {
-                max-width: 55%;
-                padding-right: 15px;
+                max-width: 100%;
+                padding-right: 0;
+                text-align: center;
+                margin-bottom: 20px;
             }
-
+            
             .hero-image {
-                max-width: 40%;
+                max-width: 80%;
+                text-align: center;
+                margin-right: 0;
             }
-
+            
             .hero-img {
-                max-height: 350px;
+                max-height: 300px;
             }
-
+            
             .hero-title {
-                font-size: 1.4rem;
+                font-size: 1.6rem;
             }
-
+            
             .hero-description {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
 
             .cookie-consent {
@@ -1557,25 +1624,26 @@
             .hero-content {
                 flex-direction: column;
                 text-align: center;
+                padding: 20px 0;
             }
-
+            
             .hero-text {
                 max-width: 100%;
                 padding-right: 0;
                 margin-bottom: 20px;
             }
-
+            
             .hero-image {
-                display: none;
-                /* Only hide on phone-sized screens */
+                max-width: 90%;
+                margin: 0 auto;
             }
-
+            
             .hero-title {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
 
             .hero-description {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
 
             .section-title {
@@ -1602,15 +1670,13 @@
                 grid-template-columns: 1fr;
             }
 
-            .floating-chat,
-            .back-to-top {
+            .floating-chat, .back-to-top {
                 width: 45px;
                 height: 45px;
                 right: 15px;
             }
 
-            .floating-chat i,
-            .back-to-top i {
+            .floating-chat i, .back-to-top i {
                 font-size: 1.2rem;
             }
 
@@ -1621,28 +1687,25 @@
 
         @media (min-width: 768px) and (max-width: 991px) {
             .hero-image {
-                display: block;
-                /* Show image on tablet screens */
-                left: 20px;
-                /* Adjust position for tablets */
+                display: block; /* Show image on tablet screens */
+                margin-right: 10px;
             }
-
+            
             .hero-text {
-                text-align: left;
-                /* Left align text on tablets */
-                padding-left: 20px;
+                text-align: left; /* Left align text on tablets */
+                padding-left: 10px;
             }
         }
 
         @media (min-width: 992px) {
             .hero-image {
-                display: block;
-                /* Ensure the image is visible on larger screens */
+                display: block; /* Ensure the image is visible on larger screens */
                 flex: 1;
-                text-align: right;
-                max-width: 50%;
+                text-align: center;
+                max-width: 45%;
                 position: relative;
                 transition: all 0.3s ease;
+                margin-right: 20px; /* Maintain the right margin on larger screens */
             }
         }
 
@@ -1677,9 +1740,7 @@
 
         /* Fix for iOS Safari 100vh issue */
         @supports (-webkit-touch-callout: none) {
-
-            .modal-overlay,
-            .cookie-consent {
+            .modal-overlay, .cookie-consent {
                 height: -webkit-fill-available;
             }
         }
@@ -1706,7 +1767,7 @@
                 height: 35px;
             }
 
-            .how-it-works-card,
+            .how-it-works-card, 
             .personal-healthcare-card,
             .how-to-hire-step,
             .feature {
@@ -1720,7 +1781,6 @@
 
         /* Improve touch targets for mobile */
         @media (max-width: 768px) {
-
             .nav-link,
             .mobile-menu-link,
             .hero-btn,
@@ -1747,7 +1807,7 @@
             }
 
             .hero-section {
-                padding-top: 80px;
+                padding-top: 70px;
             }
         }
     </style>
@@ -1760,9 +1820,14 @@
                 <a href="index.html" title="Matendo" aria-label="Matendo">
                     <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
                 </a>
-                <div class="nav-links">
-                    <a href="join.html" class="nav-link">Join Matendo</a>
-                    <a href="login.html" class="nav-link">Login</a>
+                <div class="main-nav">
+                    <a href="about.html" class="main-nav-link">About Us</a>
+                    <a href="contact.html" class="main-nav-link">Contact Us</a>
+                    <a href="careers.html" class="main-nav-link">Careers</a>
+                </div>
+                <div class="auth-nav">
+                    <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                    <a href="login.html" class="auth-nav-link">Login</a>
                 </div>
                 <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
@@ -1774,6 +1839,9 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-links">
+            <a href="about.html" class="mobile-menu-link">About Us</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="careers.html" class="mobile-menu-link">Careers</a>
             <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
             <a href="#how-to-hire" class="mobile-menu-link">How to Hire</a>
             <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
@@ -1875,6 +1943,7 @@
                 </div>
                 <div class="talent-card">
                     <img src="images/doc6.png" alt="Dr. Robert Taylor" class="talent-img">
+                    <div class="talent  alt="Dr. Robert Taylor" class="talent-img">
                     <div class="talent-info">
                         <h3 class="talent-name">Dr. Robert Taylor</h3>
                         <p class="talent-specialty">Oncology</p>
