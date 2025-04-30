@@ -22,7 +22,8 @@
             color: #333;
             scroll-behavior: smooth;
             font-size: 14px;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
         }
 
         /* Add subtle section dividers and alternating patterns */
@@ -174,7 +175,8 @@
             padding: 20px 5% 10px;
             position: relative;
             overflow: hidden;
-            margin-top: 70px; /* Added to account for fixed navbar */
+            margin-top: 70px;
+            /* Added to account for fixed navbar */
             padding-top: 20px;
         }
 
@@ -277,7 +279,8 @@
             scroll-behavior: smooth;
             padding: 15px 0;
             position: relative;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            -webkit-overflow-scrolling: touch;
+            /* Smooth scrolling on iOS */
         }
 
         .talent-card {
@@ -774,7 +777,8 @@
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
+            flex-wrap: wrap;
+            /* Allow wrapping on small screens */
         }
 
         .app-store-button {
@@ -932,7 +936,7 @@
             align-items: center;
             justify-content: space-between;
             border-top: 1px solid rgba(255, 255, 255, 0.3);
-        
+
             position: relative;
             z-index: 1;
         }
@@ -1240,7 +1244,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-fill-color: transparent;
+            -webkit-text-fill-color: transparent;
         }
 
         .modal-close {
@@ -1408,9 +1412,10 @@
             .hero-text {
                 max-width: 400px;
             }
-            
+
             .hero-image {
                 max-width: 50%;
+
             }
         }
 
@@ -1418,33 +1423,40 @@
             .hero-content {
                 justify-content: space-between;
             }
-            
+
             .hero-text {
                 max-width: 50%;
                 padding-right: 20px;
             }
-            
+
             .hero-image {
                 max-width: 45%;
+                flex: 1;
+                text-align: right;
+                position: relative;
+                transition: all 0.3s ease;
+                margin-left: -40px;
+                /* Added to extend the image to the left */
             }
-            
-            .hero-img {
-                max-height: 450px;
-            }
-            
-            .app-download-container {
-                flex-direction: column;
-            }
-            
-            .how-it-works-grid,
-            .features-container,
-            .personal-healthcare-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .how-to-hire-steps {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        }
+
+        .hero-img {
+            max-height: 450px;
+        }
+
+        .app-download-container {
+            flex-direction: column;
+        }
+
+        .how-it-works-grid,
+        .features-container,
+        .personal-healthcare-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .how-to-hire-steps {
+            grid-template-columns: repeat(2, 1fr);
+        }
         }
 
         @media (max-width: 768px) {
@@ -1459,29 +1471,29 @@
             .mobile-menu-button {
                 display: block;
             }
-            
+
             .hero-content {
                 flex-direction: row;
                 align-items: center;
             }
-            
+
             .hero-text {
                 max-width: 55%;
                 padding-right: 15px;
             }
-            
+
             .hero-image {
                 max-width: 40%;
             }
-            
+
             .hero-img {
                 max-height: 350px;
             }
-            
+
             .hero-title {
                 font-size: 1.4rem;
             }
-            
+
             .hero-description {
                 font-size: 0.9rem;
             }
@@ -1546,17 +1558,18 @@
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .hero-text {
                 max-width: 100%;
                 padding-right: 0;
                 margin-bottom: 20px;
             }
-            
+
             .hero-image {
-                display: none; /* Only hide on phone-sized screens */
+                display: none;
+                /* Only hide on phone-sized screens */
             }
-            
+
             .hero-title {
                 font-size: 1.3rem;
             }
@@ -1589,13 +1602,15 @@
                 grid-template-columns: 1fr;
             }
 
-            .floating-chat, .back-to-top {
+            .floating-chat,
+            .back-to-top {
                 width: 45px;
                 height: 45px;
                 right: 15px;
             }
 
-            .floating-chat i, .back-to-top i {
+            .floating-chat i,
+            .back-to-top i {
                 font-size: 1.2rem;
             }
 
@@ -1606,19 +1621,23 @@
 
         @media (min-width: 768px) and (max-width: 991px) {
             .hero-image {
-                display: block; /* Show image on tablet screens */
-                left: 20px; /* Adjust position for tablets */
+                display: block;
+                /* Show image on tablet screens */
+                left: 20px;
+                /* Adjust position for tablets */
             }
-            
+
             .hero-text {
-                text-align: left; /* Left align text on tablets */
+                text-align: left;
+                /* Left align text on tablets */
                 padding-left: 20px;
             }
         }
 
         @media (min-width: 992px) {
             .hero-image {
-                display: block; /* Ensure the image is visible on larger screens */
+                display: block;
+                /* Ensure the image is visible on larger screens */
                 flex: 1;
                 text-align: right;
                 max-width: 50%;
@@ -1658,7 +1677,9 @@
 
         /* Fix for iOS Safari 100vh issue */
         @supports (-webkit-touch-callout: none) {
-            .modal-overlay, .cookie-consent {
+
+            .modal-overlay,
+            .cookie-consent {
                 height: -webkit-fill-available;
             }
         }
@@ -1685,7 +1706,7 @@
                 height: 35px;
             }
 
-            .how-it-works-card, 
+            .how-it-works-card,
             .personal-healthcare-card,
             .how-to-hire-step,
             .feature {
@@ -1699,6 +1720,7 @@
 
         /* Improve touch targets for mobile */
         @media (max-width: 768px) {
+
             .nav-link,
             .mobile-menu-link,
             .hero-btn,
@@ -2063,11 +2085,11 @@
             <div class="footer-column">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="#">About</a></li>
+                    <li><a href="about.html">About</a></li>
                     <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                     <li><a href="#">Blog</a></li>
-                    <li><a href="#">Careers</a></li>
+                    <li><a href="careers.html">Careers</a></li>
                 </ul>
             </div>
             <div class="footer-column">

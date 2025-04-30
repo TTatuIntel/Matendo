@@ -1,763 +1,2261 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
+    <title>Matendo Medics - Hire Top Medical Professionals</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hire Medical Professionals - Matendo Medics</title>
-    <meta name="theme-color" content="#204ECF" />
     <meta name="description"
-        content="Hire top medical professionals through Matendo Medics, connecting leading hospitals and clinics with skilled healthcare experts worldwide." />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+        content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team." />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* Global Reset */
- * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  line-height: 1.4;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
+        body,
+        html {
+            font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            scroll-behavior: smooth;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
 
-.container {
-  max-width: 2000px;
-  margin: 0 auto;
-  padding: 20px;
-  padding-top: 80px;
-}
+        section {
+            position: relative;
+            padding: 20px 5%;
+            overflow: hidden;
+            width: 100%;
+        }
 
-label {
-  font-weight: 500;
-  margin-top: 5px;
-  color: #333;
-  text-align: left;
-  font-size: 12px;
-  display: block;
-  margin-bottom: 3px;
-}
+        section:nth-child(odd) {
+            background-image: linear-gradient(rgba(248, 249, 250, 0.7), rgba(248, 249, 250, 0.7)),
+                url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+        }
 
-input,
-select,
-button {
-  width: 100%;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 12px;
-}
+        section:nth-child(even) {
+            background-color: white;
+        }
 
-input:focus,
-select:focus {
-  border-color: #204ECF;
-  outline: none;
-}
-.progress-container {
-  width: 100%;
-  height: 4px;
-  background: #f0f0f0;
-}
+        .section-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: #323030;
+            position: relative;
+            padding-bottom: 8px;
+        }
 
-#progress-bar {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(to right, #0834ab, #04a34e);
-  transition: width 0.3s ease;
-}
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, #28a745, #1e7e7c);
+            border-radius: 2px;
+        }
 
-/* Collapsible Button */
-.collapsible {
-  background-color: transparent;
-  color: #204ECF;
-  cursor: pointer;
-  padding: 8px;
-  border: none;
-  font-size: 14px;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  transition: background-color 0.3s ease;
-}
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 8px 5%;
+            transition: all 0.3s ease;
+        }
 
-.collapsible:hover {
-  background-color: #f0f0f0;
-}
+        .nav-container.scrolled {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
 
-.arrow {
-  transition: transform 0.3s ease;
-}
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.arrow.closed {
-  transform: rotate(0deg);
-}
+        .logo-img {
+            width: 150px;
+            height: auto;
+        }
 
-.arrow.open {
-  transform: rotate(90deg);
-}
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
 
-.content {
-  display: none;
-  padding: 0 20px;
-  margin-left: 10px;
-  font-size: 15px;
-}
+        .nav-link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
 
-/* Input Pair */
-.input-pair {
-  display: flex;
-  margin-bottom: 8px;
-  justify-content: space-between;
-  gap: 20px;
-}
+        .nav-link:nth-child(1) {
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
 
-.input-pair>div {
-  width: 45%;
-  margin: 0;
-}
+        .nav-link:nth-child(2) {
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
 
-.input-pair input,
-.input-pair select {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-}
+        .nav-link:nth-child(1):hover {
+            color: #218838;
+            border-color: #218838;
+        }
 
-/* For datalist inputs */
-.input-pair input[type="text"][list] {
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 20px 20px;
-  padding-left: 30px;
-}
+        .nav-link:nth-child(2):hover {
+            color: #0056b3;
+            border-color: #0056b3;
+        }
 
-/* confirmation checkbox */
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  gap: 10px;
-  margin-top: 10px;
-}
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
 
-.checkbox-container input {
-  width: 16px;
-  height: 16px;
-  margin: 0;
-}
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
 
-/* Submit and Clear Buttons */
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: 100%;
-}
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-.button-container button {
-  background-color: #204ECF;
-  color: white;
-  cursor: pointer;
-  width: 45%;
-  max-width: 200px;
-  padding: 10px 20px;
-  font-size: 15px;
-  transition: background-color 0.3s;
-  border: none;
-  border-radius: 4px;
-}
+        .mobile-menu-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
 
-.button-container button:hover {
-  background-color: #1a3fa3;
-}
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 20px 5% 10px;
+            position: relative;
+            overflow: visible; /* Changed to allow image extension */
+            margin-top: 70px;
+            padding-top: 20px;
+        }
 
-#clear-signature {
-  background-color: #f0f0f0;
-  color: #333;
-}
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
 
-#clear-signature:hover {
-  background-color: #e0e0e0;
-}
+        .hero-text {
+            flex: 1;
+            max-width: 450px;
+            transition: all 0.3s ease;
+        }
 
-/* Modal Styles */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1001;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-  padding-top: 60px;
-}
+        .hero-title {
+            font-size: 1.6rem;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
 
-.modal-content {
-  background-color: #fff;
-  margin: 5% auto;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 400px;
-}
+        .hero-description {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
 
-.modal-header {
-  font-size: 18px;
-  font-weight: 600;
-  color: #204ECF;
-  margin-bottom: 10px;
-}
+        .hero-btn {
+            display: inline-block;
+            background-color: white;
+            color: #28a745;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid #28a745;
+        }
 
-.modal-body {
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 15px;
-}
+        .hero-btn:hover {
+            color: #1e7e7c;
+            border-color: #1e7e7c;
+            background-color: transparent;
+        }
 
-.modal-footer {
-  text-align: center;
-}
+        .hero-image {
+            flex: 1;
+            text-align: right;
+            position: relative;
+            transition: all 0.3s ease;
+            margin-left: -20px; /* Extend image to the left */
+        }
 
-.close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
+        .hero-img {
+            max-width: 100%;
+            height: auto;
+            max-height: 500px;
+            border-radius: 10px;
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            object-fit: cover;
+            object-position: center 20%;
+            transition: all 0.3s ease;
+        }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
+        .blur-effect {
+            position: relative;
+        }
 
-/* Declaration Section Styles */
-.declaration-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
+        .blur-effect::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0), rgba(248, 249, 250, 1));
+            pointer-events: none;
+        }
 
-.shared-content {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 12px;
-  color: #555;
-}
+        .talent-section {
+            padding: 25px 5%;
+        }
 
-.signature-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 10px;
-}
+        .talent-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
 
-.signature-input,
-.date-input {
-  width: 50%;
-}
+        .talent-grid {
+            display: flex;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding: 15px 0;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+        }
 
-#signature-pad {
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  margin-bottom: 10px;
-}
+        .talent-card {
+            flex: 0 0 220px;
+            margin-right: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
 
-#signature-upload {
-  display: none;
-}
+        .talent-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            border-color: rgba(40, 167, 69, 0.2);
+        }
 
-.signature-options {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
+        .talent-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            object-position: center 15%;
+            transition: transform 0.5s ease;
+        }
 
-.signature-options button {
-  width: 48%;
-  padding: 8px;
-  font-size: 12px;
-}
+        .talent-card:hover .talent-img {
+            transform: scale(1.05);
+        }
 
-/* Supporting Documents Styles */
-.file-input-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
+        .talent-info {
+            padding: 15px;
+            border-top: 1px solid #f0f0f0;
+            background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+        }
 
-.file-input-container label {
-  flex: 1;
-  margin-right: 10px;
-  cursor: pointer;
-  color: #204ECF;
-  text-decoration: underline;
-}
+        .talent-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #333;
+        }
 
-.file-input-container input[type="file"] {
-  display: none;
-}
+        .talent-specialty {
+            font-size: 0.9rem;
+            color: #666;
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-      padding: 10px;
-      padding-top: 70px;
-  }
+        .talent-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #28a745;
+            border: 2px solid #28a745;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-  .input-pair {
-      flex-direction: column;
-      gap: 10px;
-  }
+        .talent-nav-btn:hover {
+            background-color: #28a745;
+            color: white;
+            box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3);
+        }
 
-  .input-pair>div {
-      width: 100%;
-  }
+        #prevBtn {
+            left: 10px;
+        }
 
-  .signature-container {
-      flex-direction: column;
-  }
+        #nextBtn {
+            right: 10px;
+        }
 
-  .signature-input,
-  .date-input {
-      width: 50%;
-  }
-}
+        .pagination-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
 
-@media (max-width: 480px) {
-  .collapsible {
-      font-size: 12px;
-      padding: 6px;
-  }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-  input,
-  select,
-  button {
-      font-size: 10px;
-  }
-}
+        .dot.active {
+            background-color: #28a745;
+            transform: scale(1.2);
+        }
+
+        .how-it-works {
+            padding: 25px 5%;
+        }
+
+        .how-it-works-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .how-it-works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .how-it-works-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .how-it-works-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #28a745, #1e7e7c);
+            z-index: 2;
+        }
+
+        .how-it-works-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .how-it-works-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .how-it-works-card:hover .how-it-works-icon {
+            background-color: rgba(40, 167, 69, 0.2);
+            transform: scale(1.1);
+        }
+
+        .how-it-works-icon i {
+            font-size: 1.5rem;
+            color: #28a745;
+        }
+
+        .how-it-works-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .how-it-works-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .features {
+            padding: 25px 5%;
+        }
+
+        .features-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, transparent 100%);
+            z-index: 0;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature i {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .personal-healthcare {
+            padding: 25px 5%;
+        }
+
+        .personal-healthcare-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .personal-healthcare-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .personal-healthcare-card {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .personal-healthcare-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(40, 167, 69, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .personal-healthcare-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .personal-healthcare-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .personal-healthcare-icon i {
+            font-size: 1.5rem;
+            color: #28a745;
+        }
+
+        .personal-healthcare-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .personal-healthcare-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .personal-healthcare-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 15px;
+            background-color: rgba(40, 167, 69, 0.3);
+            border-radius: 3px;
+        }
+
+        .personal-healthcare-list i {
+            color: #28a745;
+            margin-right: 10px;
+        }
+
+        .personal-healthcare-card h3 {
+            font-size: 1rem;
+        }
+
+        .how-to-hire {
+            padding: 30px 5%;
+            background-color: #f8f9fa;
+        }
+
+        .how-to-hire-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .how-to-hire-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .how-to-hire-step {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .how-to-hire-step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .how-to-hire-step i {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .how-to-hire-step h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .how-to-hire-step p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .hire-cta {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .hire-btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+        }
+
+        .hire-btn:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .app-download {
+            padding: 25px 5%;
+            background-color: rgba(40, 167, 69, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-download-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .app-download-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .app-download-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(40, 167, 69, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .app-download-image img {
+            max-width: 300px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 5px solid white;
+            transition: all 0.3s ease;
+        }
+
+        .app-download-image img:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-download-content {
+            flex: 1;
+        }
+
+        .app-store-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .app-store-button {
+            display: flex;
+            align-items: center;
+            background-color: #000;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-store-button:hover {
+            background-color: #333;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .app-store-button i {
+            font-size: 1.8rem;
+            margin-right: 12px;
+        }
+
+        .app-store-button-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-store-button-text small {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .app-store-button-text strong {
+            font-size: 1.1rem;
+        }
+
+        .app-features-list {
+            list-style: none;
+        }
+
+        .app-features-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .app-features-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 20px;
+            background-color: rgba(40, 167, 69, 0.3);
+            border-radius: 3px;
+        }
+
+        .app-features-list i {
+            color: #28a745;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+
+        .newsletter {
+            padding: 25px 5%;
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(40, 167, 69, 0.05);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(40, 167, 69, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(40, 167, 69, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: rgba(40, 167, 69, 0.5);
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.1);
+        }
+
+        .newsletter-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 0 8px 8px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+        }
+
+        .newsletter-button:hover {
+            background-color: #218838;
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cookie-text {
+            flex: 1;
+            margin-right: 20px;
+            font-size: 0.9rem;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-accept {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+            font-size: 0.9rem;
+        }
+
+        .cookie-decline {
+            background-color: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .cookie-decline:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .floating-chat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0Mental health support
+        }
+
+        .floating-chat:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .floating-chat i {
+            font-size: 1.5rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #555;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .back-to-top i {
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 40px 5% 30px;
+            border-top: 1px solid #eee;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, transparent, rgba(40, 167, 69, 0.3), transparent);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #333;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-column a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(40, 167, 69, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #28a745;
+            padding-left: 20px;
+        }
+
+        .footer-column a:hover::before {
+            background-color: #28a745;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            color: #28a745;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .social-icons a:hover {
+            background-color: #28a745;
+            color: white;
+            transform: translateY(-5px);
+            padding: 0;
+        }
+
+        .social-icons a::before {
+            display: none;
+        }
+
+        .social-icons i {
+            font-size: 1.2rem;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-container {
+            background-color: rgba(255, 255, 255, 0.65);
+            border-radius: 24px;
+            max-width: 500px;
+            width: 90%;
+            padding: 35px;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                0 1px 8px rgba(255, 255, 255, 0.2) inset,
+                0 -1px 8px rgba(0, 0, 0, 0.05) inset;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(40, 167, 69, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .modal-container::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #333;
+            position: relative;
+            background: linear-gradient(to right, #28a745, #1e7e7c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #333;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.3);
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.1) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .option-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .option-button.professional {
+            color: #28a745;
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+
+        .option-button.professional:hover {
+            background-color: rgba(40, 167, 69, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.15);
+        }
+
+        .option-button.facility {
+            color: #007bff;
+            border-color: rgba(0, 123, 255, 0.3);
+        }
+
+        .option-button.facility:hover {
+            background-color: rgba(0, 123, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.15);
+        }
+
+        .option-button i {
+            margin-right: 15px;
+            font-size: 1.3rem;
+            background: rgba(255, 255, 255, 0.5);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .option-button.professional i {
+            color: #28a745;
+            background-color: rgba(40, 167, 69, 0.15);
+        }
+
+        .option-button.facility i {
+            color: #007bff;
+            background-color: rgba(0, 123, 255, 0.15);
+        }
+
+        .option-button:hover i {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-button span {
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+
+        .option-button .arrow {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+            opacity: 0.7;
+            background: transparent;
+            width: auto;
+            height: auto;
+            box-shadow: none;
+        }
+
+        .option-button:hover .arrow {
+            transform: translateX(5px);
+            opacity: 1;
+        }
+
+        .modal-footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-show {
+            display: flex;
+        }
+
+        .modal-container-show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .hero-text {
+                max-width: 400px;
+            }
+            
+            .hero-image {
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                justify-content: space-between;
+            }
+            
+            .hero-text {
+                max-width: 50%;
+                padding-right: 20px;
+            }
+            
+            .hero-image {
+                max-width: 45%;
+                margin-left: -15px; /* Reduced extension for smaller screens */
+            }
+            
+            .hero-img {
+                max-height: 450px;
+            }
+            
+            .app-download-container {
+                flex-direction: column;
+            }
+            
+            .how-it-works-grid,
+            .features-container,
+            .personal-healthcare-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .how-to-hire-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+            
+            .hero-content {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .hero-text {
+                max-width: 55%;
+                padding-right: 15px;
+            }
+            
+            .hero-image {
+                max-width: 40%;
+                margin-left: -10px; /* Further reduced extension */
+            }
+            
+            .hero-img {
+                max-height: 350px;
+            }
+            
+            .hero-title {
+                font-size: 1.4rem;
+            }
+            
+            .hero-description {
+                font-size: 0.9rem;
+            }
+
+            .cookie-consent {
+                flex-direction: column;
+            }
+
+            .cookie-text {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .how-it-works-grid,
+            .features-container,
+            .personal-healthcare-grid,
+            .how-to-hire-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-input {
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-button {
+                border-radius: 8px;
+                width: 100%;
+            }
+
+            .modal-container {
+                width: 95%;
+                padding: 25px;
+            }
+
+            .option-button {
+                padding: 15px;
+            }
+
+            .option-button i {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+                margin-right: 10px;
+            }
+
+            .modal-title {
+                font-size: 1.3rem;
+            }
+
+            .talent-card {
+                flex: 0 0 180px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                max-width: 100%;
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .hero-image {
+                margin-left: 0; /* No extension on very small screens */
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .hero-description {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .app-store-buttons {
+                flex-direction: column;
+            }
+
+            .app-store-button {
+                width: 100%;
+            }
+
+            .talent-card {
+                flex: 0 0 160px;
+            }
+
+            .talent-img {
+                height: 150px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-chat, .back-to-top {
+                width: 45px;
+                height: 45px;
+                right: 15px;
+            }
+
+            .floating-chat i, .back-to-top i {
+                font-size: 1.2rem;
+            }
+
+            .back-to-top {
+                bottom: 75px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .hero-image {
+                display: block;
+                margin-left: -15px; /* Adjusted for tablets */
+            }
+            
+            .hero-text {
+                text-align: left;
+                padding-left: 20px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hero-image {
+                display: block;
+                flex: 1;
+                text-align: right;
+                max-width: 50%;
+                position: relative;
+                transition: all 0.3s ease;
+                margin-left: -20px; /* Maintain extension on larger screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .talent-card {
+                flex: 0 0 140px;
+            }
+
+            .talent-img {
+                height: 130px;
+            }
+
+            .option-button {
+                padding: 12px;
+            }
+
+            .option-button i {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+                margin-right: 10px;
+            }
+
+            .modal-container {
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            .modal-overlay, .cookie-consent {
+                height: -webkit-fill-available;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .hero-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .talent-card {
+                flex: 0 0 100%;
+                margin-right: 15px;
+                margin-left: 15px;
+            }
+
+            .talent-nav-btn {
+                width: 35px;
+                height: 35px;
+            }
+
+            .how-it-works-card, 
+            .personal-healthcare-card,
+            .how-to-hire-step,
+            .feature {
+                padding: 15px;
+            }
+
+            .option-button span {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-link,
+            .mobile-menu-link,
+            .hero-btn,
+            .hire-btn,
+            .app-store-button,
+            .newsletter-button,
+            .cookie-accept,
+            .cookie-decline {
+                padding: 10px 15px;
+            }
+
+            .footer-column a {
+                padding: 8px 15px;
+                display: block;
+            }
+
+            .talent-nav-btn {
+                top: 40%;
+            }
+
+            section {
+                padding: 30px 4%;
+            }
+
+            .hero-section {
+                padding-top: 80px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav id="nav" aria-label="Main Navigation">
-        <div class="nav-content">
-            <a href="index.html" title="Matendo">
-                <img src="images/matelogo4.png" alt="Matendo Wordmark" width="250" height="50" />
-            </a>
-        </div>
-        <div class="progress-container">
-            <div id="progress-bar"></div>
+    <nav class="nav-container">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" title="Matendo" aria-label="Matendo">
+                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="join.html" class="nav-link">Join Matendo</a>
+                    <a href="login.html" class="nav-link">Login</a>
+                </div>
+                <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <div class="container">
-        <!-- Form -->
-        <form id="hire-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="post" target="_self">
-            <!-- Job Details -->
-            <section id="job-details">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Job Details</span>
-                    <span class="arrow closed">➞</span>
-                </button>
-                <div class="content">
-                    <div class="input-pair">
-                        <div>
-                            <label for="job-title">Job Title</label>
-                            <input type="text" id="job-title" name="entry.123456789" placeholder="Enter job title" required>
-                        </div>
-                        <div>
-                            <label for="specialization">Specialization</label>
-                            <input type="text" id="specialization" name="entry.987654321" placeholder="Enter specialization">
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="job-type">Job Type</label>
-                            <select id="job-type" name="entry.246813579" required>
-                                <option value="">Select job type</option>
-                                <option value="full-time">Full-time</option>
-                                <option value="part-time">Part-time</option>
-                                <option value="contract">Contract</option>
-                                <option value="temporary">Temporary</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="experience-level">Experience Level</label>
-                            <select id="experience-level" name="entry.135792468" required>
-                                <option value="">Select experience level</option>
-                                <option value="entry">Entry Level</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="senior">Senior</option>
-                                <option value="expert">Expert</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="job-description">Job Description</label>
-                        <textarea id="job-description" name="entry.369258147" rows="4" placeholder="Enter detailed job description" required></textarea>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Requirements -->
-            <section id="requirements">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Requirements</span>
-                    <span class="arrow closed">➞</span>
-                </button>
-                <div class="content">
-                    <div>
-                        <label for="qualifications">Qualifications</label>
-                        <textarea id="qualifications" name="entry.741852963" rows="4" placeholder="Enter required qualifications" required></textarea>
-                    </div>
-                    <div>
-                        <label>Required Skills</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="entry.159753456" value="Pediatric care"> Pediatric care</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Surgery"> Surgery</label>
-                            <label><input type="checkbox" name="entry.159753456" value="ICU experience"> ICU experience</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Geriatric care"> Geriatric care</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Rehabilitation therapy"> Rehabilitation therapy</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Medical Research"> Medical Research</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Diagnostic Skills"> Diagnostic Skills</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Surgical Skills"> Surgical Skills</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Patient Care"> Patient Care</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Healthcare IT/EMR"> Healthcare IT/EMR Systems</label>
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="education">Minimum Education</label>
-                            <select id="education" name="entry.951753852" required>
-                                <option value="">Select education level</option>
-                                <option value="high-school">High School</option>
-                                <option value="associate">Associate's Degree</option>
-                                <option value="bachelor">Bachelor's Degree</option>
-                                <option value="master">Master's Degree</option>
-                                <option value="doctorate">Doctorate</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="experience">Minimum Experience (Years)</label>
-                            <input type="number" id="experience" name="entry.753951852" placeholder="Enter years of experience" required min="0">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Compensation -->
-            <section id="compensation">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Compensation</span>
-                    <span class="arrow closed">➞</span>
-                </button>
-                <div class="content">
-                    <div class="input-pair">
-                        <div>
-                            <label for="salary-range-min">Salary Range (Min)</label>
-                            <input type="number" id="salary-range-min" name="entry.159753654" placeholder="Enter minimum salary" required min="0">
-                        </div>
-                        <div>
-                            <label for="salary-range-max">Salary Range (Max)</label>
-                            <input type="number" id="salary-range-max" name="entry.951753654" placeholder="Enter maximum salary" required min="0">
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="benefits">Benefits</label>
-                            <textarea id="benefits" name="entry.357159654" rows="4" placeholder="Enter job benefits" required></textarea>
-                        </div>
-                        <div>
-                            <label for="bonus-structure">Bonus Structure (if any)</label>
-                            <textarea id="bonus-structure" name="entry.753951654" rows="4" placeholder="Enter bonus structure details"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Location and Schedule -->
-            <section id="location-schedule">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Location and Schedule</span>
-                    <span class="arrow closed">➞</span>
-                </button>
-                <div class="content">
-                    <div class="input-pair">
-                        <div>
-                            <label for="location">Job Location</label>
-                            <input type="text" id="location" name="entry.159753756" placeholder="Enter job location" required>
-                        </div>
-                        <div>
-                            <label for="remote-option">Remote Work Option</label>
-                            <select id="remote-option" name="entry.951753756" required>
-                                <option value="">Select remote work option</option>
-                                <option value="on-site">On-site only</option>
-                                <option value="remote">Remote only</option>
-                                <option value="hybrid">Hybrid</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="work-hours">Work Hours</label>
-                            <input type="text" id="work-hours" name="entry.357159756" placeholder="Enter work hours" required>
-                        </div>
-                        <div>
-                            <label for="shift-type">Shift Type</label>
-                            <select id="shift-type" name="entry.753951756" required>
-                                <option value="">Select shift type</option>
-                                <option value="day">Day shift</option>
-                                <option value="night">Night shift</option>
-                                <option value="rotating">Rotating shifts</option>
-                                <option value="flexible">Flexible hours</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Company Information -->
-            <section id="company-info">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Company Information</span>
-                    <span class="arrow closed">➞</span>
-                </button>
-                <div class="content">
-                    <div class="input-pair">
-                        <div>
-                            <label for="company-name">Company Name</label>
-                            <input type="text" id="company-name" name="entry.159753858" placeholder="Enter company name" required>
-                        </div>
-                        <div>
-                            <label for="company-website">Company Website</label>
-                            <input type="url" id="company-website" name="entry.951753858" placeholder="Enter company website URL">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="company-description">Company Description</label>
-                        <textarea id="company-description" name="entry.357159858" rows="4" placeholder="Enter company description" required></textarea>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Application Process -->
-            <section id="application-process">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Application Process</span>
-                    <span class="arrow closed">➞</span>
-                </button>
-                <div class="content">
-                    <div class="input-pair">
-                        <div>
-                            <label for="application-deadline">Application Deadline</label>
-                            <input type="date" id="application-deadline" name="entry.753951858" required>
-                        </div>
-                        <div>
-                            <label for="start-date">Expected Start Date</label>
-                            <input type="date" id="start-date" name="entry.159753960" required>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="application-instructions">Application Instructions</label>
-                        <textarea id="application-instructions" name="entry.951753960" rows="4" placeholder="Enter application instructions" required></textarea>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Contact Information -->
-            <section id="contact-info">
-                <button type="button" class="collapsible" aria-expanded="false">
-                    <span>Contact Information</span>
-                    <span class="arrow closed">➞</span>
-                </button>
-                <div class="content">
-                    <div class="input-pair">
-                        <div>
-                            <label for="contact-name">Contact Person Name</label>
-                            <input type="text" id="contact-name" name="entry.357159960" placeholder="Enter contact person's name" required>
-                        </div>
-                        <div>
-                            <label for="contact-email">Contact Email</label>
-                            <input type="email" id="contact-email" name="entry.753951960" placeholder="Enter contact email" required>
-                        </div>
-                    </div>
-                    <div class="input-pair">
-                        <div>
-                            <label for="contact-phone">Contact Phone</label>
-                            <input type="tel" id="contact-phone" name="entry.159754062" placeholder="Enter contact phone number">
-                        </div>
-                        <div>
-                            <label for="preferred-contact">Preferred Contact Method</label>
-                            <select id="preferred-contact" name="entry.951754062" required>
-                                <option value="">Select preferred contact method</option>
-                                <option value="email">Email</option>
-                                <option value="phone">Phone</option>
-                                <option value="either">Either</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Declaration -->
-            <section id="declaration" class="declaration-section">
-                <div class="shared-content">
-                    <p>By submitting this form, you confirm that all provided information is accurate and complete.</p>
-
-                    <label class="checkbox-container">
-                        <input type="checkbox" name="entry.357160470" required />
-                        I confirm the information is true and accurate.
-                    </label>
-                </div>
-                <div class="signature-container">
-                    <div class="signature-input">
-                        <label for="signature">Signature</label>
-                        <canvas id="signature-pad" width="300" height="50"></canvas>
-                        <input type="file" id="signature-upload" name="entry.753952470" accept="image/*">
-                        <div class="signature-options">
-                            <button type="button" id="clear-signature">Clear</button>
-                            <button type="button" id="upload-signature">Upload</button>
-                        </div>
-                        <input type="hidden" id="signature" name="entry.159754572">
-                    </div>
-                </div>
-                <div class="button-container">
-                    <button type="submit">Submit Job Posting</button>
-                </div>
-            </section>
-        </form>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+            <a href="#how-to-hire" class="mobile-menu-link">How to Hire</a>
+            <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
+            <a href="join.html" class="mobile-menu-link" id="getStartedBtnMobile">Join Matendo</a>
+            <a href="login.html" class="mobile-menu-link">Login</a>
+        </div>
     </div>
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Matendo Medics. All Rights Reserved.</p>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Hire Medical Professionals</h1>
+                <p class="hero-description">
+                    Matendo provides fast, reliable access to certified doctors and medical professionals,
+                    ready to assist with your healthcare needs. Whether you're looking for advice, second opinions,
+                    or specialized care, Matendo connects you to the best experts in the field.
+                </p>
+                <div style="margin-top: 30px;">
+                    <a href="#" class="hero-btn" id="hireTalentBtn">Get Started </a>
+                </div>
+            </div>
+
+            <div class="hero-image blur-effect">
+                <img src="images/doc1.png" alt="Medical Professional" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="how-it-works-container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="how-it-works-grid">
+                <div class="how-it-works-card">
+                    <div class="how-it-works-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Create Profile</h3>
+                    <p>Build your professional profile and showcase your qualifications</p>
+                </div>
+                <div class="how-it-works-card">
+                    <div class="how-it-works-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Find Opportunities</h3>
+                    <p>Browse and apply for positions that match your preferences</p>
+                </div>
+                <div class="how-it-works-card">
+                    <div class="how-it-works-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>Start Working</h3>
+                    <p>Begin your assignments with full platform support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="talent-section">
+        <div class="talent-container">
+            <h2 class="section-title">Featured Medical Professionals</h2>
+            <div class="talent-grid" id="talentGrid">
+                <div class="talent-card">
+                    <img src="images/doc1.png" alt="Dr. Sarah Williams" class="talent-img">
+                    <div class="talent-info">
+                        <h3 class="talent-name">Dr. Sarah Williams</h3>
+                        <p class="talent-specialty">General Practice</p>
+                    </div>
+                </div>
+                <div class="talent-card">
+                    <img src="images/doc2.png" alt="Dr. James Smith" class="talent-img">
+                    <div class="talent-info">
+                        <h3 class="talent-name">Dr. James Smith</h3>
+                        <p class="talent-specialty">Cardiology</p>
+                    </div>
+                </div>
+                <div class="talent-card">
+                    <img src="images/doc3.png" alt="Dr. Emily Brown" class="talent-img">
+                    <div class="talent-info">
+                        <h3 class="talent-name">Dr. Emily Brown</h3>
+                        <p class="talent-specialty">Pediatrics</p>
+                    </div>
+                </div>
+                <div class="talent-card">
+                    <img src="images/doc4.png" alt="Dr. Mark Johnson" class="talent-img">
+                    <div class="talent-info">
+                        <h3 class="talent-name">Dr. Mark Johnson</h3>
+                        <p class="talent-specialty">Orthopedics</p>
+                    </div>
+                </div>
+                <div class="talent-card">
+                    <img src="images/doc5.png" alt="Dr. Sophia Chen" class="talent-img">
+                    <div class="talent-info">
+                        <h3 class="talent-name">Dr. Sophia Chen</h3>
+                        <p class="talent-specialty">Neurology</p>
+                    </div>
+                </div>
+                <div class="talent-card">
+                    <img src="images/doc6.png" alt="Dr. Robert Taylor" class="talent-img">
+                    <div class="talent-info">
+                        <h3 class="talent-name">Dr. Robert Taylor</h3>
+                        <p class="talent-specialty">Oncology</p>
+                    </div>
+                </div>
+            </div>
+            <button class="talent-nav-btn" id="prevBtn" aria-label="Previous"><i
+                    class="fas fa-chevron-left"></i></button>
+            <button class="talent-nav-btn" id="nextBtn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+
+            <div class="pagination-dots" id="paginationDots"></div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-container">
+            <div class="feature">
+                <i class="fas fa-user-md"></i>
+                <h3>Vetted Professionals</h3>
+                <p>Thoroughly screened for qualifications and experience.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-clock"></i>
+                <h3>Fast Onboarding</h3>
+                <p>Quickly matched with professionals for urgent needs.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-handshake"></i>
+                <h3>Flexible Contracts</h3>
+                <p>Full-time, part-time, or contract-based arrangements.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-to-hire" id="how-to-hire">
+        <div class="how-to-hire-container">
+            <h2 class="section-title">How to Hire Healthcare Staff</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 30px; color: #666;">
+                Whether you're an individual seeking personal care or a facility looking for staff, our simple process
+                makes hiring healthcare professionals easy and efficient.
+            </p>
+            <div class="how-to-hire-steps">
+                <div class="how-to-hire-step">
+                    <div class="step-number">1</div>
+                    <i class="fas fa-user-plus"></i>
+                    <h3>Create Account</h3>
+                    <p>Sign up and complete your profile with your specific healthcare needs</p>
+                </div>
+                <div class="how-to-hire-step">
+                    <div class="step-number">2</div>
+                    <i class="fas fa-search"></i>
+                    <h3>Search Professionals</h3>
+                    <p>Browse our database of verified healthcare professionals</p>
+                </div>
+                <div class="how-to-hire-step">
+                    <div class="step-number">3</div>
+                    <i class="fas fa-comments"></i>
+                    <h3>Connect & Interview</h3>
+                    <p>Message candidates and conduct interviews through our platform</p>
+                </div>
+                <div class="how-to-hire-step">
+                    <div class="step-number">4</div>
+                    <i class="fas fa-file-contract"></i>
+                    <h3>Hire & Manage</h3>
+                    <p>Finalize contracts, schedules, and manage payments securely</p>
+                </div>
+            </div>
+            <div class="hire-cta">
+                <a href="hire.html" class="hire-btn">Start Hiring Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="personal-healthcare" id="personal-healthcare">
+        <div class="personal-healthcare-container">
+            <h2 class="section-title">Personal Healthcare Support</h2>
+            <div class="personal-healthcare-grid">
+                <div class="personal-healthcare-card">
+                    <div class="personal-healthcare-icon">
+                        <i class="fas fa-user-nurse"></i>
+                    </div>
+                    <h3>Home Care Services</h3>
+                    <p>Access qualified nurses and caregivers for personalized home healthcare support.</p>
+                    <ul class="personal-healthcare-list">
+                        <li><i class="fas fa-check"></i> Post-surgery care</li>
+                        <li><i class="fas fa-check"></i> Elderly care support</li>
+                        <li><i class="fas fa-check"></i> Medication management</li>
+                    </ul>
+                </div>
+                <div class="personal-healthcare-card">
+                    <div class="personal-healthcare-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Specialized Care</h3>
+                    <p>Connect with specialists for specific health conditions and rehabilitation needs.</p>
+                    <ul class="personal-healthcare-list">
+                        <li><i class="fas fa-check"></i> Physical therapy</li>
+                        <li><i class="fas fa-check"></i> Chronic condition care</li>
+                        <li><i class="fas fa-check"></i> Rehabilitation support</li>
+                    </ul>
+                </div>
+                <div class="personal-healthcare-card">
+                    <div class="personal-healthcare-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Flexible Scheduling</h3>
+                    <p>Book healthcare professionals according to your schedule and requirements.</p>
+                    <ul class="personal-healthcare-list">
+                        <li><i class="fas fa-check"></i> Short-term assistance</li>
+                        <li><i class="fas fa-check"></i> Regular appointments</li>
+                        <li><i class="fas fa-check"></i> Emergency coverage</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 25px;">
+                <a href="hire.html" class="hero-btn" id="findCareBtn">Find Care Now <i class="fas fa-arrow-right"
+                        style="margin-left: 5px;"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="app-download">
+        <div class="app-download-container">
+            <div class="app-download-image">
+                <img src="images/app-screenshot.jpg" alt="Matendo Health Mobile App">
+            </div>
+            <div class="app-download-content">
+                <h2 class="section-title" style="text-align: left; padding-bottom: 15px;">Get Real-Time Alerts</h2>
+                <p style="margin-bottom: 20px; color: #666; font-size: 1.1rem; line-height: 1.6;">Never miss an
+                    opportunity with our mobile app. Receive instant notifications about new shifts that match your
+                    preferences.</p>
+                <div class="app-store-buttons">
+                    <a href="#" class="app-store-button">
+                        <i class="fab fa-apple"></i>
+                        <div class="app-store-button-text">
+                            <small>Download on the</small>
+                            <strong>App Store</strong>
+                        </div>
+                    </a>
+                    <a href="#" class="app-store-button">
+                        <i class="fab fa-google-play"></i>
+                        <div class="app-store-button-text">
+                            <small>Get it on</small>
+                            <strong>Google Play</strong>
+                        </div>
+                    </a>
+                </div>
+                <ul class="app-features-list">
+                    <li><i class="fas fa-check"></i> Instant shift notifications based on your preferences</li>
+                    <li><i class="fas fa-check"></i> One-tap shift acceptance and scheduling</li>
+                    <li><i class="fas fa-check"></i> Secure messaging with facilities and patients</li>
+                    <li><i class="fas fa-check"></i> Real-time earnings tracking and reports</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2 class="section-title">Stay Updated</h2>
+            <p style="margin-bottom: 20px; color: #666;">Get the latest healthcare staffing trends and opportunities
+                delivered to your inbox</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" class="newsletter-input">
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #999;">We respect your privacy. Unsubscribe at any
+                time.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.4;">
+                    Connecting healthcare facilities with top medical talent worldwide.
+                </p>
+                <div class="social-icons">
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                    <li><a href="tel:+256781053105">+256 781 053 105</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
     </footer>
 
+    <div class="floating-chat" id="chatButton">
+        <i class="fas fa-headset"></i>
+    </div>
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-text">
+            <p>We use cookies to enhance your experience. By continuing to visit this site you agree to our use of
+                cookies.</p>
+        </div>
+        <div class="cookie-buttons">
+            <button class="cookie-accept" id="acceptCookies">Accept</button>
+            <button class="cookie-decline" id="declineCookies">Decline</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="getStartedModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Get Started</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button class="option-button professional" id="joinAsProfessional">
+                    <i class="fas fa-user-md"></i>
+                    <span>Join as Healthcare Professional</span>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </button>
+                <a href="hire.html" class="option-button facility" id="hireHealthcareStaff">
+                    <i class="fas fa-hospital"></i>
+                    <span>Hire Healthcare Staff</span>
+                    <i class="fas fa-arrow-right arrow"></i>
+                </a>
+            </div>
+            <div class="modal-footer">
+                <p>Choose your path to join our healthcare community</p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Collapsible Section Toggle Functionality
-        const collapsibles = document.querySelectorAll('.collapsible');
-
-        collapsibles.forEach((button) => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const arrow = button.querySelector('.arrow');
-                const isOpen = content.style.display === 'block';
-
-                content.style.display = isOpen ? 'none' : 'block';
-                arrow.classList.toggle('closed', isOpen);
-                arrow.classList.toggle('open', !isOpen);
-                button.setAttribute('aria-expanded', !isOpen);
-
-                updateProgress();
-            });
-        });
-
-        // Progress Bar Update Functionality
-        function updateProgress() {
-            const totalSections = collapsibles.length;
-            const openSections = document.querySelectorAll('.collapsible[aria-expanded="true"]').length;
-            const progress = (openSections / totalSections) * 100;
-
-            const progressBar = document.getElementById('progress-bar');
-            progressBar.style.width = `${progress}%`;
-        }
-
-        // Event listener for form changes to update progress
-        document.getElementById('hire-form').addEventListener('input', updateProgress);
-
-        // Signature Pad functionality
         document.addEventListener('DOMContentLoaded', function () {
-            const canvas = document.getElementById('signature-pad');
-            const signaturePad = new SignaturePad(canvas);
-            const clearButton = document.getElementById('clear-signature');
-            const uploadButton = document.getElementById('upload-signature');
-            const signatureUpload = document.getElementById('signature-upload');
-            const signatureInput = document.getElementById('signature');
+            const talentGrid = document.getElementById('talentGrid');
+            const talentCards = talentGrid.querySelectorAll('.talent-card');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const paginationDots = document.getElementById('paginationDots');
+            const navContainer = document.querySelector('.nav-container');
+            const backToTop = document.getElementById('backToTop');
+            const cookieConsent = document.getElementById('cookieConsent');
+            const acceptCookies = document.getElementById('acceptCookies');
+            const declineCookies = document.getElementById('declineCookies');
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const chatButton = document.getElementById('chatButton');
 
-            clearButton.addEventListener('click', function () {
-                signaturePad.clear();
-                signatureInput.value = '';
+            const hireTalentBtn = document.getElementById('hireTalentBtn');
+            const findCareBtn = document.getElementById('findCareBtn');
+            const getStartedBtnMobile = document.getElementById('getStartedBtnMobile');
+            const getStartedModal = document.getElementById('getStartedModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalContainer = getStartedModal.querySelector('.modal-container');
+            const joinAsProfessional = document.getElementById('joinAsProfessional');
+
+            function showGetStartedModal() {
+                getStartedModal.classList.add('modal-show');
+                setTimeout(() => {
+                    modalContainer.classList.add('modal-container-show');
+                }, 10);
+            }
+
+            function hideGetStartedModal() {
+                modalContainer.classList.remove('modal-container-show');
+                setTimeout(() => {
+                    getStartedModal.classList.remove('modal-show');
+                }, 300);
+            }
+
+            if (hireTalentBtn) {
+                hireTalentBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    showGetStartedModal();
+                });
+            }
+
+            if (findCareBtn) {
+                findCareBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.location.href = 'hire.html';
+                });
+            }
+
+            if (getStartedBtnMobile) {
+                getStartedBtnMobile.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    showGetStartedModal();
+                    mobileMenu.style.display = 'none';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            }
+
+            if (closeModal) {
+                closeModal.addEventListener('click', function () {
+                    hideGetStartedModal();
+                });
+            }
+
+            if (getStartedModal) {
+                getStartedModal.addEventListener('click', function (e) {
+                    if (e.target === getStartedModal) {
+                        hideGetStartedModal();
+                    }
+                });
+            }
+
+            if (joinAsProfessional) {
+                joinAsProfessional.addEventListener('click', function () {
+                    window.location.href = 'join.html';
+                });
+            }
+
+            function checkCookieConsent() {
+                if (localStorage.getItem('cookieConsent') === 'accepted' ||
+                    localStorage.getItem('cookieConsent') === 'declined') {
+                    cookieConsent.style.display = 'none';
+                } else {
+                    cookieConsent.style.display = 'flex';
+                }
+            }
+
+            checkCookieConsent();
+
+            acceptCookies.addEventListener('click', function () {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.style.display = 'none';
+                console.log('Cookies accepted - enabling analytics');
             });
 
-            uploadButton.addEventListener('click', function () {
-                signatureUpload.click();
+            declineCookies.addEventListener('click', function () {
+                localStorage.setItem('cookieConsent', 'declined');
+                cookieConsent.style.display = 'none';
+                console.log('Cookies declined - disabling analytics');
             });
 
-            signatureUpload.addEventListener('change', function (e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        const img = new Image();
-                        img.onload = function () {
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                            canvas.getContext('2d').drawImage(img, 0, 0);
-                            signatureInput.value = canvas.toDataURL();
-                        };
-                        img.src = event.target.result;
-                    };
-                    reader.readAsDataURL(file);
+            mobileMenuButton.addEventListener('click', function () {
+                if (mobileMenu.style.display === 'block') {
+                    mobileMenu.style.display = 'none';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                } else {
+                    mobileMenu.style.display = 'block';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
                 }
             });
 
-            document.getElementById('hire-form').addEventListener('submit', function (e) {
-                e.preventDefault();
-                if (signaturePad.isEmpty() && !signatureInput.value) {
-                    alert('Please provide a signature.');
-                    return;
+            document.addEventListener('click', function (event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
+                    mobileMenu.style.display = 'none';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
                 }
-                if (!signatureInput.value) {
-                    signatureInput.value = signaturePad.toDataURL();
-                }
-                // Automatically capture the current date on form submission
-                const currentDate = new Date().toISOString().split('T')[0];
-                const hiddenDateInput = document.createElement('input');
-                hiddenDateInput.type = 'hidden';
-                hiddenDateInput.name = 'entry.159754674';
-                hiddenDateInput.value = currentDate;
-                this.appendChild(hiddenDateInput);
+            });
 
-                // Submit the form data to Google Forms
-                const formData = new FormData(this);
-                fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
-                }).then(() => {
-                    alert('Job posting submitted successfully!');
-                    this.reset();
-                    updateProgress();
-                }).catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
+            chatButton.addEventListener('click', function () {
+                alert('Live chat support is coming soon!');
+            });
+
+            function handleScroll() {
+                if (window.scrollY > 10) {
+                    navContainer.classList.add('scrolled');
+                    if (window.scrollY > 300) {
+                        backToTop.classList.add('visible');
+                    } else {
+                        backToTop.classList.remove('visible');
+                    }
+                } else {
+                    navContainer.classList.remove('scrolled');
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+
+            backToTop.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
             });
-        });
 
-        // Initial progress update
-        updateProgress();
-    </script>
-</body>
+            let cardsToShow = window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 3;
+            let currentIndex = 0;
+            let cardWidth = 0;
+            let maxIndex = 0;
 
-</html>
+            function createPaginationDots() {
+                paginationDots.innerHTML = '';
+                maxIndex = Math.ceil(talentCards.length / cardsToShow) - 1;
+
+                for (let i = 0; i <= maxIndex; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => {
+                        goToSlide(i);
+                   
