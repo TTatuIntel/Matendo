@@ -163,6 +163,12 @@
             font-size: 1.5rem;
             color: #333;
             cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .mobile-menu-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
         }
 
         .mobile-menu {
@@ -175,6 +181,8 @@
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 999;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .mobile-menu-links {
@@ -188,8 +196,13 @@
             color: #333;
             font-weight: 600;
             font-size: 1.1rem;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #eee;
+            display: block;
+        }
+
+        .mobile-menu-link:active {
+            background-color: rgba(0, 0, 0, 0.05);
         }
 
         /* Hero Section */
@@ -318,6 +331,7 @@
             display: flex;
             gap: 15px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .social-link {
@@ -350,7 +364,7 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Styles */
+        /* Enhanced Responsive Styles */
         @media (max-width: 992px) {
             .hero-title {
                 font-size: 1.6rem;
@@ -358,6 +372,23 @@
             
             .hero-description {
                 font-size: 0.95rem;
+            }
+            
+            .flex.flex-col.md\:flex-row {
+                flex-direction: column-reverse;
+            }
+            
+            .md\:w-1\/2 {
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            
+            .md\:w-1\/2 img {
+                max-height: 300px;
+                object-fit: cover;
+                width: 100%;
+                margin: 0 auto;
+                display: block;
             }
         }
 
@@ -390,6 +421,32 @@
             .hero-description {
                 font-size: 0.9rem;
             }
+            
+            .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            
+            .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .py-12 {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            
+            .text-2xl {
+                font-size: 1.4rem;
+            }
+            
+            .text-lg {
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -403,6 +460,93 @@
 
             .section-title {
                 font-size: 1.2rem;
+            }
+            
+            .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .text-3xl {
+                font-size: 1.5rem;
+            }
+            
+            .w-14, .h-14 {
+                width: 3rem;
+                height: 3rem;
+            }
+            
+            .flex.flex-col.sm\:flex-row {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .flex.flex-col.sm\:flex-row a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+        
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Focus styles for better accessibility */
+        a:focus, button:focus, input:focus, textarea:focus {
+            outline: 2px solid #0284c7;
+            outline-offset: 2px;
+        }
+
+        /* Touch-friendly improvements */
+        @media (max-width: 768px) {
+            .nav-link, .mobile-menu-link, .social-link, button {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .footer-link {
+                margin-bottom: 12px;
+            }
+            
+            .footer-link a::before {
+                width: 8px;
+                height: 8px;
+            }
+            
+            /* Improved card spacing on mobile */
+            .bg-white.p-6.rounded-lg {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            /* Better image handling */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+        
+        /* Animation optimizations for better performance */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -437,7 +581,7 @@
     </div>
 
     <!-- Hero Section - Changed to match hire.html style -->
-    <section class="hero-section">
+    <section class="hero-section" style="margin-top: 70px;">
         <div class="hero-content">
             <h1 class="hero-title">About Matendo Medics</h1>
             <p class="hero-description">Bridging the Gap Between Healthcare Facilities and Medical Professionals. We provide reliable staff to meet your needs, while offering experts the flexibility, will, and choice to manage their careers without burnout.</p>
@@ -467,7 +611,7 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <div class="md:w-1/2 rounded-lg overflow-hidden shadow-lg">
-                    <img src="https://readdy.ai/api/search-image?query=diverse%20group%20of%20healthcare%20professionals%20in%20modern%20medical%20setting%2C%20collaborative%20environment%2C%20natural%20lighting%2C%20professional%20attire%2C%20engaged%20in%20discussion%2C%20warm%20and%20welcoming%20atmosphere&width=600&height=400&seq=2&orientation=landscape" alt="Our Mission" class="w-full h-full object-cover">
+                    <img src="https://readdy.ai/api/search-image?query=diverse%20group%20of%20healthcare%20professionals%20in%20modern%20medical%20setting%2C%20collaborative%20environment%2C%20natural%20lighting%2C%20professional%20attire%2C%20engaged%20in%20discussion%2C%20warm%20and%20welcoming%20atmosphere&width=600&height=400&seq=2&orientation=landscape" alt="Healthcare professionals collaborating" class="w-full h-full object-cover">
                 </div>
                 <div class="md:w-1/2">
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h2>
@@ -510,7 +654,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-shield-check-line text-primary text-xl"></i>
+                        <i class="ri-shield-check-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Accountability</h3>
                     <p class="text-gray-600 text-center text-sm">
@@ -522,7 +666,7 @@
 
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-flashlight-line text-primary text-xl"></i>
+                        <i class="ri-flashlight-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Efficiency and Reliability</h3>
                     <p class="text-gray-600 text-center text-sm">
@@ -534,7 +678,7 @@
 
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-team-line text-primary text-xl"></i>
+                        <i class="ri-team-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Collaboration and Partnership</h3>
                     <p class="text-gray-600 text-center text-sm">
@@ -546,7 +690,7 @@
 
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-award-line text-primary text-xl"></i>
+                        <i class="ri-award-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Excellence in Service</h3>
                     <p class="text-gray-600 text-center text-sm">
@@ -558,7 +702,7 @@
 
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-message-2-line text-primary text-xl"></i>
+                        <i class="ri-message-2-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">
                         Transparency and Open Communication
@@ -572,7 +716,7 @@
 
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-global-line text-primary text-xl"></i>
+                        <i class="ri-global-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Respect for Diversity</h3>
                     <p class="text-gray-600 text-center text-sm">
@@ -592,7 +736,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                        <i class="ri-user-heart-line text-primary text-xl"></i>
+                        <i class="ri-user-heart-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-3xl font-bold text-primary mb-2">15,000+</h3>
                     <p class="text-gray-600 text-sm">Healthcare Professionals</p>
@@ -600,7 +744,7 @@
 
                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                        <i class="ri-building-line text-primary text-xl"></i>
+                        <i class="ri-building-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-3xl font-bold text-primary mb-2">5,000+</h3>
                     <p class="text-gray-600 text-sm">Partner Facilities</p>
@@ -608,7 +752,7 @@
 
                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                        <i class="ri-map-pin-line text-primary text-xl"></i>
+                        <i class="ri-map-pin-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-3xl font-bold text-primary mb-2">50+</h3>
                     <p class="text-gray-600 text-sm">States Covered</p>
@@ -616,7 +760,7 @@
 
                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
                     <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                        <i class="ri-thumb-up-line text-primary text-xl"></i>
+                        <i class="ri-thumb-up-line text-primary text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-3xl font-bold text-primary mb-2">98%</h3>
                     <p class="text-gray-600 text-sm">Satisfaction Rate</p>
@@ -653,10 +797,10 @@
                 <h3 class="footer-title">About Us</h3>
                 <p>Connecting healthcare facilities with top medical talent worldwide.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div class="footer-column">
@@ -703,9 +847,11 @@
                 if (mobileMenu.style.display === 'block') {
                     mobileMenu.style.display = 'none';
                     mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
                 } else {
                     mobileMenu.style.display = 'block';
                     mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+                    mobileMenuButton.setAttribute('aria-expanded', 'true');
                 }
             });
             
@@ -746,6 +892,15 @@
             // Run on scroll and once on load
             window.addEventListener('scroll', animateStats);
             animateStats();
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
+                    mobileMenu.style.display = 'none';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            });
         });
     </script>
 </body>
