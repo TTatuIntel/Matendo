@@ -28,23 +28,16 @@
             display: flex;
             flex-direction: column;
             background: var(--background);
+            font-size: 14px; /* Added base font size */
         }
 
         .nav-container {
-            padding: 1rem 5%;
+            padding: 0.8rem 5%; /* Reduced from 1rem to 0.8rem */
             background: transparent;
         }
 
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
         .logo-img {
-            width: 200px;
+            width: 160px; /* Reduced from 200px to 160px */
             height: auto;
             transition: transform 0.3s ease;
         }
@@ -63,11 +56,11 @@
 
         .login-box {
             width: 100%;
-            max-width: 440px;
-            padding: 2rem;
+            max-width: 400px; /* Reduced from 440px to 400px */
+            padding: 1.5rem; /* Reduced from 2rem to 1.5rem */
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 24px;
-            box-shadow: 0 12px 24px rgba(45, 135, 240, 0.08);
+            border-radius: 20px; /* Reduced from 24px to 20px */
+            box-shadow: 0 10px 20px rgba(45, 135, 240, 0.08); /* Reduced shadow */
             text-align: center;
             animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
@@ -82,16 +75,16 @@
         }
 
         .brand-title .logo-img {
-            width: 220px;
+            width: 180px; /* Reduced from 220px to 180px */
             height: auto;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem; /* Reduced from 0.5rem to 0.4rem */
         }
 
         .login-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem; /* Reduced from 1.8rem to 1.5rem */
             font-weight: 700;
             color: var(--text-dark);
-            margin: 1rem 0 1.5rem;
+            margin: 0.8rem 0 1.2rem; /* Reduced from 1rem 0 1.5rem to 0.8rem 0 1.2rem */
             position: relative;
             display: inline-block;
             letter-spacing: -0.5px;
@@ -100,26 +93,26 @@
         .login-title::after {
             content: '';
             position: absolute;
-            bottom: -6px;
+            bottom: -5px; /* Reduced from -6px to -5px */
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
+            width: 50px; /* Reduced from 60px to 50px */
+            height: 2px; /* Reduced from 3px to 2px */
             background: linear-gradient(90deg, var(--primary-blue), var(--medical-teal));
             border-radius: 2px;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem; /* Reduced from 1.5rem to 1.2rem */
             position: relative;
         }
 
         .form-input {
             width: 100%;
-            padding: 1rem;
+            padding: 0.8rem; /* Reduced from 1rem to 0.8rem */
             border: 2px solid #E3EDFF;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 10px; /* Reduced from 12px to 10px */
+            font-size: 0.9rem; /* Reduced from 1rem to 0.9rem */
             transition: all 0.3s ease;
             background: white;
         }
@@ -146,15 +139,15 @@
 
         .submit-btn {
             width: 100%;
-            padding: 1rem;
+            padding: 0.8rem; /* Reduced from 1rem to 0.8rem */
             background: linear-gradient(135deg, var(--primary-blue), var(--medical-teal));
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px; /* Reduced from 12px to 10px */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 1rem;
+            margin-top: 0.8rem; /* Reduced from 1rem to 0.8rem */
             position: relative;
             overflow: hidden;
         }
@@ -184,8 +177,9 @@
 
         .footer-links {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 1.5rem; /* Reduced from 2rem to 1.5rem */
             color: #8CA3C4;
+            font-size: 0.9rem; /* Added smaller font size */
         }
 
         .footer-links a {

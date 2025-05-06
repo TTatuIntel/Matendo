@@ -3,193 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#204ECF">
-    <title>Join Matendo Medics | Medical Staffing Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Join Matendo as Healthcare Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        :root {
-            --primary: #204ECF;
-            --primary-light: #E6EEFF;
-            --primary-dark: #1a3fa6;
-            --success: #4CAF50;
-            --error: #e74c3c;
-            --text: #333;
-            --text-light: #666;
-            --background: #f8f9fa;
-            --white: #ffffff;
-            --gray: #e0e0e0;
-            --border: #d1d1d1;
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background-color: var(--background);
-            padding-top: 70px;
+        body, html {
+            font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            scroll-behavior: smooth;
+            font-size: 14px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 15px;
+        section {
+            position: relative;
+            padding: 20px 5%;
+            overflow: hidden;
             width: 100%;
         }
 
-        .nav-container {
+        section:nth-child(odd) {
+            background-image: linear-gradient(rgba(248, 249, 250, 0.7), rgba(248, 249, 250, 0.7)),
+                url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        section:nth-child(even) {
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: #323030;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, #28a745, #1e7e7c);
+            border-radius: 2px;
+        }
+
+        /* Updated navigation code with middle links */
+         /* Updated navigation code with middle links */
+         .nav-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: transparent;
-            backdrop-filter: blur(50px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
-            padding: 12px 0;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            padding: 8px 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container.scrolled {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo-img {
+            width: 150px;
+            height: auto;
         }
 
-        .logo-img { 
-            width: 200px;
-            height: auto; 
+        /* Main navigation links */
+        .main-nav {
+            display: flex;
+            gap: 25px;
+            margin: 0 auto;
         }
 
-        .nav-links { 
-            display: flex; 
-            gap: 20px; 
+        .main-nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-link {
+        .main-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav-link:hover {
+            color: #28a745;
+        }
+
+        .main-nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Auth navigation links */
+        .auth-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .auth-nav-link {
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 4px;
-            letter-spacing: 0.2px;
         }
 
-        .nav-link:nth-child(1) { 
+        .auth-nav-link:nth-child(1) {
             color: #28a745;
             border: 1px solid #28a745;
         }
 
-        .nav-link:nth-child(2) { 
+        .auth-nav-link:nth-child(2) {
             color: #007bff;
             border: 1px solid #007bff;
         }
 
-        .nav-link:nth-child(1):hover { 
-            background-color: #28a745;
-            color: white;
+        .auth-nav-link:nth-child(1):hover {
+            color: #218838;
+            border-color: #218838;
         }
 
-        .nav-link:nth-child(2):hover { 
-            background-color: #007bff;
-            color: white;
+        .auth-nav-link:nth-child(2):hover {
+            color: #0056b3;
+            border-color: #0056b3;
         }
 
-        .progress-container {
-            height: 4px;
-            background: var(--gray);
+        /* Mobile Menu Styles */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
             position: fixed;
             top: 70px;
             left: 0;
             right: 0;
-            z-index: 1000;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 999;
         }
 
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, #204ECF, #4CAF50);
-            width: 0;
-            transition: width 0.3s ease;
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mobile-menu-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 80px 5% 30px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .main-content {
+            display: flex;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 30%;
+            padding: 15px;
+        }
+
+        .form-wrapper {
+            width: 70%;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto 0;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .form-header {
+            background: linear-gradient(to right, #28a745, #1e7e7c);
+            padding: 15px;
+            color: white;
+            text-align: center;
+        }
+
+        .form-header h2 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .form-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .form-progress {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px;
+            position: relative;
+        }
+
+        .form-progress::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #e0e0e0;
+            z-index: 1;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+            font-size: 0.8rem;
+            color: #666;
+            padding-top: 20px;
+        }
+
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            z-index: 3;
+        }
+
+        .progress-step.active {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .progress-step.active::before {
+            background-color: #28a745;
+            width: 10px;
+            height: 10px;
+            top: 4px;
+            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+        }
+
+        .progress-step.completed::before {
+            background-color: #28a745;
         }
 
         .form-section {
-            background: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-            overflow: hidden;
             display: none;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
+            padding: 15px;
+            animation: fadeIn 0.5s ease;
         }
 
         .form-section.active {
             display: block;
-            animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .section-header {
-            padding: 10px 15px;
-            background: transparent;
-            color: var(--primary);
-            border-bottom: 1px solid var(--border);
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
         }
 
-        .section-header h2 {
-            font-size: 1.2rem;
+        .section-header h3 {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .input-field {
+            margin-bottom: 15px;
+        }
+
+        .input-field label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: 500;
+            color: #333;
+            font-size: 0.9rem;
         }
 
-        .section-content {
-            padding: 15px;
+        .input-field input, 
+        .input-field select, 
+        .input-field textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+        }
+
+        .input-field input:focus, 
+        .input-field select:focus, 
+        .input-field textarea:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
         }
 
         .input-pair {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .input-field {
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 4px;
-            font-weight: 500;
-            color: var(--text);
-            font-size: 13px;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 13px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            background-color: var(--white);
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .checkbox-group {
@@ -207,7 +408,7 @@
             align-items: center;
             cursor: pointer;
             font-weight: 400;
-            font-size: 13px;
+            font-size: 0.9rem;
         }
 
         .checkbox-group input[type="checkbox"] {
@@ -215,97 +416,10 @@
             margin-right: 8px;
         }
 
-        #map-container {
-            height: 200px;
-            margin: 10px 0;
-            border-radius: 6px;
-            overflow: hidden;
-            display: none;
-        }
-
-        .map-toggle {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 6px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: background-color 0.3s;
-            margin-top: 5px;
-        }
-
-        .map-toggle:hover {
-            background: var(--primary-dark);
-        }
-
-        .location-error {
-            color: var(--error);
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .navigation-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            justify-content: flex-end;
-        }
-
-        .nav-button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-button.next-button, .nav-button[type="submit"] {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .nav-button.next-button:hover, .nav-button[type="submit"]:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .nav-button.back-button {
-            background: var(--white);
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .nav-button.back-button:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .nav-button.skip-button {
-            background: var(--gray);
-            color: var(--text);
-        }
-
-        .nav-button.skip-button:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        .nav-button:disabled {
-            background: var(--gray);
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
         .error-message {
-            color: var(--error);
-            font-size: 12px;
-            margin-top: 5px;
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: 4px;
             display: none;
         }
 
@@ -320,210 +434,613 @@
         }
 
         .file-upload label {
-            background-color: var(--primary-light);
-            color: #324fc3;
-            padding: 8px 15px;
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            padding: 8px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 0.9rem;
         }
 
         .file-upload label:hover {
-            background-color: var(--primary-light);
-            color: #198a6f;
+            background-color: rgba(40, 167, 69, 0.2);
         }
 
         .file-name {
             margin-left: 10px;
-            font-size: 13px;
+            font-size: 0.9rem;
         }
 
-        .checkbox-container {
-            display: flex;
-            align-items: flex-start;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .checkbox-container input[type="checkbox"] {
-            margin-right: 8px;
-            margin-top: 2px;
-        }
-
-        .checkbox-container label {
-            line-height: 1.2;
-            flex: 1;
-        }
-
-        .form-progress {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: var(--background);
-            border-radius: 8px;
-        }
-
-        .progress-step {
-            font-size: 12px;
-            color: var(--text-light);
-            position: relative;
-            text-align: center;
-            flex: 1;
-        }
-
-        .progress-step::after {
-            content: '';
-            height: 2px;
-            width: 100%;
-            background-color: var(--gray);
-            position: absolute;
-            left: 50%;
-            top: 20px;
-            z-index: 1;
-        }
-
-        .progress-step:last-child::after {
-            display: none;
-        }
-
-        .progress-step.active {
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        .progress-step.active::before {
-            content: '';
-            height: 10px;
-            width: 10px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            top: 25px;
-            transform: translateX(-50%);
-            z-index: 2;
-        }
-
-        .confirmation-container {
-            background-color: var(--primary-light);
-            border: 1px solid var(--primary);
+        #map-container {
+            height: 200px;
+            margin: 10px 0;
             border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .confirmation-container .checkbox-container {
-            margin-bottom: 0;
-        }
-
-        .confirmation-container label {
-            font-size: 14px;
-            color: var(--primary-dark);
-        }
-
-        .confirmation-container input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-right: 10px;
-        }
-
-        .submission-confirmation {
-            background-color: var(--success);
-            color: var(--white);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 20px;
+            overflow: hidden;
             display: none;
         }
 
-        .view-additional-info {
-            background-color: var(--primary-light);
-            color: var(--primary);
+        .map-toggle {
+            background: #28a745;
+            color: #ffffff;
             border: none;
-            padding: 10px 15px;
+            padding: 6px 10px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+            margin-top: 5px;
         }
 
-        .view-additional-info:hover {
-            background-color: var(--primary);
-            color: var(--white);
+        .map-toggle:hover {
+            background: #218838;
         }
 
-        .additional-info {
+        .location-error {
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: 5px;
             display: none;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
             margin-top: 20px;
-            padding: 15px;
-            background-color: var(--primary-light);
-            border-radius: 8px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .back-button {
+            background: #ffffff;
+            color: #333;
+            border: 1px solid #d1d1d1;
+        }
+
+        .back-button:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .next-button {
+            background: #28a745;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        }
+
+        .next-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
         }
 
         .review-section {
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 15px;
-            background-color: var(--primary-light);
-            border-radius: 8px;
+            background-color: rgba(40, 167, 69, 0.05);
+            border-radius: 6px;
         }
 
         .review-section h3 {
-            color: var(--primary);
+            color: #28a745;
             margin-bottom: 10px;
+            font-size: 1rem;
         }
 
         .review-section p {
             margin-bottom: 5px;
+            font-size: 0.9rem;
         }
 
-        a[href^="mailto:"] {
-            color: var(--primary);
+        .confirmation-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(40, 167, 69, 0.05);
+            border-radius: 6px;
+        }
+
+        .confirmation-checkbox input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .confirmation-checkbox label {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #333;
+        }
+
+        .submission-confirmation {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(40, 167, 69, 0.05);
+            border-radius: 6px;
+            animation: fadeIn 0.5s ease;
+            display: none;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .submission-confirmation h3 {
+            color: #28a745;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .submission-confirmation p {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .submission-confirmation strong {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .additional-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: left;
+            animation: fadeIn 0.5s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .additional-info h3 {
+            color: #28a745;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .additional-info p {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .additional-info ul {
+            margin-left: 15px;
+            margin-bottom: 12px;
+        }
+
+        .additional-info li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+
+        .additional-info a {
+            color: #28a745;
             text-decoration: none;
         }
-        a[href^="mailto:"]:hover {
+
+        .additional-info a:hover {
             text-decoration: underline;
         }
 
-        @media (max-width: 768px) {
-            .nav-content {
-                flex-direction: column;
-                gap: 10px;
-            }
+        .support-section {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
 
-            .logo-img {
-                width: 150px;
-            }
+        .support-title {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 12px;
+            text-align: center;
+        }
 
-            .nav-links {
-                width: 100%;
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .support-option {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .support-icon {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: #28a745;
+            font-size: 1.2rem;
+        }
+
+        .support-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .support-content p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .support-content a {
+            color: #28a745;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .support-content a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 40px 5% 30px;
+            border-top: 1px solid #eee;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, transparent, rgba(40, 167, 69, 0.3), transparent);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #333;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-column a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(40, 167, 69, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #28a745;
+            padding-left: 20px;
+        }
+
+        .footer-column a:hover::before {
+            background-color: #28a745;
+        }
+
+        /* Social icons in footer */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            color: #28a745;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .social-icons a:hover {
+            background-color: #28a745;
+            color: white;
+            transform: translateY(-5px);
+            padding: 0;
+        }
+
+        .social-icons a::before {
+            display: none;
+        }
+
+        .social-icons i {
+            font-size: 1.2rem;
+        }
+
+        .info-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .info-card li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .info-card li i {
+            color: #28a745;
+            margin-right: 8px;
+            margin-top: 3px;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+            color: #333;
+        }
+
+        .step-content p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Updated Review Grid Styles */
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .review-column {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .review-column h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #28a745;
+        }
+
+        .review-column p {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .review-column p strong {
+            color: #333;
+            flex: 0 0 40%;
+        }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            .hero-text {
+                max-width: 450px;
+            }
+            
+            .hero-image {
+                max-width: 48%;
+                margin-right: 15px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .main-nav {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
                 justify-content: space-between;
+                padding: 30px 0;
             }
-
-            .nav-link {
-                font-size: 0.9rem;
-                padding: 6px 12px;
+            
+            .hero-title {
+                font-size: 1.7rem;
             }
-
-            body {
-                padding-top: 100px;
+            
+            .hero-description {
+                font-size: 1.05rem;
             }
-
-            .progress-container {
-                top: 100px;
+            
+            .main-nav {
+                display: none;
             }
-
-            .input-pair {
+            
+            .review-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+            }
+
+            .auth-nav {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                align-items: center;
+                padding: 25px 0;
+            }
+            
+            .hero-title {
+                font-size: 1.6rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
             }
 
             .checkbox-group.two-columns {
                 grid-template-columns: 1fr;
             }
 
-            #map-container {
-                height: 200px;
+            .input-pair {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+
+            .support-options {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+
+            .form-wrapper {
+                width: 100%;
+                order: 1;
+            }
+
+            .review-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content {
+                padding: 20px 0;
+            }
+            
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -532,329 +1049,538 @@
                 padding: 10px;
             }
 
-            .nav-button {
-                width: 100%;
-                padding: 10px;
+            .hero-title {
+                font-size: 1.3rem;
             }
 
-            .section-content {
-                padding: 15px;
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .form-container {
+                margin-top: 60px;
+            }
+
+            .form-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .progress-step {
+                font-size: 0.7rem;
             }
         }
 
-        .invalid {
-            border-color: var(--error);
+        /* Fix for iOS Safari 100vh issue */
+        @supports (-webkit-touch-callout: none) {
+            .modal-overlay, .cookie-consent {
+                height: -webkit-fill-available;
+            }
+        }
+
+        /* Additional responsive improvements */
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .option-button span {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Improve touch targets for mobile */
+        @media (max-width: 768px) {
+            .nav-link,
+            .mobile-menu-link,
+            .hero-btn,
+            .hire-btn,
+            .app-store-button,
+            .newsletter-button,
+            .cookie-accept,
+            .cookie-decline {
+                padding: 10px 15px;
+            }
+
+            .footer-column a {
+                padding: 8px 15px;
+                display: block;
+            }
+
+            .talent-nav-btn {
+                top: 40%;
+            }
+
+            /* Improve spacing for mobile */
+            section {
+                padding: 30px 4%;
+            }
+
+            .hero-section {
+                padding-top: 70px;
+            }
         }
     </style>
 </head>
 <body>
     <nav class="nav-container">
-        <div class="container">
-            <div class="nav-content">
-                <a href="index.html" title="Matendo" aria-label="Matendo">
-                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-                </a>
-                <div class="nav-links">
-                    <a href="hire.html" class="nav-link">Hire Matendo</a>
-                    <a href="login.html" class="nav-link">Login</a>
-                </div>
+        <div class="nav-content">
+            <a href="index.html" title="Matendo" aria-label="Matendo">
+                <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+            </a>
+            <div class="main-nav">
+                <a href="index.html" class="main-nav-link">Home</a>
+                <a href="careers.html" class="main-nav-link">Careers</a>
+                <a href="about.html" class="main-nav-link">About Us</a>
+                <a href="contact.html" class="main-nav-link">Contact Us</a> 
+                
             </div>
+            <div class="auth-nav">
+                <a href="hire.html" class="auth-nav-link">Hire Matendo</a>
+                <a href="login.html" class="auth-nav-link">Login</a>
+            </div>
+            <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
-    <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html" class="main-nav-link">Home</a>
+            <a href="careers.html" class="main-nav-link">Careers</a>
+            <a href="about.html" class="main-nav-link">About Us</a>
+            <a href="contact.html" class="main-nav-link">Contact Us</a> 
+            <a href="join.html" class="mobile-menu-link">Join Matendo</a>
+            <a href="login.html" class="mobile-menu-link">Login</a>
+        </div>
     </div>
 
-    <div class="container">
-        <form id="join-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="POST" enctype="multipart/form-data">
-            <div class="form-progress">
-                <div class="progress-step" data-step="1">Personal Info</div>
-                <div class="progress-step" data-step="2">Professional</div>
-                <div class="progress-step" data-step="3">Experience</div>
-                <div class="progress-step" data-step="4">Preferences</div>
-                <div class="progress-step" data-step="5">Documents</div>
-                <div class="progress-step" data-step="6">Review</div>
-                <div class="progress-step" data-step="7">Submit</div>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Join Matendo as Healthcare Professional</h1>
+            <p class="hero-description">Join our network of trusted healthcare professionals and connect with patients who need your expertise. Matendo helps you grow your practice while providing flexible work options.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="info-card">
+                    <h3>How to Apply</h3>
+                    <div class="step-list">
+                        <div class="step-item" style="display: flex; margin-bottom: 10px;">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Complete Profile</h4>
+                                <p>Fill in your professional details and qualifications accurately</p>
+                            </div>
+                        </div>
+                        <div class="step-item" style="display: flex; margin-bottom: 10px;">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Submit Documents</h4>
+                                <p>Upload your license, certifications, and other required documents</p>
+                            </div>
+                        </div>
+                        <div class="step-item" style="display: flex; margin-bottom: 10px;">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Verification</h4>
+                                <p>Our team will verify your credentials and background</p>
+                            </div>
+                        </div>
+                        <div class="step-item" style="display: flex;">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Get Started</h4>
+                                <p>Once approved, start accepting appointments and growing your practice</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Benefits</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Flexible working hours</li>
+                        <li><i class="fas fa-check-circle"></i> Competitive compensation</li>
+                        <li><i class="fas fa-check-circle"></i> Expand your patient network</li>
+                        <li><i class="fas fa-check-circle"></i> Professional development opportunities</li>
+                    </ul>
+                </div>
             </div>
-            <!-- Step 1: Personal Information -->
-            <section class="form-section active" data-step="1">
-                <div class="section-header">
-                    <h2>Personal Information</h2>
-                </div>
-                <div class="section-content">
-                    <div class="input-pair">
-                        <div class="input-field">
-                            <label for="first-name">First Name *</label>
-                            <input type="text" id="first-name" name="entry.123456789" required aria-required="true">
-                            <span class="error-message" id="first-name-error">Please enter your first name</span>
+
+            <div class="form-wrapper">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Healthcare Professional Registration</h2>
+                        <p>Complete the form below to join our network of healthcare professionals</p>
+                    </div>
+                    
+                    <div class="form-progress">
+                        <div class="progress-step active" data-step="1">Personal Info</div>
+                        <div class="progress-step" data-step="2">Professional</div>
+                        <div class="progress-step" data-step="3">Preferences</div>
+                        <div class="progress-step" data-step="4">Review & Submit</div>
+                    </div>
+                    
+                    <form id="join-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="POST" enctype="multipart/form-data" novalidate>
+                        <!-- Step 1: Personal Information -->
+                        <section class="form-section active" data-step="1">
+                            <div class="section-header">
+                                <h3>Personal Information</h3>
+                            </div>
+                            <div class="input-pair">
+                                <div class="input-field">
+                                    <label for="first-name">First Name <span style="color: #dc3545;">*</span></label>
+                                    <input type="text" id="first-name" name="entry.123456789" required pattern="[A-Za-z]{2,}" title="First name must contain only letters and be at least 2 characters">
+                                    <div class="error-message" id="first-name-error">Please enter a valid first name</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="last-name">Last Name <span style="color: #dc3545;">*</span></label>
+                                    <input type="text" id="last-name" name="entry.135792468" required pattern="[A-Za-z]{2,}" title="Last name must contain only letters and be at least 2 characters">
+                                    <div class="error-message" id="last-name-error">Please enter a valid last name</div>
+                                </div>
+                            </div>
+                            
+                            <div class="input-pair">
+                                <div class="input-field">
+                                    <label for="email">Email <span style="color: #dc3545;">*</span></label>
+                                    <input type="email" id="email" name="entry.741852963" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="phone">Phone <span style="color: #dc3545;">*</span></label>
+                                    <input type="tel" id="phone" name="entry.369258147" required pattern="^\+?[0-9\s\-()]{7,20}$" title="Phone number must be 7-20 digits">
+                                    <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+                                </div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <label for="address">Current Address <span style="color: #dc3545;">*</span></label>
+                                <input type="text" id="address" name="entry.246813579" required>
+                                <div class="error-message" id="address-error">Please enter your current address</div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <label for="autocomplete">Location (Optional)</label>
+                                <input type="text" id="autocomplete" name="entry.246813580" placeholder="Search location (optional)">
+                                <div class="location-error" id="location-error">Please select a valid location</div>
+                                <button type="button" class="map-toggle" onclick="toggleMap()">
+                                    <i class="fas fa-map-marker-alt"></i> <span id="map-toggle-text">Show Map</span>
+                                </button>
+                                <div id="map-container"></div>
+                                <input type="hidden" id="coordinates" name="coordinates">
+                            </div>
+                            
+                            <div class="navigation-buttons">
+                                <button type="button" class="nav-button next-button" id="step1Next">Next</button>
+                            </div>
+                        </section>
+                        
+                        <!-- Step 2: Professional Information -->
+                        <section class="form-section" data-step="2">
+                            <div class="section-header">
+                                <h3>Professional Information</h3>
+                            </div>
+                            <div class="input-field">
+                                <label for="profession">Profession <span style="color: #dc3545;">*</span></label>
+                                <select id="profession" name="entry.357159852" required>
+                                    <option value="">Select your profession</option>
+                                    <option value="Medical Officer">Medical Officer</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="Lab Technologist">Lab Technologist</option>
+                                    <option value="Radiographer">Radiographer</option>
+                                    <option value="Pharmacist">Pharmacist</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div class="error-message" id="profession-error">Please select your profession</div>
+                            </div>
+                            
+                            <div class="input-field" id="otherProfessionContainer" style="display: none;">
+                                <label for="otherProfessionInput">Specify Profession <span style="color: #dc3545;">*</span></label>
+                                <input type="text" id="otherProfessionInput" name="entry.357159852_other" required>
+                                <div class="error-message" id="otherProfessionInput-error">Please specify your profession</div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <label for="specialization">Specialization (if applicable)</label>
+                                <input type="text" id="specialization" name="entry.123456790">
+                            </div>
+                            
+                            <div class="input-field">
+                                <label for="years-experience">Years of Experience <span style="color: #dc3545;">*</span></label>
+                                <input type="number" id="years-experience" name="entry.753951654" min="0" required>
+                                <div class="error-message" id="years-experience-error">Please enter a valid number of years</div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <button type="button" id="toggle-license" class="map-toggle">Add License Information</button>
+                            </div>
+                            
+                            <div id="license-info" style="display: none;">
+                                <div class="input-field">
+                                    <label for="license-number">License Number</label>
+                                    <input type="text" id="license-number" name="entry.357159654">
+                                </div>
+                                <div class="file-upload">
+                                    <input type="file" id="license-doc-optional" name="entry.357159654_optional" accept=".pdf,.jpg,.png">
+                                    <label for="license-doc-optional">
+                                        <i class="fas fa-upload"></i> Upload License Document (Optional)
+                                    </label>
+                                    <span id="license-doc-optionalFileName" class="file-name">No file chosen</span>
+                                </div>
+                            </div>
+                            
+                            <div class="file-upload">
+                                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                                <label for="resume">
+                                    <i class="fas fa-upload"></i> Upload Resume/CV (PDF, DOC, DOCX) *
+                                </label>
+                                <span id="resumeFileName" class="file-name">No file chosen</span>
+                            </div>
+                            <div class="error-message" id="resume-error">Please upload a valid resume/CV (PDF, DOC, DOCX, max 5MB)</div>
+                            
+                            <div class="input-field" style="margin-top: 12px;">
+                                <button type="button" id="toggle-optional-docs" class="map-toggle">Add Optional Documents</button>
+                            </div>
+                            
+                            <div id="optional-docs" style="display: none; margin-top: 10px;">
+                                <div class="file-upload">
+                                    <input type="file" id="license-doc" name="license-doc" accept=".pdf,.jpg,.png">
+                                    <label for="license-doc">
+                                        <i class="fas fa-upload"></i> Upload License Document (Optional)
+                                    </label>
+                                    <span id="license-docFileName" class="file-name">No file chosen</span>
+                                </div>
+                                
+                                <div class="file-upload" style="margin-top: 10px;">
+                                    <input type="file" id="certifications" name="certifications" accept=".pdf,.jpg,.png" multiple>
+                                    <label for="certifications">
+                                        <i class="fas fa-upload"></i> Upload Certifications (Optional)
+                                    </label>
+                                    <span id="certificationsFileName" class="file-name">No file chosen</span>
+                                </div>
+                            </div>
+                            
+                            <div class="navigation-buttons">
+                                <button type="button" class="nav-button back-button">Back</button>
+                                <button type="button" class="nav-button next-button" id="step2Next">Next</button>
+                            </div>
+                        </section>
+                        
+                        <!-- Step 3: Work Preferences -->
+                        <section class="form-section" data-step="3">
+                            <div class="section-header">
+                                <h3>Work Preferences</h3>
+                            </div>
+                            <div class="input-field">
+                                <label>Preferred Work Type <span style="color: #dc3545;">*</span></label>
+                                <div class="checkbox-group two-columns">
+                                    <label><input type="checkbox" name="work-type" value="Full-Time"> Full-Time</label>
+                                    <label><input type="checkbox" name="work-type" value="Part-Time"> Part-Time</label>
+                                    <label><input type="checkbox" name="work-type" value="Short-Term"> Short-Term</label>
+                                </div>
+                                <div class="error-message" id="work-type-error">Please select at least one work type</div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <label>Preferred Shift Type <span style="color: #dc3545;">*</span></label>
+                                <div class="checkbox-group two-columns">
+                                    <label><input type="checkbox" name="shift-type" value="Day Shift"> Day Shift</label>
+                                    <label><input type="checkbox" name="shift-type" value="Night Shift"> Night Shift</label>
+                                    <label><input type="checkbox" name="shift-type" value="Rotating"> Rotating</label>
+                                </div>
+                                <div class="error-message" id="shift-type-error">Please select at least one shift type</div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <label for="preferred-location">Preferred Work Location</label>
+                                <input type="text" id="preferred-location" name="entry.357160470">
+                            </div>
+                            
+                            <div class="input-field">
+                                <label for="start-date">Earliest Start Date <span style="color: #dc3545;">*</span></label>
+                                <input type="date" id="start-date" name="entry.753951654_date" required min="">
+                                <div class="error-message" id="start-date-error">Please select a valid start date</div>
+                            </div>
+                            
+                            <div class="navigation-buttons">
+                                <button type="button" class="nav-button back-button">Back</button>
+                                <button type="button" class="nav-button next-button" id="step3Next">Next</button>
+                            </div>
+                        </section>
+                        
+                        <!-- Step 4: Review & Submit -->
+                        <section class="form-section" data-step="4">
+                            <div class="section-header">
+                                <h3>Review & Submit</h3>
+                            </div>
+                            <div class="review-grid">
+                                <div class="review-column" id="personal-info-column">
+                                    <h3>Personal Information</h3>
+                                    <!-- Populated dynamically -->
+                                </div>
+                                <div class="review-column" id="professional-info-column">
+                                    <h3>Professional Information</h3>
+                                    <!-- Populated dynamically -->
+                                </div>
+                                <div class="review-column" id="preferences-column">
+                                    <h3>Work Preferences</h3>
+                                    <!-- Populated dynamically -->
+                                </div>
+                                <div class="review-column" id="documents-column">
+                                    <h3>Supporting Documents</h3>
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                            
+                            <div class="confirmation-checkbox">
+                                <input type="checkbox" id="confirm-checkbox" name="confirm-checkbox" required>
+                                <label for="confirm-checkbox">
+                                    I confirm that all information provided is accurate and complete. I understand that submitting this application does not guarantee placement, and Matendo will contact me for further steps. <span style="color: #dc3545;">*</span>
+                                </label>
+                            </div>
+                            <div class="error-message" id="confirm-checkbox-error">Please confirm the information is accurate</div>
+                            
+                            <div class="navigation-buttons">
+                                <button type="button" class="nav-button back-button">Back</button>
+                                <button type="submit" id="submit-button" class="nav-button next-button">Submit Application</button>
+                            </div>
+                            
+                            <div id="formSubmitting" style="display: none; margin-top: 12px; text-align: center;">
+                                <div style="display: inline-flex; align-items: center; gap: 6px;">
+                                    <div class="spinner" style="width: 16px; height: 16px; border: 2px solid #f3f3f3; border-top: 2px solid #28a745; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                    <span>Processing your application...</span>
+                                </div>
+                            </div>
+                            
+                            <style>
+                                @keyframes spin {
+                                    0% { transform: rotate(0deg); }
+                                    100% { transform: rotate(360deg); }
+                                }
+                            </style>
+                        </section>
+                    </form>
+                    
+                    <div class="submission-confirmation" id="submission-confirmation" style="display: none;">
+                        <div style="width: 45px; height: 45px; background: #28a745; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.2rem;">
+                            <i class="fas fa-check"></i>
                         </div>
-                        <div class="input-field">
-                            <label for="last-name">Last Name *</label>
-                            <input type="text" id="last-name" name="entry.135792468" required aria-required="true">
-                            <span class="error-message" id="last-name-error">Please enter your last name</span>
+                        <h3>Thank you for your application!</h3>
+                        <p>We have received your information and will review it shortly.</p>
+                        <p>Your reference number: <strong id="reference-number">REQ-XXXXXX</strong></p>
+                        <p>Submission date: <strong id="submission-date"></strong></p>
+                        <button type="button" class="nav-button next-button" id="view-additional-info">View Additional Information</button>
+                        <div class="additional-info" id="additional-info" style="display: none;">
+                            <h3>Next Steps</h3>
+                            <p>Here's what you can expect next in our process:</p>
+                            <ul>
+                                <li>Our team will review your application within 1-2 business days.</li>
+                                <li>We'll reach out to discuss your specific needs and potential opportunities.</li>
+                                <li>Please ensure your contact information is up to date.</li>
+                                <li>For any questions, contact our support team at <a href="mailto:support@matendo.com">support@matendo.com</a></li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div class="input-pair">
-                        <div class="input-field">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="entry.741852963" required aria-required="true">
-                            <span class="error-message" id="email-error">Valid email required</span>
-                        </div>
-                        <div class="input-field">
-                            <label for="phone">Phone *</label>
-                            <input type="tel" id="phone" name="entry.369258147" pattern="^\+?[0-9\s\-()]{7,20}$" required aria-required="true">
-                            <span class="error-message" id="phone-error">Valid phone number required</span>
-                        </div>
-                    </div>
-
-                    <div class="input-field">
-                        <label for="address">Current Address *</label>
-                        <input type="text" id="address" name="entry.246813579" required aria-required="true">
-                        <span class="error-message" id="address-error">Please enter your current address</span>
-                    </div>
-
-                    <div class="input-field">
-                        <label for="autocomplete">Location (Optional)</label>
-                        <input type="text" id="autocomplete" placeholder="Search location (optional)">
-                        <div class="location-error" id="location-error">Please select a valid location</div>
-                        <button type="button" class="map-toggle" onclick="toggleMap()">
-                            <i class="fas fa-map-marker-alt"></i> <span id="map-toggle-text">Show Map</span>
-                        </button>
-                        <div id="map-container"></div>
-                        <input type="hidden" id="coordinates" name="entry.246813580">
-                    </div>
-
-                    <div class="navigation-buttons">
-                        <button type="button" class="nav-button next-button">Next</button>
-                    </div>
                 </div>
-            </section>
-            <!-- Step 2: Professional Information -->
-            <section class="form-section" data-step="2">
-                <div class="section-header">
-                    <h2>Professional Information</h2>
-                </div>
-                <div class="section-content">
-                    <div class="input-field">
-                        <label for="profession">Profession *</label>
-                        <select id="profession" name="entry.357159852" required aria-required="true">
-                            <option value="">Select your profession</option>
-                            <option value="Medical Officer">Medical Officer</option>
-                            <option value="Nurse">Nurse</option>
-                            <option value="Lab Technologist">Lab Technologist</option>
-                            <option value="Radiographer">Radiographer</option>
-                            <option value="Pharmacist">Pharmacist</option>
-                            <option value="Other">Other</option>
-                        </select>
-                        <span class="error-message" id="profession-error">Please select your profession</span>
-                    </div>
-                    <div id="otherProfessionContainer" style="display: none; margin-top: 10px;">
-                        <input type="text" id="otherProfessionInput" name="entry.357159852_other" placeholder="Specify profession">
-                    </div>
-                    <div class="input-field">
-                        <label for="specialization">Specialization (if applicable)</label>
-                        <input type="text" id="specialization" name="entry.123456790">
-                    </div>
-                    <div class="input-field">
-                        <button type="button" id="toggle-license" class="nav-button">Add License Information</button>
-                    </div>
-                    <div id="license-info" style="display: none;">
-                        <div class="input-field">
-                            <label for="license-number">License Number</label>
-                            <input type="text" id="license-number" name="entry.357159654">
+
+                <div class="support-section" style="max-width: 800px; margin: 20px auto;">
+                    <h3 class="support-title">Need Help?</h3>
+                    <div class="support-options">
+                        <div class="support-option">
+                            <div class="support-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="support-content">
+                                <h4>Contact Support</h4>
+                                <p>support@matendo.com</p>
+                                <p>(800) 123-4567</p>
+                            </div>
                         </div>
-                        <div class="file-upload">
-                            <label for="license-doc-optional">
-                                <i class="fas fa-upload"></i> Upload License Document (PDF, JPG, PNG)
-                            </label>
-                            <input type="file" id="license-doc-optional" name="entry.357159654_optional" accept=".pdf,.jpg,.png">
-                            <span id="licenseFileNameOptional" class="file-name"></span>
+                        <div class="support-option">
+                            <div class="support-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="support-content">
+                                <h4>FAQ</h4>
+                                <p>Find answers to common questions</p>
+                                <a href="#">View FAQ</a>
+                            </div>
+                        </div>
+                        <div class="support-option">
+                            <div class="support-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="support-content">
+                                <h4>Help Center</h4>
+                                <p>Browse our knowledge base</p>
+                                <a href="#">Visit Help Center</a>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="navigation-buttons">
-                        <button type="button" class="nav-button back-button">Back</button>
-                        <button type="button" class="nav-button next-button">Next</button>
-                    </div>
                 </div>
-            </section>
-            <!-- Step 3: Work Experience -->
-            <section class="form-section" data-step="3">
-                <div class="section-header">
-                    <h2>Work Experience</h2>
-                </div>
-                <div class="section-content">
-                    <div class="input-field">
-                        <label for="years-experience">Years of Experience *</label>
-                        <input type="number" id="years-experience" name="entry.753951654" min="0" required aria-required="true">
-                        <span class="error-message" id="years-experience-error">Please enter your years of experience</span>
-                    </div>
-
-                    <div class="input-field">
-                        <label for="current-employer">Current/Most Recent Employer</label>
-                        <input type="text" id="current-employer" name="entry.951753654">
-                    </div>
-
-                    <div class="input-field">
-                        <label for="job-responsibilities">Key Responsibilities</label>
-                        <textarea id="job-responsibilities" name="entry.456789123" rows="4"></textarea>
-                    </div>
-
-                    <div class="navigation-buttons">
-                        <button type="button" class="nav-button back-button">Back</button>
-                        <button type="button" class="nav-button next-button">Next</button>
-                    </div>
-                </div>
-            </section>
-            <!-- Step 4: Work Preferences -->
-            <section class="form-section" data-step="4">
-                <div class="section-header">
-                    <h2>Work Preferences</h2>
-                </div>
-                <div class="section-content">
-                    <div class="input-field">
-                        <label>Preferred Work Type *</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="entry.789123456" value="Full-Time"> Full-Time</label>
-                            <label><input type="checkbox" name="entry.789123456" value="Part-Time"> Part-Time</label>
-                            <label><input type="checkbox" name="entry.789123456" value="Short-Term"> Short-Term</label>
-                        </div>
-                        <span class="error-message" id="work-type-error">Please select at least one work type</span>
-                    </div>
-                    <div class="input-field">
-                        <label>Preferred Shift Type *</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="entry.159753456" value="Day Shift"> Day Shift</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Night Shift"> Night Shift</label>
-                            <label><input type="checkbox" name="entry.159753456" value="Rotating"> Rotating</label>
-                        </div>
-                        <span class="error-message" id="shift-type-error">Please select at least one shift type</span>
-                    </div>
-                    <div class="input-field">
-                        <label for="preferred-location">Preferred Work Location</label>
-                        <input type="text" id="preferred-location" name="entry.357160470">
-                    </div>
-                    <div class="input-field">
-                        <label for="start-date">Earliest Start Date *</label>
-                        <input type="date" id="start-date" name="entry.753951654_date" required aria-required="true">
-                        <span class="error-message" id="start-date-error">Please select your earliest start date</span>
-                    </div>
-                    <div class="navigation-buttons">
-                        <button type="button" class="nav-button back-button">Back</button>
-                        <button type="button" class="nav-button next-button">Next</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 5: Supporting Documents -->
-            <section class="form-section" data-step="5">
-                <div class="section-header">
-                    <h2>Supporting Documents</h2>
-                </div>
-                <div class="section-content">
-                    <div class="file-upload">
-                        <label for="resume">
-                            <i class="fas fa-upload"></i> Upload Resume/CV (PDF, DOC, DOCX) *
-                        </label>
-                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required aria-required="true">
-                        <span id="resumeFileName" class="file-name"></span>
-                        <span class="error-message" id="resume-error">Please upload your resume/CV</span>
-                    </div>
-
-                    <div class="input-field">
-                        <button type="button" id="toggle-optional-docs" class="nav-button">Add Optional Documents</button>
-                    </div>
-
-                    <div id="optional-docs" style="display: none;">
-                        <div class="file-upload">
-                            <label for="license-doc">
-                                <i class="fas fa-upload"></i> Upload License Document (PDF, JPG, PNG)
-                            </label>
-                            <input type="file" id="license-doc" name="license-doc" accept=".pdf,.jpg,.png">
-                            <span id="licenseFileName" class="file-name"></span>
-                        </div>
-
-                        <div class="file-upload">
-                            <label for="certifications">
-                                <i class="fas fa-upload"></i> Upload Certifications (PDF, JPG, PNG)
-                            </label>
-                            <input type="file" id="certifications" name="certifications" accept=".pdf,.jpg,.png" multiple>
-                            <span id="certificationsFileName" class="file-name"></span>
-                        </div>
-                    </div>
-
-                    <div class="navigation-buttons">
-                        <button type="button" class="nav-button back-button">Back</button>
-                        <button type="button" class="nav-button next-button">Next</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 6: Review -->
-            <section class="form-section" data-step="6">
-                <div class="section-header">
-                    <h2>Review Your Information</h2>
-                </div>
-                <div class="section-content">
-                    <div class="review-section">
-                        <!-- This will be populated dynamically with JavaScript -->
-                    </div>
-
-                    <div class="navigation-buttons">
-                        <button type="button" class="nav-button back-button">Back</button>
-                        <button type="button" class="nav-button next-button">Next</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 7: Final Submission -->
-            <section class="form-section" data-step="7">
-                <div class="section-header">
-                    <h2>Submit Application</h2>
-                </div>
-                <div class="section-content">
-                    <div class="confirmation-container">
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="confirm-checkbox" name="entry.357160471" required aria-required="true">
-                            <label for="confirm-checkbox">
-                                I confirm that all information provided is accurate and complete. I understand that submitting this application does not guarantee placement, and Matendo Medics will contact me for further steps. *
-                            </label>
-                        </div>
-                        <span class="error-message" id="confirm-checkbox-error">Please confirm the information accuracy</span>
-                    </div>
-
-                    <div class="navigation-buttons">
-                        <button type="button" class="nav-button back-button">Back</button>
-                        <button type="submit" class="nav-button" id="submit-button">Submit Application</button>
-                    </div>
-                </div>
-            </section>
-        </form>
-        
-        <!-- Add submission confirmation message -->
-        <div class="submission-confirmation" id="submission-confirmation">
-            <h3>Thank you for your request!</h3>
-            <p>We have received your information and will review it shortly.</p>
-            <button class="view-additional-info" id="view-additional-info">View Additional Information</button>
+            </div>
         </div>
+    </section>
 
-        <!-- Add additional info section -->
-        <div class="additional-info" id="additional-info">
-            <h3>Additional Information</h3>
-            <p>Here's what you can expect next in our process:</p>
-            <ul>
-                <li>Our team will review your request within 1-2 business days.</li>
-                <li>We'll reach out to discuss your specific needs and potential candidates.</li>
-                <li>Please ensure your contact information is up to date.</li>
-                <li>For any questions, contact our support team at <a href="mailto:support@matendo.com">support@matendo.com</a></li>
-            </ul>
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.4;">
+                    Connecting healthcare facilities with top medical talent worldwide.
+                </p>
+                <div class="social-icons">
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                    <li><a href="tel:+256781053105">+256 781 053 105</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </footer>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script> -->
     <script>
-        // Google Maps Integration
+        // Google Maps Integration (Placeholder - Uncomment and add API key for functionality)
         let map;
         let marker;
         let autocomplete;
@@ -911,198 +1637,478 @@
             if (mapVisible && !map) initMap();
         }
 
-        // Form Navigation
+        // Form Logic
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('join-form');
             const sections = Array.from(document.querySelectorAll('.form-section'));
+            const progressSteps = document.querySelectorAll('.progress-step');
             let currentStep = 0;
 
+            // Set minimum date for start date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('start-date').min = today;
+
+            // Show step
             function showStep(step) {
                 sections.forEach((section, index) => {
                     section.classList.toggle('active', index === step);
                 });
-                document.querySelectorAll('.progress-step').forEach((stepEl, index) => {
-                    stepEl.classList.toggle('active', index === step);
+                progressSteps.forEach((progressStep, index) => {
+                    progressStep.classList.toggle('active', index === step);
+                    progressStep.classList.toggle('completed', index < step);
                 });
                 currentStep = step;
-                updateProgress();
+                if (step === 3) {
+                    updateReviewInfo();
+                }
             }
 
-            function validateStep() {
-                const currentSection = sections[currentStep];
-                const requiredFields = Array.from(currentSection.querySelectorAll('[required]'));
-                
+            // Validation functions
+            function validateStep1() {
                 let isValid = true;
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        isValid = false;
-                        field.classList.add('invalid');
-                        const errorElement = document.getElementById(`${field.id}-error`);
-                        if (errorElement) {
-                            errorElement.style.display = 'block';
-                        }
-                    } else {
-                        field.classList.remove('invalid');
-                        const errorElement = document.getElementById(`${field.id}-error`);
-                        if (errorElement) {
-                            errorElement.style.display = 'none';
-                        }
-                    }
-                });
 
-                // Validate checkboxes
-                if (currentStep === 3) {
-                    const workTypeChecked = document.querySelectorAll('input[name="entry.789123456"]:checked').length > 0;
-                    const shiftTypeChecked = document.querySelectorAll('input[name="entry.159753456"]:checked').length > 0;
-                    
-                    if (!workTypeChecked) {
-                        isValid = false;
-                        document.getElementById('work-type-error').style.display = 'block';
-                    } else {
-                        document.getElementById('work-type-error').style.display = 'none';
-                    }
-                    
-                    if (!shiftTypeChecked) {
-                        isValid = false;
-                        document.getElementById('shift-type-error').style.display = 'block';
-                    } else {
-                        document.getElementById('shift-type-error').style.display = 'none';
-                    }
+                // First Name
+                const firstName = form.querySelector('#first-name');
+                const firstNameError = document.getElementById('first-name-error');
+                if (!firstName.value.trim() || !/^[A-Za-z]{2,}$/.test(firstName.value)) {
+                    firstNameError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    firstNameError.style.display = 'none';
+                }
+
+                // Last Name
+                const lastName = form.querySelector('#last-name');
+                const lastNameError = document.getElementById('last-name-error');
+                if (!lastName.value.trim() || !/^[A-Za-z]{2,}$/.test(lastName.value)) {
+                    lastNameError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    lastNameError.style.display = 'none';
+                }
+
+                // Email
+                const email = form.querySelector('#email');
+                const emailError = document.getElementById('email-error');
+                if (!email.value.trim() || !/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email.value)) {
+                    emailError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    emailError.style.display = 'none';
+                }
+
+                // Phone
+                const phone = form.querySelector('#phone');
+                const phoneError = document.getElementById('phone-error');
+                if (!phone.value.trim() || !/^\+?[0-9\s\-()]{7,20}$/.test(phone.value)) {
+                    phoneError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    phoneError.style.display = 'none';
+                }
+
+                // Address
+                const address = form.querySelector('#address');
+                const addressError = document.getElementById('address-error');
+                if (!address.value.trim()) {
+                    addressError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    addressError.style.display = 'none';
                 }
 
                 return isValid;
             }
 
-            function updateProgress() {
-                const progress = ((currentStep + 1) / sections.length) * 100;
-                document.getElementById('progress-bar').style.width = `${progress}%`;
+            function validateStep2() {
+                let isValid = true;
+
+                // Profession
+                const profession = form.querySelector('#profession');
+                const professionError = document.getElementById('profession-error');
+                if (!profession.value) {
+                    professionError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    professionError.style.display = 'none';
+                }
+
+                // Other Profession
+                if (profession.value === 'Other') {
+                    const otherProfession = form.querySelector('#otherProfessionInput');
+                    const otherProfessionError = document.getElementById('otherProfessionInput-error');
+                    if (!otherProfession.value.trim()) {
+                        otherProfessionError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        otherProfessionError.style.display = 'none';
+                    }
+                }
+
+                // Years of Experience
+                const yearsExperience = form.querySelector('#years-experience');
+                const yearsExperienceError = document.getElementById('years-experience-error');
+                if (!yearsExperience.value || parseInt(yearsExperience.value) < 0) {
+                    yearsExperienceError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    yearsExperienceError.style.display = 'none';
+                }
+
+                // Resume
+                const resume = form.querySelector('#resume');
+                const resumeError = document.getElementById('resume-error');
+                if (resume.files.length === 0) {
+                    resumeError.textContent = 'Please upload your resume/CV';
+                    resumeError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    const file = resume.files[0];
+                    const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                    if (!validTypes.includes(file.type)) {
+                        resumeError.textContent = 'Please upload a PDF or Word document';
+                        resumeError.style.display = 'block';
+                        isValid = false;
+                    } else if (file.size > 5 * 1024 * 1024) {
+                        resumeError.textContent = 'File size must be less than 5MB';
+                        resumeError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        resumeError.style.display = 'none';
+                    }
+                }
+
+                // Optional files validation
+                ['license-doc', 'certifications'].forEach(id => {
+                    const fileInput = form.querySelector(`#${id}`);
+                    if (fileInput && fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+                        if (!validTypes.includes(file.type)) {
+                            const errorElement = document.getElementById(`${id}-error`) || document.createElement('div');
+                            errorElement.className = 'error-message';
+                            errorElement.id = `${id}-error`;
+                            errorElement.textContent = 'Please upload a PDF, JPG, or PNG';
+                            fileInput.parentElement.appendChild(errorElement);
+                            errorElement.style.display = 'block';
+                            isValid = false;
+                        } else if (file.size > 5 * 1024 * 1024) {
+                            const errorElement = document.getElementById(`${id}-error`) || document.createElement('div');
+                            errorElement.className = 'error-message';
+                            errorElement.id = `${id}-error`;
+                            errorElement.textContent = 'File size must be less than 5MB';
+                            fileInput.parentElement.appendChild(errorElement);
+                            errorElement.style.display = 'block';
+                            isValid = false;
+                        }
+                    }
+                });
+
+                return isValid;
             }
 
-            // Navigation Handlers
-            document.querySelectorAll('.next-button').forEach(button => {
+            function validateStep3() {
+                let isValid = true;
+
+                // Work Type
+                const workTypes = form.querySelectorAll('input[name="work-type"]:checked');
+                const workTypeError = document.getElementById('work-type-error');
+                if (workTypes.length === 0) {
+                    workTypeError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    workTypeError.style.display = 'none';
+                }
+
+                // Shift Type
+                const shiftTypes = form.querySelectorAll('input[name="shift-type"]:checked');
+                const shiftTypeError = document.getElementById('shift-type-error');
+                if (shiftTypes.length === 0) {
+                    shiftTypeError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    shiftTypeError.style.display = 'none';
+                }
+
+                // Start Date
+                const startDate = form.querySelector('#start-date');
+                const startDateError = document.getElementById('start-date-error');
+                if (!startDate.value) {
+                    startDateError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    startDateError.style.display = 'none';
+                }
+
+                return isValid;
+            }
+
+            // Step navigation
+            document.getElementById('step1Next').addEventListener('click', () => {
+                if (validateStep1()) {
+                    showStep(1);
+                }
+            });
+
+            document.getElementById('step2Next').addEventListener('click', () => {
+                if (validateStep2()) {
+                    showStep(2);
+                }
+            });
+
+            document.getElementById('step3Next').addEventListener('click', () => {
+                if (validateStep3()) {
+                    showStep(3);
+                }
+            });
+
+            form.querySelectorAll('.back-button').forEach(button => {
                 button.addEventListener('click', () => {
-                    if (validateStep()) {
-                        showStep(currentStep + 1);
-                    }
+                    showStep(currentStep - 1);
                 });
             });
 
-            document.querySelectorAll('.back-button').forEach(button => {
-                button.addEventListener('click', () => showStep(currentStep - 1));
+            // Update review information
+            function updateReviewInfo() {
+                // Personal Information
+                const personalInfoColumn = document.getElementById('personal-info-column');
+                const firstName = form.querySelector('#first-name').value;
+                const lastName = form.querySelector('#last-name').value;
+                const email = form.querySelector('#email').value;
+                const phone = form.querySelector('#phone').value;
+                const address = form.querySelector('#address').value;
+                const location = form.querySelector('#autocomplete').value || 'N/A';
+
+                personalInfoColumn.innerHTML = `
+                    <h3>Personal Information</h3>
+                    <p><strong>Name:</strong> ${sanitize(firstName)} ${sanitize(lastName)}</p>
+                    <p><strong>Email:</strong> ${sanitize(email)}</p>
+                    <p><strong>Phone:</strong> ${sanitize(phone)}</p>
+                    <p><strong>Address:</strong> ${sanitize(address)}</p>
+                    <p><strong>Location:</strong> ${sanitize(location)}</p>
+                `;
+
+                // Professional Information
+                const professionalInfoColumn = document.getElementById('professional-info-column');
+                const profession = form.querySelector('#profession').value;
+                const otherProfession = form.querySelector('#otherProfessionInput')?.value || '';
+                const specialization = form.querySelector('#specialization').value || 'N/A';
+                const yearsExperience = form.querySelector('#years-experience').value;
+                const licenseNumber = form.querySelector('#license-number')?.value || 'N/A';
+
+                professionalInfoColumn.innerHTML = `
+                    <h3>Professional Information</h3>
+                    <p><strong>Profession:</strong> ${sanitize(profession === 'Other' ? otherProfession : profession)}</p>
+                    <p><strong>Specialization:</strong> ${sanitize(specialization)}</p>
+                    <p><strong>Years of Experience:</strong> ${sanitize(yearsExperience)}</p>
+                    <p><strong>License Number:</strong> ${sanitize(licenseNumber)}</p>
+                `;
+
+                // Work Preferences
+                const preferencesColumn = document.getElementById('preferences-column');
+                const workTypes = Array.from(form.querySelectorAll('input[name="work-type"]:checked'))
+                    .map(input => input.value)
+                    .join(', ');
+                const shiftTypes = Array.from(form.querySelectorAll('input[name="shift-type"]:checked'))
+                    .map(input => input.value)
+                    .join(', ');
+                const preferredLocation = form.querySelector('#preferred-location').value || 'N/A';
+                const startDate = form.querySelector('#start-date').value;
+
+                preferencesColumn.innerHTML = `
+                    <h3>Work Preferences</h3>
+                    <p><strong>Work Type:</strong> ${sanitize(workTypes)}</p>
+                    <p><strong>Shift Type:</strong> ${sanitize(shiftTypes)}</p>
+                    <p><strong>Location:</strong> ${sanitize(preferredLocation)}</p>
+                    <p><strong>Start Date:</strong> ${sanitize(startDate)}</p>
+                `;
+
+                // Documents
+                const documentsColumn = document.getElementById('documents-column');
+                const resumeFileName = document.getElementById('resumeFileName').textContent;
+                const licenseDocFileName = document.getElementById('license-docFileName').textContent;
+                const certificationsFileName = document.getElementById('certificationsFileName').textContent;
+
+                documentsColumn.innerHTML = `
+                    <h3>Supporting Documents</h3>
+                    <p><strong>Resume/CV:</strong> ${sanitize(resumeFileName)}</p>
+                    <p><strong>License Document:</strong> ${sanitize(licenseDocFileName)}</p>
+                    <p><strong>Certifications:</strong> ${sanitize(certificationsFileName)}</p>
+                `;
+            }
+
+            // Sanitize input
+            function sanitize(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Validate confirmation checkbox
+                const confirmCheckbox = document.getElementById('confirm-checkbox');
+                const confirmCheckboxError = document.getElementById('confirm-checkbox-error');
+                if (!confirmCheckbox.checked) {
+                    confirmCheckboxError.style.display = 'block';
+                    return;
+                }
+                confirmCheckboxError.style.display = 'none';
+
+                // CSRF token
+                const csrfToken = generateCSRFToken();
+
+                // Sanitize form data
+                const formData = new FormData(form);
+                const sanitizedData = { csrfToken };
+                for (let [key, value] of formData.entries()) {
+                    sanitizedData[key] = typeof value === 'string' ? sanitize(value) : value;
+                }
+
+                // Simulate submission
+                document.getElementById('submit-button').textContent = 'Submitting...';
+                document.getElementById('submit-button').disabled = true;
+                document.getElementById('formSubmitting').style.display = 'block';
+
+                setTimeout(() => {
+                    form.style.display = 'none';
+                    const submissionConfirmation = document.getElementById('submission-confirmation');
+                    submissionConfirmation.style.display = 'block';
+                    updateReferenceInfo();
+                    document.getElementById('formSubmitting').style.display = 'none';
+                    document.getElementById('submit-button').textContent = 'Submit Application';
+                    document.getElementById('submit-button').disabled = false;
+                }, 2000);
             });
 
-            // Conditional Fields
+            // Generate CSRF token
+            function generateCSRFToken() {
+                return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            }
+
+            // Update reference number and date
+            function updateReferenceInfo() {
+                const timestamp = Date.now().toString().slice(-6);
+                const random = Math.random().toString(36).substring(2, 5).toUpperCase();
+                const referenceNumber = `REQ-${timestamp}-${random}`;
+                const currentDate = new Date().toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                document.getElementById('reference-number').textContent = referenceNumber;
+                document.getElementById('submission-date').textContent = currentDate;
+            }
+
+            // Toggle Additional Info
+            document.getElementById('view-additional-info').addEventListener('click', function() {
+                const additionalInfo = document.getElementById('additional-info');
+                const isVisible = additionalInfo.style.display === 'block';
+                additionalInfo.style.display = isVisible ? 'none' : 'block';
+                this.textContent = isVisible ? 'View Additional Information' : 'Hide Additional Information';
+            });
+
+            // Other profession toggle
             document.getElementById('profession').addEventListener('change', function() {
-                document.getElementById('otherProfessionContainer').style.display = 
-                    this.value === 'Other' ? 'block' : 'none';
+                const otherProfessionContainer = document.getElementById('otherProfessionContainer');
+                otherProfessionContainer.style.display = this.value === 'Other' ? 'block' : 'none';
             });
 
             // File upload handling
             const fileInputs = ['resume', 'license-doc', 'certifications', 'license-doc-optional'];
             fileInputs.forEach(inputId => {
                 const fileInput = document.getElementById(inputId);
+                if (!fileInput) return;
+                
                 const fileName = document.getElementById(`${inputId}FileName`);
+                
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        const file = this.files[0];
+                        const validTypes = inputId === 'resume' 
+                            ? ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+                            : ['application/pdf', 'image/jpeg', 'image/png'];
+                        const errorElement = document.getElementById(`${inputId}-error`) || document.createElement('div');
+                        errorElement.className = 'error-message';
+                        errorElement.id = `${inputId}-error`;
+                        this.parentElement.appendChild(errorElement);
 
-                fileInput.addEventListener('change', function(e) {
-                    if (this.files && this.files.length > 0) {
-                        const fileNames = Array.from(this.files).map(file => file.name);
-                        fileName.innerHTML = fileNames.map(name => `<a href="#" class="file-link">${name}</a>`).join(', ');
-                        fileName.style.display = 'inline';
-                        fileName.style.color = '#4CAF50';  // Success color
+                        if (!validTypes.includes(file.type)) {
+                            errorElement.textContent = `Please upload a ${inputId === 'resume' ? 'PDF or Word document' : 'PDF, JPG, or PNG'}`;
+                            errorElement.style.display = 'block';
+                            this.value = '';
+                            fileName.textContent = 'No file chosen';
+                        } else if (file.size > 5 * 1024 * 1024) {
+                            errorElement.textContent = 'File size must be less than 5MB';
+                            errorElement.style.display = 'block';
+                            this.value = '';
+                            fileName.textContent = 'No file chosen';
+                        } else {
+                            errorElement.style.display = 'none';
+                            fileName.textContent = file.name;
+                        }
                     } else {
-                        fileName.textContent = '';
-                        fileName.style.display = 'none';
+                        fileName.textContent = 'No file chosen';
                     }
                 });
             });
 
-            // Toggle license info
+            // Toggle license and optional documents
             document.getElementById('toggle-license').addEventListener('click', function() {
                 const licenseInfo = document.getElementById('license-info');
-                licenseInfo.style.display = licenseInfo.style.display === 'none' ? 'block' : 'none';
-                this.textContent = licenseInfo.style.display === 'none' ? 'Add License Information' : 'Hide License Information';
+                const isVisible = licenseInfo.style.display === 'none';
+                licenseInfo.style.display = isVisible ? 'block' : 'none';
+                this.textContent = isVisible ? 'Hide License Information' : 'Add License Information';
             });
 
-            // Toggle optional documents
             document.getElementById('toggle-optional-docs').addEventListener('click', function() {
                 const optionalDocs = document.getElementById('optional-docs');
-                optionalDocs.style.display = optionalDocs.style.display === 'none' ? 'block' : 'none';
-                this.textContent = optionalDocs.style.display === 'none' ? 'Add Optional Documents' : 'Hide Optional Documents';
+                const isVisible = optionalDocs.style.display === 'none';
+                optionalDocs.style.display = isVisible ? 'block' : 'none';
+                this.textContent = isVisible ? 'Hide Optional Documents' : 'Add Optional Documents';
             });
 
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                if (validateStep()) {
-                    // Show loading indicator
-                    document.getElementById('submit-button').textContent = 'Submitting...';
-                    document.getElementById('submit-button').disabled = true;
+            // Real-time input validation
+            form.querySelectorAll('input, select').forEach(input => {
+                input.addEventListener('input', function() {
+                    const errorId = `${this.id}-error`;
+                    const errorElement = document.getElementById(errorId);
+                    if (errorElement && this.checkValidity() && this.value.trim()) {
+                        errorElement.style.display = 'none';
+                    }
+                });
+            });
 
-                    // Simulate form submission (replace with actual submission logic)
-                    setTimeout(() => {
-                        form.style.display = 'none';
-                        document.getElementById('submission-confirmation').style.display = 'block';
-                        document.getElementById('submit-button').textContent = 'Submit Application';
-                        document.getElementById('submit-button').disabled = false;
-                    }, 2000);
+            // Mobile menu
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                if (mobileMenu.style.display === 'block') {
+                    mobileMenu.style.display = 'none';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                } else {
+                    mobileMenu.style.display = 'block';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
                 }
             });
 
-            // View additional info button handler
-            document.getElementById('view-additional-info').addEventListener('click', function() {
-                document.getElementById('additional-info').style.display = 'block';
-                this.style.display = 'none';
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const nav = document.querySelector('.nav-container');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
             });
 
-            // Populate review section
-            function populateReview() {
-                const reviewSection = document.querySelector('.review-section');
-                reviewSection.innerHTML = `
-                    <h3>Personal Information</h3>
-                    <p><strong>Name:</strong> ${document.getElementById('first-name').value} ${document.getElementById('last-name').value}</p>
-                    <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
-                    <p><strong>Phone:</strong> ${document.getElementById('phone').value}</p>
-                    <p><strong>Address:</strong> ${document.getElementById('address').value}</p>
-
-                    <h3>Professional Information</h3>
-                    <p><strong>Profession:</strong> ${document.getElementById('profession').value}</p>
-                    <p><strong>Specialization:</strong> ${document.getElementById('specialization').value}</p>
-                    <p><strong>License Number:</strong> ${document.getElementById('license-number').value}</p>
-
-                    <h3>Work Experience</h3>
-                    <p><strong>Years of Experience:</strong> ${document.getElementById('years-experience').value}</p>
-                    <p><strong>Current/Most Recent Employer:</strong> ${document.getElementById('current-employer').value}</p>
-                    <p><strong>Key Responsibilities:</strong> ${document.getElementById('job-responsibilities').value}</p>
-
-                    <h3>Work Preferences</h3>
-                    <p><strong>Preferred Work Type:</strong> ${getCheckedValues('entry.789123456')}</p>
-                    <p><strong>Preferred Shift Type:</strong> ${getCheckedValues('entry.159753456')}</p>
-                    <p><strong>Preferred Work Location:</strong> ${document.getElementById('preferred-location').value}</p>
-                    <p><strong>Earliest Start Date:</strong> ${document.getElementById('start-date').value}</p>
-
-                    <h3>Supporting Documents</h3>
-                    <p><strong>Resume/CV:</strong> ${document.getElementById('resumeFileName').innerHTML}</p>
-                    <p><strong>License Document:</strong> ${document.getElementById('licenseFileName').innerHTML}</p>
-                    <p><strong>Certifications:</strong> ${document.getElementById('certificationsFileName').innerHTML}</p>
-                `;
-            }
-
-            function getCheckedValues(name) {
-                return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`))
-                    .map(input => input.value)
-                    .join(', ');
-            }
-
-            // Update showStep function to populate review
-            const originalShowStep = showStep;
-            showStep = (step) => {
-                originalShowStep(step);
-                if (step === 5) {
-                    populateReview();
-                }
-            };
-
-            // Initialize
+            // Initialize form
             showStep(0);
         });
     </script>
