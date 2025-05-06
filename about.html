@@ -15,7 +15,7 @@
         html {
             font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
             line-height: 1.4;
-            color: #333;
+            color: #f8f9fa;
             scroll-behavior: smooth;
             font-size: 14px;
             overflow-x: hidden; /* Prevent horizontal scroll */
@@ -61,13 +61,12 @@
         }
 
         /* Updated navigation code with middle links */
-        /* Updated navigation code with middle links */
         .nav-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.084);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
@@ -88,7 +87,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
 
         .logo-img {
             width: 150px;
@@ -181,7 +179,7 @@
             top: 70px;
             left: 0;
             right: 0;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.646);
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 999;
@@ -752,23 +750,24 @@
 </head>
 <body>
     <nav class="nav-container">
-        <div class="nav-content">
-            <a href="index.html" title="Matendo" aria-label="Matendo">
-                <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-            </a>
-            <div class="main-nav">
-                <a href="index.html" class="main-nav-link">Home</a>
-                <a href="about.html" class="main-nav-link">About Us</a>
-                <a href="contact.html" class="main-nav-link">Contact Us</a>
-                <a href="careers.html" class="main-nav-link">Careers</a>
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" title="Matendo" aria-label="Matendo">
+                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+                </a>
+                <div class="main-nav">
+                    <a href="index.html" class="main-nav-link">Home</a>
+                    <a href="careers.html" class="main-nav-link">Careers</a>                    
+                    <a href="contact.html" class="main-nav-link">Contact Us</a>                    
+                </div>
+                <div class="auth-nav">
+                    <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                    <a href="login.html" class="auth-nav-link">Login</a>
+                </div>
+                <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-            <div class="auth-nav">
-                <a href="join.html" class="auth-nav-link">Join Matendo</a>
-                <a href="login.html" class="auth-nav-link">Login</a>
-            </div>
-            <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </nav>
 

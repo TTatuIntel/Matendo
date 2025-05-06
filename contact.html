@@ -63,8 +63,9 @@
             background: linear-gradient(to right, #28a745, #1e7e7c);
             border-radius: 2px;
         }
-/* Updated navigation code with middle links */
-.nav-container {
+
+        /* Updated navigation code with middle links */
+        .nav-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -768,22 +769,25 @@
 
 <body>
     <nav class="nav-container">
-        <div class="nav-content">
-            <a href="index.html" title="Matendo" aria-label="Matendo">
-                <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-            </a>
-            <div class="main-nav">
-                <a href="index.html" class="main-nav-link">Home</a>
-                <a href="careers.html" class="main-nav-link">Careers</a>
-                <a href="about.html" class="main-nav-link">About Us</a>
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" title="Matendo" aria-label="Matendo">
+                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+                </a>
+                <div class="main-nav">
+                    <a href="index.html" class="main-nav-link">Home</a>
+                    <a href="careers.html" class="main-nav-link">Careers</a>
+                    <a href="about.html" class="main-nav-link">About Us</a>
+                                        
+                </div>
+                <div class="auth-nav">
+                    <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                    <a href="login.html" class="auth-nav-link">Login</a>
+                </div>
+                <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-            <div class="auth-nav">
-                <a href="join.html" class="auth-nav-link">Join Matendo</a>
-                <a href="login.html" class="auth-nav-link">Login</a>
-            </div>
-            <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </nav>
 
