@@ -89,108 +89,180 @@
         }
 
         /* Navigation styles from hire.html */
-        .nav-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            z-index: 1000;
-            padding: 8px 5%;
-            transition: all 0.3s ease;
-        }
+        /* Navigation Container */
+    .nav-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(248, 249, 250, 0.9); /* Match hero background */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        z-index: 1000;
+        padding: 8px 5%;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
 
-        .nav-container.scrolled {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
+    .nav-container.scrolled {
+        background: rgba(248, 249, 250, 0.95);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
 
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-        .logo-img {
-            width: 150px;
-            height: auto;
-        }
+    .logo-img {
+        width: 150px;
+        height: auto;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
+    /* Main Navigation Links */
+    .main-nav {
+        display: flex;
+        gap: 25px;
+        margin: 0 auto;
+    }
 
-        .nav-link {
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            padding: 6px 12px;
-            border-radius: 4px;
-        }
+    .main-nav-link {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        position: relative;
+    }
 
-        .nav-link:nth-child(1) {
-            color: #27ae60;
-            border: 1px solid #27ae60;
-        }
+    .main-nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #28a745;
+        transition: width 0.3s ease;
+    }
 
-        .nav-link:nth-child(2) {
-            color: #3498db;
-            border: 1px solid #3498db;
-        }
+    .main-nav-link:hover {
+        color: #28a745;
+    }
 
-        .nav-link:nth-child(1):hover {
-            color: #219653;
-            border-color: #219653;
-        }
+    .main-nav-link:hover::after {
+        width: 100%;
+    }
 
-        .nav-link:nth-child(2):hover {
-            color: #2980b9;
-            border-color: #2980b9;
-        }
+    /* Auth Navigation Links */
+    .auth-nav {
+        display: flex;
+        gap: 20px;
+    }
 
-        /* Mobile Menu Styles */
-        .mobile-menu-button {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #333;
-            cursor: pointer;
-        }
+    .auth-nav-link {
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        padding: 6px 12px;
+        border-radius: 4px;
+    }
 
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 999;
-        }
+    .auth-nav-link:nth-child(1) {
+        color: #28a745;
+        border: 1px solid #28a745;
+    }
 
-        .mobile-menu-links {
-            display: flex;
-            flex-direction: column;
+    .auth-nav-link:nth-child(2) {
+        color: #007bff;
+        border: 1px solid #007bff;
+    }
+
+    .auth-nav-link:nth-child(1):hover {
+        color: #218838;
+        border-color: #218838;
+    }
+
+    .auth-nav-link:nth-child(2):hover {
+        color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    /* Mobile Menu Styles */
+    .mobile-menu-button {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #333;
+        cursor: pointer;
+    }
+
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    .mobile-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .mobile-menu-link {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        font-size: 1.1rem;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Responsive Styles for Navigation */
+    @media (max-width: 1200px) {
+        .main-nav {
             gap: 15px;
         }
+    }
 
-        .mobile-menu-link {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            font-size: 1.1rem;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+    @media (max-width: 992px) {
+        .main-nav {
+            display: none;
         }
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+        
+        .auth-nav {
+            display: none;
+        }
+
+        .mobile-menu-button {
+            display: block;
+        }
+    }
+
+    /* Improve touch targets for mobile */
+    @media (max-width: 768px) {
+        .nav-link,
+        .mobile-menu-link {
+            padding: 10px 15px;
+        }
+    }
 
         /* Hero Section */
         .hero-section {
@@ -408,33 +480,42 @@
     </style>
 </head>
 <body>
-    <!-- Navigation from hire.html -->
-    <nav class="nav-container">
+    <!-- Navigation Bar HTML -->
+<nav class="nav-container">
+    <div class="container">
         <div class="nav-content">
             <a href="index.html" title="Matendo" aria-label="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
             </a>
-            <div class="nav-links">
-                <a href="join.html" class="nav-link">Join Matendo</a>
-                <a href="login.html" class="nav-link">Login</a>
+            <div class="main-nav">
+                <a href="about.html" class="main-nav-link">About Us</a>
+                <a href="contact.html" class="main-nav-link">Contact Us</a>
+                <a href="careers.html" class="main-nav-link">Careers</a>
+            </div>
+            <div class="auth-nav">
+                <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                <a href="login.html" class="auth-nav-link">Login</a>
             </div>
             <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-links">
-            <a href="index.html" class="mobile-menu-link">Home</a>
-            <a href="services.html" class="mobile-menu-link">Services</a>
-            <a href="about.html" class="mobile-menu-link">About Us</a>
-            <a href="contact.html" class="mobile-menu-link">Contact</a>
-            <a href="join.html" class="mobile-menu-link">Join Matendo</a>
-            <a href="login.html" class="mobile-menu-link">Login</a>
-        </div>
     </div>
+</nav>
+
+<!-- Mobile Menu HTML -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-links">
+        <a href="about.html" class="mobile-menu-link">About Us</a>
+        <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+        <a href="careers.html" class="mobile-menu-link">Careers</a>
+        <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+        <a href="#how-to-hire" class="mobile-menu-link">How to Hire</a>
+        <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
+        <a href="join.html" class="mobile-menu-link" id="getStartedBtnMobile">Join Matendo</a>
+        <a href="login.html" class="mobile-menu-link">Login</a>
+    </div>
+</div>
 
     <!-- Hero Section - Changed to match hire.html style -->
     <section class="hero-section">

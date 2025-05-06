@@ -1507,8 +1507,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form id="facilityForm" novalidate>
-            <!-- Multi-step form with reorganized steps -->
+        <form id="facilityForm"  method="POST" enctype="multipart/form-data" novalidate>            <!-- Multi-step form with reorganized steps -->
             <div class="form-progress">
                 <div class="progress-step active" data-step="1">Contact</div>
                 <div class="progress-step" data-step="2">Facility Details</div>
@@ -1780,6 +1779,7 @@
     </div>
     <div class="modal-body">
         <form id="personalCareForm" novalidate>
+            <input type="hidden" name="formType" value="personalCare">
             <div class="form-progress">
                 <div class="progress-step active" data-step="1">Personal Info</div>
                 <div class="progress-step" data-step="2">Care Needs</div>
@@ -2675,101 +2675,201 @@ document.addEventListener('DOMContentLoaded', function() {
     
     closePersonalCareModal.addEventListener('click', closePersonalCareModalFunc);
     
-    // Form Submissions with validation
-    facilityForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validate the form
-        const confirmCheckbox = document.getElementById('confirm-checkbox');
-        const confirmCheckboxError = document.getElementById('confirm-checkbox-error');
-        
-        if (!confirmCheckbox.checked) {
-            confirmCheckboxError.style.display = 'block';
-            return;
+//     // Form Submissions with validation
+//     facilityForm.addEventListener('submit', function(e) {
+//     // Validate the form
+//     const confirmCheckbox = document.getElementById('confirm-checkbox');
+//     const confirmCheckboxError = document.getElementById('confirm-checkbox-error');
+
+//     if (!confirmCheckbox.checked) {
+//         e.preventDefault();
+//         confirmCheckboxError.style.display = 'block';
+//         return;
+//     } else {
+//         confirmCheckboxError.style.display = 'none';
+//     }
+
+//     // Add reference number and submission date as hidden inputs
+//     const referenceNumber = updateReferenceInfo('facility');
+//     const submissionDate = new Date().toISOString();
+
+//     const hiddenRef = document.createElement('input');
+//     hiddenRef.type = 'hidden';
+//     hiddenRef.name = 'referenceNumber';
+//     hiddenRef.value = referenceNumber;
+//     facilityForm.appendChild(hiddenRef);
+
+//     const hiddenDate = document.createElement('input');
+//     hiddenDate.type = 'hidden';
+//     hiddenDate.name = 'submissionDate';
+//     hiddenDate.value = submissionDate;
+//     facilityForm.appendChild(hiddenDate);
+// });
+    // const facilityForm = document.getElementById('facilityForm');
+facilityForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    // Validate the form
+    const confirmCheckbox = document.getElementById('confirm-checkbox');
+    const confirmCheckboxError = document.getElementById('confirm-checkbox-error');
+
+    if (!confirmCheckbox.checked) {
+        confirmCheckboxError.style.display = 'block';
+        return;
+    } else {
+        confirmCheckboxError.style.display = 'none';
+    }
+
+    // Collect form data
+    const formData = new FormData(this);
+    formData.append('referenceNumber', updateReferenceInfo('facility')); // Add reference number
+    formData.append('submissionDate', new Date().toISOString()); // Add submission date
+
+    // Send data to PHP via AJAX
+    fetch('save_facility_request.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Hide the form and show confirmation
+            this.style.display = 'none'; // Hide the form
+            const submissionConfirmation = document.getElementById('submission-confirmation');
+            submissionConfirmation.style.display = 'block'; // Show the confirmation div
+
+            // Update the reference number and submission date
+            document.getElementById('facility-reference-number').textContent = data.referenceNumber;
+            document.getElementById('facility-submission-date').textContent = new Date().toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            // Optional: Add click event for "View Additional Information" button
+            const viewAdditionalInfoBtn = document.getElementById('view-additional-info');
+            const additionalInfo = document.getElementById('additional-info');
+            viewAdditionalInfoBtn.addEventListener('click', function() {
+                additionalInfo.style.display = 'block'; // Show additional info
+                viewAdditionalInfoBtn.style.display = 'none'; // Hide the button
+            });
         } else {
-            confirmCheckboxError.style.display = 'none';
+            alert('Error submitting request: ' + data.message);
         }
-        
-        // Implement CSRF protection
-        const csrfToken = generateCSRFToken();
-        
-        // Sanitize form data before submission
-        const formData = new FormData(facilityForm);
-        const sanitizedData = {};
-        
-        for (let [key, value] of formData.entries()) {
-            // Basic sanitization
-            if (typeof value === 'string') {
-                sanitizedData[key] = value.replace(/[<>]/g, '');
-            } else {
-                sanitizedData[key] = value;
-            }
-        }
-        
-        // Add CSRF token
-        sanitizedData['csrfToken'] = csrfToken;
-        
-        // Here you would normally send the data to your server
-        // For demo purposes, we'll just show the confirmation
-        
-        // Hide the entire form
-        facilityForm.style.display = 'none';
-        
-        // Show submission confirmation
-        const submissionConfirmation = document.getElementById('submission-confirmation');
-        submissionConfirmation.style.display = 'block';
-        
-        // Update reference number and date
-        updateReferenceInfo('facility');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the request.');
     });
+});
+    // personalCareForm.addEventListener('submit', function(e) {
+    //     e.preventDefault();
+        
+    //     // Validate the form
+    //     const confirmCheckbox = document.getElementById('personal-confirm-checkbox');
+    //     const confirmCheckboxError = document.getElementById('personal-confirm-checkbox-error');
+        
+    //     if (!confirmCheckbox.checked) {
+    //         confirmCheckboxError.style.display = 'block';
+    //         return;
+    //     } else {
+    //         confirmCheckboxError.style.display = 'none';
+    //     }
+        
+    //     // Implement CSRF protection
+    //     const csrfToken = generateCSRFToken();
+        
+    //     // Sanitize form data before submission
+    //     const formData = new FormData(personalCareForm);
+    //     const sanitizedData = {};
+        
+    //     for (let [key, value] of formData.entries()) {
+    //         // Basic sanitization
+    //         if (typeof value === 'string') {
+    //             sanitizedData[key] = value.replace(/[<>]/g, '');
+    //         } else {
+    //             sanitizedData[key] = value;
+    //         }
+    //     }
+        
+    //     // Add CSRF token
+    //     sanitizedData['csrfToken'] = csrfToken;
+        
+    //     // Here you would normally send the data to your server
+    //     // For demo purposes, we'll just show the confirmation
+        
+    //     // Hide the entire form
+    //     personalCareForm.style.display = 'none';
+        
+    //     // Show submission confirmation
+    //     const personalSubmissionConfirmation = document.getElementById('personal-submission-confirmation');
+    //     personalSubmissionConfirmation.style.display = 'block';
+        
+    //     // Update reference number and date
+    //     updateReferenceInfo('personal');
+    // });
     
+
     personalCareForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validate the form
-        const confirmCheckbox = document.getElementById('personal-confirm-checkbox');
-        const confirmCheckboxError = document.getElementById('personal-confirm-checkbox-error');
-        
-        if (!confirmCheckbox.checked) {
-            confirmCheckboxError.style.display = 'block';
-            return;
+    e.preventDefault(); // Prevent default form submission
+
+    // Validate the form
+    const confirmCheckbox = document.getElementById('personal-confirm-checkbox');
+    const confirmCheckboxError = document.getElementById('personal-confirm-checkbox-error');
+
+    if (!confirmCheckbox.checked) {
+        confirmCheckboxError.style.display = 'block';
+        return;
+    } else {
+        confirmCheckboxError.style.display = 'none';
+    }
+
+    // Collect form data
+    const formData = new FormData(this);
+    formData.append('referenceNumber', updateReferenceInfo('personalCare')); // Add reference number
+    formData.append('submissionDate', new Date().toISOString()); // Add submission date
+
+    // Send data to PHP via AJAX
+    fetch('save_personal_care_request.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Hide the form and show confirmation
+            this.style.display = 'none'; // Hide the form
+            const submissionConfirmation = document.getElementById('personal-submission-confirmation');
+            submissionConfirmation.style.display = 'block'; // Show the confirmation div
+
+            // Update the reference number and submission date
+            document.getElementById('personal-reference-number').textContent = data.referenceNumber;
+            document.getElementById('personal-submission-date').textContent = new Date().toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            // Optional: Add click event for "View Additional Information" button
+            const viewAdditionalInfoBtn = document.getElementById('personal-view-additional-info');
+            const additionalInfo = document.getElementById('personal-additional-info');
+            viewAdditionalInfoBtn.addEventListener('click', function() {
+                additionalInfo.style.display = 'block'; // Show additional info
+                viewAdditionalInfoBtn.style.display = 'none'; // Hide the button
+            });
         } else {
-            confirmCheckboxError.style.display = 'none';
+            alert('Error submitting request: ' + data.message);
         }
-        
-        // Implement CSRF protection
-        const csrfToken = generateCSRFToken();
-        
-        // Sanitize form data before submission
-        const formData = new FormData(personalCareForm);
-        const sanitizedData = {};
-        
-        for (let [key, value] of formData.entries()) {
-            // Basic sanitization
-            if (typeof value === 'string') {
-                sanitizedData[key] = value.replace(/[<>]/g, '');
-            } else {
-                sanitizedData[key] = value;
-            }
-        }
-        
-        // Add CSRF token
-        sanitizedData['csrfToken'] = csrfToken;
-        
-        // Here you would normally send the data to your server
-        // For demo purposes, we'll just show the confirmation
-        
-        // Hide the entire form
-        personalCareForm.style.display = 'none';
-        
-        // Show submission confirmation
-        const personalSubmissionConfirmation = document.getElementById('personal-submission-confirmation');
-        personalSubmissionConfirmation.style.display = 'block';
-        
-        // Update reference number and date
-        updateReferenceInfo('personal');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the request.');
     });
-    
+});
     // Generate CSRF token for form security
     function generateCSRFToken() {
         return Math.random().toString(36).substring(2, 15) + 
