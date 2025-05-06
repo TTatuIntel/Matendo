@@ -1,787 +1,1010 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us</title>
-<script src="https://cdn.tailwindcss.com/3.4.16"></script>
-<script>tailwind.config={theme:{extend:{colors:{primary:'#27ae60',secondary:'#3498db'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-<style>
-:where([class^="ri-"])::before { content: "\f3c2"; }
-body {
-  font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
-  line-height: 1.4;
-  color: #333;
-  scroll-behavior: smooth;
-  font-size: 14px;
-}
-input[type="email"]:focus, input[type="text"]:focus, textarea:focus {
-  outline: none;
-}
+    <meta charset="utf-8" />
+    <title>Matendo Medics - Contact Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Matendo Medics Outsourcing connects businesses with top medical professionals. Contact us for healthcare staffing solutions." />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* Navigation styles from hire.html */
+        body,
+        html {
+            font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            scroll-behavior: smooth;
+            font-size: 14px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Add subtle section dividers and alternating patterns */
+        section {
+            position: relative;
+            padding: 20px 5%;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        section:nth-child(odd) {
+            background-image: linear-gradient(rgba(248, 249, 250, 0.7), rgba(248, 249, 250, 0.7)),
+                url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        section:nth-child(even) {
+            background-color: white;
+        }
+
+        /* Enhanced section title styling with reduced size */
+        .section-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: #323030;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, #28a745, #1e7e7c);
+            border-radius: 2px;
+        }
+/* Updated navigation code with middle links */
 .nav-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    z-index: 1000;
-    padding: 8px 5%;
-    transition: all 0.3s ease;
-}
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 8px 5%;
+            transition: all 0.3s ease;
+        }
 
-.nav-container.scrolled {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
+        .nav-container.scrolled {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
 
-.nav-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo-img {
+            width: 150px;
+            height: auto;
+        }
 
-.logo-img {
-    width: 150px;
-    height: auto;
-}
+        /* Main navigation links */
+        .main-nav {
+            display: flex;
+            gap: 25px;
+            margin: 0 auto;
+        }
 
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
+        .main-nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-.nav-link {
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    padding: 6px 12px;
-    border-radius: 4px;
-}
+        .main-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
 
-.nav-link:nth-child(1) {
-    color: #27ae60;
-    border: 1px solid #27ae60;
-}
+        .main-nav-link:hover {
+            color: #28a745;
+        }
 
-.nav-link:nth-child(2) {
-    color: #3498db;
-    border: 1px solid #3498db;
-}
+        .main-nav-link:hover::after {
+            width: 100%;
+        }
 
-.nav-link:nth-child(1):hover {
-    color: #219653;
-    border-color: #219653;
-}
+        /* Auth navigation links */
+        .auth-nav {
+            display: flex;
+            gap: 20px;
+        }
 
-.nav-link:nth-child(2):hover {
-    color: #2980b9;
-    border-color: #2980b9;
-}
+        .auth-nav-link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
 
-/* Mobile Menu Styles */
-.mobile-menu-button {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #333;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 4px;
-}
+        .auth-nav-link:nth-child(1) {
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
 
-.mobile-menu-button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
+        .auth-nav-link:nth-child(2) {
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
 
-.mobile-menu {
-    display: none;
-    position: fixed;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    max-height: 80vh;
-    overflow-y: auto;
-}
+        .auth-nav-link:nth-child(1):hover {
+            color: #218838;
+            border-color: #218838;
+        }
 
-.mobile-menu-links {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+        .auth-nav-link:nth-child(2):hover {
+            color: #0056b3;
+            border-color: #0056b3;
+        }
 
-.mobile-menu-link {
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-    display: block;
-}
+        /* Mobile Menu Styles */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
 
-.mobile-menu-link:active {
-    background-color: rgba(0, 0, 0, 0.05);
-}
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
 
-/* Footer styles from hire.html */
-.footer {
-    background: #f8f9fa;
-    padding: 40px 5% 30px;
-    border-top: 1px solid #eee;
-    position: relative;
-}
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-.footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(to right, transparent, rgba(39, 174, 96, 0.3), transparent);
-}
+        .mobile-menu-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
 
-.footer-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-}
+        /* Hero Section */
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 80px 5% 40px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+            text-align: center;
+        }
 
-.footer-column {
-    flex: 1;
-    min-width: 180px;
-}
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-.footer-title {
-    font-size: 1rem;
-    margin-bottom: 15px;
-    font-weight: 600;
-    color: #333;
-    position: relative;
-    padding-bottom: 8px;
-}
+        .hero-title {
+            font-size: 1.8rem;
+            color: #323030;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
 
-.footer-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background-color: rgba(39, 174, 96, 0.5);
-}
+        .hero-description {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-.footer-links {
-    list-style: none;
-}
+        /* Contact Page Specific Styles */
+        .contact-section {
+            padding: 40px 5%;
+        }
 
-.footer-link {
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-    position: relative;
-    padding-left: 15px;
-}
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
 
-.footer-link a {
-    color: #666;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
-}
+        .contact-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
 
-.footer-link a::before {
-    content: '';
-    position: absolute;
-    left: -15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: rgba(39, 174, 96, 0.3);
-    transition: all 0.3s ease;
-}
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
 
-.footer-link a:hover {
-    color: #27ae60;
-    padding-left: 5px;
-}
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
 
-.footer-link a:hover::before {
-    background-color: #27ae60;
-}
+        .contact-icon i {
+            font-size: 1.5rem;
+            color: #28a745;
+        }
 
-.social-links {
-    display: flex;
-    gap: 15px;
-    margin-top: 15px;
-    flex-wrap: wrap;
-}
+        .contact-card h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
 
-.social-link {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 1.2rem;
-}
+        .contact-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
 
-.social-link:hover {
-    color: #27ae60;
-    background-color: rgba(39, 174, 96, 0.1);
-    transform: translateY(-5px);
-}
+        .contact-card a {
+            display: flex;
+            align-items: center;
+            color: #28a745;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
 
-.footer-bottom {
-    max-width: 1000px;
-    margin: 25px auto 0;
-    padding: 15px 0 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    text-align: center;
-    color: #999;
-    font-size: 0.9rem;
-}
+        .contact-card a i {
+            margin-right: 8px;
+        }
 
-/* Enhanced Responsive styles */
-@media (max-width: 1200px) {
-    .container {
-        max-width: 90%;
-    }
-}
+        .contact-card a:hover {
+            color: #218838;
+        }
 
-@media (max-width: 992px) {
-    .container {
-        max-width: 85%;
-    }
-    
-    .grid.md\:grid-cols-2 {
-        grid-template-columns: 1fr;
-    }
-    
-    .text-3xl {
-        font-size: 1.75rem;
-    }
-    
-    .text-lg {
-        font-size: 1.05rem;
-    }
-}
+        .contact-form-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
 
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .mobile-menu-button {
-        display: block;
-    }
-    
-    .nav-content {
-        flex-direction: row;
-        gap: 15px;
-    }
+        .contact-form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
 
-    .logo-img {
-        width: 130px;
-    }
+        .contact-form-container h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-    body {
-        padding-top: 60px;
-    }
-    
-    .grid.md\:grid-cols-3 {
-        grid-template-columns: 1fr;
-    }
-    
-    .py-16 {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-    }
-    
-    .py-12 {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-    
-    .rounded-xl {
-        border-radius: 0.5rem;
-    }
-    
-    .p-6 {
-        padding: 1.25rem;
-    }
-    
-    .gap-8 {
-        gap: 1.5rem;
-    }
-    
-    .footer-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-@media (max-width: 576px) {
-    .container {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    
-    .py-16 {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-    
-    .py-12 {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-    }
-    
-    .text-3xl {
-        font-size: 1.5rem;
-    }
-    
-    .text-lg {
-        font-size: 0.95rem;
-    }
-    
-    .text-xl {
-        font-size: 1.15rem;
-    }
-    
-    .p-6 {
-        padding: 1rem;
-    }
-    
-    .gap-6 {
-        gap: 1rem;
-    }
-    
-    .footer-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .w-12, .h-12 {
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-    
-    .mb-4 {
-        margin-bottom: 0.75rem;
-    }
-    
-    .success-modal .bg-white {
-        width: 90%;
-        padding: 1rem;
-    }
-    
-    /* Improved contact card layout for mobile */
-    .grid.md\:grid-cols-3.gap-6 {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    /* Better form layout on small screens */
-    input[type="text"], 
-    input[type="email"], 
-    textarea {
-        font-size: 16px; /* Prevents iOS zoom on focus */
-        padding: 0.75rem;
-    }
-    
-    button[type="submit"] {
-        padding: 0.75rem;
-        width: 100%;
-        font-size: 0.95rem;
-        height: auto;
-        min-height: 44px; /* Better touch target */
-    }
-}
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
 
-@media (min-width: 577px) and (max-width: 991px) {
-    .py-16 {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-    }
-    
-    .py-12 {
-        padding-top: 2.5rem;
-        padding-bottom: 2.5rem;
-    }
-    
-    .grid.md\:grid-cols-3 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    /* Improved tablet layout */
-    .grid.md\:grid-cols-2.gap-8 {
-        gap: 1.5rem;
-    }
-}
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
 
-/* Success Modal Responsive Styles */
-#success-modal {
-    z-index: 1050;
-}
+        .form-control:focus {
+            outline: none;
+            border-color: #28a745;
+        }
 
-#success-modal .bg-white {
-    transition: all 0.3s ease;
-    max-width: 90%;
-}
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
 
-@media (max-width: 480px) {
-    #success-modal .bg-white {
-        width: 95%;
-        padding: 1rem;
-        margin: 0 0.5rem;
-    }
-    
-    #success-modal .text-xl {
-        font-size: 1.1rem;
-    }
-    
-    #success-modal .mb-4 {
-        margin-bottom: 0.5rem;
-    }
-    
-    #success-modal .mb-2 {
-        margin-bottom: 0.25rem;
-    }
-    
-    #success-modal .w-12, #success-modal .h-12 {
-        width: 2.25rem;
-        height: 2.25rem;
-    }
-    
-    #success-modal button {
-        width: 100%;
-        padding: 0.75rem;
-        height: auto;
-        min-height: 44px; /* Better touch target */
-    }
-}
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-/* Accessibility improvements */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
+        .submit-btn:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
 
-/* Focus styles for better accessibility */
-a:focus, button:focus, input:focus, textarea:focus {
-    outline: 2px solid #27ae60;
-    outline-offset: 2px;
-}
+        .faq-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
 
-/* Touch-friendly improvements */
-@media (max-width: 768px) {
-    .nav-link, .mobile-menu-link, .social-link, button {
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .footer-link {
-        margin-bottom: 12px;
-    }
-    
-    .footer-link a::before {
-        width: 8px;
-        height: 8px;
-    }
-}
-</style>
+        .faq-container h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .faq-item {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .faq-item h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .faq-item p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Success Modal */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-modal-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .success-icon i {
+            font-size: 2rem;
+            color: #28a745;
+        }
+
+        .success-modal-content h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .success-modal-content p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .close-modal-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            padding: 40px 5% 30px;
+            border-top: 1px solid #eee;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, transparent, rgba(40, 167, 69, 0.3), transparent);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #333;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-column a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(40, 167, 69, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #28a745;
+            padding-left: 20px;
+        }
+
+        .footer-column a:hover::before {
+            background-color: #28a745;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            color: #28a745;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .social-icons a:hover {
+            background-color: #28a745;
+            color: white;
+            transform: translateY(-5px);
+            padding: 0;
+        }
+
+        .social-icons a::before {
+            display: none;
+        }
+
+        .social-icons i {
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 25px auto 0;
+            padding: 15px 0 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .main-nav {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                justify-content: space-between;
+                padding: 30px 0;
+            }
+            
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            .hero-description {
+                font-size: 1.05rem;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+            
+            .auth-nav {
+                display: none;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+            }
+            
+            .nav-content {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .logo-img {
+                width: 130px;
+            }
+
+            .hero-title {
+                font-size: 1.4rem;
+            }
+
+            .hero-description {
+                font-size: 0.9rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .contact-form-container h2, 
+            .faq-container h2 {
+                font-size: 1.3rem;
+            }
+            
+            .contact-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .contact-card p, 
+            .faq-item p {
+                font-size: 0.9rem;
+            }
+            
+            .contact-icon {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .contact-icon i {
+                font-size: 1.3rem;
+            }
+            
+            .submit-btn {
+                width: 100%;
+            }
+        }
+
+        /* Fix for iOS Safari 100vh issue */
+        @supports (-webkit-touch-callout: none) {
+            .success-modal {
+                height: -webkit-fill-available;
+            }
+        }
+
+        /* Improve touch targets for mobile */
+        @media (max-width: 768px) {
+            .nav-link,
+            .mobile-menu-link,
+            .submit-btn,
+            .close-modal-btn {
+                padding: 10px 15px;
+            }
+
+            .footer-column a {
+                padding: 8px 15px;
+                display: block;
+            }
+
+            /* Improve spacing for mobile */
+            section {
+                padding: 30px 4%;
+            }
+
+            .hero-section {
+                padding-top: 70px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-white">
-<!-- Navigation Header from hire.html -->
-<nav class="nav-container">
-    <div class="nav-content">
-        <a href="index.html" title="Matendo" aria-label="Matendo">
-            <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-        </a>
-        <div class="nav-links">
-            <a href="join.html" class="nav-link">Join Matendo</a>
-            <a href="login.html" class="nav-link">Login</a>
+
+<body>
+    <nav class="nav-container">
+        <div class="nav-content">
+            <a href="index.html" title="Matendo" aria-label="Matendo">
+                <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+            </a>
+            <div class="main-nav">
+                <a href="index.html" class="main-nav-link">Home</a>
+                <a href="careers.html" class="main-nav-link">Careers</a>
+                <a href="about.html" class="main-nav-link">About Us</a>
+            </div>
+            <div class="auth-nav">
+                <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                <a href="login.html" class="auth-nav-link">Login</a>
+            </div>
+            <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html" class="main-nav-link">Home</a>
+            <a href="careers.html" class="main-nav-link">Careers</a>
+            <a href="about.html" class="main-nav-link">About Us</a>
+            <a href="join.html" class="mobile-menu-link">Join Matendo</a>
+            <a href="login.html" class="mobile-menu-link">Login</a>
+        </div>
     </div>
-</nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-links">
-        <a href="index.html" class="mobile-menu-link">Home</a>
-        <a href="about.html" class="mobile-menu-link">About Us</a>
-        <a href="contact.html" class="mobile-menu-link">Contact</a>
-        <a href="careers.html" class="mobile-menu-link">Careers</a>
-        <a href="join.html" class="mobile-menu-link">Join Matendo</a>
-        <a href="login.html" class="mobile-menu-link">Login</a>
-    </div>
-</div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Get in Touch</h1>
+            <p class="hero-description">Have questions? We're here to help. Reach out to our team for support, inquiries, or partnership opportunities.</p>
+        </div>
+    </section>
 
-<!-- Main Content -->
-<main style="margin-top: 70px;">
-<section class="relative bg-gradient-to-r from-[#e8f8f0] to-[#e6f3fa] py-16">
-<div class="container mx-auto px-6">
-<div class="max-w-2xl mx-auto text-center">
-<h1 class="text-3xl font-bold text-[#1E3A8A] mb-4">Get in Touch</h1>
-<p class="text-lg text-gray-600">Have questions? We're here to help. Reach out to our team for support, inquiries, or partnership opportunities.</p>
-</div>
-</div>
-</section>
-
-<section class="py-12 bg-white">
-<div class="container mx-auto px-6">
-<div class="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
-<div class="bg-gray-50 p-6 rounded-xl">
-<div class="w-12 h-12 bg-[#27ae60]/10 rounded-full flex items-center justify-center mb-4">
-<i class="ri-customer-service-2-line text-[#27ae60] ri-xl" aria-hidden="true"></i>
-</div>
-<h3 class="text-lg font-semibold mb-2">Customer Support</h3>
-<p class="text-gray-600 text-sm mb-3">Available 24/7 to assist you.</p>
-<a href="tel:+1-800-123-4567" class="text-[#27ae60] hover:text-[#219653] font-medium flex items-center text-sm">
-<i class="ri-phone-line mr-2" aria-hidden="true"></i>
-+1-800-123-4567
-</a>
-</div>
-<div class="bg-gray-50 p-6 rounded-xl">
-<div class="w-12 h-12 bg-[#27ae60]/10 rounded-full flex items-center justify-center mb-4">
-<i class="ri-mail-line text-[#27ae60] ri-xl" aria-hidden="true"></i>
-</div>
-<h3 class="text-lg font-semibold mb-2">Email Us</h3>
-<p class="text-gray-600 text-sm mb-3">We'll respond within 24 hours.</p>
-<a href="mailto:support@example.com" class="text-[#27ae60] hover:text-[#219653] font-medium flex items-center text-sm">
-<i class="ri-mail-send-line mr-2" aria-hidden="true"></i>
-support@example.com
-</a>
-</div>
-<div class="bg-gray-50 p-6 rounded-xl">
-<div class="w-12 h-12 bg-[#27ae60]/10 rounded-full flex items-center justify-center mb-4">
-<i class="ri-map-pin-line text-[#27ae60] ri-xl" aria-hidden="true"></i>
-</div>
-<h3 class="text-lg font-semibold mb-2">Office Location</h3>
-<p class="text-gray-600 text-sm mb-3">Visit our headquarters.</p>
-<address class="text-[#27ae60] hover:text-[#219653] font-medium flex items-center not-italic text-sm">
-<i class="ri-map-pin-2-line mr-2" aria-hidden="true"></i>
-123 Market St, San Francisco
-</address>
-</div>
-</div>
-
-<div class="max-w-4xl mx-auto">
-<div class="grid md:grid-cols-2 gap-8">
-<div class="bg-gray-50 p-6 rounded-xl">
-<h2 class="text-xl font-bold text-[#1E3A8A] mb-4">Send Us a Message</h2>
-<form id="contact-form" class="space-y-4">
-<div>
-<label for="name" class="block text-gray-700 font-medium mb-1 text-sm">Full Name</label>
-<input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded text-sm" required>
-</div>
-<div>
-<label for="email" class="block text-gray-700 font-medium mb-1 text-sm">Email Address</label>
-<input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded text-sm" required>
-</div>
-<div>
-<label for="message" class="block text-gray-700 font-medium mb-1 text-sm">Message</label>
-<textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded text-sm" required></textarea>
-</div>
-<button type="submit" class="w-full bg-[#27ae60] text-white px-4 py-2 !rounded-button font-medium hover:bg-[#219653] transition-colors text-sm">Send Message</button>
-</form>
-</div>
-
-<div>
-<h2 class="text-xl font-bold text-[#1E3A8A] mb-4">Frequently Asked Questions</h2>
-<div class="space-y-4">
-<div class="bg-gray-50 p-4 rounded-xl">
-<h3 class="text-base font-semibold mb-2">What are your business hours?</h3>
-<p class="text-gray-600 text-sm">Our support team is available 24/7. Office hours are Monday through Friday, 9:00 AM to 6:00 PM PST.</p>
-</div>
-<div class="bg-gray-50 p-4 rounded-xl">
-<h3 class="text-base font-semibold mb-2">How quickly can I expect a response?</h3>
-<p class="text-gray-600 text-sm">We typically respond to all inquiries within 24 hours during business days.</p>
-</div>
-<div class="bg-gray-50 p-4 rounded-xl">
-<h3 class="text-base font-semibold mb-2">Do you offer technical support?</h3>
-<p class="text-gray-600 text-sm">Yes, our technical support team is available to assist with any platform-related issues.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</main>
-
-<!-- Success Modal -->
-<div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-<div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
-<div class="text-center">
-<div class="w-12 h-12 bg-[#27ae60]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-<i class="ri-check-line text-[#27ae60] ri-xl" aria-hidden="true"></i>
-</div>
-<h3 class="text-xl font-bold mb-2">Message Sent!</h3>
-<p class="text-gray-600 mb-4">Thank you for reaching out. We'll get back to you shortly.</p>
-<button onclick="closeSuccessModal()" class="bg-[#27ae60] text-white px-4 py-2 !rounded-button font-medium hover:bg-[#219653] transition-colors text-sm">Close</button>
-</div>
-</div>
-</div>
-
-<!-- Footer from hire.html -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-column">
-            <h3 class="footer-title">About Us</h3>
-            <p>Connecting healthcare facilities with top medical talent worldwide.</p>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-                <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+    <!-- Contact Info Section -->
+    <section class="contact-section">
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Customer Support</h3>
+                <p>Available 24/7 to assist you.</p>
+                <a href="tel:+1-800-123-4567">
+                    <i class="fas fa-phone"></i>
+                    +1-800-123-4567
+                </a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Email Us</h3>
+                <p>We'll respond within 24 hours.</p>
+                <a href="mailto:support@example.com">
+                    <i class="fas fa-envelope"></i>
+                    support@example.com
+                </a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Office Location</h3>
+                <p>Visit our headquarters.</p>
+                <a href="https://maps.google.com" target="_blank">
+                    <i class="fas fa-map-pin"></i>
+                    123 Market St, San Francisco
+                </a>
             </div>
         </div>
-        <div class="footer-column">
-            <h3 class="footer-title">Quick Links</h3>
-            <ul class="footer-links">
-                <li class="footer-link"><a href="about.html">About</a></li>
-                <li class="footer-link"><a href="#">Services</a></li>
-                <li class="footer-link"><a href="contact.html">Contact</a></li>
-                <li class="footer-link"><a href="#">Blog</a></li>
-                <li class="footer-link"><a href="careers.html">Careers</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3 class="footer-title">Contact</h3>
-            <ul class="footer-links">
-                <li class="footer-link"><a href="mailto:info@matendo.com">info@matendo.com</a></li>
-                <li class="footer-link"><a href="tel:+256781053105">+256 781 053 105</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3 class="footer-title">Resources</h3>
-            <ul class="footer-links">
-                <li class="footer-link"><a href="#">Help Center</a></li>
-                <li class="footer-link"><a href="#">FAQs</a></li>
-                <li class="footer-link"><a href="#">Testimonials</a></li>
-                <li class="footer-link"><a href="#">Terms of Service</a></li>
-                <li class="footer-link"><a href="#">Privacy Policy</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2025 Matendo Health. All rights reserved.</p>
-    </div>
-</footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
-    const mobileMenuButton = document.getElementById('mobileMenuButton');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    mobileMenuButton.addEventListener('click', function() {
-        if (mobileMenu.style.display === 'block') {
-            mobileMenu.style.display = 'none';
-            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-        } else {
-            mobileMenu.style.display = 'block';
-            mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
-            mobileMenuButton.setAttribute('aria-expanded', 'true');
-        }
-    });
-    
-    // Contact form submission
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('success-modal').classList.remove('hidden');
-            contactForm.reset();
+        <div class="contact-form-section">
+            <div class="contact-form-container">
+                <h2>Send Us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+            <div class="faq-container">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>What are your business hours?</h3>
+                    <p>Our support team is available 24/7. Office hours are Monday through Friday, 9:00 AM to 6:00 PM PST.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How quickly can I expect a response?</h3>
+                    <p>We typically respond to all inquiries within 24 hours during business days.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer technical support?</h3>
+                    <p>Yes, our technical support team is available to assist with any platform-related issues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3>Message Sent!</h3>
+            <p>Thank you for reaching out. We'll get back to you shortly.</p>
+            <button class="close-modal-btn" id="closeModalBtn">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.4;">
+                    Connecting healthcare facilities with top medical talent worldwide.
+                </p>
+                <div class="social-icons">
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                    <li><a href="tel:+256781053105">+256 781 053 105</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Matendo Health. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                if (mobileMenu.style.display === 'block') {
+                    mobileMenu.style.display = 'none';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                } else {
+                    mobileMenu.style.display = 'block';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+                }
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const nav = document.querySelector('.nav-container');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            const successModal = document.getElementById('successModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                successModal.style.display = 'flex';
+                contactForm.reset();
+            });
+            
+            closeModalBtn.addEventListener('click', function() {
+                successModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === successModal) {
+                    successModal.style.display = 'none';
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
+                    mobileMenu.style.display = 'none';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
         });
-    }
-    
-    // Success modal close
-    window.closeSuccessModal = function() {
-        document.getElementById('success-modal').classList.add('hidden');
-    };
-    
-    // Navbar scroll effect
-    window.addEventListener('scroll', function() {
-        const nav = document.querySelector('.nav-container');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
-            mobileMenu.style.display = 'none';
-            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-        }
-    });
-    
-    // Close success modal when clicking outside
-    document.getElementById('success-modal').addEventListener('click', function(event) {
-        if (event.target === this) {
-            closeSuccessModal();
-        }
-    });
-    
-    // Close success modal with Escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && !document.getElementById('success-modal').classList.contains('hidden')) {
-            closeSuccessModal();
-        }
-    });
-    
-    // Make form elements more accessible
-    const formElements = document.querySelectorAll('input, textarea, button');
-    formElements.forEach(element => {
-        if (element.tagName === 'BUTTON' && !element.getAttribute('aria-label')) {
-            element.setAttribute('aria-label', element.textContent.trim());
-        }
-    });
-});
-</script>
+    </script>
 </body>
 </html>

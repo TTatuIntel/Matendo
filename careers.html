@@ -63,9 +63,9 @@
             background: linear-gradient(to right, #28a745, #1e7e7c);
             border-radius: 2px;
         }
-
-        /* Updated navigation code with middle links */
-        .nav-container {
+        
+       /* Updated navigation code with middle links */
+       .nav-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -204,206 +204,80 @@
             border-bottom: 1px solid #eee;
         }
 
-        /* Careers Page Specific Styles */
-        .careers-hero {
-            background-color: #f8f9fa;
-            padding: 100px 5% 50px;
-            text-align: center;
-            margin-top: 70px;
+        /* Hero Section - remove margin-top since nav is now part of it */
+        .hero-section {
+            background-color: #d0d0d0;
+            padding: 80px 5% 40px;
             position: relative;
             overflow: hidden;
+            margin-top: 0; /* Changed from 70px to 0 */
+            text-align: center;
         }
 
-        .careers-hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
-            z-index: 1;
-        }
-
-        .careers-hero-content {
-            position: relative;
-            z-index: 2;
+        .hero-content {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .careers-hero h1 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .careers-hero p {
-            color: #666;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .careers-hero-btn {
-            display: inline-block;
-            background-color: #28a745;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .careers-hero-btn:hover {
-            background-color: #218838;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .culture-section {
-            padding: 60px 5%;
-            text-align: center;
-        }
-
-        .culture-section h2 {
+        .hero-title {
             font-size: 1.8rem;
-            color: #333;
-            margin-bottom: 20px;
+            color: #323030;
+            margin-bottom: 15px;
+            line-height: 1.2;
         }
 
-        .culture-section p {
-            max-width: 800px;
-            margin: 0 auto 40px;
-            color: #666;
+        .hero-description {
             font-size: 1rem;
-            line-height: 1.6;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .culture-grid {
+        /* Careers Page Specific Styles */
+        .careers-section {
+            padding: 40px 5%;
+        }
+
+        .careers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .culture-card {
-            background: #e8f8f0;
-            border-radius: 10px;
-            padding: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .culture-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .culture-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(40, 167, 69, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-
-        .culture-icon i {
-            font-size: 1.8rem;
-            color: #28a745;
-        }
-
-        .culture-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .culture-card p {
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 0;
-        }
-
-        .openings-section {
-            padding: 60px 5%;
-        }
-
-        .openings-section h2 {
-            font-size: 1.8rem;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .openings-section p {
-            max-width: 800px;
             margin: 0 auto 40px;
-            color: #666;
-            font-size: 1rem;
-            line-height: 1.6;
-            text-align: center;
         }
 
-        .job-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .job-card {
+        .career-card {
             background: white;
-            border: 1px solid #eee;
             border-radius: 10px;
             padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        .job-card:hover {
+        .career-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            border-color: #28a745;
         }
 
-        .job-header {
+        .career-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 15px;
         }
 
-        .job-title {
-            font-size: 1.3rem;
+        .career-title {
+            font-size: 1.2rem;
             color: #333;
             margin-bottom: 5px;
         }
 
-        .job-meta {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .job-meta div {
-            display: flex;
-            align-items: center;
-        }
-
-        .job-meta i {
-            margin-right: 5px;
-            color: #28a745;
-        }
-
-        .job-tag {
+        .career-tag {
             background: rgba(40, 167, 69, 0.1);
             color: #28a745;
             padding: 5px 10px;
@@ -412,14 +286,33 @@
             font-weight: 600;
         }
 
-        .job-description {
+        .career-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .career-meta div {
+            display: flex;
+            align-items: center;
+        }
+
+        .career-meta i {
+            margin-right: 5px;
+            color: #28a745;
+        }
+
+        .career-description {
             color: #666;
             font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 20px;
+            flex-grow: 1;
         }
 
-        .job-btn {
+        .career-btn {
             display: inline-block;
             background-color: #28a745;
             color: white;
@@ -429,75 +322,93 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            text-align: center;
+            align-self: flex-start;
         }
 
-        .job-btn:hover {
+        .career-btn:hover {
             background-color: #218838;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .view-all-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #28a745;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .view-all-link i {
-            margin-left: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .view-all-link:hover {
-            color: #218838;
-        }
-
-        .view-all-link:hover i {
-            transform: translateX(5px);
-        }
-
-        .benefits-section {
-            padding: 60px 5%;
+        .values-section {
+            padding: 40px 5%;
             text-align: center;
         }
 
-        .benefits-section h2 {
-            font-size: 1.8rem;
-            color: #333;
-            margin-bottom: 20px;
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 30px auto 0;
         }
 
-        .benefits-section p {
-            max-width: 800px;
-            margin: 0 auto 40px;
+        .value-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .value-icon i {
+            font-size: 1.5rem;
+            color: #28a745;
+        }
+
+        .value-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .value-card p {
             color: #666;
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .benefits-section {
+            padding: 40px 5%;
+            text-align: center;
         }
 
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
+            max-width: 1200px;
+            margin: 30px auto 0;
         }
 
         .benefit-card {
-            background: #e8f8f0;
+            background: white;
             border-radius: 10px;
             padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
 
         .benefit-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .benefit-icon {
@@ -512,35 +423,41 @@
         }
 
         .benefit-icon i {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #28a745;
         }
 
         .benefit-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
+            font-size: 1rem;
             color: #333;
+            margin-bottom: 5px;
+        }
+
+        .benefit-card p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.5;
         }
 
         .cta-section {
             padding: 60px 5%;
-            background-color: #3498db;
+            background-color: #28a745;
             text-align: center;
             color: white;
         }
 
-        .cta-container {
+        .cta-content {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .cta-section h2 {
+        .cta-title {
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        .cta-section p {
-            font-size: 1.1rem;
+        .cta-description {
+            font-size: 1rem;
             margin-bottom: 30px;
             opacity: 0.9;
         }
@@ -548,7 +465,7 @@
         .cta-btn {
             display: inline-block;
             background-color: white;
-            color: #3498db;
+            color: #28a745;
             padding: 12px 25px;
             border-radius: 6px;
             text-decoration: none;
@@ -562,6 +479,7 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
+        /* Footer */
         .footer {
             background: #f8f9fa;
             padding: 40px 5% 30px;
@@ -644,7 +562,6 @@
             background-color: #28a745;
         }
 
-        /* Social icons in footer */
         .social-icons {
             display: flex;
             gap: 15px;
@@ -689,7 +606,7 @@
             font-size: 0.9rem;
         }
 
-        /* Enhanced Mobile Responsiveness */
+        /* Responsive Styles */
         @media (max-width: 1200px) {
             .hero-title {
                 font-size: 1.8rem;
@@ -701,10 +618,6 @@
             
             .main-nav {
                 gap: 15px;
-            }
-            
-            .job-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
 
@@ -726,15 +639,11 @@
                 display: none;
             }
             
-            .culture-grid {
+            .careers-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .job-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .benefits-grid {
+            .values-grid, .benefits-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -744,108 +653,135 @@
                 font-size: 13px;
             }
 
+            .nav-links {
+                display: none;
+            }
+            
             .auth-nav {
                 display: none;
             }
-
+            
             .mobile-menu-button {
                 display: block;
             }
             
-            .careers-hero {
-                padding: 80px 5% 40px;
+            .nav-content {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .logo-img {
+                width: 130px;
+            }
+
+            .hero-title {
+                font-size: 1.4rem;
+            }
+
+            .hero-description {
+                font-size: 0.9rem;
             }
             
-            .careers-hero h1 {
-                font-size: 1.6rem;
-            }
-            
-            .careers-hero p {
-                font-size: 1rem;
-            }
-            
-            .culture-section, .openings-section, .benefits-section {
-                padding: 40px 5%;
-            }
-            
-            .culture-section h2, .openings-section h2, .benefits-section h2 {
-                font-size: 1.5rem;
-            }
-            
-            .culture-grid {
+            .careers-grid {
                 grid-template-columns: 1fr;
             }
             
-            .job-card {
-                padding: 20px;
-            }
-            
-            .job-header {
+            .career-header {
                 flex-direction: column;
             }
             
-            .job-tag {
+            .career-tag {
                 margin-top: 10px;
             }
             
-            .benefits-grid {
+            .values-grid, .benefits-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .cta-title {
+                font-size: 1.5rem;
+            }
+            
+            .cta-description {
+                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 576px) {
-            .careers-hero {
-                padding: 70px 5% 30px;
-            }
-            
-            .careers-hero h1 {
-                font-size: 1.4rem;
-            }
-            
-            .careers-hero p {
-                font-size: 0.9rem;
-            }
-            
-            .culture-section, .openings-section, .benefits-section {
-                padding: 30px 5%;
-            }
-            
-            .culture-section h2, .openings-section h2, .benefits-section h2 {
+            .hero-title {
                 font-size: 1.3rem;
             }
-            
-            .culture-card {
-                padding: 20px;
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
             }
             
-            .culture-icon {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .culture-icon i {
-                font-size: 1.5rem;
-            }
-            
-            .culture-card h3 {
-                font-size: 1.1rem;
-            }
-            
-            .job-meta {
+            .career-meta {
                 flex-direction: column;
                 gap: 5px;
             }
-        }
-
-        @media (min-width: 768px) and (max-width: 991px) {
-            .careers-hero {
-                padding: 90px 5% 45px;
+            
+            .value-icon, .benefit-icon {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .value-icon i, .benefit-icon i {
+                font-size: 1.2rem;
+            }
+            
+            .value-card h3, .benefit-card h3 {
+                font-size: 1rem;
+            }
+            
+            .value-card p, .benefit-card p {
+                font-size: 0.85rem;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                padding: 10px 15px;
             }
         }
 
-        @media (min-width: 992px) {
-            .careers-hero {
-                padding: 100px 5% 50px;
+        /* Fix for iOS Safari 100vh issue */
+        @supports (-webkit-touch-callout: none) {
+            .mobile-menu {
+                height: -webkit-fill-available;
+            }
+        }
+
+        /* Improve touch targets for mobile */
+        @media (max-width: 768px) {
+            .nav-link,
+            .mobile-menu-link,
+            .career-btn,
+            .cta-btn {
+                padding: 10px 15px;
+            }
+
+            .footer-column a {
+                padding: 8px 15px;
+                display: block;
+            }
+
+            /* Improve spacing for mobile */
+            section {
+                padding: 30px 4%;
+            }
+
+            .hero-section {
+                padding-top: 70px;
             }
         }
     </style>
@@ -853,169 +789,198 @@
 
 <body>
     <nav class="nav-container">
-        <div class="container">
-            <div class="nav-content">
-                <a href="index.html" title="Matendo" aria-label="Matendo">
-                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-                </a>
-                <div class="main-nav">
-                    <a href="about.html" class="main-nav-link">About Us</a>
-                    <a href="contact.html" class="main-nav-link">Contact Us</a>
-                    <a href="careers.html" class="main-nav-link">Careers</a>
-                </div>
-                <div class="auth-nav">
-                    <a href="join.html" class="auth-nav-link">Join Matendo</a>
-                    <a href="login.html" class="auth-nav-link">Login</a>
-                </div>
-                <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
+        <div class="nav-content">
+            <a href="index.html" title="Matendo" aria-label="Matendo">
+                <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+            </a>
+            <div class="main-nav">
+                <a href="index.html" class="main-nav-link">Home</a>
+                <a href="about.html" class="main-nav-link">About Us</a>
+                <a href="contact.html" class="main-nav-link">Contact Us</a> 
             </div>
+            <div class="auth-nav">
+                <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                <a href="login.html" class="auth-nav-link">Login</a>
+            </div>
+            <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-links">
-            <a href="about.html" class="mobile-menu-link">About Us</a>
-            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
-            <a href="careers.html" class="mobile-menu-link">Careers</a>
-            <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
-            <a href="#how-to-hire" class="mobile-menu-link">How to Hire</a>
-            <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
-            <a href="join.html" class="mobile-menu-link" id="getStartedBtnMobile">Join Matendo</a>
+            <a href="index.html" class="main-nav-link">Home</a>
+            <a href="careers.html" class="main-nav-link">Careers</a>
+            <a href="about.html" class="main-nav-link">About Us</a>
+            <a href="contact.html" class="main-nav-link">Contact Us</a> 
+            <a href="join.html" class="mobile-menu-link">Join Matendo</a>
             <a href="login.html" class="mobile-menu-link">Login</a>
         </div>
     </div>
 
-    <!-- Careers Hero Section -->
-    <section class="careers-hero">
-        <div class="careers-hero-content">
-            <h1>Join Our Team</h1>
-            <p>Help us transform healthcare staffing with innovative solutions that connect professionals with facilities.</p>
-            <a href="#openings" class="careers-hero-btn">View Open Positions</a>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Join Our Team</h1>
+            <p class="hero-description">Be part of a team that's transforming healthcare staffing. We're looking for talented individuals who are passionate about making a difference.</p>
         </div>
     </section>
 
-    <!-- Company Culture Section -->
-    <section class="culture-section">
-        <h2>Our Company Culture</h2>
-        <p>We're building a team that's passionate about transforming healthcare staffing.</p>
-        <div class="culture-grid">
-            <div class="culture-card">
-                <div class="culture-icon">
-                    <i class="fas fa-lightbulb"></i>
+    <!-- Current Openings Section -->
+    <section class="careers-section">
+        <h2 class="section-title">Current Openings</h2>
+        <div class="careers-grid">
+            <div class="career-card">
+                <div class="career-header">
+                    <h3 class="career-title">Medical Recruiter</h3>
+                    <span class="career-tag">Full-time</span>
                 </div>
-                <h3>Innovation</h3>
-                <p>We embrace new ideas and technologies to solve complex healthcare staffing challenges.</p>
+                <div class="career-meta">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Remote</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Posted: May 1, 2025</span>
+                    </div>
+                </div>
+                <p class="career-description">We're looking for an experienced medical recruiter to join our team. You'll be responsible for identifying, screening, and placing healthcare professionals in various facilities.</p>
+                <a href="#" class="career-btn">Apply Now</a>
             </div>
-            <div class="culture-card">
-                <div class="culture-icon">
+            <div class="career-card">
+                <div class="career-header">
+                    <h3 class="career-title">Healthcare Account Manager</h3>
+                    <span class="career-tag">Full-time</span>
+                </div>
+                <div class="career-meta">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>New York, NY</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Posted: April 25, 2025</span>
+                    </div>
+                </div>
+                <p class="career-description">Join our team as a Healthcare Account Manager to build and maintain relationships with healthcare facilities. You'll be the primary point of contact for our facility partners.</p>
+                <a href="#" class="career-btn">Apply Now</a>
+            </div>
+            <div class="career-card">
+                <div class="career-header">
+                    <h3 class="career-title">Software Developer</h3>
+                    <span class="career-tag">Full-time</span>
+                </div>
+                <div class="career-meta">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Remote</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Posted: April 20, 2025</span>
+                    </div>
+                </div>
+                <p class="career-description">We're seeking a talented Software Developer to help build and maintain our healthcare staffing platform. Experience with web applications and databases is required.</p>
+                <a href="#" class="career-btn">Apply Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="values-section">
+        <h2 class="section-title">Our Values</h2>
+        <p>At Matendo Medics, we're guided by a set of core values that shape everything we do.</p>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
                     <i class="fas fa-heart"></i>
                 </div>
                 <h3>Compassion</h3>
                 <p>We care deeply about healthcare professionals and the patients they serve.</p>
             </div>
-            <div class="culture-card">
-                <div class="culture-icon">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Integrity</h3>
+                <p>We operate with honesty, transparency, and ethical standards in all our interactions.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Innovation</h3>
+                <p>We continuously seek new and better ways to solve healthcare staffing challenges.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <h3>Collaboration</h3>
-                <p>We believe in the power of teamwork to create better solutions.</p>
+                <p>We believe in the power of teamwork to create better solutions for everyone.</p>
             </div>
         </div>
-    </section>
-
-    <!-- Current Openings Section -->
-    <section id="openings" class="openings-section">
-        <h2>Current Openings</h2>
-        <p>Explore our open positions and find your next career opportunity.</p>
-        <div class="job-grid">
-            <div class="job-card">
-                <div class="job-header">
-                    <div>
-                        <h3 class="job-title">Senior Software Engineer</h3>
-                        <div class="job-meta">
-                            <div>
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>Remote</span>
-                            </div>
-                            <div>
-                                <i class="fas fa-clock"></i>
-                                <span>Full-time</span>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="job-tag">Engineering</span>
-                </div>
-                <p class="job-description">Join our engineering team to build innovative solutions that connect healthcare professionals with facilities.</p>
-                <a href="#" class="job-btn">Apply Now</a>
-            </div>
-            <div class="job-card">
-                <div class="job-header">
-                    <div>
-                        <h3 class="job-title">Product Manager</h3>
-                        <div class="job-meta">
-                            <div>
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>New York, NY</span>
-                            </div>
-                            <div>
-                                <i class="fas fa-clock"></i>
-                                <span>Full-time</span>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="job-tag">Product</span>
-                </div>
-                <p class="job-description">Lead product development for our healthcare staffing platform, working with engineering, design, and business teams.</p>
-                <a href="#" class="job-btn">Apply Now</a>
-            </div>
-        </div>
-        <a href="#" class="view-all-link">
-            View All Positions
-            <i class="fas fa-arrow-right"></i>
-        </a>
     </section>
 
     <!-- Benefits Section -->
     <section class="benefits-section">
-        <h2>Benefits & Perks</h2>
+        <h2 class="section-title">Benefits & Perks</h2>
         <p>We take care of our team so they can focus on our mission.</p>
         <div class="benefits-grid">
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <h3>Competitive Salary</h3>
-            </div>
             <div class="benefit-card">
                 <div class="benefit-icon">
                     <i class="fas fa-heartbeat"></i>
                 </div>
                 <h3>Health Insurance</h3>
+                <p>Comprehensive medical, dental, and vision coverage for you and your family.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3>Competitive Salary</h3>
+                <p>We offer competitive compensation packages based on experience and skills.</p>
             </div>
             <div class="benefit-card">
                 <div class="benefit-icon">
                     <i class="fas fa-calendar-alt"></i>
                 </div>
                 <h3>Flexible Schedule</h3>
+                <p>Work-life balance is important to us. We offer flexible scheduling options.</p>
             </div>
             <div class="benefit-card">
                 <div class="benefit-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <h3>Professional Growth</h3>
+                <h3>Professional Development</h3>
+                <p>Continuous learning opportunities and career growth pathways.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <h3>Paid Time Off</h3>
+                <p>Generous vacation policy and paid holidays to help you recharge.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-piggy-bank"></i>
+                </div>
+                <h3>Retirement Plan</h3>
+                <p>401(k) plan with company matching to help you save for the future.</p>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="cta-container">
-            <h2>Ready to Join Our Team?</h2>
-            <p>Explore our open positions and take the next step in your career.</p>
-            <a href="#openings" class="cta-btn">View Opportunities</a>
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Join Our Team?</h2>
+            <p class="cta-description">Explore our open positions and take the next step in your career.</p>
+            <a href="#" class="cta-btn">View All Positions</a>
         </div>
     </section>
 
@@ -1029,13 +994,13 @@
                 </p>
                 <div class="social-icons">
                     <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-facebook-f"></i>
                     </a>
                     <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>
                     <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
+                        <i class="fab fa-linkedin-in"></i>
                     </a>
                     <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                         <i class="fab fa-instagram"></i>
@@ -1053,7 +1018,7 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="#">Services</a></li>
+                    <li><a href="services.html">Services</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="#">Blog</a></li>
                     <li><a href="careers.html">Careers</a></li>
@@ -1076,25 +1041,12 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navContainer = document.querySelector('.nav-container');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const mobileMenu = document.getElementById('mobileMenu');
-
-            // Handle scroll for navbar
-            function handleScroll() {
-                if (window.scrollY > 10) {
-                    navContainer.classList.add('scrolled');
-                } else {
-                    navContainer.classList.remove('scrolled');
-                }
-            }
-
-            window.addEventListener('scroll', handleScroll);
-            handleScroll(); // Initialize on load
-
-            // Mobile menu toggle
-            mobileMenuButton.addEventListener('click', function () {
+        
+            mobileMenuButton.addEventListener('click', function() {
                 if (mobileMenu.style.display === 'block') {
                     mobileMenu.style.display = 'none';
                     mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
@@ -1103,44 +1055,41 @@
                     mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
                 }
             });
+        
+            // Navbar scroll effect - updated to handle position change
+            const nav = document.querySelector('.nav-container');
+            const heroSection = document.querySelector('.hero-section');
+            let heroHeight;
 
+            function updateNavPosition() {
+                // Get the hero section height (accounting for potential resize)
+                heroHeight = heroSection.offsetHeight;
+            
+                // Check if we've scrolled past the hero section
+                if (window.scrollY > heroHeight - 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+
+            // Initialize on page load
+            updateNavPosition();
+
+            // Update on scroll
+            window.addEventListener('scroll', updateNavPosition);
+
+            // Update on resize (in case hero height changes)
+            window.addEventListener('resize', updateNavPosition);
+        
             // Close mobile menu when clicking outside
-            document.addEventListener('click', function (event) {
+            document.addEventListener('click', function(event) {
                 if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
                     mobileMenu.style.display = 'none';
                     mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             });
-
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const headerOffset = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-
-                        // Close mobile menu if open
-                        if (mobileMenu.style.display === 'block') {
-                            mobileMenu.style.display = 'none';
-                            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                        }
-                    }
-                });
-            });
         });
     </script>
 </body>
-
 </html>

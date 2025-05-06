@@ -4,37 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Matendo Medics</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0284c7',
-                        secondary: '#7dd3fc',
-                    },
-                    borderRadius: {
-                        'none': '0px',
-                        'sm': '4px',
-                        DEFAULT: '8px',
-                        'md': '12px',
-                        'lg': '16px',
-                        'xl': '20px',
-                        '2xl': '24px',
-                        '3xl': '32px',
-                        'full': '9999px',
-                        'button': '8px'
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         * {
             margin: 0;
@@ -42,12 +11,14 @@
             box-sizing: border-box;
         }
 
-        body, html {
-            font-family: 'Proxima Nova', proxima-nova, 'Inter', Arial, sans-serif;
+        body,
+        html {
+            font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
             line-height: 1.4;
             color: #333;
             scroll-behavior: smooth;
             font-size: 14px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         /* Add subtle section dividers and alternating patterns */
@@ -55,6 +26,7 @@
             position: relative;
             padding: 20px 5%;
             overflow: hidden;
+            width: 100%;
         }
 
         section:nth-child(odd) {
@@ -71,7 +43,7 @@
             text-align: center;
             margin-bottom: 15px;
             font-size: 1.3rem;
-            color: #06124f;
+            color: #323030;
             position: relative;
             padding-bottom: 8px;
         }
@@ -84,11 +56,12 @@
             transform: translateX(-50%);
             width: 40px;
             height: 2px;
-            background: linear-gradient(to right, #27ae60, #3498db);
+            background: linear-gradient(to right, #28a745, #1e7e7c);
             border-radius: 2px;
         }
 
-        /* Navigation styles from hire.html */
+        /* Updated navigation code with middle links */
+        /* Updated navigation code with middle links */
         .nav-container {
             position: fixed;
             top: 0;
@@ -116,17 +89,54 @@
             margin: 0 auto;
         }
 
+
         .logo-img {
             width: 150px;
             height: auto;
         }
 
-        .nav-links {
+        /* Main navigation links */
+        .main-nav {
+            display: flex;
+            gap: 25px;
+            margin: 0 auto;
+        }
+
+        .main-nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .main-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav-link:hover {
+            color: #28a745;
+        }
+
+        .main-nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Auth navigation links */
+        .auth-nav {
             display: flex;
             gap: 20px;
         }
 
-        .nav-link {
+        .auth-nav-link {
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
@@ -135,24 +145,24 @@
             border-radius: 4px;
         }
 
-        .nav-link:nth-child(1) {
-            color: #27ae60;
-            border: 1px solid #27ae60;
+        .auth-nav-link:nth-child(1) {
+            color: #28a745;
+            border: 1px solid #28a745;
         }
 
-        .nav-link:nth-child(2) {
-            color: #3498db;
-            border: 1px solid #3498db;
+        .auth-nav-link:nth-child(2) {
+            color: #007bff;
+            border: 1px solid #007bff;
         }
 
-        .nav-link:nth-child(1):hover {
-            color: #219653;
-            border-color: #219653;
+        .auth-nav-link:nth-child(1):hover {
+            color: #218838;
+            border-color: #218838;
         }
 
-        .nav-link:nth-child(2):hover {
-            color: #2980b9;
-            border-color: #2980b9;
+        .auth-nav-link:nth-child(2):hover {
+            color: #0056b3;
+            border-color: #0056b3;
         }
 
         /* Mobile Menu Styles */
@@ -163,12 +173,6 @@
             font-size: 1.5rem;
             color: #333;
             cursor: pointer;
-            padding: 8px;
-            border-radius: 4px;
-        }
-
-        .mobile-menu-button:hover {
-            background-color: rgba(0, 0, 0, 0.05);
         }
 
         .mobile-menu {
@@ -181,8 +185,6 @@
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 999;
-            max-height: 80vh;
-            overflow-y: auto;
         }
 
         .mobile-menu-links {
@@ -196,13 +198,8 @@
             color: #333;
             font-weight: 600;
             font-size: 1.1rem;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #eee;
-            display: block;
-        }
-
-        .mobile-menu-link:active {
-            background-color: rgba(0, 0, 0, 0.05);
         }
 
         /* Hero Section */
@@ -211,7 +208,7 @@
             padding: 80px 5% 40px;
             position: relative;
             overflow: hidden;
-            margin-top: 0;
+            margin-top: 70px;
             text-align: center;
         }
 
@@ -222,7 +219,7 @@
 
         .hero-title {
             font-size: 1.8rem;
-            color: #06124f;
+            color: #323030;
             margin-bottom: 15px;
             line-height: 1.2;
         }
@@ -237,7 +234,275 @@
             margin-right: auto;
         }
 
-        /* Footer styles from hire.html */
+        /* About Page Specific Styles */
+        .mission-section {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .mission-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .mission-section p {
+            max-width: 800px;
+            margin: 0 auto 15px;
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .mission-vision-section {
+            padding: 40px 5%;
+        }
+
+        .mission-vision-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .mission-vision-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .mission-vision-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mission-vision-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .mission-vision-content h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .mission-vision-content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .philosophy-section {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .philosophy-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .philosophy-section p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .values-section {
+            padding: 40px 5%;
+        }
+
+        .values-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .value-icon i {
+            font-size: 1.8rem;
+            color: #28a745;
+        }
+
+        .value-card h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .value-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .impact-section {
+            padding: 40px 5%;
+        }
+
+        .impact-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .impact-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .impact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .impact-icon i {
+            font-size: 1.5rem;
+            color: #28a745;
+        }
+
+        .impact-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #28a745;
+            margin-bottom: 5px;
+        }
+
+        .impact-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .cta-section {
+            padding: 50px 5%;
+            background-color: #28a745;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-primary {
+            background-color: white;
+            color: #28a745;
+        }
+
+        .cta-btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
         .footer {
             background: #f8f9fa;
             padding: 40px 5% 30px;
@@ -252,106 +517,106 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(to right, transparent, rgba(39, 174, 96, 0.3), transparent);
+            background: linear-gradient(to right, transparent, rgba(40, 167, 69, 0.3), transparent);
         }
 
-        .footer-container {
-            max-width: 1000px;
-            margin: 0 auto;
+        .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .footer-column {
-            flex: 1;
-            min-width: 180px;
-        }
-
-        .footer-title {
+        .footer-column h3 {
             font-size: 1rem;
-            margin-bottom: 15px;
-            font-weight: 600;
+            margin-bottom: 12px;
             color: #333;
             position: relative;
             padding-bottom: 8px;
         }
 
-        .footer-title::after {
+        .footer-column h3::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 40px;
             height: 2px;
-            background-color: rgba(39, 174, 96, 0.5);
+            background-color: rgba(40, 167, 69, 0.5);
         }
 
-        .footer-links {
+        .footer-column ul {
             list-style: none;
         }
 
-        .footer-link {
+        .footer-column ul li {
             margin-bottom: 8px;
+        }
+
+        .footer-column a {
+            color: #666;
+            text-decoration: none;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
             position: relative;
             padding-left: 15px;
         }
 
-        .footer-link a {
-            color: #666;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .footer-link a::before {
+        .footer-column a::before {
             content: '';
             position: absolute;
-            left: -15px;
+            left: 0;
             top: 50%;
             transform: translateY(-50%);
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background-color: rgba(39, 174, 96, 0.3);
+            background-color: rgba(40, 167, 69, 0.3);
             transition: all 0.3s ease;
         }
 
-        .footer-link a:hover {
-            color: #27ae60;
-            padding-left: 5px;
+        .footer-column a:hover {
+            color: #28a745;
+            padding-left: 20px;
         }
 
-        .footer-link a:hover::before {
-            background-color: #27ae60;
+        .footer-column a:hover::before {
+            background-color: #28a745;
         }
 
-        .social-links {
+        .social-icons {
             display: flex;
             gap: 15px;
             margin-top: 15px;
-            flex-wrap: wrap;
         }
 
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(0, 0, 0, 0.03);
-            border-radius: 50%;
+        .social-icons a {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #666;
-            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            color: #28a745;
             transition: all 0.3s ease;
-            font-size: 1.2rem;
+            padding: 0;
         }
 
-        .social-link:hover {
-            color: #27ae60;
-            background-color: rgba(39, 174, 96, 0.1);
+        .social-icons a:hover {
+            background-color: #28a745;
+            color: white;
             transform: translateY(-5px);
+            padding: 0;
+        }
+
+        .social-icons a::before {
+            display: none;
+        }
+
+        .social-icons i {
+            font-size: 1.2rem;
         }
 
         .footer-bottom {
@@ -364,7 +629,7 @@
             font-size: 0.9rem;
         }
 
-        /* Enhanced Responsive Styles */
+        /* Responsive Styles */
         @media (max-width: 992px) {
             .hero-title {
                 font-size: 1.6rem;
@@ -374,26 +639,33 @@
                 font-size: 0.95rem;
             }
             
-            .flex.flex-col.md\:flex-row {
+            .main-nav {
+                display: none;
+            }
+            
+            .mission-vision-container {
                 flex-direction: column-reverse;
             }
             
-            .md\:w-1\/2 {
-                width: 100%;
-                margin-bottom: 1.5rem;
+            .mission-vision-image {
+                margin-bottom: 30px;
             }
             
-            .md\:w-1\/2 img {
-                max-height: 300px;
-                object-fit: cover;
-                width: 100%;
-                margin: 0 auto;
-                display: block;
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .impact-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
             .nav-links {
+                display: none;
+            }
+            
+            .auth-nav {
                 display: none;
             }
             
@@ -410,10 +682,6 @@
                 width: 130px;
             }
 
-            body {
-                padding-top: 60px;
-            }
-
             .hero-title {
                 font-size: 1.4rem;
             }
@@ -422,38 +690,26 @@
                 font-size: 0.9rem;
             }
             
-            .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 {
-                grid-template-columns: repeat(1, 1fr);
+            .values-grid {
+                grid-template-columns: 1fr;
             }
             
-            .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
+            .impact-grid {
+                grid-template-columns: 1fr;
             }
             
-            .footer-container {
-                grid-template-columns: repeat(2, 1fr);
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .py-12 {
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-            }
-            
-            .text-2xl {
-                font-size: 1.4rem;
-            }
-            
-            .text-lg {
-                font-size: 1rem;
+            .cta-btn {
+                width: 100%;
+                text-align: center;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-
             .hero-title {
                 font-size: 1.3rem;
             }
@@ -462,105 +718,53 @@
                 font-size: 1.2rem;
             }
             
-            .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
-                grid-template-columns: repeat(1, 1fr);
+            .mission-section h2, 
+            .mission-vision-content h2, 
+            .philosophy-section h2, 
+            .values-section h2, 
+            .impact-section h2, 
+            .cta-section h2 {
+                font-size: 1.3rem;
             }
             
-            .footer-container {
-                grid-template-columns: 1fr;
+            .mission-section p, 
+            .mission-vision-content p, 
+            .philosophy-section p, 
+            .value-card p, 
+            .cta-section p {
+                font-size: 0.9rem;
             }
             
-            .text-3xl {
+            .value-icon, .impact-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .value-icon i, .impact-icon i {
                 font-size: 1.5rem;
             }
             
-            .w-14, .h-14 {
-                width: 3rem;
-                height: 3rem;
-            }
-            
-            .flex.flex-col.sm\:flex-row {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            
-            .flex.flex-col.sm\:flex-row a {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-        }
-        
-        /* Accessibility improvements */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        /* Focus styles for better accessibility */
-        a:focus, button:focus, input:focus, textarea:focus {
-            outline: 2px solid #0284c7;
-            outline-offset: 2px;
-        }
-
-        /* Touch-friendly improvements */
-        @media (max-width: 768px) {
-            .nav-link, .mobile-menu-link, .social-link, button {
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-            }
-            
-            .footer-link {
-                margin-bottom: 12px;
-            }
-            
-            .footer-link a::before {
-                width: 8px;
-                height: 8px;
-            }
-            
-            /* Improved card spacing on mobile */
-            .bg-white.p-6.rounded-lg {
-                padding: 1rem;
-                margin-bottom: 1rem;
-            }
-            
-            /* Better image handling */
-            img {
-                max-width: 100%;
-                height: auto;
-            }
-        }
-        
-        /* Animation optimizations for better performance */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
+            .impact-number {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation from hire.html -->
     <nav class="nav-container">
         <div class="nav-content">
             <a href="index.html" title="Matendo" aria-label="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
             </a>
-            <div class="nav-links">
-                <a href="join.html" class="nav-link">Join Matendo</a>
-                <a href="login.html" class="nav-link">Login</a>
+            <div class="main-nav">
+                <a href="index.html" class="main-nav-link">Home</a>
+                <a href="about.html" class="main-nav-link">About Us</a>
+                <a href="contact.html" class="main-nav-link">Contact Us</a>
+                <a href="careers.html" class="main-nav-link">Careers</a>
+            </div>
+            <div class="auth-nav">
+                <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                <a href="login.html" class="auth-nav-link">Login</a>
             </div>
             <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
@@ -572,262 +776,203 @@
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-links">
             <a href="index.html" class="mobile-menu-link">Home</a>
-            <a href="services.html" class="mobile-menu-link">Services</a>
             <a href="about.html" class="mobile-menu-link">About Us</a>
-            <a href="contact.html" class="mobile-menu-link">Contact</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="careers.html" class="mobile-menu-link">Careers</a>
             <a href="join.html" class="mobile-menu-link">Join Matendo</a>
             <a href="login.html" class="mobile-menu-link">Login</a>
         </div>
     </div>
 
-    <!-- Hero Section - Changed to match hire.html style -->
-    <section class="hero-section" style="margin-top: 70px;">
+    <!-- Hero Section -->
+    <section class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">About Matendo Medics</h1>
             <p class="hero-description">Bridging the Gap Between Healthcare Facilities and Medical Professionals. We provide reliable staff to meet your needs, while offering experts the flexibility, will, and choice to manage their careers without burnout.</p>
         </div>
     </section>
 
-    <!-- Mission Statement Section - Reduced spacing -->
-    <section class="py-12">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Mission Statement</h2>
-            <div class="text-center max-w-3xl mx-auto">
-                <p class="text-gray-700 mb-4 text-sm">
-                    "We ensure healthcare facilities meet their staffing needs with reliable professionals while offering
-                    experts the flexibility, will, and choice to manage their careers without exhaustion."
-                </p>
-                <p class="text-gray-700 text-sm">
-                    "Bridging the Gap Between Healthcare Facilities and Medical Professionals, we provide reliable staff to
-                    meet your needs, while offering experts the flexibility, will, and choice to manage their careers without
-                    burnout."
-                </p>
+    <!-- Mission Statement Section -->
+    <section class="mission-section">
+        <h2>Mission Statement</h2>
+        <p>"We ensure healthcare facilities meet their staffing needs with reliable professionals while offering experts the flexibility, will, and choice to manage their careers without exhaustion."</p>
+        <p>"Bridging the Gap Between Healthcare Facilities and Medical Professionals, we provide reliable staff to meet your needs, while offering experts the flexibility, will, and choice to manage their careers without burnout."</p>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="mission-vision-section">
+        <div class="mission-vision-container">
+            <div class="mission-vision-image">
+                <img src="https://readdy.ai/api/search-image?query=diverse%20group%20of%20healthcare%20professionals%20in%20modern%20medical%20setting%2C%20collaborative%20environment%2C%20natural%20lighting%2C%20professional%20attire%2C%20engaged%20in%20discussion%2C%20warm%20and%20welcoming%20atmosphere&width=600&height=400&seq=2&orientation=landscape" alt="Healthcare professionals collaborating">
+            </div>
+            <div class="mission-vision-content">
+                <h2>Our Mission</h2>
+                <p>"Our mission is to simplify and elevate the healthcare experience for medical professionals, facilities, and patients. We are committed to delivering tailored solutions that meet the unique needs of each group, ensuring seamless operations and ultimate satisfaction every step of the way."</p>
+
+                <h2>Our Vision</h2>
+                <p>"To be a leading force in transforming healthcare by empowering medical professionals, facilities, and patients with innovative, efficient, and compassionate solutions. We strive to create an ecosystem where care is streamlined, improved outcomes, and guaranteed satisfaction for all."</p>
             </div>
         </div>
     </section>
 
-    <!-- Mission & Vision Section - Reduced spacing and font sizes -->
-    <section class="py-12 bg-white" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;%230284c7&quot; fill-opacity=&quot;0.05&quot; fill-rule=&quot;evenodd&quot;%3E%3Ccircle cx=&quot;3&quot; cy=&quot;3&quot; r=&quot;3&quot;/%3E%3Ccircle cx=&quot;13&quot; cy=&quot;13&quot; r=&quot;3&quot;/%3E%3C/g%3E%3C/svg%3E');">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center gap-8">
-                <div class="md:w-1/2 rounded-lg overflow-hidden shadow-lg">
-                    <img src="https://readdy.ai/api/search-image?query=diverse%20group%20of%20healthcare%20professionals%20in%20modern%20medical%20setting%2C%20collaborative%20environment%2C%20natural%20lighting%2C%20professional%20attire%2C%20engaged%20in%20discussion%2C%20warm%20and%20welcoming%20atmosphere&width=600&height=400&seq=2&orientation=landscape" alt="Healthcare professionals collaborating" class="w-full h-full object-cover">
-                </div>
-                <div class="md:w-1/2">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h2>
-                    <p class="text-gray-700 mb-6 text-sm">
-                        "Our mission is to simplify and elevate the healthcare experience for medical professionals, facilities,
-                        and patients. We are committed to delivering tailored solutions that meet the unique needs of each
-                        group, ensuring seamless operations and ultimate satisfaction every step of the way."
-                    </p>
+    <!-- Philosophy Section -->
+    <section class="philosophy-section">
+        <h2>Our Philosophy</h2>
+        <p>We believe in fostering collaboration, trust, and transparency in every interaction, ensuring that stakeholders' needs are met with respect and compassion. Our focus is on creating an ecosystem where healthcare professionals are empowered to deliver their best care, healthcare facilities operate efficiently, and patients experience fulfilling services.</p>
+    </section>
 
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Vision</h2>
-                    <p class="text-gray-700 text-sm">
-                        "To be a leading force in transforming healthcare by empowering medical professionals, facilities, and
-                        patients with innovative, efficient, and compassionate solutions. We strive to create an ecosystem where
-                        care is streamlined, improved outcomes, and guaranteed satisfaction for all."
-                    </p>
+    <!-- Core Values Section -->
+    <section class="values-section">
+        <h2>Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
+                <h3>Accountability</h3>
+                <p>We take full responsibility for our actions and outcomes, holding ourselves to the highest standards of care and service. We are committed to continuous improvement and ensuring that we meet the expectations of both medical professionals and patients.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Efficiency and Reliability</h3>
+                <p>We deliver solutions that streamline processes and ensure reliable, consistent results. By focusing on efficiency, we minimize errors, reduce waste, and help healthcare providers focus on delivering the best possible care.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Collaboration and Partnership</h3>
+                <p>We believe in the power of teamwork. By working together with healthcare professionals, facilities, and patients, we create tailored solutions that drive success, fostering strong, long-lasting relationships built on mutual respect and shared goals.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>Excellence in Service</h3>
+                <p>We are dedicated to providing exceptional service at every level. Our goal is to exceed expectations by delivering high-quality, patient-centered care and support, ensuring that every experience is marked by professionalism, compassion, and effectiveness.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h3>Transparency and Open Communication</h3>
+                <p>We value clear, honest, and open communication with all our stakeholders. By fostering transparency in every interaction, we build trust, ensure alignment, and maintain strong, cooperative relationships with medical professionals, patients, and partners.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Respect for Diversity</h3>
+                <p>We embrace and celebrate the diverse backgrounds, perspectives, and experiences of those we serve. We are committed to ensuring inclusive and culturally competent solutions that respect and meet the needs of all individuals, fostering an environment where everyone feels valued.</p>
             </div>
         </div>
     </section>
 
-    <!-- Philosophy Section - Reduced spacing and font sizes -->
-    <section class="py-12">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Our Philosophy</h2>
-            <div class="text-center max-w-3xl mx-auto">
-                <p class="text-gray-700 text-sm">
-                    We believe in fostering collaboration, trust, and transparency in every interaction, ensuring that
-                    stakeholders' needs are met with respect and compassion. Our focus is on creating an ecosystem where
-                    healthcare professionals are empowered to deliver their best care, healthcare facilities operate
-                    efficiently, and patients experience fulfilling services.
-                </p>
+    <!-- Impact Section -->
+    <section class="impact-section">
+        <h2>Our Impact</h2>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="impact-number">15,000+</div>
+                <div class="impact-text">Healthcare Professionals</div>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <div class="impact-number">5,000+</div>
+                <div class="impact-text">Partner Facilities</div>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="impact-number">50+</div>
+                <div class="impact-text">States Covered</div>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">
+                    <i class="fas fa-thumbs-up"></i>
+                </div>
+                <div class="impact-number">98%</div>
+                <div class="impact-text">Satisfaction Rate</div>
             </div>
         </div>
     </section>
 
-    <!-- Core Values Section - Reduced spacing and font sizes -->
-    <section class="py-12 bg-white" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 20 20&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;%230284c7&quot; fill-opacity=&quot;0.05&quot; fill-rule=&quot;evenodd&quot;%3E%3Ccircle cx=&quot;3&quot; cy=&quot;3&quot; r=&quot;3&quot;/%3E%3Ccircle cx=&quot;13&quot; cy=&quot;13&quot; r=&quot;3&quot;/%3E%3C/g%3E%3C/svg%3E');">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Our Core Values</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-shield-check-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Accountability</h3>
-                    <p class="text-gray-600 text-center text-sm">
-                        We take full responsibility for our actions and outcomes, holding ourselves to the highest standards of
-                        care and service. We are committed to continuous improvement and ensuring that we meet the expectations
-                        of both medical professionals and patients.
-                    </p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-flashlight-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Efficiency and Reliability</h3>
-                    <p class="text-gray-600 text-center text-sm">
-                        We deliver solutions that streamline processes and ensure reliable, consistent results. By focusing on
-                        efficiency, we minimize errors, reduce waste, and help healthcare providers focus on delivering the best
-                        possible care.
-                    </p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-team-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Collaboration and Partnership</h3>
-                    <p class="text-gray-600 text-center text-sm">
-                        We believe in the power of teamwork. By working together with healthcare professionals, facilities, and
-                        patients, we create tailored solutions that drive success, fostering strong, long-lasting relationships
-                        built on mutual respect and shared goals.
-                    </p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-award-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Excellence in Service</h3>
-                    <p class="text-gray-600 text-center text-sm">
-                        We are dedicated to providing exceptional service at every level. Our goal is to exceed expectations by
-                        delivering high-quality, patient-centered care and support, ensuring that every experience is marked by
-                        professionalism, compassion, and effectiveness.
-                    </p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-message-2-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">
-                        Transparency and Open Communication
-                    </h3>
-                    <p class="text-gray-600 text-center text-sm">
-                        We value clear, honest, and open communication with all our stakeholders. By fostering transparency in
-                        every interaction, we build trust, ensure alignment, and maintain strong, cooperative relationships with
-                        medical professionals, patients, and partners.
-                    </p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                        <i class="ri-global-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 text-center">Respect for Diversity</h3>
-                    <p class="text-gray-600 text-center text-sm">
-                        We embrace and celebrate the diverse backgrounds, perspectives, and experiences of those we serve. We
-                        are committed to ensuring inclusive and culturally competent solutions that respect and meet the needs
-                        of all individuals, fostering an environment where everyone feels valued.
-                    </p>
-                </div>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Join Our Growing Community</h2>
+            <p>Whether you're a healthcare professional looking for your next opportunity or a facility seeking qualified staff, we're here to help you succeed.</p>
+            <div class="cta-buttons">
+                <a href="join.html" class="cta-btn cta-btn-primary">Join as Professional</a>
+                <a href="partner.html" class="cta-btn cta-btn-secondary">Partner with Us</a>
             </div>
         </div>
     </section>
 
-    <!-- Impact Section - Reduced spacing and font sizes -->
-    <section class="py-12">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Our Impact</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                        <i class="ri-user-heart-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-primary mb-2">15,000+</h3>
-                    <p class="text-gray-600 text-sm">Healthcare Professionals</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                        <i class="ri-building-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-primary mb-2">5,000+</h3>
-                    <p class="text-gray-600 text-sm">Partner Facilities</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                        <i class="ri-map-pin-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-primary mb-2">50+</h3>
-                    <p class="text-gray-600 text-sm">States Covered</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                        <i class="ri-thumb-up-line text-primary text-xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-primary mb-2">98%</h3>
-                    <p class="text-gray-600 text-sm">Satisfaction Rate</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section - Reduced spacing and font sizes -->
-    <section class="py-12 bg-primary">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-2xl font-bold text-white mb-4">Join Our Growing Community</h2>
-                <p class="text-lg text-white/90 mb-6">
-                    Whether you're a healthcare professional looking for your next opportunity or a facility seeking qualified
-                    staff, we're here to help you succeed.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="join.html" class="bg-white text-primary px-6 py-2 rounded-button font-medium hover:bg-gray-100 transition-colors whitespace-nowrap inline-block">
-                        Join as Professional
-                    </a>
-                    <a href="partner.html" class="bg-transparent text-white border border-white px-6 py-2 rounded-button font-medium hover:bg-white/10 transition-colors whitespace-nowrap inline-block">
-                        Partner with Us
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer from hire.html -->
+    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-container">
+        <div class="footer-grid">
             <div class="footer-column">
-                <h3 class="footer-title">About Us</h3>
-                <p>Connecting healthcare facilities with top medical talent worldwide.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                <h3>About Us</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.4;">
+                    Connecting healthcare facilities with top medical talent worldwide.
+                </p>
+                <div class="social-icons">
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
                 </div>
             </div>
             <div class="footer-column">
-                <h3 class="footer-title">Quick Links</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="about.html">About</a></li>
-                    <li class="footer-link"><a href="#">Services</a></li>
-                    <li class="footer-link"><a href="contact.html">Contact</a></li>
-                    <li class="footer-link"><a href="#">Blog</a></li>
-                    <li class="footer-link"><a href="careers.html">Careers</a></li>
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                    <li><a href="tel:+256781053105">+256 781 053 105</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3 class="footer-title">Contact</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="mailto:info@matendo.com">info@matendo.com</a></li>
-                    <li class="footer-link"><a href="tel:+256781053105">+256 781 053 105</a></li>
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="careers.html">Careers</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3 class="footer-title">Resources</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="#">Help Center</a></li>
-                    <li class="footer-link"><a href="#">FAQs</a></li>
-                    <li class="footer-link"><a href="#">Testimonials</a></li>
-                    <li class="footer-link"><a href="#">Terms of Service</a></li>
-                    <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
@@ -836,7 +981,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript for mobile menu toggle -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Mobile menu
@@ -847,11 +991,9 @@
                 if (mobileMenu.style.display === 'block') {
                     mobileMenu.style.display = 'none';
                     mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
                 } else {
                     mobileMenu.style.display = 'block';
                     mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
-                    mobileMenuButton.setAttribute('aria-expanded', 'true');
                 }
             });
             
@@ -867,7 +1009,7 @@
             
             // Animate stats on scroll
             const animateStats = function() {
-                const stats = document.querySelectorAll('.text-3xl');
+                const stats = document.querySelectorAll('.impact-number');
                 
                 stats.forEach(stat => {
                     const rect = stat.getBoundingClientRect();
@@ -898,7 +1040,6 @@
                 if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
                     mobileMenu.style.display = 'none';
                     mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
                 }
             });
         });
