@@ -1,0 +1,74 @@
+Array
+(
+    [firstName] => Testing
+    [lastName] => Steven
+    [email] => steve@gmail.com
+    [phone] => 0755897643
+    [address] => Kampala
+    [location] => 
+    [coordinates] => 
+    [profession] => Lab Technologist
+    [otherProfession] => 
+    [specialization] => None
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => kagoma
+    [startDate] => 2025-05-14
+    [confirm_checkbox] => on
+)
+
+Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Also together.docx
+            [full_path] => Also together.docx
+            [type] => application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            [tmp_name] => C:\xampp\tmp\php827D.tmp
+            [error] => 0
+            [size] => 32986
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+Error: Invalid first name
