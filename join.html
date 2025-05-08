@@ -1919,49 +1919,101 @@ session_start();
             //     }
             // });
 
-            form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validateStep4()) return;
+//             form.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     if (!validateStep4()) return;
 
-    const submitButton = document.getElementById('submit-button');
-    const formSubmitting = document.getElementById('formSubmitting');
-    const submissionConfirmation = document.getElementById('submission-confirmation');
+//     const submitButton = document.getElementById('submit-button');
+//     const formSubmitting = document.getElementById('formSubmitting');
+//     const submissionConfirmation = document.getElementById('submission-confirmation');
 
-    submitButton.disabled = true;
-    formSubmitting.style.display = 'block';
+//     submitButton.disabled = true;
+//     formSubmitting.style.display = 'block';
 
+//     try {
+//         const formData = new FormData(form);
+//         const response = await fetch('join.php', {
+//             method: 'POST',
+//             body: formData
+//         });
+
+//         // First check if response is JSON
+//         const contentType = response.headers.get('content-type');
+//         if (!contentType || !contentType.includes('application/json')) {
+//             const text = await response.text();
+//             throw new Error(`Invalid response: ${text.substring(0, 100)}`);
+//         }
+
+//         const result = await response.json();
+
+//         formSubmitting.style.display = 'none';
+//         submitButton.disabled = false;
+
+//         if (result.success) {
+//             form.style.display = 'none';
+//             document.getElementById('reference-number').textContent = result.reference_number || 'N/A';
+//             document.getElementById('submission-date').textContent = result.submission_date || new Date().toLocaleString();
+//             submissionConfirmation.style.display = 'block';
+//         } else {
+//             throw new Error(result.message || 'Unknown server error');
+//         }
+//     } catch (error) {
+//         console.error('Submission error:', error);
+//         formSubmitting.style.display = 'none';
+//         submitButton.disabled = false;
+//         alert(`Submission failed: ${error.message}`);
+//     }
+// });
+
+
+// document.getElementById('form').addEventListener('submit', async (event) => {
+//     event.preventDefault();
+//     const formData = new FormData(event.target);
+//     try {
+//         const response = await fetch('join.php', {
+//             method: 'POST',
+//             body: formData
+//         });
+//         const responseText = await response.text();
+//         console.log('Raw response:', responseText);
+//         if (!responseText) {
+//             throw new Error('Empty response from server');
+//         }
+//         const data = JSON.parse(responseText);
+//         if (data.success) {
+//             alert('Submission successful! Reference: ' + data.reference_number);
+//         } else {
+//             alert('Submission failed: ' + data.message);
+//         }
+//     } catch (error) {
+//         console.error('Fetch error:', error);
+//         alert('Submission failed: ' + error.message);
+//     }
+// });
+
+
+document.getElementById('form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
     try {
-        const formData = new FormData(form);
         const response = await fetch('join.php', {
             method: 'POST',
             body: formData
         });
-
-        // First check if response is JSON
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-            const text = await response.text();
-            throw new Error(`Invalid response: ${text.substring(0, 100)}`);
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
+        if (!responseText) {
+            throw new Error('Empty response from server');
         }
-
-        const result = await response.json();
-
-        formSubmitting.style.display = 'none';
-        submitButton.disabled = false;
-
-        if (result.success) {
-            form.style.display = 'none';
-            document.getElementById('reference-number').textContent = result.reference_number || 'N/A';
-            document.getElementById('submission-date').textContent = result.submission_date || new Date().toLocaleString();
-            submissionConfirmation.style.display = 'block';
+        const data = JSON.parse(responseText);
+        if (data.success) {
+            alert('Submission successful! Reference: ' + data.reference_number);
         } else {
-            throw new Error(result.message || 'Unknown server error');
+            alert('Submission failed: ' + data.message);
         }
     } catch (error) {
-        console.error('Submission error:', error);
-        formSubmitting.style.display = 'none';
-        submitButton.disabled = false;
-        alert(`Submission failed: ${error.message}`);
+        console.error('Fetch error:', error);
+        alert('Submission failed: ' + error.message);
     }
 });
 
