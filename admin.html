@@ -1,0 +1,355 @@
+<?php
+// Database connection
+$host = 'localhost';
+$username = 'root'; // Replace with your DB username
+$password = ''; // Replace with your DB password
+$database = 'matendo_medics';
+
+$conn = new mysqli($host, $username, $password, $database);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query all tables
+$facility_query = $conn->query("SELECT * FROM facility_hiring_requests");
+$profiles_query = $conn->query("SELECT * FROM professional_profiles");
+$personal_care_query = $conn->query("SELECT * FROM personal_care_requests");
+$users_query = $conn->query("SELECT id, email, created_at FROM users"); // Exclude password for security
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matendo Medics Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .table-container { max-height: 400px; overflow-y: auto; }
+        .collapsible-header { cursor: pointer; }
+        .collapsible-content { display: none; }
+        .collapsible-content.active { display: block; }
+        th, td { white-space: nowrap; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+        <h1 class="text-2xl font-bold">Matendo Medics Admin Dashboard</h1>
+    </header>
+
+    <main class="container mx-auto p-6 space-y-6">
+        <!-- Facility Hiring Requests Section -->
+        <section class="bg-white rounded-lg shadow-md">
+            <div class="collapsible-header bg-blue-100 p-4 flex justify-between items-center" onclick="toggleSection('facility-hiring')">
+                <h2 class="text-xl font-semibold text-blue-800">Facility Hiring Requests</h2>
+                <span class="text-blue-800">▼</span>
+            </div>
+            <div id="facility-hiring" class="collapsible-content p-4 active">
+                <div class="table-container overflow-x-auto">
+                    <table class="min-w-full bg-white border">
+                        <thead class="bg-blue-50 sticky top-0">
+                            <tr>
+                                <th class="py-2 px-4 border">ID</th>
+                                <th class="py-2 px-4 border">Facility Name</th>
+                                <th class="py-2 px-4 border">Contact Person</th>
+                                <th class="py-2 px-4 border">Email</th>
+                                <th class="py-2 px-4 border">Phone</th>
+                                <th class="py-2 px-4 border">Coordinates</th>
+                                <th class="py-2 px-4 border">Facility Type</th>
+                                <th class="py-2 px-4 border">Positions</th>
+                                <th class="py-2 px-4 border">Employment Type</th>
+                                <th class="py-2 px-4 border">Shift Type</th>
+                                <th class="py-2 px-4 border">Staff Number</th>
+                                <th class="py-2 px-4 border">Start Date</th>
+                                <th class="py-2 px-4 border">Job Requirement Option</th>
+                                <th class="py-2 px-4 border">Qualifications</th>
+                                <th class="py-2 px-4 border">Experience</th>
+                                <th class="py-2 px-4 border">Job Description</th>
+                                <th class="py-2 px-4 border">Job Description File</th>
+                                <th class="py-2 px-4 border">Reference Number</th>
+                                <th class="py-2 px-4 border">Submission Date</th>
+                                <th class="py-2 px-4 border">CSRF Token</th>
+                                <th class="py-2 px-4 border">Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $facility_query->fetch_assoc()): ?>
+                                <tr>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['facility_name']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['contact_person']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['coordinates'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['facility_type']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['positions']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['employment_type']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['shift_type']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['staff_number']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['start_date']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_requirement_option'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['qualifications'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['experience'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_description'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_description_file'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['csrf_token'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                            <?php if ($facility_query->num_rows === 0): ?>
+                                <tr><td colspan="21" class="py-2 px-4 border text-center">No data available</td></tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Previous</button>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2">Next</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-lg shadow-md">
+            <div class="collapsible-header bg-green-100 p-4 flex justify-between items-center" onclick="toggleSection('professional-profiles')">
+                <h2 class="text-xl font-semibold text-green-800">Professional Profiles</h2>
+                <span class="text-green-800">▼</span>
+            </div>
+            <div id="professional-profiles" class="collapsible-content p-4">
+                <div class="table-container overflow-x-auto">
+                    <table class="min-w-full bg-white border">
+                        <thead class="bg-green-50 sticky top-0">
+                            <tr>
+                                <th class="py-2 px-4 border">ID</th>
+                                <th class="py-2 px-4 border">Reference Number</th>
+                                <th class="py-2 px-4 border">Full Name</th>
+                                <th class="py-2 px-4 border">Email</th>
+                                <th class="py-2 px-4 border">Phone</th>
+                                <th class="py-2 px-4 border">Location</th>
+                                <th class="py-2 px-4 border">Summary</th>
+                                <th class="py-2 px-4 border">Experience</th>
+                                <th class="py-2 px-4 border">Education</th>
+                                <th class="py-2 px-4 border">Skills</th>
+                                <th class="py-2 px-4 border">Certifications</th>
+                                <th class="py-2 px-4 border">Documents</th>
+                                <th class="py-2 px-4 border">Submission Date</th>
+                                <th class="py-2 px-4 border">Created At</th>
+                                <th class="py-2 px-4 border">Updated At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $profiles_query->fetch_assoc()): ?>
+                                <tr>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['full_name']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['location']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['summary'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border">
+                                        <?php
+                                        $experience = json_decode($row['experience'], true);
+                                        if (is_array($experience) && !empty($experience)) {
+                                            echo '<ul class="list-disc list-inside">';
+                                            foreach ($experience as $exp) {
+                                                echo '<li>' . htmlspecialchars($exp['title'] . ' at ' . $exp['company']) . '</li>';
+                                            }
+                                            echo '</ul>';
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="py-2 px-4 border">
+                                        <?php
+                                        $education = json_decode($row['education'], true);
+                                        if (is_array($education) && !empty($education)) {
+                                            echo '<ul class="list-disc list-inside">';
+                                            foreach ($education as $edu) {
+                                                echo '<li>' . htmlspecialchars($edu['degree'] . ' from ' . $edu['institution']) . '</li>';
+                                            }
+                                            echo '</ul>';
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="py-2 px-4 border">
+                                        <?php
+                                        $skills = json_decode($row['skills'], true);
+                                        if (is_array($skills) && !empty($skills)) {
+                                            echo implode(', ', array_map('htmlspecialchars', $skills));
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="py-2 px-4 border">
+                                        <?php
+                                        $certifications = json_decode($row['certifications'], true);
+                                        if (is_array($certifications) && !empty($certifications)) {
+                                            echo implode(', ', array_map('htmlspecialchars', $certifications));
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="py-2 px-4 border">
+                                        <?php
+                                        $documents = json_decode($row['documents'], true);
+                                        if (is_array($documents) && !empty($documents)) {
+                                            foreach ($documents as $doc) {
+                                                echo '<a href="download.php?type=document&id=' . $row['id'] . '&name=' . urlencode($doc['name']) . '" class="text-blue-500 hover:underline">' . htmlspecialchars($doc['name']) . '</a><br>';
+                                            }
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['updated_at']); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                            <?php if ($profiles_query->num_rows === 0): ?>
+                                <tr><td colspan="15" class="py-2 px-4 border text-center">No data available</td></tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Previous</button>
+                    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Next</button>
+                </div>
+            </div>
+        </section>
+
+        Personal Care Requests Section
+        <section class="bg-white rounded-lg shadow-md">
+            <div class="collapsible-header bg-purple-100 p-4 flex justify-between items-center" onclick="toggleSection('personal-care')">
+                <h2 class="text-xl font-semibold text-purple-800">Personal Care Requests</h2>
+                <span class="text-purple-800">▼</span>
+            </div>
+            <div id="personal-care" class="collapsible-content p-4 active">
+                <div class="table-container overflow-x-auto">
+                    <table class="min-w-full bg-white border">
+                        <thead class="bg-purple-50 sticky top-0">
+                            <tr>
+                                <th class="py-2 px-4 border">ID</th>
+                                <th class="py-2 px-4 border">Full Name</th>
+                                <th class="py-2 px-4 border">Email</th>
+                                <th class="py-2 px-4 border">Phone</th>
+                                <th class="py-2 px-4 border">Address</th>
+                                <th class="py-2 px-4 border">Care Type</th>
+                                <th class="py-2 px-4 border">Care Frequency</th>
+                                <th class="py-2 px-4 border">Start Date</th>
+                                <th class="py-2 px-4 border">Medical Conditions</th>
+                                <th class="py-2 px-4 border">Additional Notes</th>
+                                <th class="py-2 px-4 border">Reference Number</th>
+                                <th class="py-2 px-4 border">Submission Date</th>
+                                <th class="py-2 px-4 border">CSRF Token</th>
+                                <th class="py-2 px-4 border">Created At</th>
+                                <th class="py-2 px-4 border">Care Requirements</th>
+                                <th class="py-2 px-4 border">Schedule</th>
+                                <th class="py-2 px-4 border">Medications</th>
+                                <th class="py-2 px-4 border">Allergies</th>
+                                <th class="py-2 px-4 border">Emergency Contact</th>
+                                <th class="py-2 px-4 border">Emergency Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $personal_care_query->fetch_assoc()): ?>
+                                <tr>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['full_name']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['address']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_type']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_frequency'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['start_date'] === '0000-00-00' ? '-' : $row['start_date']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['medical_conditions'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['additional_notes'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['csrf_token'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_requirements'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['schedule'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['medications'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['allergies'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['emergency_contact'] ?: '-'); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['emergency_phone'] ?: '-'); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                            <?php if ($personal_care_query->num_rows === 0): ?>
+                                <tr><td colspan="20" class="py-2 px-4 border text-center">No data available</td></tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">Previous</button>
+                    <button class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 ml-2">Next</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section class="bg-white rounded-lg shadow-md">
+            <div class="collapsible-header bg-yellow-100 p-4 flex justify-between items-center" onclick="toggleSection('users')">
+                <h2 class="text-xl font-semibold text-yellow-800">Users</h2>
+                <span class="text-yellow-800">▼</span>
+            </div>
+            <div id="users" class="collapsible-content p-4">
+                <div class="table-container overflow-x-auto">
+                    <table class="min-w-full bg-white border">
+                        <thead class="bg-yellow-50 sticky top-0">
+                            <tr>
+                                <th class="py-2 px-4 border">ID</th>
+                                <th class="py-2 px-4 border">Email</th>
+                                <th class="py-2 px-4 border">Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $users_query->fetch_assoc()): ?>
+                                <tr>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
+                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                            <?php if ($users_query->num_rows === 0): ?>
+                                <tr><td colspan="3" class="py-2 px-4 border text-center">No data available</td></tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Previous</button>
+                    <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 ml-2">Next</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-4 mt-6">
+        <p>© 2025 Matendo Medics. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Collapsible section toggle
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId);
+            content.classList.toggle('active');
+            const header = content.previousElementSibling;
+            const arrow = header.querySelector('span');
+            arrow.textContent = content.classList.contains('active') ? '▼' : '▲';
+        }
+    </script>
+
+<?php $conn->close(); ?>
+</body>
+</html>
