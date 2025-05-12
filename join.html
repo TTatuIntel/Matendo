@@ -1966,32 +1966,6 @@ session_start();
 // });
 
 
-// document.getElementById('form').addEventListener('submit', async (event) => {
-//     event.preventDefault();
-//     const formData = new FormData(event.target);
-//     try {
-//         const response = await fetch('join.php', {
-//             method: 'POST',
-//             body: formData
-//         });
-//         const responseText = await response.text();
-//         console.log('Raw response:', responseText);
-//         if (!responseText) {
-//             throw new Error('Empty response from server');
-//         }
-//         const data = JSON.parse(responseText);
-//         if (data.success) {
-//             alert('Submission successful! Reference: ' + data.reference_number);
-//         } else {
-//             alert('Submission failed: ' + data.message);
-//         }
-//     } catch (error) {
-//         console.error('Fetch error:', error);
-//         alert('Submission failed: ' + error.message);
-//     }
-// });
-
-
 document.getElementById('form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -2016,6 +1990,32 @@ document.getElementById('form').addEventListener('submit', async (event) => {
         alert('Submission failed: ' + error.message);
     }
 });
+
+
+// document.getElementById('form').addEventListener('submit', async (event) => {
+//     event.preventDefault();
+//     const formData = new FormData(event.target);
+//     try {
+//         const response = await fetch('join.php', {
+//             method: 'POST',
+//             body: formData
+//         });
+//         const responseText = await response.text();
+//         console.log('Raw response:', responseText);
+//         if (!responseText) {
+//             throw new Error('Empty response from server');
+//         }
+//         const data = JSON.parse(responseText);
+//         if (data.success) {
+//             alert('Submission successful! Reference: ' + data.reference_number);
+//         } else {
+//             alert('Submission failed: ' + data.message);
+//         }
+//     } catch (error) {
+//         console.error('Fetch error:', error);
+//         alert('Submission failed: ' + error.message);
+//     }
+// });
 
             // View additional info
             document.getElementById('view-additional-info').addEventListener('click', () => {

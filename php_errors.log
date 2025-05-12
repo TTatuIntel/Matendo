@@ -307,3 +307,89 @@ Stack trace:
 #0 C:\xampp\htdocs\Matendo\join.php(145): mysqli_stmt->bind_param('ssssssssssisbss...', 'REQ-ED3F0EE3', 'Steve', 'Steven', 'steve@gmail.com', '0755897643', 'Kampala', '', '', 'Nurse', 'None', 3, '', NULL, 'Also together.d...', NULL, NULL, NULL, NULL, 'Short-Term', 'Day Shift', 'kagoma', '2025-05-22', '2025-05-07 14:2...')
 #1 {main}
   thrown in C:\xampp\htdocs\Matendo\join.php on line 145
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 109
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 110
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 112
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 113
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 114
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 115
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 118
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 119
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 121
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 124
+[12-May-2025 08:05:26 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 125
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 109
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 110
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 112
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 113
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 114
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 115
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 118
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 119
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 121
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 124
+[12-May-2025 08:06:43 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 125
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 109
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 110
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 112
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 113
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 114
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 115
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 118
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 119
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 121
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 124
+[12-May-2025 08:09:56 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 125
+[12-May-2025 08:09:56 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\Matendo\join.php:145
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\join.php(145): mysqli_stmt->bind_param('ssssssssssisbss...', 'REQ-2BECF10D', 'Ena', 'Steven', 'steve@gmail.com', '0755897643', 'Kampala', '', '', 'Medical Officer', 'None', 3, '', NULL, 'Professional_CV...', NULL, NULL, NULL, NULL, 'Full-Time', 'Day Shift', 'kagoma', '2025-05-16', '2025-05-12 08:0...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Matendo\join.php on line 145
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 109
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 110
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 112
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 113
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 114
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 115
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 118
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 119
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 121
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 124
+[12-May-2025 08:10:54 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 125
+[12-May-2025 08:10:54 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\Matendo\join.php:145
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\join.php(145): mysqli_stmt->bind_param('ssssssssssisbss...', 'REQ-346D7CAB', 'Ena', 'Steven', 'steve@gmail.com', '0755897643', 'Kampala', '', '', 'Medical Officer', 'None', 3, '', NULL, 'Professional_CV...', NULL, NULL, NULL, NULL, 'Full-Time', 'Day Shift', 'kagoma', '2025-05-16', '2025-05-12 08:1...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Matendo\join.php on line 145
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 109
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 110
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 112
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 113
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 114
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 115
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 118
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 119
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 121
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 124
+[12-May-2025 08:10:59 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 125
+[12-May-2025 08:10:59 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\Matendo\join.php:145
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\join.php(145): mysqli_stmt->bind_param('ssssssssssisbss...', 'REQ-FB9C7574', 'Ena', 'Steven', 'steve@gmail.com', '0755897643', 'Kampala', '', '', 'Medical Officer', 'None', 3, '', NULL, 'Professional_CV...', NULL, NULL, NULL, NULL, 'Full-Time', 'Day Shift', 'kagoma', '2025-05-16', '2025-05-12 08:1...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Matendo\join.php on line 145
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 109
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 110
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 112
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 113
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 114
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 115
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 118
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 119
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 121
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 124
+[12-May-2025 08:12:20 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Matendo\join.php on line 125
+[12-May-2025 08:12:20 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\Matendo\join.php:145
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\join.php(145): mysqli_stmt->bind_param('ssssssssssisbss...', 'REQ-DF054A07', 'Ena', 'Steven', 'steve@gmail.com', '0755897643', 'Kampala', '', '', 'Lab Technologis...', 'None', 3, '', NULL, 'Professional_CV...', NULL, NULL, NULL, NULL, 'Full-Time', 'Day Shift', 'kagoma', '2025-05-31', '2025-05-12 08:1...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Matendo\join.php on line 145

@@ -2005,3 +2005,503 @@ Stack trace:
 #0 {main}
 2025-05-07 14:20:38 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
 2025-05-07 14:20:38 - Script completed
+2025-05-12 08:05:26 - Script started
+2025-05-12 08:05:26 - Request method validated
+2025-05-12 08:05:26 - POST data: Array
+(
+    [firstName] => Ena
+    [lastName] => Steven
+    [email] => steve@gmail.com
+    [phone] => 0755897643
+    [address] => Kampala
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => None
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => kagoma
+    [startDate] => 2025-05-16
+    [confirm_checkbox] => on
+)
+
+2025-05-12 08:05:26 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Professional_CV.pdf
+            [full_path] => Professional_CV.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\phpFE8D.tmp
+            [error] => 0
+            [size] => 13343
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-12 08:05:26 - Attempting database connection
+2025-05-12 08:05:26 - Database connected successfully
+2025-05-12 08:05:26 - All required fields present
+2025-05-12 08:05:26 - Preparing SQL statement
+2025-05-12 08:05:26 - Error: Table 'matendo_medics.healthcare_professionals' doesn't exist
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\join.php(138): mysqli->prepare('INSERT INTO hea...')
+#1 {main}
+2025-05-12 08:05:26 - Database connection closed
+2025-05-12 08:05:26 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Table 'matendo_medics.healthcare_professionals' doesn't exist"}
+2025-05-12 08:05:26 - Script completed
+2025-05-12 08:06:43 - Script started
+2025-05-12 08:06:43 - Request method validated
+2025-05-12 08:06:43 - POST data: Array
+(
+    [firstName] => Ena
+    [lastName] => Steven
+    [email] => steve@gmail.com
+    [phone] => 0755897643
+    [address] => Kampala
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => None
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => kagoma
+    [startDate] => 2025-05-16
+    [confirm_checkbox] => on
+)
+
+2025-05-12 08:06:43 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Professional_CV.pdf
+            [full_path] => Professional_CV.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php2CCD.tmp
+            [error] => 0
+            [size] => 13343
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-12 08:06:43 - Attempting database connection
+2025-05-12 08:06:43 - Database connected successfully
+2025-05-12 08:06:43 - All required fields present
+2025-05-12 08:06:43 - Preparing SQL statement
+2025-05-12 08:06:43 - Error: Table 'matendo_medics.healthcare_professionals' doesn't exist
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\join.php(138): mysqli->prepare('INSERT INTO hea...')
+#1 {main}
+2025-05-12 08:06:43 - Database connection closed
+2025-05-12 08:06:43 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Table 'matendo_medics.healthcare_professionals' doesn't exist"}
+2025-05-12 08:06:43 - Script completed
+2025-05-12 08:09:56 - Script started
+2025-05-12 08:09:56 - Request method validated
+2025-05-12 08:09:56 - POST data: Array
+(
+    [firstName] => Ena
+    [lastName] => Steven
+    [email] => steve@gmail.com
+    [phone] => 0755897643
+    [address] => Kampala
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => None
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => kagoma
+    [startDate] => 2025-05-16
+    [confirm_checkbox] => on
+)
+
+2025-05-12 08:09:56 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Professional_CV.pdf
+            [full_path] => Professional_CV.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php1E77.tmp
+            [error] => 0
+            [size] => 13343
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-12 08:09:56 - Attempting database connection
+2025-05-12 08:09:56 - Database connected successfully
+2025-05-12 08:09:56 - All required fields present
+2025-05-12 08:09:56 - Preparing SQL statement
+2025-05-12 08:09:56 - Statement closed
+2025-05-12 08:09:56 - Database connection closed
+2025-05-12 08:09:56 - Script completed
+2025-05-12 08:10:54 - Script started
+2025-05-12 08:10:54 - Request method validated
+2025-05-12 08:10:54 - POST data: Array
+(
+    [firstName] => Ena
+    [lastName] => Steven
+    [email] => steve@gmail.com
+    [phone] => 0755897643
+    [address] => Kampala
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => None
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => kagoma
+    [startDate] => 2025-05-16
+    [confirm_checkbox] => on
+)
+
+2025-05-12 08:10:54 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Professional_CV.pdf
+            [full_path] => Professional_CV.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\phpAA.tmp
+            [error] => 0
+            [size] => 13343
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-12 08:10:54 - Attempting database connection
+2025-05-12 08:10:54 - Database connected successfully
+2025-05-12 08:10:54 - All required fields present
+2025-05-12 08:10:54 - Preparing SQL statement
+2025-05-12 08:10:54 - Statement closed
+2025-05-12 08:10:54 - Database connection closed
+2025-05-12 08:10:54 - Script completed
+2025-05-12 08:10:59 - Script started
+2025-05-12 08:10:59 - Request method validated
+2025-05-12 08:10:59 - POST data: Array
+(
+    [firstName] => Ena
+    [lastName] => Steven
+    [email] => steve@gmail.com
+    [phone] => 0755897643
+    [address] => Kampala
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => None
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => kagoma
+    [startDate] => 2025-05-16
+    [confirm_checkbox] => on
+)
+
+2025-05-12 08:10:59 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Professional_CV.pdf
+            [full_path] => Professional_CV.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php14DF.tmp
+            [error] => 0
+            [size] => 13343
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-12 08:10:59 - Attempting database connection
+2025-05-12 08:10:59 - Database connected successfully
+2025-05-12 08:10:59 - All required fields present
+2025-05-12 08:10:59 - Preparing SQL statement
+2025-05-12 08:10:59 - Statement closed
+2025-05-12 08:10:59 - Database connection closed
+2025-05-12 08:10:59 - Script completed
+2025-05-12 08:12:20 - Script started
+2025-05-12 08:12:20 - Request method validated
+2025-05-12 08:12:20 - POST data: Array
+(
+    [firstName] => Ena
+    [lastName] => Steven
+    [email] => steve@gmail.com
+    [phone] => 0755897643
+    [address] => Kampala
+    [location] => 
+    [coordinates] => 
+    [profession] => Lab Technologist
+    [otherProfession] => 
+    [specialization] => None
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => kagoma
+    [startDate] => 2025-05-31
+    [confirm_checkbox] => on
+)
+
+2025-05-12 08:12:20 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Professional_CV (1).pdf
+            [full_path] => Professional_CV (1).pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php4FA2.tmp
+            [error] => 0
+            [size] => 13343
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-12 08:12:20 - Attempting database connection
+2025-05-12 08:12:20 - Database connected successfully
+2025-05-12 08:12:20 - All required fields present
+2025-05-12 08:12:20 - Preparing SQL statement
+2025-05-12 08:12:20 - Statement closed
+2025-05-12 08:12:20 - Database connection closed
+2025-05-12 08:12:20 - Script completed
