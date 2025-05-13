@@ -1,9 +1,9 @@
 <?php
 // Database connection
 $host = 'localhost';
+$database = 'matendo_medics';
 $username = 'root'; // Replace with your DB username
 $password = ''; // Replace with your DB password
-$database = 'matendo_medics';
 
 $conn = new mysqli($host, $username, $password, $database);
 if ($conn->connect_error) {
@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 
 // Query all tables
 $facility_query = $conn->query("SELECT * FROM facility_hiring_requests");
-$profiles_query = $conn->query("SELECT * FROM professional_profiles");
+$profiles_query = $conn->query("SELECT * FROM healthcare_professionals");
 $personal_care_query = $conn->query("SELECT * FROM personal_care_requests");
 $users_query = $conn->query("SELECT id, email, created_at FROM users"); // Exclude password for security
 ?>
@@ -22,334 +22,1241 @@ $users_query = $conn->query("SELECT id, email, created_at FROM users"); // Exclu
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matendo Medics Admin Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .table-container { max-height: 400px; overflow-y: auto; }
-        .collapsible-header { cursor: pointer; }
-        .collapsible-content { display: none; }
-        .collapsible-content.active { display: block; }
-        th, td { white-space: nowrap; }
-    </style>
-</head>
-<body class="bg-gray-100 font-sans">
-    <header class="bg-blue-600 text-white p-4 shadow-md">
-        <h1 class="text-2xl font-bold">Matendo Medics Admin Dashboard</h1>
-    </header>
-
-    <main class="container mx-auto p-6 space-y-6">
-        <!-- Facility Hiring Requests Section -->
-        <section class="bg-white rounded-lg shadow-md">
-            <div class="collapsible-header bg-blue-100 p-4 flex justify-between items-center" onclick="toggleSection('facility-hiring')">
-                <h2 class="text-xl font-semibold text-blue-800">Facility Hiring Requests</h2>
-                <span class="text-blue-800">▼</span>
-            </div>
-            <div id="facility-hiring" class="collapsible-content p-4 active">
-                <div class="table-container overflow-x-auto">
-                    <table class="min-w-full bg-white border">
-                        <thead class="bg-blue-50 sticky top-0">
-                            <tr>
-                                <th class="py-2 px-4 border">ID</th>
-                                <th class="py-2 px-4 border">Facility Name</th>
-                                <th class="py-2 px-4 border">Contact Person</th>
-                                <th class="py-2 px-4 border">Email</th>
-                                <th class="py-2 px-4 border">Phone</th>
-                                <th class="py-2 px-4 border">Coordinates</th>
-                                <th class="py-2 px-4 border">Facility Type</th>
-                                <th class="py-2 px-4 border">Positions</th>
-                                <th class="py-2 px-4 border">Employment Type</th>
-                                <th class="py-2 px-4 border">Shift Type</th>
-                                <th class="py-2 px-4 border">Staff Number</th>
-                                <th class="py-2 px-4 border">Start Date</th>
-                                <th class="py-2 px-4 border">Job Requirement Option</th>
-                                <th class="py-2 px-4 border">Qualifications</th>
-                                <th class="py-2 px-4 border">Experience</th>
-                                <th class="py-2 px-4 border">Job Description</th>
-                                <th class="py-2 px-4 border">Job Description File</th>
-                                <th class="py-2 px-4 border">Reference Number</th>
-                                <th class="py-2 px-4 border">Submission Date</th>
-                                <th class="py-2 px-4 border">CSRF Token</th>
-                                <th class="py-2 px-4 border">Created At</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($row = $facility_query->fetch_assoc()): ?>
-                                <tr>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['facility_name']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['contact_person']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['coordinates'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['facility_type']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['positions']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['employment_type']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['shift_type']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['staff_number']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['start_date']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_requirement_option'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['qualifications'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['experience'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_description'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_description_file'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['csrf_token'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
-                                </tr>
-                            <?php endwhile; ?>
-                            <?php if ($facility_query->num_rows === 0): ?>
-                                <tr><td colspan="21" class="py-2 px-4 border text-center">No data available</td></tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4 flex justify-end">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Previous</button>
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2">Next</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-white rounded-lg shadow-md">
-            <div class="collapsible-header bg-green-100 p-4 flex justify-between items-center" onclick="toggleSection('professional-profiles')">
-                <h2 class="text-xl font-semibold text-green-800">Professional Profiles</h2>
-                <span class="text-green-800">▼</span>
-            </div>
-            <div id="professional-profiles" class="collapsible-content p-4">
-                <div class="table-container overflow-x-auto">
-                    <table class="min-w-full bg-white border">
-                        <thead class="bg-green-50 sticky top-0">
-                            <tr>
-                                <th class="py-2 px-4 border">ID</th>
-                                <th class="py-2 px-4 border">Reference Number</th>
-                                <th class="py-2 px-4 border">Full Name</th>
-                                <th class="py-2 px-4 border">Email</th>
-                                <th class="py-2 px-4 border">Phone</th>
-                                <th class="py-2 px-4 border">Location</th>
-                                <th class="py-2 px-4 border">Summary</th>
-                                <th class="py-2 px-4 border">Experience</th>
-                                <th class="py-2 px-4 border">Education</th>
-                                <th class="py-2 px-4 border">Skills</th>
-                                <th class="py-2 px-4 border">Certifications</th>
-                                <th class="py-2 px-4 border">Documents</th>
-                                <th class="py-2 px-4 border">Submission Date</th>
-                                <th class="py-2 px-4 border">Created At</th>
-                                <th class="py-2 px-4 border">Updated At</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($row = $profiles_query->fetch_assoc()): ?>
-                                <tr>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['full_name']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['location']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['summary'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border">
-                                        <?php
-                                        $experience = json_decode($row['experience'], true);
-                                        if (is_array($experience) && !empty($experience)) {
-                                            echo '<ul class="list-disc list-inside">';
-                                            foreach ($experience as $exp) {
-                                                echo '<li>' . htmlspecialchars($exp['title'] . ' at ' . $exp['company']) . '</li>';
-                                            }
-                                            echo '</ul>';
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td class="py-2 px-4 border">
-                                        <?php
-                                        $education = json_decode($row['education'], true);
-                                        if (is_array($education) && !empty($education)) {
-                                            echo '<ul class="list-disc list-inside">';
-                                            foreach ($education as $edu) {
-                                                echo '<li>' . htmlspecialchars($edu['degree'] . ' from ' . $edu['institution']) . '</li>';
-                                            }
-                                            echo '</ul>';
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td class="py-2 px-4 border">
-                                        <?php
-                                        $skills = json_decode($row['skills'], true);
-                                        if (is_array($skills) && !empty($skills)) {
-                                            echo implode(', ', array_map('htmlspecialchars', $skills));
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td class="py-2 px-4 border">
-                                        <?php
-                                        $certifications = json_decode($row['certifications'], true);
-                                        if (is_array($certifications) && !empty($certifications)) {
-                                            echo implode(', ', array_map('htmlspecialchars', $certifications));
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td class="py-2 px-4 border">
-                                        <?php
-                                        $documents = json_decode($row['documents'], true);
-                                        if (is_array($documents) && !empty($documents)) {
-                                            foreach ($documents as $doc) {
-                                                echo '<a href="download.php?type=document&id=' . $row['id'] . '&name=' . urlencode($doc['name']) . '" class="text-blue-500 hover:underline">' . htmlspecialchars($doc['name']) . '</a><br>';
-                                            }
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['updated_at']); ?></td>
-                                </tr>
-                            <?php endwhile; ?>
-                            <?php if ($profiles_query->num_rows === 0): ?>
-                                <tr><td colspan="15" class="py-2 px-4 border text-center">No data available</td></tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4 flex justify-end">
-                    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Previous</button>
-                    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Next</button>
-                </div>
-            </div>
-        </section>
-
-        Personal Care Requests Section
-        <section class="bg-white rounded-lg shadow-md">
-            <div class="collapsible-header bg-purple-100 p-4 flex justify-between items-center" onclick="toggleSection('personal-care')">
-                <h2 class="text-xl font-semibold text-purple-800">Personal Care Requests</h2>
-                <span class="text-purple-800">▼</span>
-            </div>
-            <div id="personal-care" class="collapsible-content p-4 active">
-                <div class="table-container overflow-x-auto">
-                    <table class="min-w-full bg-white border">
-                        <thead class="bg-purple-50 sticky top-0">
-                            <tr>
-                                <th class="py-2 px-4 border">ID</th>
-                                <th class="py-2 px-4 border">Full Name</th>
-                                <th class="py-2 px-4 border">Email</th>
-                                <th class="py-2 px-4 border">Phone</th>
-                                <th class="py-2 px-4 border">Address</th>
-                                <th class="py-2 px-4 border">Care Type</th>
-                                <th class="py-2 px-4 border">Care Frequency</th>
-                                <th class="py-2 px-4 border">Start Date</th>
-                                <th class="py-2 px-4 border">Medical Conditions</th>
-                                <th class="py-2 px-4 border">Additional Notes</th>
-                                <th class="py-2 px-4 border">Reference Number</th>
-                                <th class="py-2 px-4 border">Submission Date</th>
-                                <th class="py-2 px-4 border">CSRF Token</th>
-                                <th class="py-2 px-4 border">Created At</th>
-                                <th class="py-2 px-4 border">Care Requirements</th>
-                                <th class="py-2 px-4 border">Schedule</th>
-                                <th class="py-2 px-4 border">Medications</th>
-                                <th class="py-2 px-4 border">Allergies</th>
-                                <th class="py-2 px-4 border">Emergency Contact</th>
-                                <th class="py-2 px-4 border">Emergency Phone</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($row = $personal_care_query->fetch_assoc()): ?>
-                                <tr>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['full_name']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['address']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_type']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_frequency'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['start_date'] === '0000-00-00' ? '-' : $row['start_date']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['medical_conditions'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['additional_notes'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['csrf_token'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_requirements'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['schedule'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['medications'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['allergies'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['emergency_contact'] ?: '-'); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['emergency_phone'] ?: '-'); ?></td>
-                                </tr>
-                            <?php endwhile; ?>
-                            <?php if ($personal_care_query->num_rows === 0): ?>
-                                <tr><td colspan="20" class="py-2 px-4 border text-center">No data available</td></tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4 flex justify-end">
-                    <button class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">Previous</button>
-                    <button class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 ml-2">Next</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Users Section -->
-        <section class="bg-white rounded-lg shadow-md">
-            <div class="collapsible-header bg-yellow-100 p-4 flex justify-between items-center" onclick="toggleSection('users')">
-                <h2 class="text-xl font-semibold text-yellow-800">Users</h2>
-                <span class="text-yellow-800">▼</span>
-            </div>
-            <div id="users" class="collapsible-content p-4">
-                <div class="table-container overflow-x-auto">
-                    <table class="min-w-full bg-white border">
-                        <thead class="bg-yellow-50 sticky top-0">
-                            <tr>
-                                <th class="py-2 px-4 border">ID</th>
-                                <th class="py-2 px-4 border">Email</th>
-                                <th class="py-2 px-4 border">Created At</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($row = $users_query->fetch_assoc()): ?>
-                                <tr>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
-                                    <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
-                                </tr>
-                            <?php endwhile; ?>
-                            <?php if ($users_query->num_rows === 0): ?>
-                                <tr><td colspan="3" class="py-2 px-4 border text-center">No data available</td></tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4 flex justify-end">
-                    <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Previous</button>
-                    <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 ml-2">Next</button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-gray-800 text-white text-center p-4 mt-6">
-        <p>© 2025 Matendo Medics. All rights reserved.</p>
-    </footer>
-
+    <title>Admin Dashboard - Matendo Health</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>
-        // Collapsible section toggle
-        function toggleSection(sectionId) {
-            const content = document.getElementById(sectionId);
-            content.classList.toggle('active');
-            const header = content.previousElementSibling;
-            const arrow = header.querySelector('span');
-            arrow.textContent = content.classList.contains('active') ? '▼' : '▲';
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#0ea5e9'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
         }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
 
-<?php $conn->close(); ?>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #1e40af;
+            border-color: #1e40af;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .password-strength {
+            height: 4px;
+            transition: all 0.3s;
+        }
+
+        .password-strength-indicator {
+            display: flex;
+            margin-top: 6px;
+        }
+
+        .strength-segment {
+            height: 4px;
+            flex: 1;
+            margin-right: 4px;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+        }
+
+        .strength-segment:last-child {
+            margin-right: 0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Data table styles */
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .collapsible-header {
+            cursor: pointer;
+        }
+
+        .collapsible-content {
+            display: none;
+        }
+
+        .collapsible-content.active {
+            display: block;
+        }
+
+        th, td {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 bg-white shadow-md fixed h-full transition-all duration-300">
+            <div class="p-4 border-b">
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="text-primary text-2xl font-['Pacifico']">Matendo</span>
+                    <span class="text-secondary font-semibold">Health</span>
+                </a>
+            </div>
+            <nav class="p-4">
+                <div class="space-y-2">
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-primary bg-blue-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-dashboard-line"></i>
+                        </div>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        <span>Users</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-hospital-line"></i>
+                        </div>
+                        <span>Facilities</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-nurse-line"></i>
+                        </div>
+                        <span>Professionals</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-calendar-line"></i>
+                        </div>
+                        <span>Appointments</span>
+                    </a>
+                    <!-- Individual Request Tab -->
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-file-list-3-line"></i>
+                        </div>
+                        <span>Individual Requests</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-message-2-line"></i>
+                        </div>
+                        <span>Messages</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-settings-line"></i>
+                        </div>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <div id="mainContent" class="flex-1 ml-64 transition-all duration-300 overflow-auto">
+            <!-- Header -->
+            <header class="bg-white shadow-sm sticky top-0 z-50">
+                <div class="flex items-center justify-between px-8 py-4">
+                    <div class="flex items-center space-x-4">
+                        <button id="sidebarToggle" class="text-gray-500 hover:text-gray-600">
+                            <i class="ri-menu-line text-xl"></i>
+                        </button>
+                        <div class="relative">
+                            <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary w-64 text-sm">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 flex items-center justify-center">
+                                <i class="ri-search-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative text-gray-500 hover:text-gray-600">
+                            <i class="ri-notification-line text-xl"></i>
+                            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs flex items-center justify-center rounded-full">3</span>
+                        </button>
+                        <div class="flex items-center space-x-3">
+                            <img src="https://readdy.ai/api/search-image?query=professional+headshot+of+a+male+administrator+wearing+a+business+suit%252C+looking+confident+and+approachable%252C+against+a+neutral+background%252C+high+quality%252C+studio+lighting&width=40&height=40&seq=1&orientation=squarish" alt="Admin" class="w-8 h-8 rounded-full object-cover">
+                            <div class="text-sm">
+                                <p class="font-medium text-gray-700">John Anderson</p>
+                                <p class="text-gray-500">Admin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Content -->
+            <main class="p-8">
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Total Users</p>
+                                <h3 class="text-2xl font-semibold text-gray-900">2,847</h3>
+                                <p class="text-sm text-green-500 flex items-center mt-1">
+                                    <i class="ri-arrow-up-line mr-1"></i>
+                                    12.5% vs last month
+                                </p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-primary">
+                                <i class="ri-user-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Active Facilities</p>
+                                <h3 class="text-2xl font-semibold text-gray-900">156</h3>
+                                <p class="text-sm text-green-500 flex items-center mt-1">
+                                    <i class="ri-arrow-up-line mr-1"></i>
+                                    8.2% vs last month
+                                </p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center text-green-500">
+                                <i class="ri-hospital-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Healthcare Pros</p>
+                                <h3 class="text-2xl font-semibold text-gray-900">2,691</h3>
+                                <p class="text-sm text-red-500 flex items-center mt-1">
+                                    <i class="ri-arrow-down-line mr-1"></i>
+                                    3.1% vs last month
+                                </p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center text-purple-500">
+                                <i class="ri-nurse-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Total Revenue</p>
+                                <h3 class="text-2xl font-semibold text-gray-900">$84,295</h3>
+                                <p class="text-sm text-green-500 flex items-center mt-1">
+                                    <i class="ri-arrow-up-line mr-1"></i>
+                                    15.3% vs last month
+                                </p>
+                            </div>
+                            <div class="w-12 h-12 bg-yellow-50 rounded-lg flex items-center justify-center text-yellow-500">
+                                <i class="ri-money-dollar-circle-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Recent Activity -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                    <!-- User Growth Chart -->
+                    <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">User Growth</h3>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1 text-sm text-gray-600 hover:text-gray-900">Week</button>
+                                <button class="px-3 py-1 text-sm bg-gray-100 rounded text-gray-900">Month</button>
+                                <button class="px-3 py-1 text-sm text-gray-600 hover:text-gray-900">Year</button>
+                            </div>
+                        </div>
+                        <div id="userGrowthChart" class="w-full h-80"></div>
+                    </div>
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
+                            <button class="text-sm text-primary hover:text-primary/80">View All</button>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                                    <i class="ri-user-add-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-900">New user registration</p>
+                                    <p class="text-sm text-gray-500">Sarah Wilson joined as a healthcare professional</p>
+                                    <p class="text-xs text-gray-400 mt-1">2 minutes ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-green-50 rounded-full flex items-center justify-center text-green-500 flex-shrink-0">
+                                    <i class="ri-hospital-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-900">New facility added</p>
+                                    <p class="text-sm text-gray-500">Central Medical Center completed verification</p>
+                                    <p class="text-xs text-gray-400 mt-1">15 minutes ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-yellow-50 rounded-full flex items-center justify-center text-yellow-500 flex-shrink-0">
+                                    <i class="ri-calendar-check-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-900">Appointment scheduled</p>
+                                    <p class="text-sm text-gray-500">Dr. Michael Brown - Cardiology Consultation</p>
+                                    <p class="text-xs text-gray-400 mt-1">1 hour ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-purple-50 rounded-full flex items-center justify-center text-purple-500 flex-shrink-0">
+                                    <i class="ri-message-2-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-900">New message received</p>
+                                    <p class="text-sm text-gray-500">Support ticket from City Hospital</p>
+                                    <p class="text-xs text-gray-400 mt-1">2 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Request Management & Task Assignment Section -->
+                <div class="bg-white rounded-lg shadow-sm mb-8">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Requests & Tasks</h3>
+                                <p class="text-sm text-gray-500 mt-1">Manage incoming requests and assign tasks to health workers</p>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button id="viewRequestsBtn" class="text-sm border border-primary text-primary px-4 py-2 !rounded-button hover:bg-primary/5 flex items-center">
+                                    <i class="ri-inbox-line mr-2"></i>
+                                    <span>View Requests</span>
+                                    <span class="ml-2 bg-primary text-white text-xs px-2 py-0.5 rounded-full">3</span>
+                                </button>
+                                <button id="assignTaskBtn" class="text-sm bg-primary text-white px-4 py-2 !rounded-button hover:bg-primary/90 flex items-center">
+                                    <i class="ri-add-line mr-2"></i>
+                                    <span>Assign Task</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <button class="text-sm font-medium text-gray-900 border-b-2 border-primary px-3 py-2">Active Tasks (5)</button>
+                            <button class="text-sm font-medium text-gray-500 hover:text-gray-900 px-3 py-2">Completed (12)</button>
+                            <button class="text-sm font-medium text-gray-500 hover:text-gray-900 px-3 py-2">Pending Requests (3)</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Request/Task</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned To</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr class="bg-blue-50/30">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-start space-x-3">
+                                                <span class="flex-shrink-0 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                                                    <i class="ri-inbox-line text-primary text-sm"></i>
+                                                </span>
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">New Patient Consultation Request</p>
+                                                    <p class="text-xs text-gray-500">Urgent care needed for severe back pain</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=portrait%20of%20a%20middle%20aged%20man%20patient%20with%20concerned%20expression%252C%20natural%20lighting%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=10&orientation=squarish" alt="Patient" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Robert Martinez</p>
+                                                    <p class="text-xs text-gray-500">ID: #PT78392</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20nurse%20in%20scrubs%252C%20warm%20smile%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=32&height=32&seq=7&orientation=squarish" alt="User" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Emma Rodriguez</p>
+                                                    <p class="text-xs text-gray-500">Nurse</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 10, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">High</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">In Progress</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-edit-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-start space-x-3">
+                                                <span class="flex-shrink-0 w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center">
+                                                    <i class="ri-time-line text-yellow-600 text-sm"></i>
+                                                </span>
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Blood Test Results Review</p>
+                                                    <p class="text-xs text-gray-500">Review and provide analysis of recent blood work</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=portrait%20of%20an%20elderly%20female%20patient%20with%20gentle%20smile%252C%20natural%20lighting%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=11&orientation=squarish" alt="Patient" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Mary Johnson</p>
+                                                    <p class="text-xs text-gray-500">ID: #PT78345</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20pharmacist%20in%20white%20coat%252C%20confident%20pose%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=32&height=32&seq=8&orientation=squarish" alt="User" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">David Kim</p>
+                                                    <p class="text-xs text-gray-500">Pharmacist</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 11, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Medium</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-edit-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-start space-x-3">
+                                                <span class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                                    <i class="ri-check-line text-green-600 text-sm"></i>
+                                                </span>
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Medication Schedule Review</p>
+                                                    <p class="text-xs text-gray-500">Update patient's medication schedule post-surgery</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=portrait%20of%20a%20young%20female%20patient%20with%20friendly%20expression%252C%20natural%20lighting%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=12&orientation=squarish" alt="Patient" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Sarah Williams</p>
+                                                    <p class="text-xs text-gray-500">ID: #PT78401</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20technician%20in%20work%20uniform%252C%20focused%20expression%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=32&height=32&seq=9&orientation=squarish" alt="User" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Michael Chang</p>
+                                                    <p class="text-xs text-gray-500">Technician</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 12, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Low</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Pending</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-edit-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Tables Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Database Records</h2>
+                    
+                    <!-- Facility Hiring Requests Section -->
+                    <div class="bg-white rounded-lg shadow-md mb-6">
+                        <div class="collapsible-header bg-blue-50 p-4 flex justify-between items-center rounded-t-lg" onclick="toggleSection('facility-hiring')">
+                            <h3 class="text-lg font-semibold text-primary">Facility Hiring Requests</h3>
+                            <span class="text-primary"><i class="ri-arrow-down-s-line"></i></span>
+                        </div>
+                        <div id="facility-hiring" class="collapsible-content p-4">
+                            <div class="table-container overflow-x-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead class="bg-gray-50 sticky top-0">
+                                        <tr>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Facility Name</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact Person</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Facility Type</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Positions</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employment Type</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference Number</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submission Date</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <?php if ($facility_query->num_rows === 0): ?>
+                                            <tr><td colspan="11" class="py-4 px-4 text-center text-gray-500">No data available</td></tr>
+                                        <?php else: ?>
+                                            <?php while ($row = $facility_query->fetch_assoc()): ?>
+                                                <tr class="hover:bg-gray-50">
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['id']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['facility_name']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['contact_person']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['email']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['phone']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['facility_type']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['positions']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['employment_type']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['submission_date']); ?></td>
+                                                    <td class="py-3 px-4">
+                                                        <div class="flex items-center space-x-2">
+                                                            <button class="text-blue-500 hover:text-blue-700">
+                                                                <i class="ri-eye-line"></i>
+                                                            </button>
+                                                            <button class="text-green-500 hover:text-green-700">
+                                                                <i class="ri-edit-line"></i>
+                                                            </button>
+                                                            <button class="text-red-500 hover:text-red-700">
+                                                                <i class="ri-delete-bin-line"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button class="bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 mr-2">Previous</button>
+                                <button class="bg-primary text-white px-4 py-2 rounded hover:bg-primary/90">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Professional Profiles Section -->
+                    <div class="bg-white rounded-lg shadow-md mb-6">
+                        <div class="collapsible-header bg-green-50 p-4 flex justify-between items-center rounded-t-lg" onclick="toggleSection('professional-profiles')">
+                            <h3 class="text-lg font-semibold text-green-700">Professional Profiles</h3>
+                            <span class="text-green-700"><i class="ri-arrow-down-s-line"></i></span>
+                        </div>
+                        <div id="professional-profiles" class="collapsible-content p-4">
+                            <div class="table-container overflow-x-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead class="bg-gray-50 sticky top-0">
+                                        <tr>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference Number</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skills</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submission Date</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <?php if ($profiles_query->num_rows === 0): ?>
+                                            <tr><td colspan="9" class="py-4 px-4 text-center text-gray-500">No data available</td></tr>
+                                        <?php else: ?>
+                                            <?php while ($row = $profiles_query->fetch_assoc()): ?>
+                                                <tr class="hover:bg-gray-50">
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['id']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['full_name']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['email']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['phone']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['location']); ?></td>
+                                                    <td class="py-3 px-4">
+                                                        <?php
+                                                        $skills = json_decode($row['skills'], true);
+                                                        if (is_array($skills) && !empty($skills)) {
+                                                            echo '<div class="flex flex-wrap gap-1">';
+                                                            foreach ($skills as $skill) {
+                                                                echo '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">' . htmlspecialchars($skill) . '</span>';
+                                                            }
+                                                            echo '</div>';
+                                                        } else {
+                                                            echo '-';
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['submission_date']); ?></td>
+                                                    <td class="py-3 px-4">
+                                                        <div class="flex items-center space-x-2">
+                                                            <button class="text-blue-500 hover:text-blue-700">
+                                                                <i class="ri-eye-line"></i>
+                                                            </button>
+                                                            <button class="text-green-500 hover:text-green-700">
+                                                                <i class="ri-edit-line"></i>
+                                                            </button>
+                                                            <button class="text-red-500 hover:text-red-700">
+                                                                <i class="ri-delete-bin-line"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mr-2">Previous</button>
+                                <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Care Requests Section -->
+                    <div class="bg-white rounded-lg shadow-md mb-6">
+                        <div class="collapsible-header bg-purple-50 p-4 flex justify-between items-center rounded-t-lg" onclick="toggleSection('personal-care')">
+                            <h3 class="text-lg font-semibold text-purple-700">Personal Care Requests</h3>
+                            <span class="text-purple-700"><i class="ri-arrow-down-s-line"></i></span>
+                        </div>
+                        <div id="personal-care" class="collapsible-content p-4">
+                            <div class="table-container overflow-x-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead class="bg-gray-50 sticky top-0">
+                                        <tr>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Care Type</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Care Frequency</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start Date</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference Number</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <?php if ($personal_care_query->num_rows === 0): ?>
+                                            <tr><td colspan="10" class="py-4 px-4 text-center text-gray-500">No data available</td></tr>
+                                        <?php else: ?>
+                                            <?php while ($row = $personal_care_query->fetch_assoc()): ?>
+                                                <tr class="hover:bg-gray-50">
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['id']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['full_name']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['email']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['phone']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['address']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['care_type']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['care_frequency'] ?: '-'); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['start_date'] === '0000-00-00' ? '-' : $row['start_date']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                                                    <td class="py-3 px-4">
+                                                        <div class="flex items-center space-x-2">
+                                                            <button class="text-blue-500 hover:text-blue-700">
+                                                                <i class="ri-eye-line"></i>
+                                                            </button>
+                                                            <button class="text-green-500 hover:text-green-700">
+                                                                <i class="ri-edit-line"></i>
+                                                            </button>
+                                                            <button class="text-red-500 hover:text-red-700">
+                                                                <i class="ri-delete-bin-line"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 mr-2">Previous</button>
+                                <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Users Section -->
+                    <div class="bg-white rounded-lg shadow-md mb-6">
+                        <div class="collapsible-header bg-yellow-50 p-4 flex justify-between items-center rounded-t-lg" onclick="toggleSection('users')">
+                            <h3 class="text-lg font-semibold text-yellow-700">Users</h3>
+                            <span class="text-yellow-700"><i class="ri-arrow-down-s-line"></i></span>
+                        </div>
+                        <div id="users" class="collapsible-content p-4">
+                            <div class="table-container overflow-x-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead class="bg-gray-50 sticky top-0">
+                                        <tr>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                            <th class="py-2 px-4 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <?php if ($users_query->num_rows === 0): ?>
+                                            <tr><td colspan="5" class="py-4 px-4 text-center text-gray-500">No data available</td></tr>
+                                        <?php else: ?>
+                                            <?php while ($row = $users_query->fetch_assoc()): ?>
+                                                <tr class="hover:bg-gray-50">
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['id']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['email']); ?></td>
+                                                    <td class="py-3 px-4"><?php echo htmlspecialchars($row['created_at']); ?></td>
+                                                    <td class="py-3 px-4">
+                                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                                                    </td>
+                                                    <td class="py-3 px-4">
+                                                        <div class="flex items-center space-x-2">
+                                                            <button class="text-blue-500 hover:text-blue-700">
+                                                                <i class="ri-eye-line"></i>
+                                                            </button>
+                                                            <button class="text-green-500 hover:text-green-700">
+                                                                <i class="ri-edit-line"></i>
+                                                            </button>
+                                                            <button class="text-red-500 hover:text-red-700">
+                                                                <i class="ri-delete-bin-line"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 mr-2">Previous</button>
+                                <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Worker Applications -->
+                <div class="bg-white rounded-lg shadow-md mb-8">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Health Worker Applications</h3>
+                                <p class="text-sm text-gray-500 mt-1">Review and manage healthcare professional applications</p>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button class="text-sm border border-primary text-primary px-4 py-2 !rounded-button hover:bg-primary/5 flex items-center">
+                                    <i class="ri-download-line mr-2"></i>
+                                    <span>Export</span>
+                                </button>
+                                <button class="text-sm bg-primary text-white px-4 py-2 !rounded-button hover:bg-primary/90 flex items-center">
+                                    <i class="ri-filter-3-line mr-2"></i>
+                                    <span>Filter</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <button class="text-sm font-medium text-gray-900 border-b-2 border-primary px-3 py-2">Pending Review (4)</button>
+                            <button class="text-sm font-medium text-gray-500 hover:text-gray-900 px-3 py-2">Approved (12)</button>
+                            <button class="text-sm font-medium text-gray-500 hover:text-gray-900 px-3 py-2">Rejected (3)</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applicant</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Experience</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Interview Date</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20doctor%20in%20white%20coat%252C%20stethoscope%252C%20confident%20pose%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=40&height=40&seq=20&orientation=squarish" alt="Applicant" class="w-10 h-10 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Dr. Rachel Anderson</p>
+                                                    <p class="text-xs text-gray-500">rachel.anderson@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">Cardiologist</span>
+                                            <p class="text-xs text-gray-500">Specialist</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">8 years</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 10, 2025</span>
+                                            <p class="text-xs text-gray-500">2:00 PM</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending Review</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button class="px-3 py-1 bg-green-500 text-white text-sm rounded !rounded-button hover:bg-green-600 flex items-center" onclick="approveApplication(this)">
+                                                    <i class="ri-check-line mr-1"></i>
+                                                    <span>Approve</span>
+                                                </button>
+                                                <button class="px-3 py-1 bg-red-500 text-white text-sm rounded !rounded-button hover:bg-red-600 flex items-center" onclick="rejectApplication(this)">
+                                                    <i class="ri-close-line mr-1"></i>
+                                                    <span>Reject</span>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500 w-8 h-8 flex items-center justify-center" onclick="viewApplication(this)">
+                                                    <i class="ri-eye-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20nurse%20in%20scrubs%252C%20caring%20expression%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=40&height=40&seq=21&orientation=squarish" alt="Applicant" class="w-10 h-10 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Mark Thompson</p>
+                                                    <p class="text-xs text-gray-500">mark.thompson@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">Registered Nurse</span>
+                                            <p class="text-xs text-gray-500">Emergency Care</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">5 years</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 11, 2025</span>
+                                            <p class="text-xs text-gray-500">10:30 AM</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending Review</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button class="px-3 py-1 bg-green-500 text-white text-sm rounded !rounded-button hover:bg-green-600 flex items-center" onclick="approveApplication(this)">
+                                                    <i class="ri-check-line mr-1"></i>
+                                                    <span>Approve</span>
+                                                </button>
+                                                <button class="px-3 py-1 bg-red-500 text-white text-sm rounded !rounded-button hover:bg-red-600 flex items-center" onclick="rejectApplication(this)">
+                                                    <i class="ri-close-line mr-1"></i>
+                                                    <span>Reject</span>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500 w-8 h-8 flex items-center justify-center" onclick="viewApplication(this)">
+                                                    <i class="ri-eye-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- Footer -->
+            <footer class="bg-gray-50 py-8 mt-12">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Matendo Health. All rights reserved.</p>
+                        <div class="flex space-x-6">
+                            <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors">Privacy Policy</a>
+                            <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors">Terms of Service</a>
+                            <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors">Cookie Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg w-full max-w-2xl mx-4">
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-900">Assign New Task</h3>
+                    <button id="closeTaskModal" class="text-gray-400 hover:text-gray-500">
+                        <i class="ri-close-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <form id="taskForm" class="p-6">
+                <div class="space-y-4">
+                    <div>
+                        <label for="taskTitle" class="block text-sm font-medium text-gray-700 mb-1">Task Title</label>
+                        <input type="text" id="taskTitle" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" placeholder="Enter task title">
+                    </div>
+                    <div>
+                        <label for="taskDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea id="taskDescription" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" placeholder="Enter task description"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="assignee" class="block text-sm font-medium text-gray-700 mb-1">Assign To</label>
+                            <div class="relative">
+                                <select id="assignee" class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                                    <option value="" disabled selected>Select staff member</option>
+                                    <option value="emma">Emma Rodriguez - Nurse</option>
+                                    <option value="david">David Kim - Pharmacist</option>
+                                    <option value="michael">Michael Chang - Technician</option>
+                                    <option value="sarah">Sarah Wilson - Doctor</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="dueDate" class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                            <input type="date" id="dueDate" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="priority" class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                            <div class="relative">
+                                <select id="priority" class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                                    <option value="" disabled selected>Select priority</option>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                            <div class="relative">
+                                <select id="status" class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                                    <option value="" disabled selected>Select status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" id="cancelTaskBtn" class="px-4 py-2 border border-gray-300 rounded !rounded-button text-gray-700 hover:bg-gray-50">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded !rounded-button hover:bg-primary/90">Assign Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle functionality
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            let sidebarExpanded = true;
+
+            sidebarToggle.addEventListener('click', function() {
+                sidebarExpanded = !sidebarExpanded;
+                if (sidebarExpanded) {
+                    sidebar.classList.remove('w-16');
+                    sidebar.classList.add('w-64');
+                    mainContent.classList.remove('ml-16');
+                    mainContent.classList.add('ml-64');
+                    sidebar.querySelectorAll('span').forEach(span => {
+                        span.classList.remove('hidden');
+                    });
+                } else {
+                    sidebar.classList.remove('w-64');
+                    sidebar.classList.add('w-16');
+                    mainContent.classList.remove('ml-64');
+                    mainContent.classList.add('ml-16');
+                    sidebar.querySelectorAll('span').forEach(span => {
+                        span.classList.add('hidden');
+                    });
+                }
+            });
+
+            // Collapsible section toggle
+            function toggleSection(sectionId) {
+                const content = document.getElementById(sectionId);
+                content.classList.toggle('active');
+                const header = content.previousElementSibling;
+                const arrow = header.querySelector('i');
+                arrow.classList.toggle('ri-arrow-down-s-line');
+                arrow.classList.toggle('ri-arrow-up-s-line');
+            }
+            window.toggleSection = toggleSection;
+
+            // Initialize user growth chart
+            const userGrowthChart = echarts.init(document.getElementById('userGrowthChart'));
+            const userGrowthOption = {
+                animation: false,
+                grid: {
+                    top: 10,
+                    right: 30,
+                    bottom: 30,
+                    left: 40,
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    axisLine: {
+                        lineStyle: {
+                            color: '#E5E7EB'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#6B7280'
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    splitLine: {
+                        lineStyle: {
+                            color: '#E5E7EB'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#6B7280'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderColor: '#E5E7EB',
+                    borderWidth: 1,
+                    textStyle: {
+                        color: '#1F2937'
+                    },
+                    formatter: function(params) {
+                        return `${params[0].name}: ${params[0].value} users`;
+                    }
+                },
+                series: [{
+                    name: 'Users',
+                    data: [820, 932, 901, 934, 1290, 1330, 1520, 1650, 1750, 1850, 2100, 2847],
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'none',
+                    lineStyle: {
+                        color: '#1e40af'
+                    },
+                    areaStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0,
+                                color: 'rgba(30, 64, 175, 0.15)'
+                            }, {
+                                offset: 1,
+                                color: 'rgba(30, 64, 175, 0.01)'
+                            }]
+                        }
+                    }
+                }]
+            };
+            userGrowthChart.setOption(userGrowthOption);
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                userGrowthChart.resize();
+            });
+
+            // Task modal functionality
+            const taskModal = document.getElementById('taskModal');
+            const assignTaskBtn = document.getElementById('assignTaskBtn');
+            const closeTaskModal = document.getElementById('closeTaskModal');
+            const cancelTaskBtn = document.getElementById('cancelTaskBtn');
+            const taskForm = document.getElementById('taskForm');
+            
+            function openTaskModal() {
+                taskModal.classList.remove('hidden');
+                taskModal.classList.add('flex');
+            }
+            
+            function closeTaskModal() {
+                taskModal.classList.add('hidden');
+                taskModal.classList.remove('flex');
+            }
+            
+            assignTaskBtn.addEventListener('click', openTaskModal);
+            closeTaskModal.addEventListener('click', closeTaskModal);
+            cancelTaskBtn.addEventListener('click', closeTaskModal);
+            
+            taskForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Process form data here
+                showMessage('Task assigned successfully!', 'success');
+                closeTaskModal();
+            });
+
+            // Application management functions
+            window.approveApplication = function(button) {
+                const row = button.closest('tr');
+                const nameElement = row.querySelector('.text-sm.font-medium');
+                const name = nameElement.textContent;
+                showMessage(`Application for ${name} has been approved.`, 'success');
+            };
+            
+            window.rejectApplication = function(button) {
+                const row = button.closest('tr');
+                const nameElement = row.querySelector('.text-sm.font-medium');
+                const name = nameElement.textContent;
+                showMessage(`Application for ${name} has been rejected.`, 'error');
+            };
+            
+            window.viewApplication = function(button) {
+                const row = button.closest('tr');
+                const nameElement = row.querySelector('.text-sm.font-medium');
+                const name = nameElement.textContent;
+                showMessage(`Viewing application details for ${name}.`, 'info');
+            };
+
+            // Message display function
+            function showMessage(message, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `fixed top-4 right-4 p-4 rounded shadow-lg ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white`;
+                messageDiv.textContent = message;
+                document.body.appendChild(messageDiv);
+                setTimeout(() => messageDiv.remove(), 3000);
+            }
+            window.showMessage = showMessage;
+            
+            // Initialize collapsible sections
+            document.getElementById('facility-hiring').classList.add('active');
+        });
+    </script>
 </body>
 </html>
+<?php $conn->close(); ?>
