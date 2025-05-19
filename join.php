@@ -1,276 +1,175 @@
 <?php
-// Start output buffering
-ob_start();
-
-// Enable all error reporting but don't display to users
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-
-// Set custom error log path (make sure this directory exists and is writable)
-$error_log_path = __DIR__ . '/php_errors.log';
-ini_set('log_errors', 1);
-ini_set('error_log', $error_log_path);
-
-// Set JSON header
+session_start();
 header('Content-Type: application/json');
 
-// Create debug log function
-function debug_log($message) {
-    file_put_contents(__DIR__ . '/debug.log', date('Y-m-d H:i:s') . " - " . $message . "\n", FILE_APPEND);
+// Database connection
+$host = 'localhost';
+$username = 'root';
+$password = ''; // Empty password
+$database = 'matendb';
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die(json_encode([
+        'success' => false,
+        'message' => 'Database connection failed: ' . $conn->connect_error
+    ]));
 }
 
-debug_log("Script started");
+// Function to generate a unique reference code
+function generateReferenceCode() {
+    return 'REF-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
+}
 
-// Database configuration
-$db_config = [
-    'host' => 'localhost',
-    'dbname' => 'matendo_medics',
-    'username' => 'root',
-    'password' => ''
-];
+// Function to sanitize input data
+function sanitizeInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
-try {
-    // Validate request method
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        throw new Exception('Invalid request method');
-    }
-    debug_log("Request method validated");
-
-    // Log all input data for debugging
-    debug_log("POST data: " . print_r($_POST, true));
-    debug_log("FILES data: " . print_r($_FILES, true));
-
-    // Check for unexpected output
-    $buffer_content = ob_get_contents();
-    if (!empty($buffer_content)) {
-        debug_log("Unexpected output in buffer: " . $buffer_content);
-        ob_clean();
-    }
-
-    // Database connection
-    debug_log("Attempting database connection");
-    $conn = new mysqli(
-        $db_config['host'],
-        $db_config['username'],
-        $db_config['password'],
-        $db_config['dbname']
-    );
-
-    if ($conn->connect_error) {
-        throw new Exception("Database connection failed: " . $conn->connect_error);
-    }
-    debug_log("Database connected successfully");
-
-    // Set charset to utf8mb4
-    if (!$conn->set_charset("utf8mb4")) {
-        debug_log("Warning: Could not set charset to utf8mb4");
-    }
-
-    // Validate required fields
-    $required_fields = [
-        'firstName', 'lastName', 'email', 'phone', 'address',
-        'profession', 'yearsExperience', 'workType', 'shiftType', 'startDate'
-    ];
-    
-    foreach ($required_fields as $field) {
-        if (empty($_POST[$field])) {
-            throw new Exception("Required field '$field' is missing or empty");
+// Process form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    try {
+        // Generate unique reference code
+        $reference_code = generateReferenceCode();
+        
+        // Sanitize and collect form data
+        $first_name = sanitizeInput($_POST['firstName'] ?? '');
+        $last_name = sanitizeInput($_POST['lastName'] ?? '');
+        $email = sanitizeInput($_POST['email'] ?? '');
+        $phone = sanitizeInput($_POST['phone'] ?? '');
+        $address = sanitizeInput($_POST['address'] ?? '');
+        $location = sanitizeInput($_POST['location'] ?? null);
+        $coordinates = sanitizeInput($_POST['coordinates'] ?? null);
+        $profession = sanitizeInput($_POST['profession'] ?? '');
+        $other_profession = sanitizeInput($_POST['otherProfession'] ?? null);
+        $specialization = sanitizeInput($_POST['specialization'] ?? null);
+        $years_experience = intval($_POST['yearsExperience'] ?? 0);
+        $license_number = sanitizeInput($_POST['licenseNumber'] ?? null);
+        
+        // Handle work_type and shift_type arrays
+        $work_type = isset($_POST['workType']) ? json_encode($_POST['workType']) : null;
+        $shift_type = isset($_POST['shiftType']) ? json_encode($_POST['shiftType']) : null;
+        
+        $preferred_location = sanitizeInput($_POST['preferredLocation'] ?? null);
+        $start_date = sanitizeInput($_POST['startDate'] ?? null);
+        
+        // Set default values
+        $status = 'pending';
+        $confirmed = 0;
+        
+        // Handle file uploads
+        $resume = null;
+        $license_doc = null;
+        $certifications = null;
+        
+        // Process resume upload
+        if (isset($_FILES['resume']) && $_FILES['resume']['error'] == 0) {
+            $upload_dir = 'uploads/resumes/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            
+            $file_name = $reference_code . '_' . basename($_FILES['resume']['name']);
+            $target_file = $upload_dir . $file_name;
+            
+            if (move_uploaded_file($_FILES['resume']['tmp_name'], $target_file)) {
+                $resume = $target_file;
+            }
         }
+        
+        // Process license document upload
+        if (isset($_FILES['license']) && $_FILES['license']['error'] == 0) {
+            $upload_dir = 'uploads/licenses/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            
+            $file_name = $reference_code . '_' . basename($_FILES['license']['name']);
+            $target_file = $upload_dir . $file_name;
+            
+            if (move_uploaded_file($_FILES['license']['tmp_name'], $target_file)) {
+                $license_doc = $target_file;
+            }
+        }
+        
+        // Process certifications upload
+        if (isset($_FILES['certifications']) && $_FILES['certifications']['error'] == 0) {
+            $upload_dir = 'uploads/certifications/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            
+            $file_name = $reference_code . '_' . basename($_FILES['certifications']['name']);
+            $target_file = $upload_dir . $file_name;
+            
+            if (move_uploaded_file($_FILES['certifications']['tmp_name'], $target_file)) {
+                $certifications = $target_file;
+            }
+        }
+        
+        // Prepare SQL statement
+        $sql = "INSERT INTO applications (
+                    reference_code, first_name, last_name, email, phone, address, 
+                    location, coordinates, profession, other_profession, 
+                    specialization, years_experience, license_number, resume, 
+                    license_doc, certifications, work_type, shift_type, 
+                    preferred_location, start_date, status, confirmed, created_at, updated_at
+                ) VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
+                )";
+        
+        $stmt = $conn->prepare($sql);
+        
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $conn->error);
+        }
+        
+        $stmt->bind_param(
+            "sssssssssssisssssssssi",
+            $reference_code, $first_name, $last_name, $email, $phone, $address,
+            $location, $coordinates, $profession, $other_profession,
+            $specialization, $years_experience, $license_number, $resume,
+            $license_doc, $certifications, $work_type, $shift_type,
+            $preferred_location, $start_date, $status, $confirmed
+        );
+        
+        // Execute the statement
+        if (!$stmt->execute()) {
+            throw new Exception("Execute failed: " . $stmt->error);
+        }
+        
+        // Close statement
+        $stmt->close();
+        
+        // Return success response
+        echo json_encode([
+            'success' => true,
+            'message' => 'Application submitted successfully',
+            'reference_number' => $reference_code,
+            'submission_date' => date('Y-m-d H:i:s')
+        ]);
+        
+    } catch (Exception $e) {
+        // Return error response
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
     }
-    debug_log("All required fields present");
-
-    // Process file uploads with better validation
-    $resume = processFileUpload('resume', false, [
-        'application/pdf',
-        'application/msword',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    ]);
     
-    $license_doc = processFileUpload('license_doc', true, [
-        'application/pdf',
-        'image/jpeg',
-        'image/png'
-    ]);
-    
-    $certifications = processFileUpload('certifications', true, [
-        'application/pdf',
-        'image/jpeg',
-        'image/png'
-    ]);
-
-    // Generate reference and date
-    $reference_number = 'REQ-' . strtoupper(substr(md5(uniqid()), 0, 8));
-    $submission_date = date('Y-m-d H:i:s');
-
-    // Prepare data for database
-    $data = [
-        'reference_number' => $reference_number,
-        'first_name' => filter_var($_POST['firstName'], FILTER_SANITIZE_STRING),
-        'last_name' => filter_var($_POST['lastName'], FILTER_SANITIZE_STRING),
-        'email' => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
-        'phone' => filter_var($_POST['phone'], FILTER_SANITIZE_STRING),
-        'address' => filter_var($_POST['address'], FILTER_SANITIZE_STRING),
-        'location' => filter_var($_POST['location'] ?? '', FILTER_SANITIZE_STRING),
-        'coordinates' => filter_var($_POST['coordinates'] ?? '', FILTER_SANITIZE_STRING),
-        'profession' => ($_POST['profession'] === 'Other') 
-            ? filter_var($_POST['otherProfession'], FILTER_SANITIZE_STRING)
-            : filter_var($_POST['profession'], FILTER_SANITIZE_STRING),
-        'specialization' => filter_var($_POST['specialization'] ?? '', FILTER_SANITIZE_STRING),
-        'years_experience' => intval($_POST['yearsExperience']),
-        'license_number' => filter_var($_POST['licenseNumber'] ?? '', FILTER_SANITIZE_STRING),
-        'work_type' => implode(', ', array_map('filter_var', $_POST['workType'])),
-        'shift_type' => implode(', ', array_map('filter_var', $_POST['shiftType'])),
-        'preferred_location' => filter_var($_POST['preferredLocation'] ?? '', FILTER_SANITIZE_STRING),
-        'start_date' => filter_var($_POST['startDate'], FILTER_SANITIZE_STRING),
-        'submission_date' => $submission_date
-    ];
-
-    // Prepare SQL statement
-    $sql = "INSERT INTO healthcare_professionals (
-        reference_number, first_name, last_name, email, phone, address, location, coordinates,
-        profession, specialization, years_experience, license_number, resume_data, resume_name,
-        license_doc_data, license_doc_name, certifications_data, certifications_name,
-        work_type, shift_type, preferred_location, start_date, submission_date
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    debug_log("Preparing SQL statement");
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        throw new Exception("Prepare failed: " . $conn->error);
-    }
-
-    // Bind parameters
-    $null = null; // For send_long_data
-    $stmt->bind_param(
-        "ssssssssssisbssbssbsssss",
-        $data['reference_number'],
-        $data['first_name'],
-        $data['last_name'],
-        $data['email'],
-        $data['phone'],
-        $data['address'],
-        $data['location'],
-        $data['coordinates'],
-        $data['profession'],
-        $data['specialization'],
-        $data['years_experience'],
-        $data['license_number'],
-        $null, // resume_data (will use send_long_data)
-        $resume['name'],
-        $null, // license_doc_data
-        $license_doc['name'],
-        $null, // certifications_data
-        $certifications['name'],
-        $data['work_type'],
-        $data['shift_type'],
-        $data['preferred_location'],
-        $data['start_date'],
-        $data['submission_date']
-    );
-
-    // Handle BLOB data
-    if ($resume['data']) {
-        $stmt->send_long_data(12, $resume['data']);
-    }
-    if ($license_doc['data']) {
-        $stmt->send_long_data(14, $license_doc['data']);
-    }
-    if ($certifications['data']) {
-        $stmt->send_long_data(16, $certifications['data']);
-    }
-
-    // Execute the statement
-    debug_log("Executing statement");
-    if (!$stmt->execute()) {
-        throw new Exception("Execute failed: " . $stmt->error);
-    }
-
-    // Success response
-    $response = [
-        'success' => true,
-        'message' => 'Application submitted successfully',
-        'reference_number' => $reference_number,
-        'submission_date' => $submission_date
-    ];
-    
-    debug_log("Success: " . print_r($response, true));
-    echo json_encode($response);
-
-} catch (Exception $e) {
-    $error_message = "Error: " . $e->getMessage() . "\nStack trace:\n" . $e->getTraceAsString();
-    debug_log($error_message);
-    
-    http_response_code(500);
+    // Close connection
+    $conn->close();
+} else {
+    // Not a POST request
     echo json_encode([
         'success' => false,
-        'message' => 'An error occurred while processing your application',
-        'error' => $e->getMessage() // Only in development - remove in production
+        'message' => 'Invalid request method'
     ]);
-} finally {
-    // Clean up resources
-    if (isset($stmt)) {
-        $stmt->close();
-        debug_log("Statement closed");
-    }
-    if (isset($conn)) {
-        $conn->close();
-        debug_log("Database connection closed");
-    }
-    
-    // Flush output buffer
-    $buffer_content = ob_get_contents();
-    if (!empty($buffer_content)) {
-        debug_log("Buffer content before flush: " . $buffer_content);
-    }
-    ob_end_flush();
-    
-    debug_log("Script completed");
 }
-
-/**
- * Process file upload with validation
- */
-function processFileUpload($field_name, $is_optional = false, $allowed_mime_types = []) {
-    if (!isset($_FILES[$field_name])) {
-        if ($is_optional) {
-            return ['data' => null, 'name' => null];
-        }
-        throw new Exception("File '$field_name' is required");
-    }
-
-    $file = $_FILES[$field_name];
-    
-    // Check for upload errors
-    if ($file['error'] !== UPLOAD_ERR_OK) {
-        if ($file['error'] === UPLOAD_ERR_NO_FILE && $is_optional) {
-            return ['data' => null, 'name' => null];
-        }
-        throw new Exception("File upload error: " . $file['error']);
-    }
-
-    // Check file size (max 5MB)
-    if ($file['size'] > 5 * 1024 * 1024) {
-        throw new Exception("File '$field_name' exceeds maximum size of 5MB");
-    }
-
-    // Verify MIME type
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mime_type = finfo_file($finfo, $file['tmp_name']);
-    finfo_close($finfo);
-    
-    if (!in_array($mime_type, $allowed_mime_types)) {
-        throw new Exception("Invalid file type for '$field_name'. Allowed: " . implode(', ', $allowed_mime_types));
-    }
-
-    // Read file contents
-    $file_data = file_get_contents($file['tmp_name']);
-    if ($file_data === false) {
-        throw new Exception("Failed to read file '$field_name'");
-    }
-
-    return [
-        'data' => $file_data,
-        'name' => basename($file['name'])
-    ];
-}
+?>

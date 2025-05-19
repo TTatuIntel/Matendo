@@ -1,71 +1,149 @@
 <?php
-ini_set('display_errors', 1); // Enable for debugging
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+session_start();
+header('Content-Type: application/json');
 
 // Database connection
 $host = 'localhost';
-$dbname = 'matendo_medics';
 $username = 'root';
-$password = '';
+$password = ''; // Empty password
+$database = 'matendb';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die(json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]));
+// Create connection
+$conn = new mysqli($host, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die(json_encode([
+        'success' => false,
+        'message' => 'Database connection failed: ' . $conn->connect_error
+    ]));
 }
 
+// Function to generate a unique reference number
+function generateReferenceNumber() {
+    return 'REQ-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
+}
+
+// Function to sanitize input data
+function sanitizeInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+// Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and collect form data
-    $facilityName = htmlspecialchars($_POST['facilityName'] ?? '', ENT_QUOTES, 'UTF-8');
-    $contactPerson = htmlspecialchars($_POST['contactPerson'] ?? '', ENT_QUOTES, 'UTF-8');
-    $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL) ? $_POST['email'] : '';
-    $phone = preg_replace('/[^0-9+]/', '', $_POST['phone'] ?? '');
-    $coordinates = htmlspecialchars($_POST['coordinates'] ?? '', ENT_QUOTES, 'UTF-8');
-    $facilityType = is_array($_POST['facilityType']) ? implode(', ', array_map('htmlspecialchars', $_POST['facilityType'])) : htmlspecialchars($_POST['facilityType'] ?? '', ENT_QUOTES, 'UTF-8');
-    $positions = is_array($_POST['positions']) ? implode(', ', array_map('htmlspecialchars', $_POST['positions'])) : htmlspecialchars($_POST['positions'] ?? '', ENT_QUOTES, 'UTF-8');
-    $employmentType = is_array($_POST['duration']) ? implode(', ', array_map('htmlspecialchars', $_POST['duration'])) : htmlspecialchars($_POST['duration'] ?? '', ENT_QUOTES, 'UTF-8');
-    $shiftType = is_array($_POST['shiftType']) ? implode(', ', array_map('htmlspecialchars', $_POST['shiftType'])) : htmlspecialchars($_POST['shiftType'] ?? '', ENT_QUOTES, 'UTF-8');
-    $staffNumber = filter_var($_POST['staffNumber'] ?? '', FILTER_VALIDATE_INT) ? (int)$_POST['staffNumber'] : 0;
-    $startDate = htmlspecialchars($_POST['startDate'] ?? '', ENT_QUOTES, 'UTF-8');
-    $jobRequirementOption = htmlspecialchars($_POST['job-requirement-option'] ?? '', ENT_QUOTES, 'UTF-8');
-    $qualifications = htmlspecialchars($_POST['qualifications'] ?? '', ENT_QUOTES, 'UTF-8');
-    $experience = htmlspecialchars($_POST['experience'] ?? '', ENT_QUOTES, 'UTF-8');
-    $jobDescription = htmlspecialchars($_POST['jobDescription'] ?? '', ENT_QUOTES, 'UTF-8');
-    $jobDescriptionFile = $_FILES['jobDescriptionFile']['name'] ? htmlspecialchars($_FILES['jobDescriptionFile']['name'], ENT_QUOTES, 'UTF-8') : '';
-    $referenceNumber = htmlspecialchars($_POST['referenceNumber'] ?? '', ENT_QUOTES, 'UTF-8');
-    $submissionDate = htmlspecialchars($_POST['submissionDate'] ?? '', ENT_QUOTES, 'UTF-8');
-    $csrfToken = htmlspecialchars($_POST['csrfToken'] ?? '', ENT_QUOTES, 'UTF-8');
-
-    // Handle file upload
-    $targetDir = "uploads/";
-    $targetFile = $targetDir . basename($_FILES["jobDescriptionFile"]["name"]);
-    if (!empty($_FILES["jobDescriptionFile"]["name"])) {
-        if (!file_exists($targetDir)) {
-            mkdir($targetDir, 0777, true);
+    try {
+        // Generate unique reference number (or use the one provided)
+        $reference_number = isset($_POST['referenceNumber']) ? sanitizeInput($_POST['referenceNumber']) : generateReferenceNumber();
+        
+        // Sanitize and collect form data
+        $facility_name = sanitizeInput($_POST['facilityName'] ?? '');
+        $contact_person = sanitizeInput($_POST['contactPerson'] ?? '');
+        $email = sanitizeInput($_POST['email'] ?? '');
+        $phone = sanitizeInput($_POST['phone'] ?? '');
+        $coordinates = sanitizeInput($_POST['coordinates'] ?? null);
+        $location = sanitizeInput($_POST['location'] ?? null); // Added location field
+        
+        // Facility details - Convert to JSON
+        $facility_types = isset($_POST['facilityType']) ? json_encode($_POST['facilityType']) : json_encode([]);
+        $other_facility_type = sanitizeInput($_POST['otherFacilityType'] ?? null);
+        
+        // Positions - Convert to JSON
+        $positions_needed = isset($_POST['positions']) ? json_encode($_POST['positions']) : json_encode([]);
+        $other_position = sanitizeInput($_POST['otherPosition'] ?? null);
+        
+        // Employment details - Convert to JSON
+        $employment_types = isset($_POST['duration']) ? json_encode($_POST['duration']) : json_encode([]);
+        $shift_types = isset($_POST['shiftType']) ? json_encode($_POST['shiftType']) : json_encode([]);
+        $staff_number = intval($_POST['staffNumber'] ?? 0);
+        $start_date = sanitizeInput($_POST['startDate'] ?? null);
+        
+        // Job requirements
+        $requirement_option = sanitizeInput($_POST['job-requirement-option'] ?? 'none');
+        $qualifications = sanitizeInput($_POST['qualifications'] ?? null);
+        $experience = sanitizeInput($_POST['experience'] ?? null);
+        $job_description = sanitizeInput($_POST['jobDescription'] ?? null);
+        
+        // Set default values
+        $status = 'pending';
+        $confirmed = 0;
+        
+        // Handle file upload
+        $job_description_file = null;
+        
+        if ($requirement_option === 'upload' && isset($_FILES['jobDescriptionFile']) && $_FILES['jobDescriptionFile']['error'] == 0) {
+            $upload_dir = 'uploads/job_descriptions/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            
+            $file_name = $reference_number . '_' . basename($_FILES['jobDescriptionFile']['name']);
+            $target_file = $upload_dir . $file_name;
+            
+            if (move_uploaded_file($_FILES['jobDescriptionFile']['tmp_name'], $target_file)) {
+                $job_description_file = $target_file;
+            }
         }
-        move_uploaded_file($_FILES["jobDescriptionFile"]["tmp_name"], $targetFile);
+        
+        // Prepare SQL statement
+        $sql = "INSERT INTO facility_requests (
+                    reference_number, facility_name, contact_person, email, phone, coordinates, location,
+                    facility_types, other_facility_type, positions_needed, other_position, 
+                    employment_types, shift_types, staff_number, start_date,
+                    requirement_option, qualifications, experience, job_description, 
+                    job_description_file, status, confirmed, created_at, updated_at
+                ) VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
+                )";
+        
+        $stmt = $conn->prepare($sql);
+        
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $conn->error);
+        }
+        
+        $stmt->bind_param(
+            "ssssssssssssisssssssi",
+            $reference_number, $facility_name, $contact_person, $email, $phone, $coordinates, $location,
+            $facility_types, $other_facility_type, $positions_needed, $other_position,
+            $employment_types, $shift_types, $staff_number, $start_date,
+            $requirement_option, $qualifications, $experience, $job_description,
+            $job_description_file, $status, $confirmed
+        );
+        
+        // Execute the statement
+        if (!$stmt->execute()) {
+            throw new Exception("Execute failed: " . $stmt->error);
+        }
+        
+        // Close statement
+        $stmt->close();
+        
+        // Return success response
+        echo json_encode([
+            'success' => true,
+            'message' => 'Facility request submitted successfully',
+            'referenceNumber' => $reference_number,
+            'submissionDate' => date('Y-m-d H:i:s')
+        ]);
+        
+    } catch (Exception $e) {
+        // Return error response
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
     }
-
-    // Prepare and execute SQL query
-    $stmt = $pdo->prepare("INSERT INTO facility_hiring_requests (
-        facility_name, contact_person, email, phone, coordinates, facility_type, positions, 
-        employment_type, shift_type, staff_number, start_date, job_requirement_option, 
-        qualifications, experience, job_description, job_description_file, reference_number, 
-        submission_date, csrf_token
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
-    $stmt->execute([
-        $facilityName, $contactPerson, $email, $phone, $coordinates, $facilityType, $positions,
-        $employmentType, $shiftType, $staffNumber, $startDate, $jobRequirementOption,
-        $qualifications, $experience, $jobDescription, $jobDescriptionFile, $referenceNumber,
-        $submissionDate, $csrfToken
-    ]) or die(print_r($stmt->errorInfo(), true));
-
-    // Return success response
-    echo json_encode(["success" => true, "message" => "Request submitted successfully", "referenceNumber" => $referenceNumber]);
+    // Close connection
+    $conn->close();
 } else {
-    echo json_encode(["success" => false, "message" => "Invalid request method"]);
+    // Not a POST request
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid request method'
+    ]);
 }
 ?>
