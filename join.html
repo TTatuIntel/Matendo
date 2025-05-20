@@ -1,10 +1,14 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Matendo as Healthcare Professional</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,12 +17,12 @@
         }
 
         body, html {
-            font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.4;
             color: #333;
             scroll-behavior: smooth;
             font-size: 14px;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
 
         section {
@@ -58,25 +62,23 @@
             border-radius: 2px;
         }
 
-        /* Updated navigation code with middle links */
-         /* Updated navigation code with middle links */
-         .nav-container {
+        .nav-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(248, 249, 250, 0.9);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
             padding: 8px 5%;
             transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .nav-container.scrolled {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(248, 249, 250, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .nav-content {
@@ -86,12 +88,17 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+
         .logo-img {
             width: 150px;
             height: auto;
+            transition: transform 0.3s ease;
         }
 
-        /* Main navigation links */
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
+
         .main-nav {
             display: flex;
             gap: 25px;
@@ -126,7 +133,6 @@
             width: 100%;
         }
 
-        /* Auth navigation links */
         .auth-nav {
             display: flex;
             gap: 20px;
@@ -161,7 +167,6 @@
             border-color: #0056b3;
         }
 
-        /* Mobile Menu Styles */
         .mobile-menu-button {
             display: none;
             background: none;
@@ -375,7 +380,7 @@
             border-radius: 6px;
             font-size: 0.9rem;
             transition: border-color 0.3s, box-shadow 0.3s;
-            font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .input-field input:focus, 
@@ -770,7 +775,6 @@
             background-color: #28a745;
         }
 
-        /* Social icons in footer */
         .social-icons {
             display: flex;
             gap: 15px;
@@ -876,7 +880,6 @@
             margin: 0;
         }
 
-        /* Updated Review Grid Styles */
         .review-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -908,48 +911,16 @@
             flex: 0 0 40%;
         }
 
-        /* Enhanced Mobile Responsiveness */
         @media (max-width: 1200px) {
-            .hero-text {
-                max-width: 450px;
-            }
-            
-            .hero-image {
-                max-width: 48%;
-                margin-right: 15px;
-            }
-            
-            .hero-title {
-                font-size: 1.8rem;
-            }
-            
-            .hero-description {
-                font-size: 1.1rem;
-            }
-            
             .main-nav {
                 gap: 15px;
             }
         }
 
         @media (max-width: 992px) {
-            .hero-content {
-                justify-content: space-between;
-                padding: 30px 0;
-            }
-            
-            .hero-title {
-                font-size: 1.7rem;
-            }
-            
-            .hero-description {
-                font-size: 1.05rem;
-            }
-            
             .main-nav {
                 display: none;
             }
-            
             .review-grid {
                 grid-template-columns: 1fr;
             }
@@ -967,17 +938,17 @@
             .mobile-menu-button {
                 display: block;
             }
-            
+
             .hero-content {
                 flex-direction: column;
                 align-items: center;
                 padding: 25px 0;
             }
-            
+
             .hero-title {
                 font-size: 1.6rem;
             }
-            
+
             .hero-description {
                 font-size: 1rem;
             }
@@ -1026,7 +997,7 @@
             .hero-content {
                 padding: 20px 0;
             }
-            
+
             .hero-title {
                 font-size: 1.5rem;
             }
@@ -1045,10 +1016,6 @@
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-
             .hero-title {
                 font-size: 1.3rem;
             }
@@ -1070,25 +1037,18 @@
             }
         }
 
-        /* Fix for iOS Safari 100vh issue */
         @supports (-webkit-touch-callout: none) {
             .modal-overlay, .cookie-consent {
                 height: -webkit-fill-available;
             }
         }
 
-        /* Additional responsive improvements */
         @media (max-width: 380px) {
             .hero-title {
                 font-size: 1.3rem;
             }
-
-            .option-button span {
-                font-size: 0.9rem;
-            }
         }
 
-        /* Improve touch targets for mobile */
         @media (max-width: 768px) {
             .nav-link,
             .mobile-menu-link,
@@ -1106,11 +1066,6 @@
                 display: block;
             }
 
-            .talent-nav-btn {
-                top: 40%;
-            }
-
-            /* Improve spacing for mobile */
             section {
                 padding: 30px 4%;
             }
@@ -1128,14 +1083,12 @@
                 <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
             </a>
             <div class="main-nav">
-                <a href="index.html" class="main-nav-link">Home</a>
-                <a href="careers.html" class="main-nav-link">Careers</a>
                 <a href="about.html" class="main-nav-link">About Us</a>
-                <a href="contact.html" class="main-nav-link">Contact Us</a> 
-                
+                <a href="contact.html" class="main-nav-link">Contact Us</a>
+                <a href="careers.html" class="main-nav-link">Careers</a>
             </div>
             <div class="auth-nav">
-                <a href="hire.html" class="auth-nav-link">Hire Matendo</a>
+                <a href="join.html" class="auth-nav-link">Join Matendo</a>
                 <a href="login.html" class="auth-nav-link">Login</a>
             </div>
             <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
@@ -1144,13 +1097,11 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-links">
-            <a href="index.html" class="main-nav-link">Home</a>
-            <a href="careers.html" class="main-nav-link">Careers</a>
-            <a href="about.html" class="main-nav-link">About Us</a>
-            <a href="contact.html" class="main-nav-link">Contact Us</a> 
+            <a href="about.html" class="mobile-menu-link">About Us</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="careers.html" class="mobile-menu-link">Careers</a>
             <a href="join.html" class="mobile-menu-link">Join Matendo</a>
             <a href="login.html" class="mobile-menu-link">Login</a>
         </div>
@@ -1225,7 +1176,7 @@
                         <div class="progress-step" data-step="4">Review & Submit</div>
                     </div>
                     
-                    <form id="join-form" action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse" method="POST" enctype="multipart/form-data" novalidate>
+                    <form id="join-form" action="join.php" method="POST" enctype="multipart/form-data" novalidate>
                         <!-- Step 1: Personal Information -->
                         <section class="form-section active" data-step="1">
                             <div class="section-header">
@@ -1234,12 +1185,12 @@
                             <div class="input-pair">
                                 <div class="input-field">
                                     <label for="first-name">First Name <span style="color: #dc3545;">*</span></label>
-                                    <input type="text" id="first-name" name="entry.123456789" required pattern="[A-Za-z]{2,}" title="First name must contain only letters and be at least 2 characters">
+                                    <input type="text" id="first-name" name="firstName" required pattern="[A-Za-z]{2,}" title="First name must contain only letters and be at least 2 characters">
                                     <div class="error-message" id="first-name-error">Please enter a valid first name</div>
                                 </div>
                                 <div class="input-field">
                                     <label for="last-name">Last Name <span style="color: #dc3545;">*</span></label>
-                                    <input type="text" id="last-name" name="entry.135792468" required pattern="[A-Za-z]{2,}" title="Last name must contain only letters and be at least 2 characters">
+                                    <input type="text" id="last-name" name="lastName" required pattern="[A-Za-z]{2,}" title="Last name must contain only letters and be at least 2 characters">
                                     <div class="error-message" id="last-name-error">Please enter a valid last name</div>
                                 </div>
                             </div>
@@ -1247,25 +1198,25 @@
                             <div class="input-pair">
                                 <div class="input-field">
                                     <label for="email">Email <span style="color: #dc3545;">*</span></label>
-                                    <input type="email" id="email" name="entry.741852963" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                                    <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
                                     <div class="error-message" id="email-error">Please enter a valid email address</div>
                                 </div>
                                 <div class="input-field">
                                     <label for="phone">Phone <span style="color: #dc3545;">*</span></label>
-                                    <input type="tel" id="phone" name="entry.369258147" required pattern="^\+?[0-9\s\-()]{7,20}$" title="Phone number must be 7-20 digits">
+                                    <input type="tel" id="phone" name="phone" required pattern="^\+?[0-9\s\-()]{7,20}$" title="Phone number must be 7-20 digits">
                                     <div class="error-message" id="phone-error">Please enter a valid phone number</div>
                                 </div>
                             </div>
                             
                             <div class="input-field">
                                 <label for="address">Current Address <span style="color: #dc3545;">*</span></label>
-                                <input type="text" id="address" name="entry.246813579" required>
+                                <input type="text" id="address" name="address" required>
                                 <div class="error-message" id="address-error">Please enter your current address</div>
                             </div>
                             
                             <div class="input-field">
                                 <label for="autocomplete">Location (Optional)</label>
-                                <input type="text" id="autocomplete" name="entry.246813580" placeholder="Search location (optional)">
+                                <input type="text" id="autocomplete" name="location" placeholder="Search location (optional)">
                                 <div class="location-error" id="location-error">Please select a valid location</div>
                                 <button type="button" class="map-toggle" onclick="toggleMap()">
                                     <i class="fas fa-map-marker-alt"></i> <span id="map-toggle-text">Show Map</span>
@@ -1286,7 +1237,7 @@
                             </div>
                             <div class="input-field">
                                 <label for="profession">Profession <span style="color: #dc3545;">*</span></label>
-                                <select id="profession" name="entry.357159852" required>
+                                <select id="profession" name="profession" required>
                                     <option value="">Select your profession</option>
                                     <option value="Medical Officer">Medical Officer</option>
                                     <option value="Nurse">Nurse</option>
@@ -1300,18 +1251,18 @@
                             
                             <div class="input-field" id="otherProfessionContainer" style="display: none;">
                                 <label for="otherProfessionInput">Specify Profession <span style="color: #dc3545;">*</span></label>
-                                <input type="text" id="otherProfessionInput" name="entry.357159852_other" required>
+                                <input type="text" id="otherProfessionInput" name="otherProfession">
                                 <div class="error-message" id="otherProfessionInput-error">Please specify your profession</div>
                             </div>
                             
                             <div class="input-field">
                                 <label for="specialization">Specialization (if applicable)</label>
-                                <input type="text" id="specialization" name="entry.123456790">
+                                <input type="text" id="specialization" name="specialization">
                             </div>
                             
                             <div class="input-field">
                                 <label for="years-experience">Years of Experience <span style="color: #dc3545;">*</span></label>
-                                <input type="number" id="years-experience" name="entry.753951654" min="0" required>
+                                <input type="number" id="years-experience" name="yearsExperience" min="0" required>
                                 <div class="error-message" id="years-experience-error">Please enter a valid number of years</div>
                             </div>
                             
@@ -1322,10 +1273,10 @@
                             <div id="license-info" style="display: none;">
                                 <div class="input-field">
                                     <label for="license-number">License Number</label>
-                                    <input type="text" id="license-number" name="entry.357159654">
+                                    <input type="text" id="license-number" name="licenseNumber">
                                 </div>
                                 <div class="file-upload">
-                                    <input type="file" id="license-doc-optional" name="entry.357159654_optional" accept=".pdf,.jpg,.png">
+                                    <input type="file" id="license-doc-optional" name="license_doc_optional" accept=".pdf,.jpg,.png">
                                     <label for="license-doc-optional">
                                         <i class="fas fa-upload"></i> Upload License Document (Optional)
                                     </label>
@@ -1348,7 +1299,7 @@
                             
                             <div id="optional-docs" style="display: none; margin-top: 10px;">
                                 <div class="file-upload">
-                                    <input type="file" id="license-doc" name="license-doc" accept=".pdf,.jpg,.png">
+                                    <input type="file" id="license-doc" name="license" accept=".pdf,.jpg,.png">
                                     <label for="license-doc">
                                         <i class="fas fa-upload"></i> Upload License Document (Optional)
                                     </label>
@@ -1356,7 +1307,7 @@
                                 </div>
                                 
                                 <div class="file-upload" style="margin-top: 10px;">
-                                    <input type="file" id="certifications" name="certifications" accept=".pdf,.jpg,.png" multiple>
+                                    <input type="file" id="certifications" name="certifications" accept=".pdf,.jpg,.png">
                                     <label for="certifications">
                                         <i class="fas fa-upload"></i> Upload Certifications (Optional)
                                     </label>
@@ -1378,9 +1329,9 @@
                             <div class="input-field">
                                 <label>Preferred Work Type <span style="color: #dc3545;">*</span></label>
                                 <div class="checkbox-group two-columns">
-                                    <label><input type="checkbox" name="work-type" value="Full-Time"> Full-Time</label>
-                                    <label><input type="checkbox" name="work-type" value="Part-Time"> Part-Time</label>
-                                    <label><input type="checkbox" name="work-type" value="Short-Term"> Short-Term</label>
+                                    <label><input type="checkbox" name="workType[]" value="Full-Time"> Full-Time</label>
+                                    <label><input type="checkbox" name="workType[]" value="Part-Time"> Part-Time</label>
+                                    <label><input type="checkbox" name="workType[]" value="Short-Term"> Short-Term</label>
                                 </div>
                                 <div class="error-message" id="work-type-error">Please select at least one work type</div>
                             </div>
@@ -1388,21 +1339,21 @@
                             <div class="input-field">
                                 <label>Preferred Shift Type <span style="color: #dc3545;">*</span></label>
                                 <div class="checkbox-group two-columns">
-                                    <label><input type="checkbox" name="shift-type" value="Day Shift"> Day Shift</label>
-                                    <label><input type="checkbox" name="shift-type" value="Night Shift"> Night Shift</label>
-                                    <label><input type="checkbox" name="shift-type" value="Rotating"> Rotating</label>
+                                    <label><input type="checkbox" name="shiftType[]" value="Day Shift"> Day Shift</label>
+                                    <label><input type="checkbox" name="shiftType[]" value="Night Shift"> Night Shift</label>
+                                    <label><input type="checkbox" name="shiftType[]" value="Rotating"> Rotating</label>
                                 </div>
                                 <div class="error-message" id="shift-type-error">Please select at least one shift type</div>
                             </div>
                             
                             <div class="input-field">
                                 <label for="preferred-location">Preferred Work Location</label>
-                                <input type="text" id="preferred-location" name="entry.357160470">
+                                <input type="text" id="preferred-location" name="preferredLocation">
                             </div>
                             
                             <div class="input-field">
                                 <label for="start-date">Earliest Start Date <span style="color: #dc3545;">*</span></label>
-                                <input type="date" id="start-date" name="entry.753951654_date" required min="">
+                                <input type="date" id="start-date" name="startDate" required>
                                 <div class="error-message" id="start-date-error">Please select a valid start date</div>
                             </div>
                             
@@ -1437,7 +1388,7 @@
                             </div>
                             
                             <div class="confirmation-checkbox">
-                                <input type="checkbox" id="confirm-checkbox" name="confirm-checkbox" required>
+                                <input type="checkbox" id="confirm-checkbox" name="confirm_checkbox" required>
                                 <label for="confirm-checkbox">
                                     I confirm that all information provided is accurate and complete. I understand that submitting this application does not guarantee placement, and Matendo will contact me for further steps. <span style="color: #dc3545;">*</span>
                                 </label>
@@ -1496,8 +1447,8 @@
                             </div>
                             <div class="support-content">
                                 <h4>Contact Support</h4>
-                                <p>info@matendo.com</p>
-                                <p>+256 781 053 105</p>                               
+                                <p><a href="mailto:support@matendo.com">support@matendo.com</a></p>
+                                <p>+256 781 053 105</p>
                             </div>
                         </div>
                         <div class="support-option">
@@ -1551,7 +1502,7 @@
             <div class="footer-column">
                 <h3>Contact</h3>
                 <ul>
-                    <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                    <li><a href="mailto:support@matendo.com">support@matendo.com</a></li>
                     <li><a href="tel:+256781053105">+256 781 053 105</a></li>
                 </ul>
             </div>
@@ -1578,9 +1529,8 @@
         </div>
     </footer>
 
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script> -->
     <script>
-        // Google Maps Integration (Placeholder - Uncomment and add API key for functionality)
+        // Google Maps Integration (Placeholder)
         let map;
         let marker;
         let autocomplete;
@@ -1645,8 +1595,9 @@
             let currentStep = 0;
 
             // Set minimum date for start date
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('start-date').min = today;
+            const today = new Date();
+            today.setDate(today.getDate() + 1); // Minimum date is tomorrow
+            document.getElementById('start-date').min = today.toISOString().split('T')[0];
 
             // Show step
             function showStep(step) {
@@ -1733,22 +1684,20 @@
                     professionError.style.display = 'none';
                 }
 
-                // Other Profession
-                if (profession.value === 'Other') {
-                    const otherProfession = form.querySelector('#otherProfessionInput');
-                    const otherProfessionError = document.getElementById('otherProfessionInput-error');
-                    if (!otherProfession.value.trim()) {
-                        otherProfessionError.style.display = 'block';
-                        isValid = false;
-                    } else {
-                        otherProfessionError.style.display = 'none';
-                    }
+                // Other Profession (if applicable)
+                const otherProfession = form.querySelector('#otherProfessionInput');
+                const otherProfessionError = document.getElementById('otherProfessionInput-error');
+                if (profession.value === 'Other' && !otherProfession.value.trim()) {
+                    otherProfessionError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    otherProfessionError.style.display = 'none';
                 }
 
                 // Years of Experience
                 const yearsExperience = form.querySelector('#years-experience');
                 const yearsExperienceError = document.getElementById('years-experience-error');
-                if (!yearsExperience.value || parseInt(yearsExperience.value) < 0) {
+                if (!yearsExperience.value || yearsExperience.value < 0) {
                     yearsExperienceError.style.display = 'block';
                     isValid = false;
                 } else {
@@ -1758,51 +1707,19 @@
                 // Resume
                 const resume = form.querySelector('#resume');
                 const resumeError = document.getElementById('resume-error');
-                if (resume.files.length === 0) {
-                    resumeError.textContent = 'Please upload your resume/CV';
+                if (!resume.files.length) {
                     resumeError.style.display = 'block';
                     isValid = false;
                 } else {
                     const file = resume.files[0];
                     const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                    if (!validTypes.includes(file.type)) {
-                        resumeError.textContent = 'Please upload a PDF or Word document';
-                        resumeError.style.display = 'block';
-                        isValid = false;
-                    } else if (file.size > 5 * 1024 * 1024) {
-                        resumeError.textContent = 'File size must be less than 5MB';
+                    if (!validTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
                         resumeError.style.display = 'block';
                         isValid = false;
                     } else {
                         resumeError.style.display = 'none';
                     }
                 }
-
-                // Optional files validation
-                ['license-doc', 'certifications'].forEach(id => {
-                    const fileInput = form.querySelector(`#${id}`);
-                    if (fileInput && fileInput.files.length > 0) {
-                        const file = fileInput.files[0];
-                        const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-                        if (!validTypes.includes(file.type)) {
-                            const errorElement = document.getElementById(`${id}-error`) || document.createElement('div');
-                            errorElement.className = 'error-message';
-                            errorElement.id = `${id}-error`;
-                            errorElement.textContent = 'Please upload a PDF, JPG, or PNG';
-                            fileInput.parentElement.appendChild(errorElement);
-                            errorElement.style.display = 'block';
-                            isValid = false;
-                        } else if (file.size > 5 * 1024 * 1024) {
-                            const errorElement = document.getElementById(`${id}-error`) || document.createElement('div');
-                            errorElement.className = 'error-message';
-                            errorElement.id = `${id}-error`;
-                            errorElement.textContent = 'File size must be less than 5MB';
-                            fileInput.parentElement.appendChild(errorElement);
-                            errorElement.style.display = 'block';
-                            isValid = false;
-                        }
-                    }
-                });
 
                 return isValid;
             }
@@ -1811,7 +1728,7 @@
                 let isValid = true;
 
                 // Work Type
-                const workTypes = form.querySelectorAll('input[name="work-type"]:checked');
+                const workTypes = form.querySelectorAll('input[name="workType[]"]:checked');
                 const workTypeError = document.getElementById('work-type-error');
                 if (workTypes.length === 0) {
                     workTypeError.style.display = 'block';
@@ -1821,7 +1738,7 @@
                 }
 
                 // Shift Type
-                const shiftTypes = form.querySelectorAll('input[name="shift-type"]:checked');
+                const shiftTypes = form.querySelectorAll('input[name="shiftType[]"]:checked');
                 const shiftTypeError = document.getElementById('shift-type-error');
                 if (shiftTypes.length === 0) {
                     shiftTypeError.style.display = 'block';
@@ -1843,274 +1760,179 @@
                 return isValid;
             }
 
-            // Step navigation
-            document.getElementById('step1Next').addEventListener('click', () => {
-                if (validateStep1()) {
-                    showStep(1);
+            function validateStep4() {
+                let isValid = true;
+
+                // Confirmation Checkbox
+                const confirmCheckbox = form.querySelector('#confirm-checkbox');
+                const confirmError = document.getElementById('confirm-checkbox-error');
+                if (!confirmCheckbox.checked) {
+                    confirmError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    confirmError.style.display = 'none';
                 }
-            });
 
-            document.getElementById('step2Next').addEventListener('click', () => {
-                if (validateStep2()) {
-                    showStep(2);
-                }
-            });
+                return isValid;
+            }
 
-            document.getElementById('step3Next').addEventListener('click', () => {
-                if (validateStep3()) {
-                    showStep(3);
-                }
-            });
-
-            form.querySelectorAll('.back-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    showStep(currentStep - 1);
-                });
-            });
-
-            // Update review information
+            // Update review section
             function updateReviewInfo() {
-                // Personal Information
-                const personalInfoColumn = document.getElementById('personal-info-column');
-                const firstName = form.querySelector('#first-name').value;
-                const lastName = form.querySelector('#last-name').value;
-                const email = form.querySelector('#email').value;
-                const phone = form.querySelector('#phone').value;
-                const address = form.querySelector('#address').value;
-                const location = form.querySelector('#autocomplete').value || 'N/A';
+                const personalInfo = document.getElementById('personal-info-column');
+                const professionalInfo = document.getElementById('professional-info-column');
+                const preferencesInfo = document.getElementById('preferences-column');
+                const documentsInfo = document.getElementById('documents-column');
 
-                personalInfoColumn.innerHTML = `
+                // Personal Info
+                personalInfo.innerHTML = `
                     <h3>Personal Information</h3>
-                    <p><strong>Name:</strong> ${sanitize(firstName)} ${sanitize(lastName)}</p>
-                    <p><strong>Email:</strong> ${sanitize(email)}</p>
-                    <p><strong>Phone:</strong> ${sanitize(phone)}</p>
-                    <p><strong>Address:</strong> ${sanitize(address)}</p>
-                    <p><strong>Location:</strong> ${sanitize(location)}</p>
+                    <p><strong>First Name:</strong> ${form.querySelector('#first-name').value || 'N/A'}</p>
+                    <p><strong>Last Name:</strong> ${form.querySelector('#last-name').value || 'N/A'}</p>
+                    <p><strong>Email:</strong> ${form.querySelector('#email').value || 'N/A'}</p>
+                    <p><strong>Phone:</strong> ${form.querySelector('#phone').value || 'N/A'}</p>
+                    <p><strong>Address:</strong> ${form.querySelector('#address').value || 'N/A'}</p>
+                    <p><strong>Location:</strong> ${form.querySelector('#autocomplete').value || 'N/A'}</p>
                 `;
 
-                // Professional Information
-                const professionalInfoColumn = document.getElementById('professional-info-column');
+                // Professional Info
                 const profession = form.querySelector('#profession').value;
-                const otherProfession = form.querySelector('#otherProfessionInput')?.value || '';
-                const specialization = form.querySelector('#specialization').value || 'N/A';
-                const yearsExperience = form.querySelector('#years-experience').value;
-                const licenseNumber = form.querySelector('#license-number')?.value || 'N/A';
-
-                professionalInfoColumn.innerHTML = `
+                professionalInfo.innerHTML = `
                     <h3>Professional Information</h3>
-                    <p><strong>Profession:</strong> ${sanitize(profession === 'Other' ? otherProfession : profession)}</p>
-                    <p><strong>Specialization:</strong> ${sanitize(specialization)}</p>
-                    <p><strong>Years of Experience:</strong> ${sanitize(yearsExperience)}</p>
-                    <p><strong>License Number:</strong> ${sanitize(licenseNumber)}</p>
+                    <p><strong>Profession:</strong> ${profession === 'Other' ? form.querySelector('#otherProfessionInput').value : profession || 'N/A'}</p>
+                    <p><strong>Specialization:</strong> ${form.querySelector('#specialization').value || 'N/A'}</p>
+                    <p><strong>Years of Experience:</strong> ${form.querySelector('#years-experience').value || 'N/A'}</p>
+                    <p><strong>License Number:</strong> ${form.querySelector('#license-number').value || 'N/A'}</p>
                 `;
 
-                // Work Preferences
-                const preferencesColumn = document.getElementById('preferences-column');
-                const workTypes = Array.from(form.querySelectorAll('input[name="work-type"]:checked'))
-                    .map(input => input.value)
-                    .join(', ');
-                const shiftTypes = Array.from(form.querySelectorAll('input[name="shift-type"]:checked'))
-                    .map(input => input.value)
-                    .join(', ');
-                const preferredLocation = form.querySelector('#preferred-location').value || 'N/A';
-                const startDate = form.querySelector('#start-date').value;
-
-                preferencesColumn.innerHTML = `
+                // Preferences
+                const workTypes = Array.from(form.querySelectorAll('input[name="workType[]"]:checked')).map(cb => cb.value).join(', ');
+                const shiftTypes = Array.from(form.querySelectorAll('input[name="shiftType[]"]:checked')).map(cb => cb.value).join(', ');
+                preferencesInfo.innerHTML = `
                     <h3>Work Preferences</h3>
-                    <p><strong>Work Type:</strong> ${sanitize(workTypes)}</p>
-                    <p><strong>Shift Type:</strong> ${sanitize(shiftTypes)}</p>
-                    <p><strong>Location:</strong> ${sanitize(preferredLocation)}</p>
-                    <p><strong>Start Date:</strong> ${sanitize(startDate)}</p>
+                    <p><strong>Work Type:</strong> ${workTypes || 'N/A'}</p>
+                    <p><strong>Shift Type:</strong> ${shiftTypes || 'N/A'}</p>
+                    <p><strong>Preferred Location:</strong> ${form.querySelector('#preferred-location').value || 'N/A'}</p>
+                    <p><strong>Start Date:</strong> ${form.querySelector('#start-date').value || 'N/A'}</p>
                 `;
 
                 // Documents
-                const documentsColumn = document.getElementById('documents-column');
-                const resumeFileName = document.getElementById('resumeFileName').textContent;
-                const licenseDocFileName = document.getElementById('license-docFileName').textContent;
-                const certificationsFileName = document.getElementById('certificationsFileName').textContent;
-
-                documentsColumn.innerHTML = `
+                const resumeFile = form.querySelector('#resume').files[0]?.name || 'N/A';
+                const licenseDocFile = form.querySelector('#license-doc').files[0]?.name || 'N/A';
+                const certificationsFile = form.querySelector('#certifications').files[0]?.name || 'N/A';
+                documentsInfo.innerHTML = `
                     <h3>Supporting Documents</h3>
-                    <p><strong>Resume/CV:</strong> ${sanitize(resumeFileName)}</p>
-                    <p><strong>License Document:</strong> ${sanitize(licenseDocFileName)}</p>
-                    <p><strong>Certifications:</strong> ${sanitize(certificationsFileName)}</p>
+                    <p><strong>Resume/CV:</strong> ${resumeFile}</p>
+                    <p><strong>License Document:</strong> ${licenseDocFile}</p>
+                    <p><strong>Certifications:</strong> ${certificationsFile}</p>
                 `;
             }
 
-            // Sanitize input
-            function sanitize(str) {
-                const div = document.createElement('div');
-                div.textContent = str;
-                return div.innerHTML;
-            }
-
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Validate confirmation checkbox
-                const confirmCheckbox = document.getElementById('confirm-checkbox');
-                const confirmCheckboxError = document.getElementById('confirm-checkbox-error');
-                if (!confirmCheckbox.checked) {
-                    confirmCheckboxError.style.display = 'block';
-                    return;
-                }
-                confirmCheckboxError.style.display = 'none';
-
-                // CSRF token
-                const csrfToken = generateCSRFToken();
-
-                // Sanitize form data
-                const formData = new FormData(form);
-                const sanitizedData = { csrfToken };
-                for (let [key, value] of formData.entries()) {
-                    sanitizedData[key] = typeof value === 'string' ? sanitize(value) : value;
-                }
-
-                // Simulate submission
-                document.getElementById('submit-button').textContent = 'Submitting...';
-                document.getElementById('submit-button').disabled = true;
-                document.getElementById('formSubmitting').style.display = 'block';
-
-                setTimeout(() => {
-                    form.style.display = 'none';
-                    const submissionConfirmation = document.getElementById('submission-confirmation');
-                    submissionConfirmation.style.display = 'block';
-                    updateReferenceInfo();
-                    document.getElementById('formSubmitting').style.display = 'none';
-                    document.getElementById('submit-button').textContent = 'Submit Application';
-                    document.getElementById('submit-button').disabled = false;
-                }, 2000);
+            // Navigation buttons
+            document.getElementById('step1Next').addEventListener('click', () => {
+                if (validateStep1()) showStep(1);
             });
 
-            // Generate CSRF token
-            function generateCSRFToken() {
-                return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-            }
-
-            // Update reference number and date
-            function updateReferenceInfo() {
-                const timestamp = Date.now().toString().slice(-6);
-                const random = Math.random().toString(36).substring(2, 5).toUpperCase();
-                const referenceNumber = `REQ-${timestamp}-${random}`;
-                const currentDate = new Date().toLocaleString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-
-                document.getElementById('reference-number').textContent = referenceNumber;
-                document.getElementById('submission-date').textContent = currentDate;
-            }
-
-            // Toggle Additional Info
-            document.getElementById('view-additional-info').addEventListener('click', function() {
-                const additionalInfo = document.getElementById('additional-info');
-                const isVisible = additionalInfo.style.display === 'block';
-                additionalInfo.style.display = isVisible ? 'none' : 'block';
-                this.textContent = isVisible ? 'View Additional Information' : 'Hide Additional Information';
+            document.getElementById('step2Next').addEventListener('click', () => {
+                if (validateStep2()) showStep(2);
             });
 
-            // Other profession toggle
-            document.getElementById('profession').addEventListener('change', function() {
-                const otherProfessionContainer = document.getElementById('otherProfessionContainer');
-                otherProfessionContainer.style.display = this.value === 'Other' ? 'block' : 'none';
+            document.getElementById('step3Next').addEventListener('click', () => {
+                if (validateStep3()) showStep(3);
+            });
+
+            document.querySelectorAll('.back-button').forEach(button => {
+                button.addEventListener('click', () => showStep(currentStep - 1));
             });
 
             // File upload handling
-            const fileInputs = ['resume', 'license-doc', 'certifications', 'license-doc-optional'];
-            fileInputs.forEach(inputId => {
-                const fileInput = document.getElementById(inputId);
-                if (!fileInput) return;
-                
-                const fileName = document.getElementById(`${inputId}FileName`);
-                
-                fileInput.addEventListener('change', function() {
-                    if (this.files.length > 0) {
-                        const file = this.files[0];
-                        const validTypes = inputId === 'resume' 
-                            ? ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
-                            : ['application/pdf', 'image/jpeg', 'image/png'];
-                        const errorElement = document.getElementById(`${inputId}-error`) || document.createElement('div');
-                        errorElement.className = 'error-message';
-                        errorElement.id = `${inputId}-error`;
-                        this.parentElement.appendChild(errorElement);
-
-                        if (!validTypes.includes(file.type)) {
-                            errorElement.textContent = `Please upload a ${inputId === 'resume' ? 'PDF or Word document' : 'PDF, JPG, or PNG'}`;
-                            errorElement.style.display = 'block';
-                            this.value = '';
-                            fileName.textContent = 'No file chosen';
-                        } else if (file.size > 5 * 1024 * 1024) {
-                            errorElement.textContent = 'File size must be less than 5MB';
-                            errorElement.style.display = 'block';
-                            this.value = '';
-                            fileName.textContent = 'No file chosen';
-                        } else {
-                            errorElement.style.display = 'none';
-                            fileName.textContent = file.name;
-                        }
-                    } else {
-                        fileName.textContent = 'No file chosen';
-                    }
+            ['resume', 'license-doc', 'certifications'].forEach(id => {
+                const input = document.getElementById(id);
+                const fileNameSpan = document.getElementById(`${id}FileName`);
+                input.addEventListener('change', () => {
+                    fileNameSpan.textContent = input.files[0]?.name || 'No file chosen';
                 });
             });
 
-            // Toggle license and optional documents
-            document.getElementById('toggle-license').addEventListener('click', function() {
+            // Profession toggle
+            const professionSelect = document.getElementById('profession');
+            const otherProfessionContainer = document.getElementById('otherProfessionContainer');
+            professionSelect.addEventListener('change', () => {
+                otherProfessionContainer.style.display = professionSelect.value === 'Other' ? 'block' : 'none';
+            });
+
+            // Toggle optional sections
+            document.getElementById('toggle-license').addEventListener('click', () => {
                 const licenseInfo = document.getElementById('license-info');
-                const isVisible = licenseInfo.style.display === 'none';
-                licenseInfo.style.display = isVisible ? 'block' : 'none';
-                this.textContent = isVisible ? 'Hide License Information' : 'Add License Information';
+                licenseInfo.style.display = licenseInfo.style.display === 'none' ? 'block' : 'none';
             });
 
-            document.getElementById('toggle-optional-docs').addEventListener('click', function() {
+            document.getElementById('toggle-optional-docs').addEventListener('click', () => {
                 const optionalDocs = document.getElementById('optional-docs');
-                const isVisible = optionalDocs.style.display === 'none';
-                optionalDocs.style.display = isVisible ? 'block' : 'none';
-                this.textContent = isVisible ? 'Hide Optional Documents' : 'Add Optional Documents';
-            });
-
-            // Real-time input validation
-            form.querySelectorAll('input, select').forEach(input => {
-                input.addEventListener('input', function() {
-                    const errorId = `${this.id}-error`;
-                    const errorElement = document.getElementById(errorId);
-                    if (errorElement && this.checkValidity() && this.value.trim()) {
-                        errorElement.style.display = 'none';
-                    }
-                });
+                optionalDocs.style.display = optionalDocs.style.display === 'none' ? 'block' : 'none';
             });
 
             // Mobile menu
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const mobileMenu = document.getElementById('mobileMenu');
-            
-            mobileMenuButton.addEventListener('click', function() {
-                if (mobileMenu.style.display === 'block') {
-                    mobileMenu.style.display = 'none';
-                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                } else {
-                    mobileMenu.style.display = 'block';
-                    mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
-                }
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
             });
 
-            // Navbar scroll effect
-            window.addEventListener('scroll', function() {
-                const nav = document.querySelector('.nav-container');
-                if (window.scrollY > 50) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
-            });
+            // Form submission
+            form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateStep4()) return;
 
-            // Initialize form
-            showStep(0);
+    const submitButton = document.getElementById('submit-button');
+    const formSubmitting = document.getElementById('formSubmitting');
+    const submissionConfirmation = document.getElementById('submission-confirmation');
+
+    submitButton.disabled = true;
+    formSubmitting.style.display = 'block';
+
+    try {
+        const formData = new FormData(form);
+        const response = await fetch('join.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        let result;
+        const responseText = await response.text();
+        
+        try {
+            result = JSON.parse(responseText);
+        } catch (error) {
+            console.error('Failed to parse JSON response:', responseText);
+            throw new Error('Invalid server response');
+        }
+
+        formSubmitting.style.display = 'none';
+        submitButton.disabled = false;
+
+        if (result.success) {
+            form.style.display = 'none';
+            document.getElementById('reference-number').textContent = result.reference_number || 'N/A';
+            document.getElementById('submission-date').textContent = result.submission_date || new Date().toLocaleString();
+            submissionConfirmation.style.display = 'block';
+        } else {
+            throw new Error(result.message || 'Unknown server error');
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        formSubmitting.style.display = 'none';
+        submitButton.disabled = false;
+        alert(`Submission failed: ${error.message}`);
+    }
+});
+
+            // View additional info
+            document.getElementById('view-additional-info').addEventListener('click', () => {
+                const additionalInfo = document.getElementById('additional-info');
+                additionalInfo.style.display = additionalInfo.style.display === 'none' ? 'block' : 'none';
+            });
         });
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"></script>
 </body>
 </html>

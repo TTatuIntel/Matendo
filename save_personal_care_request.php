@@ -1,59 +1,145 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL & ~E_DEPRECATED);
+session_start();
+header('Content-Type: application/json');
 
+// Database connection
 $host = 'localhost';
-$dbname = 'matendo_medics';
 $username = 'root';
-$password = '';
+$password = ''; // Empty password
+$database = 'matendb';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die(json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]));
+// Create connection
+$conn = new mysqli($host, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die(json_encode([
+        'success' => false,
+        'message' => 'Database connection failed: ' . $conn->connect_error
+    ]));
 }
 
+// Function to generate a unique reference number
+function generateReferenceNumber() {
+    return 'REQ-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
+}
+
+// Function to sanitize input data
+function sanitizeInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+// Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate required fields
-    if (empty($_POST['fullName']) || empty($_POST['email']) || empty($_POST['phone']) || empty($_POST['address']) ||
-        empty($_POST['careRequirements']) || empty($_POST['emergencyContact']) || empty($_POST['emergencyPhone'])) {
-        die(json_encode(["success" => false, "message" => "Required fields are missing"]));
+    try {
+        // Generate unique reference number (or use the one provided)
+        $reference_number = isset($_POST['referenceNumber']) ? sanitizeInput($_POST['referenceNumber']) : generateReferenceNumber();
+        
+        // Sanitize and collect form data
+        $full_name = sanitizeInput($_POST['fullName'] ?? '');
+        $email = sanitizeInput($_POST['email'] ?? '');
+        $phone = sanitizeInput($_POST['phone'] ?? '');
+        $address = sanitizeInput($_POST['address'] ?? '');
+        $city = sanitizeInput($_POST['city'] ?? '');
+        $postal_code = sanitizeInput($_POST['postalCode'] ?? '');
+        
+        // Care needs
+        $care_type = sanitizeInput($_POST['careType'] ?? '');
+        $other_care_type = null;
+        if ($care_type === 'other') {
+            $other_care_type = sanitizeInput($_POST['otherCareType'] ?? '');
+        }
+        
+        $care_requirements = sanitizeInput($_POST['careRequirements'] ?? '');
+        
+        // Convert schedule to JSON
+        $schedule = isset($_POST['schedule']) ? json_encode($_POST['schedule']) : json_encode([]);
+        
+        // Medical details
+        $medical_conditions = sanitizeInput($_POST['medicalConditions'] ?? '');
+        $medications = sanitizeInput($_POST['medications'] ?? '');
+        $allergies = sanitizeInput($_POST['allergies'] ?? '');
+        $emergency_contact = sanitizeInput($_POST['emergencyContact'] ?? '');
+        $emergency_phone = sanitizeInput($_POST['emergencyPhone'] ?? '');
+        
+        // Set default values
+        $status = 'pending';
+        $confirmed = 0;
+        
+        // Handle care file upload if present
+        $care_file = null;
+        if (isset($_FILES['careFile']) && $_FILES['careFile']['error'] == 0) {
+            $upload_dir = 'uploads/care_files/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            
+            $file_name = $reference_number . '_' . basename($_FILES['careFile']['name']);
+            $target_file = $upload_dir . $file_name;
+            
+            if (move_uploaded_file($_FILES['careFile']['tmp_name'], $target_file)) {
+                $care_file = $target_file;
+            }
+        }
+        
+        // Prepare SQL statement
+        $sql = "INSERT INTO personal_care_requests (
+                    reference_number, full_name, email, phone, address, city, postal_code,
+                    care_type, other_care_type, care_requirements, schedule, 
+                    medical_conditions, medications, allergies, emergency_contact, emergency_phone,
+                    care_file, status, confirmed, created_at, updated_at
+                ) VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
+                )";
+        
+        $stmt = $conn->prepare($sql);
+        
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $conn->error);
+        }
+        
+        $stmt->bind_param(
+            "ssssssssssssssssssi",
+            $reference_number, $full_name, $email, $phone, $address, $city, $postal_code,
+            $care_type, $other_care_type, $care_requirements, $schedule,
+            $medical_conditions, $medications, $allergies, $emergency_contact, $emergency_phone,
+            $care_file, $status, $confirmed
+        );
+        
+        // Execute the statement
+        if (!$stmt->execute()) {
+            throw new Exception("Execute failed: " . $stmt->error);
+        }
+        
+        // Close statement
+        $stmt->close();
+        
+        // Return success response
+        echo json_encode([
+            'success' => true,
+            'message' => 'Personal care request submitted successfully',
+            'referenceNumber' => $reference_number,
+            'submissionDate' => date('Y-m-d H:i:s')
+        ]);
+        
+    } catch (Exception $e) {
+        // Return error response
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
     }
-
-    // Sanitize and collect personal care form data
-    $fullName = htmlspecialchars($_POST['fullName'] ?? '', ENT_QUOTES, 'UTF-8');
-    $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL) ? $_POST['email'] : '';
-    $phone = preg_replace('/[^0-9+]/', '', $_POST['phone'] ?? '');
-    $address = htmlspecialchars($_POST['address'] ?? '', ENT_QUOTES, 'UTF-8');
-    $careType = is_array($_POST['careType']) ? implode(', ', array_map('htmlspecialchars', $_POST['careType'])) : htmlspecialchars($_POST['careType'] ?? '', ENT_QUOTES, 'UTF-8');
-    $careRequirements = htmlspecialchars($_POST['careRequirements'] ?? '', ENT_QUOTES, 'UTF-8');
-    $schedule = is_array($_POST['schedule']) ? implode(', ', array_map('htmlspecialchars', $_POST['schedule'])) : htmlspecialchars($_POST['schedule'] ?? '', ENT_QUOTES, 'UTF-8');
-    $medicalConditions = htmlspecialchars($_POST['medicalConditions'] ?? '', ENT_QUOTES, 'UTF-8');
-    $medications = htmlspecialchars($_POST['medications'] ?? '', ENT_QUOTES, 'UTF-8');
-    $allergies = htmlspecialchars($_POST['allergies'] ?? '', ENT_QUOTES, 'UTF-8');
-    $emergencyContact = htmlspecialchars($_POST['emergencyContact'] ?? '', ENT_QUOTES, 'UTF-8');
-    $emergencyPhone = preg_replace('/[^0-9+]/', '', $_POST['emergencyPhone'] ?? '');
-    $referenceNumber = htmlspecialchars($_POST['referenceNumber'] ?? '', ENT_QUOTES, 'UTF-8');
-    $submissionDate = htmlspecialchars($_POST['submissionDate'] ?? '', ENT_QUOTES, 'UTF-8');
-    $csrfToken = htmlspecialchars($_POST['csrfToken'] ?? '', ENT_QUOTES, 'UTF-8');
-
-    // Insert into personal_care_requests table
-    $stmt = $pdo->prepare("INSERT INTO personal_care_requests (
-        full_name, email, phone, address, care_type, care_requirements, schedule, 
-        medical_conditions, medications, allergies, emergency_contact, emergency_phone, 
-        reference_number, submission_date, csrf_token
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
-    $stmt->execute([
-        $fullName, $email, $phone, $address, $careType, $careRequirements, $schedule,
-        $medicalConditions, $medications, $allergies, $emergencyContact, $emergencyPhone,
-        $referenceNumber, $submissionDate, $csrfToken
-    ]) or die(print_r($stmt->errorInfo(), true));
-
-    echo json_encode(["success" => true, "message" => "Request submitted successfully", "referenceNumber" => $referenceNumber]);
+    // Close connection
+    $conn->close();
 } else {
-    echo json_encode(["success" => false, "message" => "Invalid request method"]);
+    // Not a POST request
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid request method'
+    ]);
 }
 ?>
