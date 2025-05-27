@@ -1,25 +1,37 @@
 
 <x-app-layout>
     <!-- Alpine.js State Management -->
-    <div x-data="{
-        activeMainTab: localStorage.getItem('activeMainTab') || 'dashboard',
-        activeAppTab: localStorage.getItem('activeAppTab') || 'all',
-        activeDashboardTab: localStorage.getItem('activeDashboardTab') || 'applications',
+<div x-data="{
+    activeMainTab: localStorage.getItem('activeMainTab') || 'dashboard',
+    activeAppTab: localStorage.getItem('activeAppTab') || 'all',
+    activeDashboardTab: localStorage.getItem('activeDashboardTab') || 'applications',
+    selectedApplication: null,
+    showOverlay: false,
 
-        // Methods to handle tab changes
-        setActiveMainTab(tab) {
-            this.activeMainTab = tab;
-            localStorage.setItem('activeMainTab', tab);
-        },
-        setActiveAppTab(tab) {
-            this.activeAppTab = tab;
-            localStorage.setItem('activeAppTab', tab);
-        },
-        setActiveDashboardTab(tab) {
-            this.activeDashboardTab = tab;
-            localStorage.setItem('activeDashboardTab', tab);
-        }
-    }">
+    // Methods to handle tab changes
+    setActiveMainTab(tab) {
+        this.activeMainTab = tab;
+        localStorage.setItem('activeMainTab', tab);
+    },
+    setActiveAppTab(tab) {
+        this.activeAppTab = tab;
+        localStorage.setItem('activeAppTab', tab);
+    },
+    setActiveDashboardTab(tab) {
+        this.activeDashboardTab = tab;
+        localStorage.setItem('activeDashboardTab', tab);
+    },
+    openOverlay(application) {
+        this.selectedApplication = application;
+        this.showOverlay = true;
+    },
+    closeOverlay() {
+        this.showOverlay = false;
+        this.selectedApplication = null;
+    }
+}">
+
+
         <!-- Static Top Navigation Bar -->
         <header class="bg-white shadow dark:bg-gray-800 sticky top-0 z-50">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -824,13 +836,15 @@
                                             </td>
                                             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->created_at->format('Y-m-d') }}</td>
                                         <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                            <button type="button"
-                                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#viewModal{{ $application->id }}">
-                                                View
-                                            </button>
-                                        </td>
+<button @click="openOverlay({
+    id: '{{ $application->id }}',
+    reference_code: '{{ $application->reference_code }}',
+    first_name: '{{ $application->first_name }}',
+    last_name: '{{ $application->last_name }}',
+    profession: '{{ $application->profession }}',
+    status: '{{ $application->status }}',
+    created_at: '{{ $application->created_at->format('Y-m-d') }}'
+})" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>                                        </td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -863,6 +877,21 @@
                             </div>
                         </div>
                     </div>
+
+
+<div x-show="showOverlay" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center" @click.self="closeOverlay">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md" @keydown.escape="closeOverlay">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Application Details</h2>
+        <div class="space-y-4">
+            <p><strong>Reference:</strong> <span x-text="selectedApplication.reference_code"></span></p>
+            <p><strong>Name:</strong> <span x-text="selectedApplication.first_name + ' ' + selectedApplication.last_name"></span></p>
+            <p><strong>Profession:</strong> <span x-text="selectedApplication.profession"></span></p>
+            <p><strong>Status:</strong> <span x-text="selectedApplication.status" class="inline-flex rounded-full px-2 py-1 text-xs font-semibold" :class="selectedApplication.status === 'approved' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : selectedApplication.status === 'rejected' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'"></span></p>
+            <p><strong>Applied Date:</strong> <span x-text="selectedApplication.created_at"></span></p>
+        </div>
+        <button @click="closeOverlay" class="mt-6 w-full bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600">Close</button>
+    </div>
+</div>
                 </div>
 
                 <!-- Other tab content sections would go here -->
@@ -881,4 +910,5 @@
         });
     });
 </script>
+<script defer src="https://unpkg.com/alpinejs@3.13.3/dist/cdn.min.js"></script>
 
