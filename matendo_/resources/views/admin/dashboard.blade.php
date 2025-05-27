@@ -1,11 +1,11 @@
 
 <x-app-layout>
     <!-- Alpine.js State Management -->
-    <div x-data="{ 
+    <div x-data="{
         activeMainTab: localStorage.getItem('activeMainTab') || 'dashboard',
         activeAppTab: localStorage.getItem('activeAppTab') || 'all',
         activeDashboardTab: localStorage.getItem('activeDashboardTab') || 'applications',
-        
+
         // Methods to handle tab changes
         setActiveMainTab(tab) {
             this.activeMainTab = tab;
@@ -85,9 +85,9 @@
                                     @endphp
 
                                     @foreach($notifications as $notification)
-                                        <a href="{{ $notification['url'] }}" 
-                                           @if(isset($notification['action'])) 
-                                               @click.prevent="setActiveMainTab('{{ $notification['action'] }}')" 
+                                        <a href="{{ $notification['url'] }}"
+                                           @if(isset($notification['action']))
+                                               @click.prevent="setActiveMainTab('{{ $notification['action'] }}')"
                                            @endif
                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">
                                             <div class="flex items-start">
@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Dark Mode Toggle -->
                         <button class="rounded-full bg-white p-1 text-gray-600 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" x-init="$watch('darkMode', val => { localStorage.setItem('darkMode', val); document.documentElement.classList.toggle('dark', val); })" @click="darkMode = !darkMode">
                             <span class="sr-only">Toggle dark mode</span>
@@ -137,7 +137,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
                         </button>
-                        
+
                         <!-- User Menu -->
                         <div class="relative ml-3" x-data="{ open: false }">
                             <div>
@@ -169,7 +169,7 @@
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <nav class="-mb-px flex overflow-x-auto" aria-label="Main Navigation">
                     <!-- Dashboard Tab -->
-                    <button @click="setActiveMainTab('dashboard')" 
+                    <button @click="setActiveMainTab('dashboard')"
                        class="group relative flex items-center whitespace-nowrap border-b-2 px-4 py-4 text-sm font-medium transition-colors duration-200"
                        :class="activeMainTab === 'dashboard' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -177,9 +177,9 @@
                         </svg>
                         Dashboard
                     </button>
-                    
+
                     <!-- Applications Tab -->
-                    <button @click="setActiveMainTab('applications')" 
+                    <button @click="setActiveMainTab('applications')"
                        class="group relative flex items-center whitespace-nowrap border-b-2 px-4 py-4 text-sm font-medium transition-colors duration-200"
                        :class="activeMainTab === 'applications' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -188,9 +188,9 @@
                         Applications
                         <span class="absolute -top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">8</span>
                     </button>
-                    
+
                     <!-- Facility Hire Tab -->
-                    <button @click="setActiveMainTab('facility')" 
+                    <button @click="setActiveMainTab('facility')"
                        class="group relative flex items-center whitespace-nowrap border-b-2 px-4 py-4 text-sm font-medium transition-colors duration-200"
                        :class="activeMainTab === 'facility' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -199,9 +199,9 @@
                         Facility Hire
                         <span class="absolute -top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">5</span>
                     </button>
-                    
+
                     <!-- Individual Requests Tab -->
-                    <button @click="setActiveMainTab('individual')" 
+                    <button @click="setActiveMainTab('individual')"
                        class="group relative flex items-center whitespace-nowrap border-b-2 px-4 py-4 text-sm font-medium transition-colors duration-200"
                        :class="activeMainTab === 'individual' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -210,9 +210,9 @@
                         Individual Requests
                         <span class="absolute -top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">3</span>
                     </button>
-                    
+
                     <!-- Health Workers Tab -->
-                    <button @click="setActiveMainTab('workers')" 
+                    <button @click="setActiveMainTab('workers')"
                        class="group relative flex items-center whitespace-nowrap border-b-2 px-4 py-4 text-sm font-medium transition-colors duration-200"
                        :class="activeMainTab === 'workers' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -220,9 +220,9 @@
                         </svg>
                         Health Workers
                     </button>
-                    
+
                     <!-- Tasks Tab -->
-                    <button @click="setActiveMainTab('tasks')" 
+                    <button @click="setActiveMainTab('tasks')"
                        class="group relative flex items-center whitespace-nowrap border-b-2 px-4 py-4 text-sm font-medium transition-colors duration-200"
                        :class="activeMainTab === 'tasks' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -230,9 +230,9 @@
                         </svg>
                         Tasks
                     </button>
-                    
+
                     <!-- Settings Tab -->
-                    <button @click="setActiveMainTab('settings')" 
+                    <button @click="setActiveMainTab('settings')"
                        class="group relative flex items-center whitespace-nowrap border-b-2 px-4 py-4 text-sm font-medium transition-colors duration-200"
                        :class="activeMainTab === 'settings' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -244,14 +244,14 @@
                 </nav>
             </div>
         </div>
-        
+
         <!-- Page Header with Actions -->
         <div class="bg-white shadow-sm dark:bg-gray-800">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col space-y-4 py-4 md:flex-row md:items-center md:justify-between md:space-y-0">
                     <div>
                         <h1 class="text-2xl font-bold text-gray-900 dark:text-white" x-text="activeMainTab.charAt(0).toUpperCase() + activeMainTab.slice(1)">Dashboard</h1>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400" x-text="activeMainTab === 'dashboard' ? 'Overview of your healthcare administration system' : 
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400" x-text="activeMainTab === 'dashboard' ? 'Overview of your healthcare administration system' :
                                                                                       activeMainTab === 'applications' ? 'Manage healthcare worker applications' :
                                                                                       activeMainTab === 'facility' ? 'Manage facility bookings and requests' :
                                                                                       activeMainTab === 'individual' ? 'Manage individual healthcare requests' :
@@ -284,7 +284,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Export Button -->
                         <button class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -292,17 +292,17 @@
                             </svg>
                             Export
                         </button>
-                        
+
                         <!-- New Item Button -->
                         <button class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none dark:bg-indigo-700 dark:hover:bg-indigo-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>
-                            <span x-text="activeMainTab === 'applications' ? 'New Application' : 
-                                         activeMainTab === 'facility' ? 'Book Facility' : 
+                            <span x-text="activeMainTab === 'applications' ? 'New Application' :
+                                         activeMainTab === 'facility' ? 'Book Facility' :
                                          activeMainTab === 'individual' ? 'New Care Request' :
                                          activeMainTab === 'workers' ? 'Add Health Worker' :
-                                         activeMainTab === 'tasks' ? 'Create Task' : 
+                                         activeMainTab === 'tasks' ? 'Create Task' :
                                          'New ' + activeMainTab.charAt(0).toUpperCase() + activeMainTab.slice(1, -1)">
                                 New Application
                             </span>
@@ -387,7 +387,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Quick Actions - Navigation-like Layout -->
                     <div class="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
                         <div class="border-b border-gray-200 dark:border-gray-700">
@@ -405,7 +405,7 @@
                                             <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Create a new application for healthcare workers</div>
                                         </div>
                                     </a>
-                                    
+
                                     <!-- Book Facility Quick Action -->
                                     <a href="#" @click.prevent="setActiveMainTab('facility')" class="group relative flex items-center whitespace-nowrap px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                                         <div class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/40 group-hover:bg-teal-200 dark:group-hover:bg-teal-900/60 transition-colors">
@@ -418,7 +418,7 @@
                                             <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Schedule a facility for healthcare services</div>
                                         </div>
                                     </a>
-                                    
+
                                     <!-- Assign Task Quick Action -->
                                     <a href="#" @click.prevent="setActiveMainTab('tasks')" class="group relative flex items-center whitespace-nowrap px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                                         <div class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-violet-100 dark:bg-violet-900/40 group-hover:bg-violet-200 dark:group-hover:bg-violet-900/60 transition-colors">
@@ -431,7 +431,7 @@
                                             <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Assign tasks to approved health workers</div>
                                         </div>
                                     </a>
-                                    
+
                                     <!-- Generate Report Quick Action -->
                                     <a href="#" @click.prevent="setActiveMainTab('settings')" class="group relative flex items-center whitespace-nowrap px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                                         <div class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/40 group-hover:bg-amber-200 dark:group-hover:bg-amber-900/60 transition-colors">
@@ -466,7 +466,7 @@
                                 </nav>
                             </div>
                         </div>
-                        
+
                         <!-- Recent Applications Tab Content -->
                         <div x-show="activeDashboardTab === 'applications'" class="px-4 py-4">
                             <div class="overflow-x-auto">
@@ -495,7 +495,7 @@
                                                     {{ $application->profession }}
                                                 </td>
                                                 <td class="whitespace-nowrap px-4 py-3 text-sm">
-                                                    <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold 
+                                                    <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold
                                                         @if($application->status === 'approved') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
                                                         @elseif($application->status === 'rejected') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
                                                         @else bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 @endif">
@@ -653,7 +653,7 @@
                                 </a>
                             </div>
                         </div>
-                        
+
                         <!-- Recent Activity Tab Content -->
                         <div x-show="activeDashboardTab === 'activity'" class="px-4 py-4">
                             <div class="space-y-4">
@@ -684,7 +684,7 @@
                                             <p class="text-xs text-gray-500 dark:text-gray-400">30 minutes ago by Admin User</p>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="flex items-start space-x-3">
                                         <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600 dark:text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -698,7 +698,7 @@
                                             <p class="text-xs text-gray-500 dark:text-gray-400">1 hour ago</p>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="flex items-start space-x-3">
                                         <div class="flex h-8 w-8 items-center justify-center rounded-full bg-red-100 dark:bg-red-900">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600 dark:text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -712,7 +712,7 @@
                                             <p class="text-xs text-gray-500 dark:text-gray-400">3 hours ago by Admin User</p>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="flex items-start space-x-3">
                                         <div class="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-600 dark:text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -791,7 +791,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Applications Table -->
                     <div class="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800">
                         <div class="overflow-x-auto">
@@ -815,7 +815,7 @@
                                             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->first_name }} {{ $application->last_name }}</td>
                                             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->profession }}</td>
                                             <td class="whitespace-nowrap px-6 py-4 text-sm">
-                                                <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold 
+                                                <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold
                                                     @if($application->status === 'approved') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
                                                     @elseif($application->status === 'rejected') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
                                                     @else bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 @endif">
@@ -835,14 +835,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                         <!-- Pagination -->
                         <div class="border-t border-gray-200 px-4 py-3 dark:border-gray-700">
                             <div class="flex items-center justify-between">
                                 <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                                     <div>
                                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                                            Showing 
+                                            Showing
                                             <span class="font-medium">{{ $applications->firstItem() }}</span>
                                             to
                                             <span class="font-medium">{{ $applications->lastItem() }}</span>
