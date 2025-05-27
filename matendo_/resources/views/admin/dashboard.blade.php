@@ -823,9 +823,14 @@
                                                 </span>
                                             </td>
                                             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->created_at->format('Y-m-d') }}</td>
-                                            <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                                <a href="{{ route('admin.applications.show', $application) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</a>
-                                            </td>
+                                        <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                            <button type="button"
+                                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#viewModal{{ $application->id }}">
+                                                View
+                                            </button>
+                                        </td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -876,3 +881,4 @@
         });
     });
 </script>
+
