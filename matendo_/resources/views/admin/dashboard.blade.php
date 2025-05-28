@@ -876,28 +876,84 @@
                             </div>
                         </div>
                     </div>
-                    <div x-show="showOverlay" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center" @click.self="closeOverlay">
-                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md" @keydown.escape="closeOverlay">
-                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Application Details</h2>
-                            <div class="space-y-4">
-                                <p><strong>Reference:</strong> <span x-text="selectedApplication.reference_code"></span></p>
-                                <p><strong>Name:</strong> <span x-text="selectedApplication.first_name + ' ' + selectedApplication.last_name"></span></p>
-                                <p><strong>Profession:</strong> <span x-text="selectedApplication.profession"></span></p>
-                                <p><strong>Status:</strong> <span x-text="selectedApplication.status" class="inline-flex rounded-full px-2 py-1 text-xs font-semibold" :class="selectedApplication.status === 'approved' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : selectedApplication.status === 'rejected' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'"></span></p>
-                                <p><strong>Applied Date:</strong> <span x-text="selectedApplication.created_at"></span></p>
-                            </div>
-                            <div class="mt-6 space-x-4">
-                                <form :id="'status-update-form-' + selectedApplication.id" method="POST" :action="'/applications/' + selectedApplication.id + '/status'" x-ref="statusForm">
-                                    @csrf
-                                    @method('PATCH')
-                                    <input type="hidden" name="status" value="">
-                                </form>
-                                <button @click="approveApplication(selectedApplication.id)" class="w-full md:w-auto px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600" :disabled="selectedApplication.status === 'approved'">Approve</button>
-                                <button @click="rejectApplication(selectedApplication.id)" class="w-full md:w-auto px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600" :disabled="selectedApplication.status === 'rejected'">Reject</button>
-                                <button @click="closeOverlay" class="w-full md:w-auto mt-2 md:mt-0 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600">Close</button>
-                            </div>
-                        </div>
-                    </div>
+<div x-show="showOverlay"
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0"
+     x-transition:enter-end="opacity-100"
+     x-transition:leave="transition ease-in duration-200"
+     x-transition:leave-start="opacity-100"
+     x-transition:leave-end="opacity-0"
+     class="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center"
+     @click.self="closeOverlay">
+
+    <!-- Centered Modal -->
+    <div class="relative bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-xl">
+
+        <!-- Close Icon -->
+<!-- Redesigned Close Icon, shifted right -->
+<button @click="closeOverlay"
+        class="absolute top-4 right-1 text-gray-500 hover:text-red-500 hover:scale-110 transition transform duration-200 ease-in-out">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-7 sm:w-7" fill="none"
+         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" fill="white"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6" stroke="currentColor" stroke-width="2"/>
+    </svg>
+</button>
+
+
+        <!-- Title -->
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b pb-2">
+            Review Application Details
+        </h2>
+
+        <!-- Content Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <h3 class="text-lg font-semibold text-green-600 mb-2">Personal Information</h3>
+                <p><strong>Reference:</strong> <span x-text="selectedApplication.reference_code"></span></p>
+                <p><strong>Name:</strong> <span x-text="selectedApplication.first_name + ' ' + selectedApplication.last_name"></span></p>
+                <p><strong>Profession:</strong> <span x-text="selectedApplication.profession"></span></p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-green-600 mb-2">Application Status</h3>
+                <p><strong>Status:</strong>
+                    <span x-text="selectedApplication.status"
+                          class="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                          :class="selectedApplication.status === 'approved'
+                              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+                              : selectedApplication.status === 'rejected'
+                              ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+                              : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'">
+                    </span>
+                </p>
+                <p><strong>Applied Date:</strong> <span x-text="selectedApplication.created_at"></span></p>
+            </div>
+        </div>
+
+        <!-- Buttons Centered at Bottom -->
+        <div class="flex justify-center space-x-4 mt-6">
+            <form :id="'status-update-form-' + selectedApplication.id" method="POST"
+                  :action="'/applications/' + selectedApplication.id + '/status'" x-ref="statusForm">
+                @csrf
+                @method('PATCH')
+                <input type="hidden" name="status" value="">
+            </form>
+
+            <button @click="approveApplication(selectedApplication.id)"
+                    class="px-5 py-2 bg-green-600 text-white rounded hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600"
+                    :disabled="selectedApplication.status === 'approved'">
+                Approve
+            </button>
+
+            <button @click="rejectApplication(selectedApplication.id)"
+                    class="px-5 py-2 bg-red-600 text-white rounded hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600"
+                    :disabled="selectedApplication.status === 'rejected'">
+                Reject
+            </button>
+        </div>
+    </div>
+</div>
+
                 </div>
 
                 <!-- Other tab content sections would go here -->
