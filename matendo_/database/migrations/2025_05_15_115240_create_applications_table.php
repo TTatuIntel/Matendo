@@ -4,17 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateApplicationsTable extends Migration
 {
-    /**
+    public function up()
+    {
+       /**
      * Run the migrations.
      */
-    public function up(): void
-    {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
            // Unique tracking reference
-            $table->string('reference_code')->unique();
+            $table->string('reference_number')->unique();
 
             // Personal Information
             $table->string('first_name');

@@ -4,40 +4,42 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateIndividualRequestsTable extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('individual_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('reference_number')->unique();
-            $table->string('individual_name');
-            $table->string('contact_person');
+            $table->string('full_name');
             $table->string('email');
             $table->string('phone');
-            $table->text('location')->nullable();
-            $table->string('coordinates')->nullable();
-            $table->longText('request_types');
-            $table->string('other_request_type')->nullable();
-            $table->longText('skills_needed');
-            $table->string('other_skill')->nullable();
-            $table->longText('employment_types');
-            $table->longText('shift_types');
-            $table->integer('staff_number');
-            $table->date('start_date')->nullable();
-            $table->enum('requirement_option', ['none', 'upload', 'manual']);
+            $table->string('address');
+            $table->string('care_type');
+            $table->text('care_requirements')->nullable();
+            $table->string('schedule')->nullable();
+            $table->string('medical_conditions')->nullable();
+            $table->string('medications')->nullable();
+            $table->string('allergies')->nullable();
+            $table->string('emergency_contact');
+            $table->string('emergency_phone');
+            $table->string('reference_number');
+            $table->timestamp('submission_date');
+            $table->string('csrf_token');
+           ('none');
             $table->text('qualifications')->nullable();
             $table->text('experience')->nullable();
             $table->text('job_description')->nullable();
-            $table->string('job_description_file')->nullable();
+            $table->string('job_description_file')->nullable(); // Single file upload
+
+            // Status and confirmation
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->boolean('confirmed')->default(0);
-            $table->timestamps();
+            $table->boolean('confirmed')->default(false);
+            $table->timestamps(); // This adds `created_at` and `updated_at` columns
         });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('individual_requests');
     }
-};
+}
