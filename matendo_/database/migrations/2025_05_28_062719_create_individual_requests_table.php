@@ -23,18 +23,16 @@ class CreateIndividualRequestsTable extends Migration
             $table->string('emergency_contact');
             $table->string('emergency_phone');
             $table->string('reference_number');
-            $table->timestamp('submission_date');
+            $table->timestamp('submission_date')->nullable(); // Optional - make nullable if not always set
             $table->string('csrf_token');
-           ('none');
             $table->text('qualifications')->nullable();
             $table->text('experience')->nullable();
             $table->text('job_description')->nullable();
             $table->string('job_description_file')->nullable(); // Single file upload
 
-            // Status and confirmation
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->boolean('confirmed')->default(false);
-            $table->timestamps(); // This adds `created_at` and `updated_at` columns
+            $table->timestamps(); // created_at and updated_at
         });
     }
 

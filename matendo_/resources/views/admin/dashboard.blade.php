@@ -972,7 +972,7 @@
                                     {{ ucfirst($booking->status) }}
                                 </span>
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $booking->created_at->format('Y-m-d') }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $booking->created_at?->format('Y-m-d') ?? 'N/A' }}</td>
                             <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                 <button @click="openOverlay({
                                     id: '{{ $booking->id }}',
@@ -980,7 +980,7 @@
                                     facility_name: '{{ $booking->facility_name }}',
                                     purpose: '{{ $booking->resources_needed }}',
                                     status: '{{ $booking->status }}',
-                                    created_at: '{{ $booking->created_at->format('Y-m-d') }}'
+                                    created_at: '{{ $booking->created_at?->format('Y-m-d') ?? 'N/A' }}'
                                 })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
                             </td>
                         </tr>
