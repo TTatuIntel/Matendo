@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FacilityRequestController;
+use App\Http\Controllers\IndividualRequestController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,30 +41,20 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
             ->take(10)
             ->get();
 
-        // Add the missing facilityBookings variable
-        // Option 1: If you have a FacilityBooking model (uncomment when ready)
-        // $facilityBookings = \App\Models\FacilityBooking::latest()->get();
-
-        // Option 2: Empty collection with proper structure for testing
-        $facilityBookings = collect([
-            (object)[
-                'id' => 1,
-                'facility_name' => 'Sample Facility',
-                'booking_date' => now(),
-                'status' => 'confirmed'
-            ]
-        ]);
-
-        // Option 3: If it should be recent facility bookings
-        // $facilityBookings = \App\Models\FacilityBooking::latest()->take(10)->get();
-
         // Get facility bookings from database
         $facilityBookings = \App\Models\FacilityRequest::latest()->paginate(10);
 
         // Get facility booking statistics
         $unAssignedTasksCount = \App\Models\FacilityRequest::where('status', 'pending')->count();
         $assignedCount = \App\Models\FacilityRequest::where('status', 'approved')->count();
-        // Note: $rejectedCount is already defined above for applications
+
+        // Get individual requests from database
+        $individualRequests = \App\Models\IndividualRequest::latest()->paginate(10);
+
+        // Get individual request statistics
+        $individualPendingCount = \App\Models\IndividualRequest::where('status', 'pending')->count();
+        $individualApprovedCount = \App\Models\IndividualRequest::where('status', 'approved')->count();
+        $individualRejectedCount = \App\Models\IndividualRequest::where('status', 'rejected')->count();
 
         // Sample data for other counts (replace with actual models when available)
         $facilityCount = 18;
@@ -81,6 +72,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
             'facilityBookings',
             'unAssignedTasksCount',
             'assignedCount',
+            'individualRequests',
+            'individualPendingCount',
+            'individualApprovedCount',
+            'individualRejectedCount',
             'facilityCount',
             'individualCount',
             'taskCount'
@@ -88,6 +83,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     })->name('dashboard');
 
     Route::resource('applications', ApplicationController::class);
+
+    // Add routes for IndividualRequestController
+    Route::patch('/individual-requests/{individual_request}/status', [IndividualRequestController::class, 'updateStatus'])->name('individual-requests.updateStatus');
 });
 
 Route::patch('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
