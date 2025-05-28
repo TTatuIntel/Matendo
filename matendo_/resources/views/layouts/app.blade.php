@@ -1082,6 +1082,9 @@
                 {{ $slot }}
             </main>
         </div>
+        <div x-data="requests">
+            @yield('content')
+        </div>
 
         <!-- Global JavaScript -->
         <script>

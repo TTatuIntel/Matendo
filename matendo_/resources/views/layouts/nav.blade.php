@@ -98,3 +98,16 @@
         </div>
     </div>
 </nav> -->
+
+
+
+
+
+    approveApplication(applicationId) {
+        document.getElementById('status-update-form-' + applicationId).querySelector('input[name=\"status\"]').value = 'approved';
+        document.getElementById('status-update-form-' + applicationId).submit();
+    },
+    rejectApplication(applicationId) {
+        document.getElementById('status-update-form-' + applicationId).querySelector('input[name=\"status\"]').value = 'rejected';
+        document.getElementById('status-update-form-' + applicationId).submit();
+    }

@@ -60,4 +60,16 @@ class ApplicationController extends Controller
 
         return redirect()->back()->with('warning', 'Application has been rejected.');
     }
+
+public function updateStatus(Request $request, Application $application)
+{
+    $request->validate([
+        'status' => 'required|in:approved,rejected',
+    ]);
+
+    $application->status = $request->input('status');
+    $application->save();
+
+    return redirect()->route('applications.index')->with('success', 'Application status updated successfully.');
+}
 }
