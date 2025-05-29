@@ -2505,3 +2505,85 @@ Stack trace:
 2025-05-12 08:12:20 - Statement closed
 2025-05-12 08:12:20 - Database connection closed
 2025-05-12 08:12:20 - Script completed
+2025-05-19 07:22:11 - Script started
+2025-05-19 07:22:11 - Request method validated
+2025-05-19 07:22:11 - POST data: Array
+(
+    [firstName] => Ena
+    [lastName] => Steven
+    [email] => steve@gmail.com
+    [phone] => 0755897643
+    [address] => Kampala
+    [location] => 
+    [coordinates] => 
+    [profession] => Nurse
+    [otherProfession] => 
+    [specialization] => None
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => kagoma
+    [startDate] => 2025-05-22
+    [confirm_checkbox] => on
+)
+
+2025-05-19 07:22:11 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Professional_CV (4).pdf
+            [full_path] => Professional_CV (4).pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\phpD021.tmp
+            [error] => 0
+            [size] => 3027
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-19 07:22:11 - Attempting database connection
+2025-05-19 07:22:11 - Database connected successfully
+2025-05-19 07:22:11 - All required fields present
+2025-05-19 07:22:11 - Preparing SQL statement
+2025-05-19 07:22:11 - Statement closed
+2025-05-19 07:22:11 - Database connection closed
+2025-05-19 07:22:11 - Script completed

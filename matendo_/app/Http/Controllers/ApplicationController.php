@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Approved;
 use App\Models\HealthWorker;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ApplicationController extends Controller
@@ -29,15 +31,33 @@ class ApplicationController extends Controller
             return redirect()->back()->with('info', 'Application is already approved.');
         }
 
-        $application->status = 'approved';
-        $application->save();
+        try {
+            DB::transaction(function () use ($application) {
+                $application->status = 'approved';
+                $application->save();
 
-        // Generate application PDF snapshot
+                // Store in the Approved table
+                Approved::create([
+                    'application_id' => $application->id,
+                    'reference_code' => $application->reference_code,
+                    'first_name' => $application->first_name,
+                    'last_name' => $application->last_name,
+                    'profession' => $application->profession,
+                    'approved_at' => now(),
+                ]);
+            });
+
+            return redirect()->back()->with('success', 'Application approved successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to approve application: ' . $e->getMessage());
+        }
+
+        // Commented-out PDF and HealthWorker logic for reference
+        /*
         $pdf = Pdf::loadView('pdf.application_summary', ['application' => $application]);
         $pdfPath = 'snapshots/application_' . $application->id . '_summary.pdf';
         Storage::put("public/{$pdfPath}", $pdf->output());
 
-        // Create Health Worker from approved application
         HealthWorker::create([
             'user_id' => $application->user_id,
             'application_id' => $application->id,
@@ -48,8 +68,7 @@ class ApplicationController extends Controller
             'certifications' => $application->certifications,
             'application_snapshot_pdf' => "storage/{$pdfPath}",
         ]);
-
-        return redirect()->back()->with('success', 'Application approved and Health Worker created.');
+        */
     }
 
     public function reject($id)
@@ -61,15 +80,39 @@ class ApplicationController extends Controller
         return redirect()->back()->with('warning', 'Application has been rejected.');
     }
 
-public function updateStatus(Request $request, Application $application)
-{
-    $request->validate([
-        'status' => 'required|in:approved,rejected',
-    ]);
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:approved,rejected',
+        ]);
 
-    $application->status = $request->input('status');
-    $application->save();
+        try {
+            DB::transaction(function () use ($request, $id) {
+                $application = Application::findOrFail($id);
+                $application->status = $request->status;
+                $application->save();
 
-    return redirect()->route('applications.index')->with('success', 'Application status updated successfully.');
-}
+                if ($request->status === 'approved') {
+                    Approved::create([
+                        'application_id' => $application->id,
+                        'reference_code' => $application->reference_code,
+                        'first_name' => $application->first_name,
+                        'last_name' => $application->last_name,
+                        'profession' => $application->profession,
+                        'approved_at' => now(),
+                    ]);
+                }
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Application status updated successfully.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update application status: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }
