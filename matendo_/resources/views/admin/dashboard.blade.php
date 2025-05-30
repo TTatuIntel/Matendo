@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <!-- Alpine.js State Management -->
 <div x-data="{
@@ -258,7 +257,7 @@
                        class="group relative flex items-center whitespace-nowrap border-b-2 px-4 py-4 text-sm font-medium transition-colors duration-200"
                        :class="activeMainTab === 'settings' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2. प्रधान-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                         Settings
@@ -302,7 +301,7 @@
                                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Last 7 days</a>
                                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Last 30 days</a>
                                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">This month</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Custom range</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-7 00 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Custom range</a>
                                 </div>
                             </div>
                         </div>
@@ -529,29 +528,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <!-- Sample Application Data when no real data is available -->
-                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                <td class="whitespace-nowrap px-4 py-3 text-sm font-medium">
-                                                    <a href="#" @click.prevent="setActiveMainTab('applications'); setActiveAppTab('all')" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                        APP-2023-001
-                                                    </a>
-                                                </td>
-                                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
-                                                    John Smith
-                                                </td>
-                                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
-                                                    Registered Nurse
-                                                </td>
-                                                <td class="whitespace-nowrap px-4 py-3 text-sm">
-                                                    <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
-                                                        Pending
-                                                    </span>
-                                                </td>
-                                                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
-                                                    5 minutes ago
-                                                </td>
-                                            </tr>
-                                            <!-- More sample data rows -->
+
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -569,7 +546,7 @@
                         <!-- Pending Approvals Tab Content -->
                         <div x-show="activeDashboardTab === 'approvals'" class="px-4 py-4">
                             <div class="space-y-4">
-                                @forelse($pendingApprovals ?? [] as $approval)
+                                @forelse($pending紹介Approvals ?? [] as $approval)
                                     <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
                                         <div class="flex items-center justify-between">
                                             <div>
@@ -594,76 +571,7 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <!-- Sample Pending Approvals when no real data is available -->
-                                    <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">
-                                                    Application: APP-2023-001
-                                                </h4>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400">
-                                                    John Smith - Registered Nurse with 5 years experience
-                                                </p>
-                                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                                    Submitted 5 minutes ago
-                                                </p>
-                                            </div>
-                                            <div class="flex space-x-2">
-                                                <button class="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 hover:bg-green-100 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800">
-                                                    Approve
-                                                </button>
-                                                <button class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800">
-                                                    Reject
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">
-                                                    Facility Hire: FAC-2023-002
-                                                </h4>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400">
-                                                    City Medical Center - Requesting 3 nurses for weekend coverage
-                                                </p>
-                                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                                    Submitted 2 hours ago
-                                                </p>
-                                            </div>
-                                            <div class="flex space-x-2">
-                                                <button class="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 hover:bg-green-100 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800">
-                                                    Approve
-                                                </button>
-                                                <button class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800">
-                                                    Reject
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">
-                                                    Individual Request: IND-2023-003
-                                                </h4>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400">
-                                                    Robert Thompson - Home care assistance for elderly patient
-                                                </p>
-                                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                                    Submitted 1 day ago
-                                                </p>
-                                            </div>
-                                            <div class="flex space-x-2">
-                                                <button class="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 hover:bg-green-100 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800">
-                                                    Approve
-                                                </button>
-                                                <button class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800">
-                                                    Reject
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 @endforelse
                             </div>
                             <div class="mt-4 flex justify-end">
@@ -761,132 +669,135 @@
                         </div>
                     </div>
                 </div>
-                <!-- Applications Stats Overview -->
-    <!-- Applications Stats Overview -->
-    <div class="flex flex-wrap gap-4 mb-6">
-        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 dark:text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-            </div>
-            <div class="ml-4">
-                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Applications</h2>
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $applications->total() }}</p>
-            </div>
-        </div>
 
-        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600 dark:text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </div>
-            <div class="ml-4">
-                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Pending</h2>
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $pendingCount }}</p>
-            </div>
-        </div>
+                <!-- APPLICATIONS TAB CONTENT -->
+                <div x-show="activeMainTab === 'applications'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+                    <!-- Applications Stats Overview -->
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 dark:text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Applications</h2>
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $applications->total() ?? 3 }}</p>
+                            </div>
+                        </div>
 
-        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </div>
-            <div class="ml-4">
-                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Approved</h2>
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $approvedCount }}</p>
-            </div>
-        </div>
+                        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600 dark:text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Pending</h2>
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $pendingCount ?? 1 }}</p>
+                            </div>
+                        </div>
 
-        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 dark:text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </div>
-            <div class="ml-4">
-                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Rejected</h2>
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $rejectedCount }}</p>
-            </div>
-        </div>
-    </div>
+                        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Approved</h2>
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $approvedCount ?? 0 }}</p>
+                            </div>
+                        </div>
 
-    <!-- Applications Table -->
-    <div class="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-700">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Reference</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Name</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Profession</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Status</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Applied Date</th>
-                        <th scope="col" class="relative px-6 py-3">
-                            <span class="sr-only">Actions</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-                    @forelse($applications as $application)
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-600 dark:text-indigo-400">{{ $application->reference_code }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->first_name }} {{ $application->last_name }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->profession }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm">
-                                <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold
-                                    @if($application->status === 'approved') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
-                                    @elseif($application->status === 'rejected') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
-                                    @else bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 @endif">
-                                    {{ ucfirst($application->status) }}
-                                </span>
-                            </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->created_at->format('Y-m-d') }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                <button @click="openOverlay({
-                                    id: '{{ $application->id }}',
-                                    reference_code: '{{ $application->reference_code }}',
-                                    first_name: '{{ $application->first_name }}',
-                                    last_name: '{{ $application->last_name }}',
-                                    profession: '{{ $application->profession }}',
-                                    status: '{{ $application->status }}',
-                                    created_at: '{{ $application->created_at->format('Y-m-d') }}'
-                                })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="px-6 py-4 text-center text-gray-500 dark:text-gray-300">No applications found.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Pagination -->
-        <div class="border-t border-gray-200 px-4 py-3 dark:border-gray-700">
-            <div class="flex items-center justify-between">
-                <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-                    <div>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Showing
-                            <span class="font-medium">{{ $applications->firstItem() }}</span>
-                            to
-                            <span class="font-medium">{{ $applications->lastItem() }}</span>
-                            of
-                            <span class="font-medium">{{ $applications->total() }}</span>
-                            results
-                        </p>
+                        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 dark:text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Rejected</h2>
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $rejectedCount ?? 0 }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        {{ $applications->links('pagination::tailwind') }}
+
+                    <!-- Applications Table -->
+                    <div class="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Reference</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Name</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Profession</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Status</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Applied Date</th>
+                                        <th scope="col" class="relative px-6 py-3">
+                                            <span class="sr-only">Actions</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                                    @forelse($applications as $application)
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-600 dark:text-indigo-400">{{ $application->reference_code }}</td>
+                                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->first_name }} {{ $application->last_name }}</td>
+                                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->profession }}</td>
+                                            <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                                <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold
+                                                    @if($application->status === 'approved') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
+                                                    @elseif($application->status === 'rejected') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
+                                                    @else bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 @endif">
+                                                    {{ ucfirst($application->status) }}
+                                                </span>
+                                            </td>
+                                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $application->created_at->format('Y-m-d') }}</td>
+                                            <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                                <button @click="openOverlay({
+                                                    id: '{{ $application->id }}',
+                                                    reference_code: '{{ $application->reference_code }}',
+                                                    first_name: '{{ $application->first_name }}',
+                                                    last_name: '{{ $application->last_name }}',
+                                                    profession: '{{ $application->profession }}',
+                                                    status: '{{ $application->status }}',
+                                                    created_at: '{{ $application->created_at->format('Y-m-d') }}'
+                                                })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="px-6 py-4 text-center text-gray-500 dark:text-gray-300">No applications found.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="border-t border-gray-200 px-4 py-3 dark:border-gray-700">
+                            <div class="flex items-center justify-between">
+                                <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+                                    <div>
+                                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                                            Showing
+                                            <span class="font-medium">{{ $applications->firstItem() ?? 1 }}</span>
+                                            to
+                                            <span class="font-medium">{{ $applications->lastItem() ?? 1 }}</span>
+                                            of
+                                            <span class="font-medium">{{ $applications->total() ?? 3 }}</span>
+                                            results
+                                        </p>
+                                    </div>
+                                    <div>
+                                        {{ $applications->links('pagination::tailwind') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Overlay -->
     <div x-show="showOverlay"
@@ -963,8 +874,7 @@
             </div>
         </div>
     </div>
-                </div>
-
+    </div>
                 <!-- Other tab content sections would go here -->
 <!-- FACILITY HIRE TAB CONTENT -->
 <div x-show="activeMainTab === 'facility'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
@@ -1258,6 +1168,273 @@
     </div>
 </div>
 
+
+<!-- TASKS TAB CONTENT -->
+<!-- TASKS TAB CONTENT -->
+<div x-show="activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+    <!-- Current Date and Time Banner -->
+    <div class="mb-6 rounded-lg bg-gray-100 p-4 text-center dark:bg-gray-700">
+        <p class="text-sm text-gray-700 dark:text-gray-300">
+            Current Date & Time: <span class="font-medium">10:20 AM EAT, Thursday, May 29, 2025</span>
+        </p>
+    </div>
+
+    <!-- Tasks Stats Overview -->
+    <div class="flex flex-wrap gap-4 mb-6">
+        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                </svg>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Tasks</h2>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ ($facilityBookings->count() ?? 0) + ($individualRequests->count() ?? 0) }}</p>
+            </div>
+        </div>
+
+        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600 dark:text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Pending Tasks</h2>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ ($facilityBookings->where('status', 'pending')->count() ?? 0) + ($individualRequests->where('status', 'pending')->count() ?? 0) }}</p>
+            </div>
+        </div>
+
+        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Approved Tasks</h2>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ ($facilityBookings->where('status', 'approved')->count() ?? 0) + ($individualRequests->where('status', 'approved')->count() ?? 0) }}</p>
+            </div>
+        </div>
+
+        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 dark:text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Rejected Tasks</h2>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ ($facilityBookings->where('status', 'rejected')->count() ?? 0) + ($individualRequests->where('status', 'rejected')->count() ?? 0) }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tasks Table -->
+    <div class="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Reference</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Task Title</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Type</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Status</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Date</th>
+                        <th scope="col" class="relative px-6 py-3">
+                            <span class="sr-only">Actions</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                    @php
+                        // Define the current date for comparison
+                        $currentDate = \Carbon\Carbon::create(2025, 5, 29);
+                        // Combine facility bookings and individual requests into a single task list
+                        $combinedTasks = collect([]);
+                        foreach ($facilityBookings ?? [] as $booking) {
+                            $taskDate = \Carbon\Carbon::parse($booking->created_at);
+                            $isDueToday = $taskDate->isSameDay($currentDate);
+                            $isOverdue = $taskDate->lt($currentDate);
+                            $combinedTasks->push([
+                                'id' => $booking->id,
+                                'reference_code' => $booking->reference_number,
+                                'title' => $booking->facility_name,
+                                'type' => 'Facility Booking',
+                                'status' => $booking->status,
+                                'date' => $booking->created_at->format('Y-m-d'),
+                                'details' => $booking->resources_needed,
+                                'is_due_today' => $isDueToday,
+                                'is_overdue' => $isOverdue && !$isDueToday,
+                            ]);
+                        }
+                        foreach ($individualRequests ?? [] as $request) {
+                            $taskDate = $request->start_date ? \Carbon\Carbon::parse($request->start_date) : null;
+                            $isDueToday = $taskDate ? $taskDate->isSameDay($currentDate) : false;
+                            $isOverdue = $taskDate ? $taskDate->lt($currentDate) : false;
+                            $combinedTasks->push([
+                                'id' => $request->id,
+                                'reference_code' => $request->reference_number,
+                                'title' => $request->individual_name,
+                                'type' => 'Individual Request',
+                                'status' => $request->status,
+                                'date' => $request->start_date ? $request->start_date->format('Y-m-d') : 'N/A',
+                                'details' => $request->skills_needed,
+                                'is_due_today' => $isDueToday,
+                                'is_overdue' => $isOverdue && !$isDueToday,
+                            ]);
+                        }
+                        // Sort tasks by date (most recent first)
+                        $combinedTasks = $combinedTasks->sortByDesc('date');
+                    @endphp
+                    @forelse($combinedTasks as $task)
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 @if($task['is_due_today']) bg-yellow-50 dark:bg-yellow-900 @elseif($task['is_overdue']) bg-red-50 dark:bg-red-900 @endif">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-600 dark:text-indigo-400">{{ $task['reference_code'] }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $task['title'] }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $task['type'] }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold
+                                    @if($task['status'] === 'approved') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
+                                    @elseif($task['status'] === 'rejected') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
+                                    @else bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 @endif">
+                                    {{ ucfirst($task['status']) }}
+                                </span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+                                {{ $task['date'] }}
+                                @if($task['is_due_today'])
+                                    <span class="ml-2 text-xs text-yellow-600 dark:text-yellow-300 font-semibold">(Due Today)</span>
+                                @elseif($task['is_overdue'])
+                                    <span class="ml-2 text-xs text-red-600 dark:text-red-300 font-semibold">(Overdue)</span>
+                                @endif
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                <button @click="openOverlay({
+                                    id: '{{ $task['id'] }}',
+                                    reference_code: '{{ $task['reference_code'] }}',
+                                    title: '{{ $task['title'] }}',
+                                    type: '{{ $task['type'] }}',
+                                    status: '{{ $task['status'] }}',
+                                    date: '{{ $task['date'] }}',
+                                    details: '{{ $task['details'] }}'
+                                })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
+                            </td>
+                        </tr>
+                    @empty
+                        <!-- Sample Task Data -->
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 bg-yellow-50 dark:bg-yellow-900">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-600 dark:text-indigo-400">FAC-2023-001</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">City Medical Center</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Facility Booking</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
+                                    Pending
+                                </span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+                                2025-05-29
+                                <span class="ml-2 text-xs text-yellow-600 dark:text-yellow-300 font-semibold">(Due Today)</span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                <button @click="openOverlay({
+                                    id: '1',
+                                    reference_code: 'FAC-2023-001',
+                                    title: 'City Medical Center',
+                                    type: 'Facility Booking',
+                                    status: 'pending',
+                                    date: '2025-05-29',
+                                    details: '3 nurses for weekend coverage'
+                                })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 bg-red-50 dark:bg-red-900">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-600 dark:text-indigo-400">IND-2023-001</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Robert Thompson</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Individual Request</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
+                                    Pending
+                                </span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+                                2025-05-27
+                                <span class="ml-2 text-xs text-red-600 dark:text-red-300 font-semibold">(Overdue)</span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                <button @click="openOverlay({
+                                    id: '2',
+                                    reference_code: 'IND-2023-001',
+                                    title: 'Robert Thompson',
+                                    type: 'Individual Request',
+                                    status: 'pending',
+                                    date: '2025-05-27',
+                                    details: 'Home care assistance'
+                                })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="border-t border-gray-200 px-4 py-3 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Showing
+                            <span class="font-medium">{{ $combinedTasks->first() ? $combinedTasks->first()['id'] : 1 }}</span>
+                            to
+                            <span class="font-medium">{{ $combinedTasks->last() ? $combinedTasks->last()['id'] : $combinedTasks->count() }}</span>
+                            of
+                            <span class="font-medium">{{ $combinedTasks->count() }}</span>
+                            results
+                        </p>
+                    </div>
+                    <div>
+                        @if(method_exists($combinedTasks, 'links'))
+                            {{ $combinedTasks->links('pagination::tailwind') }}
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay Modal for Tasks -->
+    <div x-show="showOverlay && activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center" @click.self="closeOverlay">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md" @keydown.escape="closeOverlay">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Task Details</h2>
+            <div class="space-y-4">
+                <p><strong>Reference:</strong> <span x-text="selectedApplication.reference_code"></span></p>
+                <p><strong>Title:</strong> <span x-text="selectedApplication.title"></span></p>
+                <p><strong>Type:</strong> <span x-text="selectedApplication.type"></span></p>
+                <p><strong>Details:</strong> <span x-text="selectedApplication.details"></span></p>
+                <p><strong>Status:</strong>
+                    <span x-text="selectedApplication.status"
+                          class="inline-flex rounded-full px-2 py-1 text-xs font-semibold"
+                          :class="selectedApplication.status === 'approved' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' :
+                                 selectedApplication.status === 'rejected' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' :
+                                 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'"></span>
+                </p>
+                <p><strong>Date:</strong> <span x-text="selectedApplication.date"></span></p>
+            </div>
+            <div class="mt-6 space-x-4">
+                <form :id="'status-update-form-' + selectedApplication.id" method="POST" :action="selectedApplication.type === 'Facility Booking' ? '/facility-bookings/' + selectedApplication.id + '/status' : '/admin/individual-requests/' + selectedApplication.id + '/status'" x-ref="statusForm">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="status" x-model="selectedApplication.status">
+                </form>
+                <button @click="approveTask(selectedApplication.id, selectedApplication.type)" class="w-full md:w-auto px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600" :disabled="selectedApplication.status === 'approved'">Approve</button>
+                <button @click="rejectTask(selectedApplication.id, selectedApplication.type)" class="w-full md:w-auto px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600" :disabled="selectedApplication.status === 'rejected'">Reject</button>
+                <button @click="closeOverlay" class="w-full md:w-auto mt-2 md:mt-0 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                 </div>
 
             </div>
@@ -1278,4 +1455,3 @@
     });
 </script>
 <script defer src="https://unpkg.com/alpinejs@3.13.3/dist/cdn.min.js"></script>
-
