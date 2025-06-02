@@ -37,4 +37,13 @@ class IndividualRequest extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+    public function assignment()
+    {
+        return $this->hasOne(TaskAssignment::class, 'task_id')->where('task_type', 'individual_request');
+    }
+
+    public function isAssigned()
+    {
+        return $this->assignment()->exists();
+    }
 }

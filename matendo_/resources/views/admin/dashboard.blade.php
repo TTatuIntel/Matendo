@@ -1008,7 +1008,7 @@
                 <p><strong>Requested Date:</strong> <span x-text="selectedApplication.created_at"></span></p>
             </div>
             <div class="mt-6 space-x-4">
-                <form :id="'status-update-form-' + selectedApplication.id" method="POST" :action="'/facility-bookings/' + selectedApplication.id + '/status'" x-ref="statusForm">
+                <form :id="'status-update-form-' + selectedApplication.id" method="POST" :action="'/facility-requests/' + selectedApplication.id + '/status'" x-ref="statusForm">
                     @csrf
                     @method('PATCH')
                     <input type="hidden" name="status" x-model="selectedApplication.status">
@@ -1288,40 +1288,48 @@
                         // Sort tasks by date (most recent first)
                         $combinedTasks = $combinedTasks->sortByDesc('date');
                     @endphp
-                    @forelse($combinedTasks as $task)
-                        <tr class="hover:bg-gray-700 @if($task['is_due_today']) bg-yellow-900 @endif">
-                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-400">{{ $task['reference_code'] }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">{{ $task['title'] }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">{{ $task['type'] }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm">
-                                <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold
-                                    @if($task['status'] === 'approved') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
-                                    @elseif($task['status'] === 'rejected') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
-                                    @else bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 @endif">
-                                    {{ ucfirst($task['status']) }}
-                                </span>
-                            </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">
-                                {{ $task['date'] }}
-                                @if($task['is_due_today'])
-                                    <span class="ml-2 text-xs text-yellow-300 font-semibold">(Due Today)</span>
-                                @elseif($task['is_overdue'])
-                                    <span class="ml-2 text-xs text-red-300 font-semibold">(Overdue)</span>
-                                @endif
-                            </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                <button @click="openOverlay({
-                                    id: '{{ $task['id'] }}',
-                                    reference_code: '{{ $task['reference_code'] }}',
-                                    title: '{{ $task['title'] }}',
-                                    type: '{{ $task['type'] }}',
-                                    status: '{{ $task['status'] }}',
-                                    date: '{{ $task['date'] }}',
-                                    details: '{{ $task['details'] }}'
-                                })" type="button" class="text-indigo-400 hover:text-indigo-300">View</button>
-                            </td>
-                        </tr>
-                    @empty
+<!-- Also update the table to show assignment status -->
+@forelse($combinedTasks as $task)
+    <tr class="hover:bg-gray-700 @if($task['is_due_today']) bg-yellow-900 @endif">
+        <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-400">{{ $task['reference_code'] }}</td>
+        <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">{{ $task['title'] }}</td>
+        <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">{{ $task['type'] }}</td>
+        <td class="whitespace-nowrap px-6 py-4 text-sm">
+            <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold
+                @if($task['status'] === 'approved') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
+                @elseif($task['status'] === 'rejected') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
+                @elseif($task['status'] === 'assigned') bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300
+                @else bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 @endif">
+                {{ ucfirst($task['status']) }}
+            </span>
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">
+            {{ $task['date'] }}
+            @if($task['is_due_today'])
+                <span class="ml-2 text-xs text-yellow-300 font-semibold">(Due Today)</span>
+            @elseif($task['is_overdue'])
+                <span class="ml-2 text-xs text-red-300 font-semibold">(Overdue)</span>
+            @endif
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+            <button @click="openOverlay({
+                id: '{{ $task['id'] }}',
+                reference_code: '{{ $task['reference_code'] }}',
+                title: '{{ $task['title'] }}',
+                type: '{{ $task['type'] }}',
+                status: '{{ $task['status'] }}',
+                date: '{{ $task['date'] }}',
+                details: '{{ $task['details'] }}'
+            })" type="button" class="text-indigo-400 hover:text-indigo-300 mr-2">
+                @if($task['status'] === 'assigned')
+                    View
+                @else
+                    Assign
+                @endif
+            </button>
+        </td>
+    </tr>
+@empty
                         <!-- Sample Task Data -->
                         <tr class="hover:bg-gray-700 bg-yellow-900">
                             <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-400">FAC-2023-001</td>
@@ -1404,139 +1412,198 @@
     </div>
 
     <!-- Existing Overlay Modal for Task Assignment (View Button) -->
-    <div x-show="showOverlay && activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 bg-black bg-opacity-60 z-60 flex items-center justify-center" @click.self="closeOverlay">
-        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-lg transform transition-all" @keydown.escape="closeOverlay">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Assign Task</h2>
-                <button @click="closeOverlay" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <form :id="'assign-task-form-' + selectedApplication.id" method="POST" :action="selectedApplication.type === 'Facility Booking' ? '/facility-bookings/' + selectedApplication.id + '/assign' : '/admin/individual-requests/' + selectedApplication.id + '/assign'" x-ref="assignForm" @submit.prevent="submitAssignment">
-                @csrf
-                <div class="space-y-6">
-                    <!-- Task Title -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Task Title</label>
-                        <input type="text" x-model="selectedApplication.title" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
-                    </div>
-                    <!-- Task Type -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
-                        <input type="text" x-model="selectedApplication.type" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
-                    </div>
-                    <!-- Assigned To -->
-                    <div>
-                        <label for="assignee" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assigned To</label>
-                        <select id="assignee" name="assignee_id" x-model="selectedApplication.assignee_id" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-                            <option value="">Select an assignee</option>
-                            @foreach($applications as $application)
-                                <option :value="'{{ $application->id }}'">{{ $application->first_name }} {{ $application->last_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <!-- Actions -->
-                <div class="mt-8 flex justify-end space-x-4">
-                    <button type="button" @click="closeOverlay" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors">Assign</button>
-                </form>
-            </div>
+    <!-- Update your existing overlay modal form -->
+<div x-show="showOverlay && activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 bg-black bg-opacity-60 z-60 flex items-center justify-center" @click.self="closeOverlay">
+    <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-lg transform transition-all" @keydown.escape="closeOverlay">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Assign Task</h2>
+            <button @click="closeOverlay" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
-    </div>
 
-    <!-- New Overlay Modal for Assign Task (from Stats Overview) -->
-    <div x-show="showAssignOverlay && activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 bg-black bg-opacity-60 z-60 flex items-center justify-center" @click.self="showAssignOverlay = false">
-        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-lg transform transition-all" @keydown.escape="showAssignOverlay = false">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Assign New Task</h2>
-                <button @click="showAssignOverlay = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+        <!-- Updated Form -->
+        <form @submit.prevent="submitAssignment" class="space-y-6">
+            <!-- Task Title -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Task Title</label>
+                <input type="text" x-model="selectedApplication.title" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
+            </div>
+
+            <!-- Reference Code -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Reference Code</label>
+                <input type="text" x-model="selectedApplication.reference_code" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
+            </div>
+
+            <!-- Task Type -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
+                <input type="text" x-model="selectedApplication.type" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
+            </div>
+
+            <!-- Task Details -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Details</label>
+                <textarea x-model="selectedApplication.details" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly></textarea>
+            </div>
+
+            <!-- Assigned To -->
+            <div>
+                <label for="assignee" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assigned To</label>
+                <select id="assignee" name="assignee_id" x-model="selectedApplication.assignee_id" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                    <option value="">Select an assignee</option>
+                    @foreach($applications as $application)
+                        <option value="{{ $application->id }}">{{ $application->first_name }} {{ $application->last_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Actions -->
+            <div class="mt-8 flex justify-end space-x-4">
+                <button type="button" @click="closeOverlay" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors">
+                    Assign Task
                 </button>
             </div>
-            <form id="new-assign-task-form" method="POST" :action="selectedTask ? (selectedTask.type === 'Facility Booking' ? '/facility-bookings/' + selectedTask.id + '/assign' : '/admin/individual-requests/' + selectedTask.id + '/assign') : '#'" @submit.prevent="submitAssignment">
-                @csrf
-                <div class="space-y-6">
-                    <!-- Task Title -->
-                    <div>
-                        <label for="task-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Task Title</label>
-                        <select id="task-title" name="task_id" x-model="selectedTaskId" @change="selectedTask = tasks.find(task => task.id == $event.target.value)" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-                            <option value="">Select a task</option>
-                            @foreach($combinedTasks as $task)
-                                <option value="{{ $task['id'] }}">{{ $task['title'] }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <!-- Task Type -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
-                        <input type="text" x-model="selectedTask ? selectedTask.type : ''" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
-                    </div>
-                    <!-- Assigned To -->
-                    <div>
-                        <label for="new-assignee" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assigned To</label>
-                        <select id="new-assignee" name="assignee_id" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-                            <option value="">Select an assignee</option>
-                            @foreach($applications as $application)
-                                <option value="{{ $application->id }}">{{ $application->first_name }} {{ $application->last_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <!-- Actions -->
-                <div class="mt-8 flex justify-end space-x-4">
-                    <button type="button" @click="showAssignOverlay = false" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors" :disabled="!selectedTask">Assign</button>
-                </div>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
 
     <!-- Alpine.js Data for New Modal -->
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('tasksData', () => ({
-                showAssignOverlay: false,
-                selectedTaskId: '',
-                selectedTask: null,
-                tasks: @json($combinedTasks->map(function($task) {
-                    return [
-                        'id' => $task['id'],
-                        'title' => $task['title'],
-                        'type' => $task['type']
-                    ];
-                })->toArray()),
-                submitAssignment(event) {
-                    const form = event.target;
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form),
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Task assigned successfully!');
-                            this.showAssignOverlay = false;
-                            // Optionally refresh the tasks table
-                        } else {
-                            alert('Error assigning task: ' + (data.message || 'Unknown error'));
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred while assigning the task.');
-                    });
+<script>
+function tasksData() {
+    return {
+        showOverlay: false,
+        showAssignOverlay: false,
+        selectedApplication: {
+            id: '',
+            reference_code: '',
+            title: '',
+            type: '',
+            status: '',
+            date: '',
+            details: '',
+            assignee_id: ''
+        },
+        selectedTask: null,
+        selectedTaskId: '',
+
+        // Open overlay for existing task
+        openOverlay(task) {
+            this.selectedApplication = { ...task };
+            this.showOverlay = true;
+        },
+
+        // Close overlay
+        closeOverlay() {
+            this.showOverlay = false;
+            this.resetSelectedApplication();
+        },
+
+        // Reset selected application
+        resetSelectedApplication() {
+            this.selectedApplication = {
+                id: '',
+                reference_code: '',
+                title: '',
+                type: '',
+                status: '',
+                date: '',
+                details: '',
+                assignee_id: ''
+            };
+        },
+
+        // Submit assignment
+        async submitAssignment(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const assigneeId = formData.get('assignee_id');
+
+            if (!assigneeId) {
+                this.showAlert('Please select an assignee', 'error');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const submitButton = event.target.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+                submitButton.textContent = 'Assigning...';
+                submitButton.disabled = true;
+
+                // Determine endpoint
+                let endpoint;
+                if (this.selectedApplication.type === 'Facility Booking') {
+                    endpoint = `/facility-requests/${this.selectedApplication.id}/assign`;
+                } else {
+                    endpoint = `/admin/individual-requests/${this.selectedApplication.id}/assign`;
                 }
-            }));
-        });
-    </script>
+
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        assignee_id: assigneeId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    this.showAlert(result.message, 'success');
+                    this.closeOverlay();
+
+                    // Reload page to show updated data
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    this.showAlert(result.message || 'Failed to assign task', 'error');
+                }
+            } catch (error) {
+                console.error('Assignment error:', error);
+                this.showAlert('An error occurred while assigning the task', 'error');
+            } finally {
+                // Reset button state
+                const submitButton = event.target.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }
+            }
+        },
+
+        // Show alert message
+        showAlert(message, type = 'info') {
+            // Create alert element
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `fixed top-4 right-4 z-50 px-4 py-2 rounded-lg shadow-lg transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'
+            }`;
+            alertDiv.textContent = message;
+
+            document.body.appendChild(alertDiv);
+
+            // Remove alert after 3 seconds
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
+    };
+}
+</script>
 </div>
 
                 </div>

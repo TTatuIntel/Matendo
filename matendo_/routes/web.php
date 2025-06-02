@@ -78,4 +78,13 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::patch('/applications/{id}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updatestatus');
 });
 
+use App\Http\Controllers\TaskAssignmentController;
+
+Route::middleware(['auth'])->group(function () {
+    // Assignment routes
+    Route::post('/admin/facility-requests/{id}/assign', [TaskAssignmentController::class, 'assignFacilityRequest']);
+    Route::post('/admin/individual-requests/{id}/assign', [TaskAssignmentController::class, 'assignIndividualRequest']);
+    Route::get('/assignments/{taskType}/{taskId}', [TaskAssignmentController::class, 'getAssignment']);
+    Route::put('/assignments/{id}/status', [TaskAssignmentController::class, 'updateAssignmentStatus']);
+});
 require __DIR__.'/auth.php';
