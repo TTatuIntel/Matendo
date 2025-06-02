@@ -30,7 +30,7 @@
     approveApplication(id) {
         const form = this.$refs.statusForm;
         form.querySelector('input[name=\'status\']').value = 'approved';
-        form.querySelector('input[name=\'application_id\']').value = id;
+        form.querySelector('input[name=\'selectedApplication.id\']').value = id;
         form.submit();
     },
     rejectApplication(id) {
@@ -1021,7 +1021,6 @@
     </div>
 </div>
 
-
 <!-- INDIVIDUAL REQUESTS TAB CONTENT -->
 <div x-show="activeMainTab === 'individual'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
     <!-- Individual Requests Stats Overview -->
@@ -1171,91 +1170,93 @@
 
 <!-- TASKS TAB CONTENT -->
 <!-- TASKS TAB CONTENT -->
-<div x-show="activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+<div x-data="tasksData()" x-show="activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="min-h-screen flex flex-col items-center justify-start pt-6">
     <!-- Current Date and Time Banner -->
-    <div class="mb-6 rounded-lg bg-gray-100 p-4 text-center dark:bg-gray-700">
+    <div class="mb-6 rounded-lg bg-gray-100 p-4 text-center dark:bg-gray-700 w-full max-w-4xl">
         <p class="text-sm text-gray-700 dark:text-gray-300">
-            Current Date & Time: <span class="font-medium">10:20 AM EAT, Thursday, May 29, 2025</span>
+            Current Date & Time: <span class="font-medium">06:29 AM EAT, Monday, June 02, 2025</span>
         </p>
     </div>
 
     <!-- Tasks Stats Overview -->
-    <div class="flex flex-wrap gap-4 mb-6">
-        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+    <div class="flex flex-wrap gap-4 mb-6 justify-center w-full max-w-4xl">
+        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-gray-800 p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
             <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                 </svg>
             </div>
             <div class="ml-4">
-                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Tasks</h2>
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ ($facilityBookings->count() ?? 0) + ($individualRequests->count() ?? 0) }}</p>
+                <h2 class="text-sm font-medium text-gray-300">Total Tasks</h2>
+                <p class="text-2xl font-bold text-white">{{ ($facilityBookings->count() ?? 0) + ($individualRequests->count() ?? 0) }}</p>
             </div>
         </div>
 
-        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600 dark:text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-gray-800 p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 dark:text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
             </div>
-            <div class="ml-4">
-                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Pending Tasks</h2>
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ ($facilityBookings->where('status', 'pending')->count() ?? 0) + ($individualRequests->where('status', 'pending')->count() ?? 0) }}</p>
+            <div class="ml-4 flex-1">
+                <button @click="showAssignOverlay = true" class="w-full text-left">
+                    <h2 class="text-sm font-medium text-gray-300">Assign Task</h2>
+                    <p class="text-2xl font-bold text-white">Create New</p>
+                </button>
             </div>
         </div>
 
-        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-gray-800 p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
             <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
             <div class="ml-4">
-                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Approved Tasks</h2>
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ ($facilityBookings->where('status', 'approved')->count() ?? 0) + ($individualRequests->where('status', 'approved')->count() ?? 0) }}</p>
+                <h2 class="text-sm font-medium text-gray-300">Approved Tasks</h2>
+                <p class="text-2xl font-bold text-white">{{ ($facilityBookings->where('status', 'approved')->count() ?? 0) + ($individualRequests->where('status', 'approved')->count() ?? 0) }}</p>
             </div>
         </div>
 
-        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800">
+        <div class="flex flex-1 min-w-[200px] transform items-center rounded-lg bg-gray-800 p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
             <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 dark:text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </div>
             <div class="ml-4">
-                <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400">Rejected Tasks</h2>
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ ($facilityBookings->where('status', 'rejected')->count() ?? 0) + ($individualRequests->where('status', 'rejected')->count() ?? 0) }}</p>
+                <h2 class="text-sm font-medium text-gray-300">Rejected Tasks</h2>
+                <p class="text-2xl font-bold text-white">{{ ($facilityBookings->where('status', 'rejected')->count() ?? 0) + ($individualRequests->where('status', 'rejected')->count() ?? 0) }}</p>
             </div>
         </div>
     </div>
 
     <!-- Tasks Table -->
-    <div class="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800">
+    <div class="overflow-hidden rounded-lg bg-gray-800 shadow-sm w-full max-w-4xl">
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-700">
+            <table class="min-w-full divide-y divide-gray-700">
+                <thead class="bg-gray-900">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Reference</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Task Title</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Type</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Status</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Date</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Reference</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Task Title</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Type</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Status</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Date</th>
                         <th scope="col" class="relative px-6 py-3">
                             <span class="sr-only">Actions</span>
                         </th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                <tbody class="divide-y divide-gray-700 bg-gray-800">
                     @php
                         // Define the current date for comparison
-                        $currentDate = \Carbon\Carbon::create(2025, 5, 29);
+                        $currentDate = \Carbon\Carbon::create(2025, 6, 2);
                         // Combine facility bookings and individual requests into a single task list
                         $combinedTasks = collect([]);
                         foreach ($facilityBookings ?? [] as $booking) {
                             $taskDate = \Carbon\Carbon::parse($booking->created_at);
                             $isDueToday = $taskDate->isSameDay($currentDate);
-                            $isOverdue = $taskDate->lt($currentDate);
+                            $isOverdue = $taskDate->lt($currentDate) && !$isDueToday;
                             $combinedTasks->push([
                                 'id' => $booking->id,
                                 'reference_code' => $booking->reference_number,
@@ -1265,13 +1266,13 @@
                                 'date' => $booking->created_at->format('Y-m-d'),
                                 'details' => $booking->resources_needed,
                                 'is_due_today' => $isDueToday,
-                                'is_overdue' => $isOverdue && !$isDueToday,
+                                'is_overdue' => $isOverdue,
                             ]);
                         }
                         foreach ($individualRequests ?? [] as $request) {
                             $taskDate = $request->start_date ? \Carbon\Carbon::parse($request->start_date) : null;
                             $isDueToday = $taskDate ? $taskDate->isSameDay($currentDate) : false;
-                            $isOverdue = $taskDate ? $taskDate->lt($currentDate) : false;
+                            $isOverdue = $taskDate ? $taskDate->lt($currentDate) && !$isDueToday : false;
                             $combinedTasks->push([
                                 'id' => $request->id,
                                 'reference_code' => $request->reference_number,
@@ -1281,17 +1282,17 @@
                                 'date' => $request->start_date ? $request->start_date->format('Y-m-d') : 'N/A',
                                 'details' => $request->skills_needed,
                                 'is_due_today' => $isDueToday,
-                                'is_overdue' => $isOverdue && !$isDueToday,
+                                'is_overdue' => $isOverdue,
                             ]);
                         }
                         // Sort tasks by date (most recent first)
                         $combinedTasks = $combinedTasks->sortByDesc('date');
                     @endphp
                     @forelse($combinedTasks as $task)
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 @if($task['is_due_today']) bg-yellow-50 dark:bg-yellow-900 @elseif($task['is_overdue']) bg-red-50 dark:bg-red-900 @endif">
-                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-600 dark:text-indigo-400">{{ $task['reference_code'] }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $task['title'] }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $task['type'] }}</td>
+                        <tr class="hover:bg-gray-700 @if($task['is_due_today']) bg-yellow-900 @endif">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-400">{{ $task['reference_code'] }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">{{ $task['title'] }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">{{ $task['type'] }}</td>
                             <td class="whitespace-nowrap px-6 py-4 text-sm">
                                 <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold
                                     @if($task['status'] === 'approved') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
@@ -1300,12 +1301,12 @@
                                     {{ ucfirst($task['status']) }}
                                 </span>
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">
                                 {{ $task['date'] }}
                                 @if($task['is_due_today'])
-                                    <span class="ml-2 text-xs text-yellow-600 dark:text-yellow-300 font-semibold">(Due Today)</span>
+                                    <span class="ml-2 text-xs text-yellow-300 font-semibold">(Due Today)</span>
                                 @elseif($task['is_overdue'])
-                                    <span class="ml-2 text-xs text-red-600 dark:text-red-300 font-semibold">(Overdue)</span>
+                                    <span class="ml-2 text-xs text-red-300 font-semibold">(Overdue)</span>
                                 @endif
                             </td>
                             <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
@@ -1317,23 +1318,23 @@
                                     status: '{{ $task['status'] }}',
                                     date: '{{ $task['date'] }}',
                                     details: '{{ $task['details'] }}'
-                                })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
+                                })" type="button" class="text-indigo-400 hover:text-indigo-300">View</button>
                             </td>
                         </tr>
                     @empty
                         <!-- Sample Task Data -->
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 bg-yellow-50 dark:bg-yellow-900">
-                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-600 dark:text-indigo-400">FAC-2023-001</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">City Medical Center</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Facility Booking</td>
+                        <tr class="hover:bg-gray-700 bg-yellow-900">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-400">FAC-2023-001</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">City Medical Center</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">Facility Booking</td>
                             <td class="whitespace-nowrap px-6 py-4 text-sm">
                                 <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
                                     Pending
                                 </span>
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
-                                2025-05-29
-                                <span class="ml-2 text-xs text-yellow-600 dark:text-yellow-300 font-semibold">(Due Today)</span>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">
+                                2025-06-02
+                                <span class="ml-2 text-xs text-yellow-300 font-semibold">(Due Today)</span>
                             </td>
                             <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                 <button @click="openOverlay({
@@ -1342,23 +1343,23 @@
                                     title: 'City Medical Center',
                                     type: 'Facility Booking',
                                     status: 'pending',
-                                    date: '2025-05-29',
+                                    date: '2025-06-02',
                                     details: '3 nurses for weekend coverage'
-                                })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
+                                })" type="button" class="text-indigo-400 hover:text-indigo-300">View</button>
                             </td>
                         </tr>
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 bg-red-50 dark:bg-red-900">
-                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-600 dark:text-indigo-400">IND-2023-001</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Robert Thompson</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Individual Request</td>
+                        <tr class="hover:bg-gray-700">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-indigo-400">IND-2023-001</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">Robert Thompson</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">Individual Request</td>
                             <td class="whitespace-nowrap px-6 py-4 text-sm">
                                 <span class="inline-flex rounded-full px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
                                     Pending
                                 </span>
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-300">
                                 2025-05-27
-                                <span class="ml-2 text-xs text-red-600 dark:text-red-300 font-semibold">(Overdue)</span>
+                                <span class="ml-2 text-xs text-red-300 font-semibold">(Overdue)</span>
                             </td>
                             <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                 <button @click="openOverlay({
@@ -1369,7 +1370,7 @@
                                     status: 'pending',
                                     date: '2025-05-27',
                                     details: 'Home care assistance'
-                                })" type="button" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">View</button>
+                                })" type="button" class="text-indigo-400 hover:text-indigo-300">View</button>
                             </td>
                         </tr>
                     @endforelse
@@ -1378,11 +1379,11 @@
         </div>
 
         <!-- Pagination -->
-        <div class="border-t border-gray-200 px-4 py-3 dark:border-gray-700">
+        <div class="border-t border-gray-700 px-4 py-3 w-full max-w-4xl">
             <div class="flex items-center justify-between">
                 <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                     <div>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <p class="text-sm text-gray-400">
                             Showing
                             <span class="font-medium">{{ $combinedTasks->first() ? $combinedTasks->first()['id'] : 1 }}</span>
                             to
@@ -1402,38 +1403,141 @@
         </div>
     </div>
 
-    <!-- Overlay Modal for Tasks -->
-    <div x-show="showOverlay && activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center" @click.self="closeOverlay">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md" @keydown.escape="closeOverlay">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Task Details</h2>
-            <div class="space-y-4">
-                <p><strong>Reference:</strong> <span x-text="selectedApplication.reference_code"></span></p>
-                <p><strong>Title:</strong> <span x-text="selectedApplication.title"></span></p>
-                <p><strong>Type:</strong> <span x-text="selectedApplication.type"></span></p>
-                <p><strong>Details:</strong> <span x-text="selectedApplication.details"></span></p>
-                <p><strong>Status:</strong>
-                    <span x-text="selectedApplication.status"
-                          class="inline-flex rounded-full px-2 py-1 text-xs font-semibold"
-                          :class="selectedApplication.status === 'approved' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' :
-                                 selectedApplication.status === 'rejected' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' :
-                                 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'"></span>
-                </p>
-                <p><strong>Date:</strong> <span x-text="selectedApplication.date"></span></p>
+    <!-- Existing Overlay Modal for Task Assignment (View Button) -->
+    <div x-show="showOverlay && activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 bg-black bg-opacity-60 z-60 flex items-center justify-center" @click.self="closeOverlay">
+        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-lg transform transition-all" @keydown.escape="closeOverlay">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Assign Task</h2>
+                <button @click="closeOverlay" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
-            <div class="mt-6 space-x-4">
-                <form :id="'status-update-form-' + selectedApplication.id" method="POST" :action="selectedApplication.type === 'Facility Booking' ? '/facility-bookings/' + selectedApplication.id + '/status' : '/admin/individual-requests/' + selectedApplication.id + '/status'" x-ref="statusForm">
-                    @csrf
-                    @method('PATCH')
-                    <input type="hidden" name="status" x-model="selectedApplication.status">
+            <form :id="'assign-task-form-' + selectedApplication.id" method="POST" :action="selectedApplication.type === 'Facility Booking' ? '/facility-bookings/' + selectedApplication.id + '/assign' : '/admin/individual-requests/' + selectedApplication.id + '/assign'" x-ref="assignForm" @submit.prevent="submitAssignment">
+                @csrf
+                <div class="space-y-6">
+                    <!-- Task Title -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Task Title</label>
+                        <input type="text" x-model="selectedApplication.title" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
+                    </div>
+                    <!-- Task Type -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
+                        <input type="text" x-model="selectedApplication.type" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
+                    </div>
+                    <!-- Assigned To -->
+                    <div>
+                        <label for="assignee" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assigned To</label>
+                        <select id="assignee" name="assignee_id" x-model="selectedApplication.assignee_id" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                            <option value="">Select an assignee</option>
+                            @foreach($applications as $application)
+                                <option :value="'{{ $application->id }}'">{{ $application->first_name }} {{ $application->last_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <!-- Actions -->
+                <div class="mt-8 flex justify-end space-x-4">
+                    <button type="button" @click="closeOverlay" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors">Assign</button>
                 </form>
-                <button @click="approveTask(selectedApplication.id, selectedApplication.type)" class="w-full md:w-auto px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600" :disabled="selectedApplication.status === 'approved'">Approve</button>
-                <button @click="rejectTask(selectedApplication.id, selectedApplication.type)" class="w-full md:w-auto px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600" :disabled="selectedApplication.status === 'rejected'">Reject</button>
-                <button @click="closeOverlay" class="w-full md:w-auto mt-2 md:mt-0 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600">Close</button>
             </div>
         </div>
     </div>
-</div>
 
+    <!-- New Overlay Modal for Assign Task (from Stats Overview) -->
+    <div x-show="showAssignOverlay && activeMainTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 bg-black bg-opacity-60 z-60 flex items-center justify-center" @click.self="showAssignOverlay = false">
+        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-lg transform transition-all" @keydown.escape="showAssignOverlay = false">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Assign New Task</h2>
+                <button @click="showAssignOverlay = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <form id="new-assign-task-form" method="POST" :action="selectedTask ? (selectedTask.type === 'Facility Booking' ? '/facility-bookings/' + selectedTask.id + '/assign' : '/admin/individual-requests/' + selectedTask.id + '/assign') : '#'" @submit.prevent="submitAssignment">
+                @csrf
+                <div class="space-y-6">
+                    <!-- Task Title -->
+                    <div>
+                        <label for="task-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Task Title</label>
+                        <select id="task-title" name="task_id" x-model="selectedTaskId" @change="selectedTask = tasks.find(task => task.id == $event.target.value)" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                            <option value="">Select a task</option>
+                            @foreach($combinedTasks as $task)
+                                <option value="{{ $task['id'] }}">{{ $task['title'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <!-- Task Type -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
+                        <input type="text" x-model="selectedTask ? selectedTask.type : ''" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" readonly>
+                    </div>
+                    <!-- Assigned To -->
+                    <div>
+                        <label for="new-assignee" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assigned To</label>
+                        <select id="new-assignee" name="assignee_id" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                            <option value="">Select an assignee</option>
+                            @foreach($applications as $application)
+                                <option value="{{ $application->id }}">{{ $application->first_name }} {{ $application->last_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <!-- Actions -->
+                <div class="mt-8 flex justify-end space-x-4">
+                    <button type="button" @click="showAssignOverlay = false" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors" :disabled="!selectedTask">Assign</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alpine.js Data for New Modal -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('tasksData', () => ({
+                showAssignOverlay: false,
+                selectedTaskId: '',
+                selectedTask: null,
+                tasks: @json($combinedTasks->map(function($task) {
+                    return [
+                        'id' => $task['id'],
+                        'title' => $task['title'],
+                        'type' => $task['type']
+                    ];
+                })->toArray()),
+                submitAssignment(event) {
+                    const form = event.target;
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Task assigned successfully!');
+                            this.showAssignOverlay = false;
+                            // Optionally refresh the tasks table
+                        } else {
+                            alert('Error assigning task: ' + (data.message || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while assigning the task.');
+                    });
+                }
+            }));
+        });
+    </script>
+</div>
 
                 </div>
 
