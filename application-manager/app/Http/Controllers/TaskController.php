@@ -1,70 +1,73 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Application;
 use App\Models\FacilityRequest;
 use App\Models\IndividualRequest;
 use App\Models\TaskAssignment;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    //
-public function showAssignList()
-{
-    $facilities = FacilityRequest::all();
-    $individuals = IndividualRequest::all();
-    return view('tasks.index', compact('facilities', 'individuals'));
-}
-
-public function assignForm($type, $id)
-{
-    $task = $type === 'facility'
-        ? FacilityRequest::findOrFail($id)
-        : IndividualRequest::findOrFail($id);
-
-    $workers = Application::where('status', 'approved')->get();
-
-    return view('tasks.assign', compact('task', 'type', 'workers'));
-}
-
-public function showAssignForm($type, $id)
-{
-    if ($type === 'facility') {
-        $task = Facility::findOrFail($id);
-    } elseif ($type === 'individual') {
-        $task = Individual::findOrFail($id);
-    } else {
-        abort(404);
+    public function showAssignList()
+    {
+        $facilities = FacilityRequest::all();
+        $individuals = IndividualRequest::all();
+        return view('tasks.index', compact('facilities', 'individuals'));
     }
 
-    $workers = Worker::all(); // ✅ Load workers from DB
+    public function assignForm($type, $id)
+    {
+        $task = $type === 'facility'
+            ? FacilityRequest::findOrFail($id)
+            : IndividualRequest::findOrFail($id);
 
-    return view('assign', compact('type', 'task', 'workers'));
-}
+        // ✅ Fetch users with role = user and usertype = user
+        $workers = User::where('role', 'user')
+                       ->where('usertype', 'user')
+                       ->get();
 
-public function assign(Request $request)
-{
-    $request->validate([
-        'task_type' => 'required|in:facility,individual',
-        'task_id' => 'required|integer',
-        'assigned_to' => 'required|exists:applications,id'
-    ]);
+        return view('tasks.assign', compact('task', 'type', 'workers'));
+    }
 
-    TaskAssignment::create([
-        'task_type' => $request->task_type,
-        'task_id' => $request->task_id,
-        'assigned_to' => $request->assigned_to,
-    ]);
+    // Optional legacy method — safe to remove if unused
+    public function showAssignForm($type, $id)
+    {
+        if ($type === 'facility') {
+            $task = Facility::findOrFail($id);
+        } elseif ($type === 'individual') {
+            $task = Individual::findOrFail($id);
+        } else {
+            abort(404);
+        }
 
-    return redirect()->route('requests.index')->with('success', 'Task assigned successfully.');
-}
-// New method to display task assignments
+        $workers = Worker::all(); // Legacy logic — possibly outdated
+
+        return view('assign', compact('type', 'task', 'workers'));
+    }
+
+    public function assign(Request $request)
+    {
+        $request->validate([
+            'task_type' => 'required|in:facility,individual',
+            'task_id' => 'required|integer',
+            'assigned_to' => 'required|exists:users,id' // ✅ Validate against users table
+        ]);
+
+        TaskAssignment::create([
+            'task_type' => $request->task_type,
+            'task_id' => $request->task_id,
+            'assigned_to' => $request->assigned_to,
+        ]);
+
+        return redirect()->route('requests.index')->with('success', 'Task assigned successfully.');
+    }
+
     public function showAssignments()
-{
-    // Fetch task assignments with related data
-    $assignments = TaskAssignment::with(['user', 'facilityRequest', 'individualRequest'])->get();
-    return view('tasks.assignments', compact('assignments'));
-}
+    {
+        $assignments = TaskAssignment::with(['user', 'facilityRequest', 'individualRequest'])->get();
+        return view('tasks.assignments', compact('assignments'));
+    }
 }
