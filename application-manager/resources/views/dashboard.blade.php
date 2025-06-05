@@ -23,9 +23,16 @@
                 <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
                 <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
                 <p><strong>Role:</strong> {{ auth()->user()->role }}</p>
+                <p><strong>Task 1:</strong> {{ auth()->user()->task1 ?? 'No Task Assigned' }}</p>
+                <p><strong>Task 2:</strong> {{ auth()->user()->task2 ?? 'No Task Assigned' }}</p>
             @else
                 <h2>Welcome, {{ auth()->user()->name }}</h2>
                 <p>This is your user dashboard.</p>
+                <h4>Your Assigned Tasks</h4>
+                <ul>
+                    <li><strong>Task 1:</strong> {{ auth()->user()->task1 ?? 'No Task Assigned' }}</li>
+                    <li><strong>Task 2:</strong> {{ auth()->user()->task2 ?? 'No Task Assigned' }}</li>
+                </ul>
             @endif
         </div>
     </div>
