@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+    use App\Models\FacilityRequest;
+    use App\Models\IndividualRequest;
+
+    $taskAssignments = auth()->user()->taskAssignments;
+@endphp
     <div style="display: flex; gap: 20px;">
         {{-- Sidebar Navigation --}}
         <nav style="width: 200px; background-color: #f3f3f3; padding: 10px;">
@@ -28,11 +35,28 @@
             @else
                 <h2>Welcome, {{ auth()->user()->name }}</h2>
                 <p>This is your user dashboard.</p>
-                <h4>Your Assigned Tasks</h4>
-                <ul>
-                    <li><strong>Task 1:</strong> {{ auth()->user()->task1 ?? 'No Task Assigned' }}</li>
-                    <li><strong>Task 2:</strong> {{ auth()->user()->task2 ?? 'No Task Assigned' }}</li>
-                </ul>
+            <h4>Your Assigned Tasks</h4>
+            <ul>
+                @forelse ($taskAssignments as $assignment)
+                    @php
+                        if ($assignment->task_type === 'facility') {
+                            $task = FacilityRequest::find($assignment->task_id);
+                            $title = $task->facility_name ?? 'Unknown Facility';
+                        } elseif ($assignment->task_type === 'individual') {
+                            $task = IndividualRequest::find($assignment->task_id);
+                            $title = $task->individual_name ?? 'Unknown Individual';
+                        } else {
+                            $title = 'Unknown Task Type';
+                        }
+                    @endphp
+
+                    <li><strong>{{ ucfirst($assignment->task_type) }} Task:</strong> {{ $title }}</li>
+                @empty
+                    <li>No tasks assigned</li>
+                @endforelse
+            </ul>
+
+
             @endif
         </div>
     </div>
