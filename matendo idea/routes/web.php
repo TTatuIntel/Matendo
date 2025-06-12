@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard/{tab?}', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+    Route::put('/applications/{application}', [ApplicationController::class, 'update'])->name('applications.update');
     Route::post('/applications/process', [ApplicationController::class, 'process'])->name('applications.process');
     Route::get('/applications/{application}/{type}/download', [ApplicationController::class, 'download'])->name('applications.download');
     Route::post('/applications/{application}/regenerate-password', [ApplicationController::class, 'regeneratePassword'])->name('applications.regenerate-password');
@@ -34,7 +35,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/applications/{application}/snapshot-pdf', [ApplicationController::class, 'snapshotPdf'])->name('applications.snapshot-pdf');
     Route::get('/applications/{application}/credentials', [ApplicationController::class, 'getCredentials'])->name('applications.credentials');
     Route::post('/applications/{application}/resend-credentials', [ApplicationController::class, 'resendCredentials'])->name('applications.resend-credentials');
-    Route::post('/applications/bulk-process', [ApplicationController::class, 'bulkProcess'])->name('applications.bulk-process'); // New route for bulk actions
+    Route::post('/applications/bulk-process', [ApplicationController::class, 'bulkProcess'])->name('applications.bulk-process');
     Route::get('/facility', [AdminController::class, 'facility'])->name('facility');
     Route::get('/healthworkers', [AdminController::class, 'healthworkers'])->name('healthworkers');
     Route::get('/tasks', [AdminController::class, 'tasks'])->name('tasks');
