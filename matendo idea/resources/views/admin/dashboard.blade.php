@@ -390,42 +390,43 @@
                 </div>
 
                 <!-- Applications Tab -->
-                <div x-show="activeTab === 'applications'" role="tabpanel" id="panel-applications">
+
+                <!-- Applications Tab -->
+                <section x-show="activeTab === 'applications'" x-cloak role="tabpanel" id="panel-applications" class="p-6">
                     @include('admin.partials._applications')
-                </div>
+                </section>
 
                 <!-- Facility Tab -->
-                <div x-show="activeTab === 'facility'" role="tabpanel" id="panel-facility">
+                <section x-show="activeTab === 'facility'" x-cloak role="tabpanel" id="panel-facility" class="p-6">
                     @include('admin.partials._facility')
-                </div>
+                </section>
 
                 <!-- Individual Tab -->
-                <div x-show="activeTab === 'individual'" role="tabpanel" id="panel-individual">
+                <section x-show="activeTab === 'individual'" x-cloak role="tabpanel" id="panel-individual" class="p-6">
                     @include('admin.partials._individual')
-                </div>
+                </section>
 
                 <!-- Health Workers Tab -->
-                <div x-show="activeTab === 'healthworkers'" role="tabpanel" id="panel-healthworkers">
+                <section x-show="activeTab === 'healthworkers'" x-cloak role="tabpanel" id="panel-healthworkers" class="p-6">
                     @include('admin.partials._healthworkers')
-                </div>
+                </section>
 
                 <!-- Tasks Tab -->
-                <div x-show="activeTab === 'tasks'" role="tabpanel" id="panel-tasks">
+                <section x-show="activeTab === 'tasks'" x-cloak role="tabpanel" id="panel-tasks" class="p-6">
                     @include('admin.partials._tasks')
-                </div>
+                </section>
 
                 <!-- Settings Tab -->
-                <div x-show="activeTab === 'settings'" role="tabpanel" id="panel-settings">
+                <section x-show="activeTab === 'settings'" x-cloak role="tabpanel" id="panel-settings" class="p-6">
                     @include('admin.partials._settings')
-                </div>
+                </section>
 
                 <!-- Reports Tab -->
-                <div x-show="activeTab === 'reports'" role="tabpanel" id="panel-reports">
+                <section x-show="activeTab === 'reports'" x-cloak role="tabpanel" id="panel-reports" class="p-6">
                     @include('admin.partials._reports')
-                </div>
+                </section>
             </div>
-        </div>
+        </main>
     </div>
-    @stack('scripts')
 </body>
 </html>
