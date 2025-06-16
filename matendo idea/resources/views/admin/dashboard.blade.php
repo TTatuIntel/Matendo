@@ -1,5 +1,3 @@
-<!-- resources/views/layouts/app.blade.php (or wherever x-app-layout is defined) -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,44 +89,75 @@
                 activeTab: (new URLSearchParams(window.location.search)).get('tab') || 'dashboard',
                 tabs: ['dashboard', 'applications', 'facility', 'individual', 'healthworkers', 'tasks', 'settings', 'reports'],
                 focusNext(index) {
-                    let nit = (index + 1) % this.tabs.length;
-                    this.$refs['tab-' + this.tabs[next]][0].focus();
+                    let next = (index + 1) % (this.tabs.length + 1); // +1 for logout button
+                    if (next === this.tabs.length) {
+                        this.$refs['logout-button'][0].focus();
+                    } else {
+                        this.$refs['tab-' + this.tabs[next]][0].focus();
+                    }
                 },
                 focusPrev(index) {
-                    let prev = (index - 1 + this.tabs.length) % this.tabs.length;
-                    this.$refs['tab-' + this.tabs[prev]][0].focus();
+                    let prev = (index - 1 + this.tabs.length + 1) % (this.tabs.length + 1); // +1 for logout button
+                    if (prev === this.tabs.length) {
+                        this.$refs['logout-button'][0].focus();
+                    } else {
+                        this.$refs['tab-' + this.tabs[prev]][0].focus();
+                    }
                 }
             }"
             role="region"
             aria-label="Admin Dashboard"
         >
             <!-- Main Tab Navigation -->
-            <div role="tablist" class="flex flex-wrap gap-4 border-b border-gray-200 mb-6">
-                <template x-for="(tab, index) in tabs" :key="tab">
+            <div role="tablist" class="flex justify-between items-center border-b border-gray-200 mb-6">
+                <!-- Tab Buttons -->
+                <div class="flex flex-wrap gap-4">
+                    <template x-for="(tab, index) in tabs" :key="tab">
+                        <button
+                            role="tab"
+                            :aria-selected="activeTab === tab"
+                            :tabindex="activeTab === tab ? '0' : '-1'"
+                            :id="`tab-${tab}`"
+                            :aria-controls="`panel-${tab}`"
+                            x-ref="'tab-' + tab"
+                            @click="activeTab = tab"
+                            @keydown.arrow-right.prevent="focusNext(index)"
+                            @keydown.arrow-left.prevent="focusPrev(index)"
+                            :class="{
+                                'btn-primary font-semibold': activeTab === tab,
+                                'text-gray-600 hover:text-gray-900 hover:bg-gray-100': activeTab !== tab
+                            }"
+                            class="px-4 py-2 text-sm rounded-full smooth-transition focus:outline-none focus:ring-2 focus:ring-green-400"
+                        >
+                            <span x-text="
+                                tab.charAt(0).toUpperCase() +
+                                tab.slice(1).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/_/g, ' ')
+                            "></span>
+                        </button>
+                    </template>
+                </div>
+                <!-- Logout Button -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
                     <button
-                        role="tab"
-                        :aria-selected="activeTab === tab"
-                        :tabindex="activeTab === tab ? '0' : '-1'"
-                        :id="`tab-${tab}`"
-                        :aria-controls="`panel-${tab}`"
-                        x-ref="'tab-' + tab"
-                        @click="activeTab = tab"
-                        @keydown.arrow-right.prevent="focusNext(index)"
-                        @keydown.arrow-left.prevent="focusPrev(index)"
-                        :class="{
-                            'btn-primary font-semibold': activeTab === tab,
-                            'text-gray-600 hover:text-gray-900 hover:bg-gray-100': activeTab !== tab
-                        }"
-                        class="px-4 py-2 text-sm rounded-full smooth-transition focus:outline-none focus:ring-2 focus:ring-green-400"
+                        type="submit"
+                        x-ref="logout-button"
+                        class="btn-danger px-4 py-2 text-sm rounded-full smooth-transition focus:outline-none focus:ring-2 focus:ring-red-400"
+                        @keydown.arrow-right.prevent="focusNext(tabs.length)"
+                        @keydown.arrow-left.prevent="focusPrev(tabs.length)"
+                        x-on:click="if(!confirm('Are you sure you want to logout?')) event.preventDefault()"
+                        aria-label="Logout"
                     >
-                        <span x-text="
-                            tab.charAt(0).toUpperCase() +
-                            tab.slice(1).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/_/g, ' ')
-                        "></span>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Logout
+                        </span>
                     </button>
-                </template>
+                </form>
             </div>
-
+            
             <!-- Tab Panels -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                 <!-- Dashboard Tab -->
@@ -423,7 +452,7 @@
                     @include('admin.partials._reports')
                 </section>
             </div>
-        </main>
+        </div>
     </div>
 </body>
 </html>
