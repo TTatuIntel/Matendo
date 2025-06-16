@@ -6,6 +6,8 @@ use App\Http\Controllers\HealthworkerController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\IndividualRequestController;
+use App\Http\Controllers\TaskController;
+
 use Illuminate\Support\Facades\Route;
 
 // Home route
@@ -73,6 +75,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/individual/{individualRequest}', [IndividualRequestController::class, 'show'])->name('admin.individual.show');
     Route::post('/admin/individual/{individualRequest}/approve', [IndividualRequestController::class, 'approve'])->name('admin.individual.approve');
     Route::post('/admin/individual/{individualRequest}/reject', [IndividualRequestController::class, 'reject'])->name('admin.individual.reject');
+
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/tasks', [TaskController::class, 'getTasks'])->name('admin.tasks');
+    Route::get('/admin/tasks/view', [TaskController::class, 'index'])->name('admin.tasks.view');
+    Route::get('/admin/tasks/{task}', [TaskController::class, 'show'])->name('admin.tasks.show');
+});
 
 });
 
