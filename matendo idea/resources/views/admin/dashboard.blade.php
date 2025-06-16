@@ -193,12 +193,12 @@
                                             Total Applications
                                         </h3>
                                         <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                                            {{ $totalApplications ?? 123 }}
+                                            {{ $pendingApplications + $approvedApplications + $rejectedApplications ?? 123 }}
                                         </span>
                                     </div>
                                     <p class="text-gray-600 text-sm mb-2">Applications received since platform launch.</p>
                                     <div class="text-xs text-gray-600">
-                                        <p>New this month: <span class="font-semibold">{{ $newApplicationsThisMonth ?? 15 }}</span></p>
+                                        <p>New this month: <span class="font-semibold">{{ $newApproved ?? 15 }}</span></p>
                                     </div>
                                 </div>
 
@@ -231,7 +231,7 @@
                                             Active Health Workers
                                         </h3>
                                         <span class="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full">
-                                            {{ $activeHealthWorkers ?? 78 }}
+                                            {{ $healthworkers->total() ?? 78 }}
                                         </span>
                                     </div>
                                     <p class="text-gray-600 text-sm mb-2">Verified professionals available on platform.</p>
@@ -269,7 +269,7 @@
                                     Recent Activities
                                 </h2>
                                 <div class="flex space-x-3">
-                                    <button class="btn-primary flex items-center">
+                                    <button class="btn-primary flex items-center" onclick="window.location.reload()">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                                         </svg>
@@ -298,120 +298,68 @@
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
-                                            <!-- Recent Activity Row 1 -->
-                                            <tr class="table-row smooth-transition">
-                                                <td class="px-4 py-3">
-                                                    <div class="flex items-center">
-                                                        <div class="flex-shrink-0 h-10 w-10">
-                                                            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                                                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                                                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z" clip-rule="evenodd"></path>
-                                                                </svg>
+                                            @forelse ($recentActivities as $activity)
+                                                <tr class="table-row smooth-transition">
+                                                    <td class="px-4 py-3">
+                                                        <div class="flex items-center">
+                                                            <div class="flex-shrink-0 h-10 w-10">
+                                                                <div class="h-10 w-10 rounded-full bg-{{ $activity['color'] }}-100 flex items-center justify-center">
+                                                                    <svg class="w-5 h-5 text-{{ $activity['color'] }}-600" fill="currentColor" viewBox="0 0 20 20">
+                                                                        <path fill-rule="evenodd" d="{{ $activity['icon'] }}" clip-rule="evenodd"></path>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ml-4">
+                                                                <div class="font-medium text-gray-900">{{ $activity['title'] }}</div>
+                                                                <div class="text-gray-600">{{ $activity['description'] }}</div>
                                                             </div>
                                                         </div>
-                                                        <div class="ml-4">
-                                                            <div class="font-medium text-gray-900">New Application from Jane Doe</div>
-                                                            <div class="text-gray-600">Registered Nurse application</div>
+                                                    </td>
+                                                    <td class="px-4 py-3">
+                                                        <span class="px-2 py-1 text-xs font-medium bg-{{ $activity['color'] }}-100 text-{{ $activity['color'] }}-800 rounded-full">
+                                                            {{ $activity['type'] }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-4 py-3">
+                                                        <span class="px-2 py-1 text-xs font-medium bg-{{ $activity['status'] == 'Approved' ? 'green' : ($activity['status'] == 'Pending' ? 'yellow' : 'red') }}-100 text-{{ $activity['status'] == 'Approved' ? 'green' : ($activity['status'] == 'Pending' ? 'yellow' : 'red') }}-800 rounded-full">
+                                                            {{ $activity['status'] }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-4 py-3 text-gray-600">
+                                                        <div class="flex items-center">
+                                                            <svg class="w-4 h-4 text-gray-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                                            </svg>
+                                                            {{ $activity['timestamp']->diffForHumans() }}
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-4 py-3">
-                                                    <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                                                        Application
-                                                    </span>
-                                                </td>
-                                                <td class="px-4 py-3">
-                                                    <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
-                                                        Pending Review
-                                                    </span>
-                                                </td>
-                                                <td class="px-4 py-3 text-gray-600">
-                                                    <div class="flex items-center">
-                                                        <svg class="w-4 h-4 text-gray-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                                                        </svg>
-                                                        2 hours ago
-                                                    </div>
-                                                </td>
-                                                <td class="px-4 py-3 text-center">
-                                                    <div class="flex justify-center space-x-2">
-                                                        <button class="btn-primary flex items-center">
-                                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                                            </svg>
-                                                            View Details
-                                                        </button>
-                                                        <button class="btn-primary flex items-center">
-                                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                                            </svg>
-                                                            Review
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <!-- Recent Activity Row 2 -->
-                                            <tr class="table-row smooth-transition">
-                                                <td class="px-4 py-3">
-                                                    <div class="flex items-center">
-                                                        <div class="flex-shrink-0 h-10 w-10">
-                                                            <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                                                                <svg class="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
-                                                                    <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clip-rule="evenodd"></path>
-                                                                </svg>
-                                                            </div>
+                                                    </td>
+                                                    <td class="px-4 py-3 text-center">
+                                                        <div class="flex justify-center space-x-2">
+                                                            @foreach ($activity['actions'] as $action)
+                                                                <a href="{{ $action['route'] }}" class="btn-primary flex items-center">
+                                                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $action['icon'] }}"></path>
+                                                                    </svg>
+                                                                    {{ $action['label'] }}
+                                                                </a>
+                                                            @endforeach
                                                         </div>
-                                                        <div class="ml-4">
-                                                            <div class="font-medium text-gray-900">Facility Request from Clinic XYZ</div>
-                                                            <div class="text-gray-600">Urgent request for 2 nurses</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-4 py-3">
-                                                    <span class="px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-800 rounded-full">
-                                                        Facility Request
-                                                    </span>
-                                                </td>
-                                                <td class="px-4 py-3">
-                                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
-                                                        Open
-                                                    </span>
-                                                </td>
-                                                <td class="px-4 py-3 text-gray-600">
-                                                    <div class="flex items-center">
-                                                        <svg class="w-4 h-4 text-gray-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                                                        </svg>
-                                                        4 hours ago
-                                                    </div>
-                                                </td>
-                                                <td class="px-4 py-3 text-center">
-                                                    <div class="flex justify-center space-x-2">
-                                                        <button class="btn-primary flex items-center">
-                                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                                            </svg>
-                                                            View Details
-                                                        </button>
-                                                        <button class="btn-primary flex items-center">
-                                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                            </svg>
-                                                            Manage
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="5" class="px-4 py-3 text-center text-gray-600">
+                                                        No recent activities found.
+                                                    </td>
+                                                </tr>
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>
 
                                 <!-- Pagination -->
                                 <div class="px-4 py-3 border-t border-gray-200">
-                                    {{ $applications->links() }}
+                                    {{ $recentActivities->links() }}
                                 </div>
                             </div>
                         </div>
