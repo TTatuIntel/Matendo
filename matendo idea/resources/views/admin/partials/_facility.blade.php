@@ -2,48 +2,79 @@
 <div x-data="{
     showModal: false,
     selectedRequest: null,
-    requests: [
-        {
-            id: 1,
-            facility_name: 'Kampala General Hospital',
-            contact_person: 'Dr. Sarah Nakato',
-            email: 'sarah.nakato@kgh.ug',
-            phone: '+256 700 123 456',
-            location: 'Central Division, Kampala',
-            staff_needed: 'Nurses (3), Doctors (2)',
-            urgency: 'High',
-            status: 'Pending',
-            submitted_at: '2 hours ago',
-            description: 'Urgent need for additional medical staff due to increased patient load in the emergency department.'
-        },
-        {
-            id: 2,
-            facility_name: 'Mulago National Referral Hospital',
-            contact_person: 'Dr. James Okello',
-            email: 'james.okello@mulago.ug',
-            phone: '+256 700 654 321',
-            location: 'Kawempe Division, Kampala',
-            staff_needed: 'Specialists (2), Lab Technicians (1)',
-            urgency: 'Medium',
-            status: 'Approved',
-            submitted_at: '1 day ago',
-            description: 'Need for specialized medical personnel for cardiac surgery unit expansion.'
-        }
-    ],
+    requests: [],
+    stats: {
+        pending: 0,
+        approved: 0,
+        rejected: 0,
+        total: 0
+    },
+    loading: true,
+    init() {
+        // Fetch data from server
+        this.fetchRequests();
+    },
+    fetchRequests() {
+        this.loading = true;
+        fetch('{{ route('admin.facility') }}')
+            .then(response => response.json())
+            .then(data => {
+                this.requests = data.requests;
+                this.stats = data.stats;
+                this.loading = false;
+            })
+            .catch(error => {
+                console.error('Error fetching requests:', error);
+                this.loading = false;
+            });
+    },
     viewRequest(request) {
-        this.selectedRequest = request;
-        this.showModal = true;
+        // Fetch full details for the selected request
+        fetch(`/admin/facility/${request.id}`)
+            .then(response => response.json())
+            .then(data => {
+                this.selectedRequest = data;
+                this.showModal = true;
+            });
     },
     approveRequest(requestId) {
         if(confirm('Are you sure you want to approve this request?')) {
-            // Add approval logic here
-            alert('Request approved successfully!');
+            fetch(`/admin/facility/${requestId}/approve`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    alert(data.message);
+                    this.fetchRequests(); // Refresh the list
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            });
         }
     },
     rejectRequest(requestId) {
         if(confirm('Are you sure you want to reject this request?')) {
-            // Add rejection logic here
-            alert('Request rejected.');
+            fetch(`/admin/facility/${requestId}/reject`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    alert(data.message);
+                    this.fetchRequests(); // Refresh the list
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            });
         }
     }
 }" class="space-y-6">
@@ -84,11 +115,11 @@
                 </div>
                 <div class="ml-4">
                     <p class="text-sm font-medium text-gray-600">Pending</p>
-                    <p class="text-2xl font-semibold text-gray-900">12</p>
+                    <p x-text="stats.pending" class="text-2xl font-semibold text-gray-900"></p>
                 </div>
             </div>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray.css file:///home/user/HealthcareStaffing/resources/views/admin/_facility.blade.php200">
             <div class="flex items-center">
                 <div class="p-2 bg-green-100 rounded-lg">
                     <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
@@ -97,7 +128,7 @@
                 </div>
                 <div class="ml-4">
                     <p class="text-sm font-medium text-gray-600">Approved</p>
-                    <p class="text-2xl font-semibold text-gray-900">28</p>
+                    <p x-text="stats.approved" class="text-2xl font-semibold text-gray-900"></p>
                 </div>
             </div>
         </div>
@@ -110,7 +141,7 @@
                 </div>
                 <div class="ml-4">
                     <p class="text-sm font-medium text-gray-600">Rejected</p>
-                    <p class="text-2xl font-semibold text-gray-900">5</p>
+                    <p x-text="stats.rejected" class="text-2xl font-semibold text-gray-900"></p>
                 </div>
             </div>
         </div>
@@ -123,14 +154,20 @@
                 </div>
                 <div class="ml-4">
                     <p class="text-sm font-medium text-gray-600">Total</p>
-                    <p class="text-2xl font-semibold text-gray-900">45</p>
+                    <p x-text="stats.total" class="text-2xl font-semibold text-gray-900"></p>
                 </div>
             </div>
         </div>
     </div>
 
+    {{-- Loading State --}}
+    <div x-show="loading" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 flex justify-center items-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+        <span class="ml-4 text-gray-700">Loading facility requests...</span>
+    </div>
+
     {{-- Requests Table --}}
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div x-show="!loading" class="bg-white rounded-lg shadow-sm border border-gray-200">
         <div class="px-4 py-3 border-b border-gray-200">
             <h3 class="text-lg font-medium text-gray-900">Recent Facility Requests</h3>
         </div>
@@ -140,8 +177,8 @@
                     <tr>
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Facility</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Contact</th>
-                        <th class="px-4 py-3 text-left font-medium text-gray-700">Staff Needed</th>
-                        <th class="px-4 py-3 text-left font-medium text-gray-700">Urgency</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-700">Positions</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-700">Priority</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Status</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Submitted</th>
                         <th class="px-4 py-3 text-center font-medium text-gray-700">Actions</th>
@@ -153,7 +190,7 @@
                             <td class="px-4 py-3">
                                 <div>
                                     <div class="font-medium text-gray-900" x-text="request.facility_name"></div>
-                                    <div class="text-gray-600" x-text="request.location"></div>
+                                    <div class="text-gray-600" x-text="request.location || 'N/A'"></div>
                                 </div>
                             </td>
                             <td class="px-4 py-3">
@@ -218,8 +255,8 @@
     </div>
 
     {{-- Modal for viewing request details --}}
-    <div x-show="showModal" 
-         x-cloak 
+    <div x-show="showModal"
+         x-cloak
          class="fixed inset-0 z-50 overflow-y-auto modal-backdrop"
          @click.self="showModal = false">
         <div class="flex items-center justify-center min-h-screen p-4">
@@ -253,17 +290,53 @@
                             <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.phone"></p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Location</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.location"></p>
+                            <label class="block text-sm font-medium text-gray-700">Coordinates</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.location || 'N/A'"></p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Staff Needed</label>
+                            <label class="block text-sm font-medium text-gray-700">Facility Type</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.facility_type"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Positions</label>
                             <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.staff_needed"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Employment Type</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.employment_type"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Shift Type</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.shift_type"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Start Date</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.start_date"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Reference Number</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.reference_number"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Priority</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.urgency"></p>
                         </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Description</label>
-                        <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.description"></p>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.description || 'Not specified'"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Qualifications</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.qualifications || 'Not specified'"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Experience</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.experience || 'Not specified'"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Job Description</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedRequest?.job_description || 'Not specified'"></p>
                     </div>
                 </div>
                 <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">

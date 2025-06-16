@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HealthworkerController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 
 // Home route
@@ -39,11 +40,30 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/facility', [AdminController::class, 'facility'])->name('facility');
     Route::get('/healthworkers', [AdminController::class, 'healthworkers'])->name('healthworkers');
     Route::get('/tasks', [AdminController::class, 'tasks'])->name('tasks');
+Route::get('/admin/facility', [RequestController::class, 'index'])->name('admin.facility');
+Route::get('/admin/facility', [RequestController::class, 'getFacilityRequests'])->name('admin.facility');
+Route::get('/admin/facility/{facilityRequest}', [RequestController::class, 'show'])->name('admin.facility.show');
+Route::post('/admin/facility/{facilityRequest}/approve', [RequestController::class, 'approve'])->name('admin.facility.approve');
+Route::post('/admin/facility/{facilityRequest}/reject', [RequestController::class, 'reject'])->name('admin.facility.reject');
+
+    Route::get('/admin/facility', [RequestController::class, 'getFacilityRequests'])->name('admin.facility');
+    Route::get('/admin/facility/{facilityRequest}', [RequestController::class, 'show'])->name('admin.facility.show');
+    Route::post('/admin/facility/{facilityRequest}/approve', [RequestController::class, 'approve'])->name('admin.facility.approve');
+    Route::post('/admin/facility/{facilityRequest}/reject', [RequestController::class, 'reject'])->name('admin.facility.reject');
+    Route::get('/admin/facility/view', [RequestController::class, 'index'])->name('admin.facility.view');
 });
+
 
 // Healthworker routes
 Route::middleware(['auth', 'healthworker'])->prefix('healthworker')->name('healthworker.')->group(function () {
     Route::get('/dashboard', [HealthworkerController::class, 'index'])->name('dashboard');
+});
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/facility', [RequestController::class, 'getFacilityRequests'])->name('admin.facility');
+    Route::get('/admin/facility/{facilityRequest}', [RequestController::class, 'show'])->name('admin.facility.show');
+    Route::post('/admin/facility/{facilityRequest}/approve', [RequestController::class, 'approve'])->name('admin.facility.approve');
+    Route::post('/admin/facility/{facilityRequest}/reject', [RequestController::class, 'reject'])->name('admin.facility.reject');
+    Route::get('/admin/facility/view', [RequestController::class, 'index'])->name('admin.facility.view');
 });
 
 require __DIR__.'/auth.php';
