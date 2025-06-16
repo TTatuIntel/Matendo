@@ -8,11 +8,6 @@ class Task extends Model
 {
     protected $table = 'tasks';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'facility_name',
         'contact_person',
@@ -36,13 +31,12 @@ class Task extends Model
         'confirmed',
         'csrf_token',
         'submission_date',
+        'emergency_contact', // Added
+        'emergency_phone',  // Added
+        'medical_conditions', // Added
+        'medications',      // Added
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
         'start_date' => 'date',
         'submission_date' => 'datetime',
@@ -52,11 +46,6 @@ class Task extends Model
         'status' => 'string',
     ];
 
-    /**
-     * Get the formatted staff needed string.
-     *
-     * @return string
-     */
     public function getStaffNeededAttribute()
     {
         $positions = $this->positions;
@@ -73,11 +62,6 @@ class Task extends Model
         return 'N/A';
     }
 
-    /**
-     * Map priority to urgency level.
-     *
-     * @return string
-     */
     public function getUrgencyAttribute()
     {
         if (!$this->priority) {
@@ -95,11 +79,6 @@ class Task extends Model
         }
     }
 
-    /**
-     * Format description from job description or create default.
-     *
-     * @return string
-     */
     public function getDescriptionAttribute()
     {
         if ($this->job_description) {
@@ -115,6 +94,9 @@ class Task extends Model
         }
         if ($this->shift_type) {
             $parts[] = "Shift: {$this->shift_type}";
+        }
+        if ($this->care_type) {
+            $parts[] = "Care Type: {$this->care_type}";
         }
 
         return implode(', ', $parts) ?: 'No description available';

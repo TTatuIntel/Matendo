@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Healthworker;
 use App\Models\IndividualRequest;
 use App\Models\FacilityRequest;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -15,7 +16,6 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        // Fetch applications and healthworkers for main views
         $applications = Application::where('status', 'pending')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -25,7 +25,6 @@ class AdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
-        // Facility requests for facility tab
         $facilityRequests = FacilityRequest::latest()->paginate(10);
         $facilityStats = [
             'pending' => FacilityRequest::where('status', 'pending')->count(),
@@ -34,7 +33,14 @@ class AdminController extends Controller
             'total' => FacilityRequest::count(),
         ];
 
-        // Application stats for overview cards
+        $individualRequests = IndividualRequest::latest()->paginate(10);
+        $individualStats = [
+            'pending' => IndividualRequest::where('status', 'pending')->count(),
+            'approved' => IndividualRequest::where('status', 'approved')->count(),
+            'rejected' => IndividualRequest::where('status', 'rejected')->count(),
+            'total' => IndividualRequest::count(),
+        ];
+
         $pendingApplications = Application::where('status', 'pending')->count();
         $approvedApplications = Application::where('status', 'approved')->count();
         $rejectedApplications = Application::where('status', 'rejected')->count();
@@ -58,13 +64,12 @@ class AdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
-        // Fetch recent records from tables
         $recentApplications = Application::latest('created_at')->get();
         $recentIndividualRequests = IndividualRequest::latest('created_at')->get();
         $recentFacilityRequests = FacilityRequest::latest('created_at')->get();
         $recentHealthworkers = Healthworker::latest('created_at')->get();
+        $recentTasks = Task::latest('created_at')->get();
 
-        // Combine activities into a single collection
         $activities = collect()
             ->merge($recentApplications->map(function ($item) {
                 return [
@@ -92,8 +97,8 @@ class AdminController extends Controller
             ->merge($recentIndividualRequests->map(function ($item) {
                 return [
                     'type' => 'Individual Request',
-                    'title' => $item->title ?? 'Request #' . $item->id,
-                    'description' => $item->description ?? ($item->user->name ?? 'Unknown') . ' submitted an individual request',
+                    'title' => $item->full_name ?? 'Request #' . $item->id,
+                    'description' => $item->description ?? ($item->full_name ?? 'Unknown') . ' submitted an individual request',
                     'status' => ucfirst($item->status ?? 'Pending'),
                     'timestamp' => $item->created_at,
                     'icon' => 'M10 18a8 8 0 100-16 8 8 0 000 16z',
@@ -101,8 +106,13 @@ class AdminController extends Controller
                     'actions' => [
                         [
                             'label' => 'View Details',
-                            'route' => url('/admin/dashboard?tab=individual_requests&item=' . $item->id),
+                            'route' => url('/admin/individual?item=' . $item->id),
                             'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z',
+                        ],
+                        [
+                            'label' => 'Manage',
+                            'route' => url('/admin/individual?item=' . $item->id . '&action=manage'),
+                            'icon' => 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
                         ],
                     ],
                 ];
@@ -147,12 +157,28 @@ class AdminController extends Controller
                         ],
                     ],
                 ];
+            }))
+            ->merge($recentTasks->map(function ($item) {
+                return [
+                    'type' => 'Task',
+                    'title' => $item->facility_name ?? 'Task #' . $item->id,
+                    'description' => $item->description ?? ($item->facility_name ?? 'Unknown') . ' approved as a task',
+                    'status' => ucfirst($item->status ?? 'Approved'),
+                    'timestamp' => $item->created_at,
+                    'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+                    'color' => 'teal',
+                    'actions' => [
+                        [
+                            'label' => 'View Details',
+                            'route' => url('/admin/tasks?item=' . $item->id),
+                            'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z',
+                        ],
+                    ],
+                ];
             }));
 
-        // Sort by timestamp descending
         $activities = $activities->sortByDesc('timestamp');
 
-        // Paginate the collection
         $perPage = 10;
         $currentPage = Paginator::resolveCurrentPage('activity_page') ?: 1;
         $pagedActivities = $activities->forPage($currentPage, $perPage);
@@ -167,12 +193,13 @@ class AdminController extends Controller
             ]
         );
 
-        // Pass variables to the view
         return view('admin.dashboard', [
             'applications' => $applications,
             'healthworkers' => $healthworkers,
             'facilityRequests' => $facilityRequests,
             'facilityStats' => $facilityStats,
+            'individualRequests' => $individualRequests,
+            'individualStats' => $individualStats,
             'pendingApplications' => $pendingApplications,
             'approvedApplications' => $approvedApplications,
             'rejectedApplications' => $rejectedApplications,
