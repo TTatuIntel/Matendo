@@ -388,9 +388,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Applications Tab -->
-
                 <!-- Applications Tab -->
                 <section x-show="activeTab === 'applications'" x-cloak role="tabpanel" id="panel-applications" class="p-6">
                     @include('admin.partials._applications')
