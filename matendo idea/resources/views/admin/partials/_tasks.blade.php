@@ -1,304 +1,193 @@
-{{-- Tasks Management --}}
-<div x-data="{
-    showModal: false,
-    selectedTask: null,
-    tasks: [],
-    stats: {
-        pending: 0,
-        approved: 0,
-        rejected: 0,
-        total: 0
-    },
-    loading: true,
-    init() {
-        this.fetchTasks();
-    },
-    fetchTasks() {
-        this.loading = true;
-        fetch('{{ route('admin.tasks') }}')
-            .then(response => {
-                console.log('Response status:', response.status);
-                return response.json();
-            })
-            .then(data => {
-                console.log('Fetched data:', data);
-                this.tasks = data.tasks || [];
-                this.stats = data.stats || { pending: 0, approved: 0, rejected: 0, total: 0 };
-                this.loading = false;
-            })
-            .catch(error => {
-                console.error('Error fetching tasks:', error);
-                this.loading = false;
-            });
-    },
-    viewTask(task) {
-        fetch(`/admin/tasks/${task.id}`)
-            .then(response => response.json())
-            .then(data => {
-                this.selectedTask = data;
-                this.showModal = true;
-            });
-    },
-    assignHealthWorker(taskId) {
-        alert('Assign health worker functionality would be implemented here.');
-    }
-}" class="space-y-6">
+@php
+    $tasks = [
+        (object) [
+            'id' => 1,
+            'title' => 'Review Patient Records',
+            'description' => 'Review and update patient records for the cardiology department.',
+            'assigned_to' => (object) ['id' => 1, 'name' => 'Dr. Jane Smith'],
+            'status' => 'Pending',
+            'due_date' => now()->addDays(3),
+        ],
+        (object) [
+            'id' => 2,
+            'title' => 'Staff Training Session',
+            'description' => 'Conduct training on new medical equipment.',
+            'assigned_to' => null,
+            'status' => 'In Progress',
+            'due_date' => now()->addDays(7),
+        ],
+    ];
+    $healthworkers = [
+        (object) ['id' => 1, 'name' => 'Dr. Jane Smith'],
+        (object) ['id' => 2, 'name' => 'Dr. John Doe'],
+        (object) ['id' => 3, 'name' => 'Nurse Alice Brown'],
+    ];
+@endphp
 
-    {{-- Header --}}
-    <div class="flex justify-between items-center">
-        <div>
-            <h2 class="text-2xl font-semibold text-gray-900 flex items-center">
-                <span class="w-1.5 h-7 bg-teal-600 rounded-full mr-3"></span>
-                Tasks
-            </h2>
-            <p class="text-gray-600 mt-1">Manage approved tasks from individual and facility requests</p>
-        </div>
+<div class="space-y-8">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 flex items-center">
+            <span class="w-1.5 h-7 bg-green-600 rounded-full mr-3"></span>
+            Tasks Management
+        </h2>
         <div class="flex space-x-3">
-            <button class="btn-secondary flex items-center">
+            <button class="btn-primary flex items-center" @click="$refs.addTaskModal.showModal()">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
-                Filter
+                Add Task
+            </button>
+            <button class="btn-secondary flex items-center" @click="alert('Export functionality not implemented in demo mode')">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Export
             </button>
         </div>
     </div>
 
-    {{-- Stats Cards --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-            <div class="flex items-center">
-                <div class="p-2 bg-yellow-100 rounded-lg">
-                    <svg class="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Pending</p>
-                    <p x-text="stats.pending" class="text-2xl font-semibold text-gray-900"></p>
-                </div>
-            </div>
-        </div>
-        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-            <div class="flex items-center">
-                <div class="p-2 bg-green-100 rounded-lg">
-                    <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Approved</p>
-                    <p x-text="stats.approved" class="text-2xl font-semibold text-gray-900"></p>
-                </div>
-            </div>
-        </div>
-        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-            <div class="flex items-center">
-                <div class="p-2 bg-red-100 rounded-lg">
-                    <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Rejected</p>
-                    <p x-text="stats.rejected" class="text-2xl font-semibold text-gray-900"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- Loading State --}}
-    <div x-show="loading" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 flex justify-center items-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-600"></div>
-        <span class="ml-4 text-gray-700">Loading tasks...</span>
-    </div>
-
-    {{-- Tasks Table --}}
-    <div x-show="!loading" class="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div class="px-4 py-3 border-b border-gray-200">
-            <h3 class="text-lg font-medium text-gray-900">Recent Tasks</h3>
-        </div>
+    <!-- Tasks Table -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-50 sticky top-0">
                     <tr>
-                        <th class="px-4 py-3 text-left font-medium text-gray-700">Facility Name</th>
-                        <th class="px-4 py-3 text-left font-medium text-gray-700">Facility Type</th>
-                        <th class="px-4 py-3 text-left font-medium text-gray-700">Shift Type</th>
-                        <th class="px-4 py-3 text-left font-medium text-gray-700">Urgency</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-700">Task</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-700">Assigned To</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Status</th>
-                        <th class="px-4 py-3 text-left font-medium text-gray-700">Submitted</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-700">Due Date</th>
                         <th class="px-4 py-3 text-center font-medium text-gray-700">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                    <template x-for="task in tasks" :key="task.id">
+                    @forelse ($tasks as $task)
                         <tr class="table-row smooth-transition">
                             <td class="px-4 py-3">
-                                <div>
-                                    <div class="font-medium text-gray-900" x-text="task.facility_name"></div>
-                                    <div class="text-gray-600 text-xs" x-text="task.phone"></div>
-                                    <div class="text-gray-600 text-xs" x-text="task.coordinates"></div>
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <div class="h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-medium text-gray-900">{{ $task->title }}</div>
+                                        <div class="text-gray-600">{{ \Illuminate\Support\Str::limit($task->description, 50) }}</div>
+                                    </div>
                                 </div>
                             </td>
+                            <td class="px-4 py-3 text-gray-600">{{ $task->assigned_to ? $task->assigned_to->name : 'Unassigned' }}</td>
                             <td class="px-4 py-3">
-                                <span class="text-gray-900" x-text="task.facility_type"></span>
-                            </td>
-                            <td class="px-4 py-3">
-                                <span class="text-gray-900" x-text="task.shift_type"></span>
-                            </td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 text-xs font-medium rounded-full"
-                                      :class="{
-                                          'bg-red-100 text-red-800': task.urgency === 'High',
-                                          'bg-yellow-100 text-yellow-800': task.urgency === 'Medium',
-                                          'bg-green-100 text-green-800': task.urgency === 'Low'
-                                      }"
-                                      x-text="task.urgency">
+                                <span class="px-2 py-1 text-xs font-medium bg-{{ $task->status == 'Completed' ? 'green' : ($task->status == 'Pending' ? 'yellow' : 'blue') }}-100 text-{{ $task->status == 'Completed' ? 'green' : ($task->status == 'Pending' ? 'yellow' : 'blue') }}-800 rounded-full">
+                                    {{ $task->status ?? 'Pending' }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 text-xs font-medium rounded-full"
-                                      :class="{
-                                          'bg-yellow-100 text-yellow-800': task.status === 'Pending',
-                                          'bg-green-100 text-green-800': task.status === 'Approved',
-                                          'bg-red-100 text-red-800': task.status === 'Rejected'
-                                      }"
-                                      x-text="task.status">
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 text-gray-600" x-text="task.submitted_at"></td>
+                            <td class="px-4 py-3 text-gray-600">{{ $task->due_date ? \Carbon\Carbon::parse($task->due_date)->format('M d, Y') : 'N/A' }}</td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex justify-center space-x-2">
-                                    <button @click="viewTask(task)" class="btn-primary">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <button class="btn-primary flex items-center" @click="$refs.viewTaskModal{{ $task->id }}.showModal()">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                         </svg>
+                                        View
                                     </button>
-                                    <template x-if="task.status === 'Approved'">
-                                        <button @click="assignHealthWorker(task.id)" class="btn-secondary">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                            </svg>
-                                        </button>
-                                    </template>
+                                    <button class="btn-danger flex items-center" @click="alert('Delete functionality not implemented in demo mode')">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        Delete
+                                    </button>
                                 </div>
                             </td>
                         </tr>
-                    </template>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-4 py-3 text-center text-gray-600">
+                                No tasks found.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
 
-    {{-- Modal for viewing task details --}}
-    <div x-show="showModal"
-         x-cloak
-         class="fixed inset-0 z-50 overflow-y-auto modal-backdrop"
-         @click.self="showModal = false">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full modal-content">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-medium text-gray-900">Task Details</h3>
-                        <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
+    <!-- Add Task Modal -->
+    <dialog x-ref="addTaskModal" class="modal-backdrop rounded-lg p-0 w-full max-w-lg">
+        <div class="modal-content bg-white p-6 rounded-lg">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Add New Task</h3>
+            <form action="#" onsubmit="alert('Add functionality not implemented in demo mode'); return false;">
+                <div class="space-y-4">
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-gray-700">Task Title</label>
+                        <input type="text" name="title" id="title" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea name="description" id="description" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400 sm:text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label for="assigned_to" class="block text-sm font-medium text-gray-700">Assign To</label>
+                        <select name="assigned_to" id="assigned_to" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400 sm:text-sm">
+                            <option value="">Unassigned</option>
+                            @foreach ($healthworkers as $healthworker)
+                                <option value="{{ $healthworker->id }}">{{ $healthworker->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label for="due_date" class="block text-sm font-medium text-gray-700">Due Date</label>
+                        <input type="date" name="due_date" id="due_date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                        <select name="status" id="status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400 sm:text-sm">
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
                     </div>
                 </div>
-                <div class="px-6 py-4 space-y-4" x-show="selectedTask">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Facility Name</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.facility_name"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Contact Person</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.contact_person"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Email</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.email"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Phone</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.phone"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Coordinates</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.coordinates ?? 'N/A'"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Facility Type</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.facility_type"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Positions</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.positions"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Employment Type</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.employment_type"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Shift Type</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.shift_type"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Staff Number</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.staff_number"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Start Date</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.start_date"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Medical Conditions</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.medical_conditions ?? 'N/A'"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Medications</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.medications ?? 'N/A'"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Emergency Contact</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.emergency_contact ?? 'N/A'"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Emergency Phone</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.emergency_phone ?? 'N/A'"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Reference Number</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.reference_number"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Urgency</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.urgency"></p>
-                        </div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" class="btn-secondary" @click="$refs.addTaskModal.close()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- View Task Modals -->
+    @foreach ($tasks as $task)
+        <dialog x-ref="viewTaskModal{{ $task->id }}" class="modal-backdrop rounded-lg p-0 w-full max-w-lg">
+            <div class="modal-content bg-white p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Task Details</h3>
+                <div class="space-y-4">
+                    <div>
+                        <span class="font-medium text-gray-700">Title:</span> {{ $task->title }}
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Job Description</label>
-                        <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.job_description ?? 'Not specified'"></p>
+                        <span class="font-medium text-gray-700">Description:</span> {{ $task->description ?? 'N/A' }}
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Qualifications</label>
-                        <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.qualifications ?? 'Not specified'"></p>
+                        <span class="font-medium text-gray-700">Assigned To:</span> {{ $task->assigned_to ? $task->assigned_to->name : 'Unassigned' }}
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Experience</label>
-                        <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.experience ?? 'Not specified'"></p>
+                        <span class="font-medium text-gray-700">Status:</span>
+                        <span class="px-2 py-1 text-xs font-medium bg-{{ $task->status == 'Completed' ? 'green' : ($task->status == 'Pending' ? 'yellow' : 'blue') }}-100 text-{{ $task->status == 'Completed' ? 'green' : ($task->status == 'Pending' ? 'yellow' : 'blue') }}-800 rounded-full">
+                            {{ $task->status ?? 'Pending' }}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="font-medium text-gray-700">Due Date:</span> {{ $task->due_date ? \Carbon\Carbon::parse($task->due_date)->format('M d, Y') : 'N/A' }}
                     </div>
                 </div>
-                <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
-                    <button @click="showModal = false" class="btn-secondary">Close</button>
-                    <template x-if="selectedTask?.status === 'Approved'">
-                        <button @click="assignHealthWorker(selectedTask.id); showModal = false" class="btn-secondary">Assign Health Worker</button>
-                    </template>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" class="btn-secondary" @click="$refs.viewTaskModal{{ $task->id }}.close()">Close</button>
                 </div>
             </div>
-        </div>
-    </div>
+        </dialog>
+    @endforeach
 </div>
