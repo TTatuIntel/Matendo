@@ -105,4 +105,6 @@ Route::post('/health-workers/{id}/toggle-verification', [HealthWorkerController:
 Route::middleware(['auth', 'healthworker'])->prefix('healthworker')->name('healthworker.')->group(function () {
     Route::get('/dashboard', [HealthworkerController::class, 'index'])->name('dashboard');
 });
+
+Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
 require __DIR__.'/auth.php';
