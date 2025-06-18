@@ -58,10 +58,7 @@ Route::post('/admin/facility/{facilityRequest}/reject', [RequestController::clas
 });
 
 
-// Healthworker routes
-Route::middleware(['auth', 'healthworker'])->prefix('healthworker')->name('healthworker.')->group(function () {
-    Route::get('/dashboard', [HealthworkerController::class, 'index'])->name('dashboard');
-});
+
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/facility', [RequestController::class, 'getFacilityRequests'])->name('admin.facility');
     Route::get('/admin/facility/{facilityRequest}', [RequestController::class, 'show'])->name('admin.facility.show');
@@ -98,8 +95,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/tasks/{task}/assign', [TaskController::class, 'assign'])->name('tasks.assign');
 
 
-// Route::resource('health-workers', HealthWorkerController::class);
-// Route::post('/health-workers/{id}/toggle-verification', [HealthWorkerController::class, 'toggleVerification'])->name('health-workers.toggle-verification');
+Route::resource('health-workers', HealthWorkerController::class);
+Route::post('/health-workers/{id}/toggle-verification', [HealthWorkerController::class, 'toggleVerification'])->name('health-workers.toggle-verification');
+// Healthworker routes
+Route::middleware(['auth', 'healthworker'])->prefix('healthworker')->name('healthworker.')->group(function () {
+    Route::get('/dashboard', [HealthworkerController::class, 'index'])->name('dashboard');
+});
 
 });
 
