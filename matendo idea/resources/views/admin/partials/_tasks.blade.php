@@ -4,7 +4,9 @@
 
 <div x-data="{
     showModal: false,
+    assignModal: false,
     selectedTask: null,
+    selectedTaskId: null,
     tasks: [],
     stats: {
         pending: 0,
@@ -21,6 +23,7 @@
         fetch('{{ route('tasks.getTasks') }}')
             .then(response => response.json())
             .then(data => {
+                console.log('Fetched data:', data); // Debugging
                 this.tasks = data.tasks;
                 this.stats = data.stats;
                 this.loading = false;
@@ -37,6 +40,35 @@
                 this.selectedTask = data;
                 this.showModal = true;
             });
+    },
+    showAssignModal(taskId) {
+        this.selectedTaskId = taskId;
+        this.assignModal = true;
+    },
+    assignTask() {
+        const healthworkerId = document.getElementById('healthworker_id').value;
+        if (!healthworkerId) {
+            alert('Please select a health worker.');
+            return;
+        }
+        fetch(`/tasks/${this.selectedTaskId}/assign`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ healthworker_id: healthworkerId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                this.assignModal = false;
+                this.fetchTasks();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        });
     },
     approveTask(taskId) {
         if (confirm('Are you sure you want to approve this task?')) {
@@ -149,7 +181,7 @@
                     </svg>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Approved</p>
+                    <p class="text-sm font-medium text-gray-700">Approved</p>
                     <p x-text="stats.approved" class="text-2xl font-semibold text-gray-900"></p>
                 </div>
             </div>
@@ -198,7 +230,7 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Task</th>
-                        <th class="px-4 py-3 text-left font-medium text-gray-700">Assigned To</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-700">Person</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Status</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Due Date</th>
                         <th class="px-4 py-3 text-center font-medium text-gray-700">Actions</th>
@@ -222,7 +254,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-4 py-3 text-gray-600" x-text="task.contact_person || 'Unassigned'"></td>
+                            <!-- In the table row where you show contact_person -->
+                            <td class="px-4 py-3 text-gray-600" x-text="task.assigned_to || 'Unassigned'"></td>
                             <td class="px-4 py-3">
                                 <span class="px-2 py-1 text-xs font-medium rounded-full"
                                       :class="{
@@ -241,6 +274,12 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                         </svg>
+                                    </button>
+                                    <button @click="showAssignModal(task.id)" class="btn-secondary">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                        </svg>
+                                        Assign
                                     </button>
                                     <template x-if="task.status === 'Pending'">
                                         <div class="flex space-x-1">
@@ -445,6 +484,14 @@
                         <label class="block text-sm font-medium text-gray-700">Reference Number</label>
                         <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.reference_number"></p>
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Assigned To</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.assigned_to || 'Unassigned'"></p>
+                    </div>
+                    <div x-show="selectedTask?.assigned_at">
+                        <label class="block text-sm font-medium text-gray-700">Assigned At</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.assigned_at"></p>
+                    </div>
                 </div>
                 <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
                     <button @click="showModal = false" class="btn-secondary">Close</button>
@@ -454,6 +501,39 @@
                             <button @click="rejectTask(selectedTask.id); showModal = false" class="btn-danger">Reject</button>
                         </div>
                     </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assign Task Modal -->
+    <div x-show="assignModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto modal-backdrop" @click.self="assignModal = false">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full modal-content">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-gray-900">Assign Task</h3>
+                        <button @click="assignModal = false" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="px-6 py-4 space-y-4">
+                    <div>
+                        <label for="healthworker_id" class="block text-sm font-medium text-gray-700">Select Health Worker</label>
+                        <select id="healthworker_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400 sm:text-sm">
+                            <option value="">Select a health worker</option>
+                            @foreach ($healthworkers as $worker)
+                                <option value="{{ $worker->id }}">{{ $worker->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
+                    <button @click="assignModal = false" class="btn-secondary">Cancel</button>
+                    <button @click="assignTask" class="btn-primary">Assign</button>
                 </div>
             </div>
         </div>

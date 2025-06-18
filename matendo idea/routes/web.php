@@ -78,23 +78,31 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/individual/{individualRequest}/reject', [IndividualRequestController::class, 'reject'])->name('admin.individual.reject');
 
 
-Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/tasks', [TaskController::class, 'getTasks'])->name('admin.tasks');
     Route::get('/admin/tasks/view', [TaskController::class, 'index'])->name('admin.tasks.view');
     Route::get('/admin/tasks/{task}', [TaskController::class, 'show'])->name('admin.tasks.show');
 
 
-Route::resource('tasks', TaskController::class);
-Route::get('/tasks/get-tasks', [TaskController::class, 'getTasks'])->name('tasks.getTasks');
-Route::post('/tasks/{id}/approve', [TaskController::class, 'approve'])->name('tasks.approve');
-Route::post('/tasks/{id}/reject', [TaskController::class, 'reject'])->name('tasks.reject');
+    // Route::resource('tasks', TaskController::class);
+    // Route::get('/tasks/get-tasks', [TaskController::class, 'getTasks'])->name('tasks.getTasks');
+    // Route::post('/tasks/{id}/approve', [TaskController::class, 'approve'])->name('tasks.approve');
+    // Route::post('/tasks/{id}/reject', [TaskController::class, 'reject'])->name('tasks.reject');
+
+ // Tasks routes
+    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+    Route::get('/tasks/get-tasks', [TaskController::class, 'getTasks'])->name('tasks.getTasks');
+    Route::post('/tasks/{task}/approve', [TaskController::class, 'approve'])->name('tasks.approve');
+    Route::post('/tasks/{task}/reject', [TaskController::class, 'reject'])->name('tasks.reject');
+    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+    Route::post('/tasks/{task}/assign', [TaskController::class, 'assign'])->name('tasks.assign');
 
 
-Route::resource('health-workers', HealthWorkerController::class);
-Route::post('/health-workers/{id}/toggle-verification', [HealthWorkerController::class, 'toggleVerification'])->name('health-workers.toggle-verification');
+// Route::resource('health-workers', HealthWorkerController::class);
+// Route::post('/health-workers/{id}/toggle-verification', [HealthWorkerController::class, 'toggleVerification'])->name('health-workers.toggle-verification');
+
 });
 
 
-});
 
 require __DIR__.'/auth.php';

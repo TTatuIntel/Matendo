@@ -35,6 +35,8 @@ class Task extends Model
         'emergency_phone',  // Added
         'medical_conditions', // Added
         'medications',      // Added
+        'assigned_to',
+        'assigned_at',
     ];
 
     protected $casts = [
@@ -44,6 +46,8 @@ class Task extends Model
         'updated_at' => 'datetime',
         'confirmed' => 'boolean',
         'status' => 'string',
+        // ... your existing casts
+        'assigned_at' => 'datetime',
     ];
 
     public function getStaffNeededAttribute()
@@ -100,5 +104,11 @@ class Task extends Model
         }
 
         return implode(', ', $parts) ?: 'No description available';
+    }
+
+    // Add relationship to get assigned healthworker
+    public function assignedHealthworker()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
     }
 }

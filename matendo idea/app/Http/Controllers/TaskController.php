@@ -35,7 +35,7 @@ class TaskController extends Controller
 
     public function getTasks(): JsonResponse
     {
-        $tasks = Task::latest()->get()->map(function ($task) {
+    $tasks = Task::with('assignedHealthworker')->latest()->get()->map(function ($task) {
             return [
                 'id' => $task->id,
                 'facility_name' => $task->facility_name,
@@ -60,6 +60,10 @@ class TaskController extends Controller
                 'contact_person' => $task->contact_person,
                 'email' => $task->email,
                 'employment_type' => $task->employment_type,
+    // ... your existing fields
+                'assigned_to' => $task->assignedHealthworker ? $task->assignedHealthworker->name : null,
+                'assigned_at' => $task->assigned_at ? $task->assigned_at->format('M d, Y H:i') : null,
+
             ];
         });
 
@@ -78,6 +82,7 @@ class TaskController extends Controller
 
     public function show(Task $task): JsonResponse
     {
+        $task->load('assignedHealthworker');
         return response()->json([
             'id' => $task->id,
             'facility_name' => $task->facility_name,
@@ -102,6 +107,10 @@ class TaskController extends Controller
             'job_description' => $task->job_description ?? 'Not specified',
             'qualifications' => $task->qualifications ?? 'Not specified',
             'experience' => $task->experience ?? 'Not specified',
+
+       'assigned_to' => $task->assignedHealthworker ? $task->assignedHealthworker->name : 'Unassigned',
+        'assigned_at' => $task->assigned_at ? $task->assigned_at->format('M d, Y H:i') : null,
+
         ]);
     }
 
@@ -146,6 +155,35 @@ class TaskController extends Controller
         return response()->json(['success' => true, 'message' => 'Task rejected successfully']);
     }
 
+public function assign(Request $request, Task $task): JsonResponse
+{
+    $request->validate([
+        'healthworker_id' => 'required|exists:users,id'
+    ]);
+
+    // Verify the user is actually a healthworker
+    $healthworker = User::where('id', $request->healthworker_id)
+                       ->where('usertype', 'healthworker')
+                       ->first();
+
+    if (!$healthworker) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid health worker selected'
+        ], 400);
+    }
+
+    // Update the task with the assigned healthworker
+    $task->update([
+        'assigned_to' => $request->healthworker_id,
+        'assigned_at' => now()
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => "Task assigned to {$healthworker->name} successfully"
+    ]);
+}
 
 
 }
