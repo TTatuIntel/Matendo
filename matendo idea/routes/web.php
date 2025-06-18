@@ -97,13 +97,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::resource('health-workers', HealthWorkerController::class);
 Route::post('/health-workers/{id}/toggle-verification', [HealthWorkerController::class, 'toggleVerification'])->name('health-workers.toggle-verification');
+
+});
+
+
 // Healthworker routes
 Route::middleware(['auth', 'healthworker'])->prefix('healthworker')->name('healthworker.')->group(function () {
     Route::get('/dashboard', [HealthworkerController::class, 'index'])->name('dashboard');
 });
-
-});
-
-
-
 require __DIR__.'/auth.php';

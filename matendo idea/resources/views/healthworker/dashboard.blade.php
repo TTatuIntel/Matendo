@@ -10,6 +10,27 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
+
+                    <h3 class="mt-4 text-lg">Health Worker Stats</h3>
+                    <p>Total: {{ $stats['total'] }}</p>
+                    <p>Verified: {{ $stats['verified'] }}</p>
+                    <p>Unverified: {{ $stats['unverified'] }}</p>
+
+                    <!-- Display Assigned Tasks -->
+                    <h3 class="mt-4 text-lg">Your Assigned Tasks</h3>
+                    @if($assignedTasks->isNotEmpty())
+                        <ul class="list-disc pl-5 mt-2">
+                            @foreach($assignedTasks as $task)
+                                <li>
+                                    <strong>{{ $task->title }}</strong>
+                                    <p>Description: {{ $task->description ?? 'No description' }}</p>
+                                    <p>Due Date: {{ $task->due_date }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="mt-2">No tasks assigned yet.</p>
+                    @endif
                 </div>
             </div>
         </div>

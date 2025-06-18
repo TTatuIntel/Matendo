@@ -1,30 +1,57 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
 class HealthWorkerController extends Controller
 {
-    public function index()
-    {
-        $health_workers = DB::table('users')
-            ->where('usertype', 'healthworker')
-            ->select('id', 'name', 'email', 'email_verified_at', 'created_at')
-            ->get();
+    // public function index()
+    // {
+    //     $health_workers = DB::table('users')
+    //         ->where('usertype', 'healthworker')
+    //         ->select('id', 'name', 'email', 'email_verified_at', 'created_at')
+    //         ->get();
 
-        $stats = [
-            'total' => $health_workers->count(),
-            'verified' => $health_workers->whereNotNull('email_verified_at')->count(),
-            'unverified' => $health_workers->whereNull('email_verified_at')->count(),
-        ];
+    //     $stats = [
+    //         'total' => $health_workers->count(),
+    //         'verified' => $health_workers->whereNotNull('email_verified_at')->count(),
+    //         'unverified' => $health_workers->whereNull('email_verified_at')->count(),
+    //     ];
 
-        return response()->json([
-            'health_workers' => $health_workers,
-            'stats' => $stats,
-        ]);
-    }
+    //     return response()->json([
+    //         'health_workers' => $health_workers,
+    //         'stats' => $stats,
+    //     ]);
+    // }
+
+public function index()
+{
+    $health_workers = DB::table('users')
+        ->where('usertype', 'healthworker')
+        ->select('id', 'name', 'email', 'email_verified_at', 'created_at')
+        ->get();
+
+    $stats = [
+        'total' => $health_workers->count(),
+        'verified' => $health_workers->whereNotNull('email_verified_at')->count(),
+        'unverified' => $health_workers->whereNull('email_verified_at')->count(),
+    ];
+
+// Fetch tasks assigned to the logged-in user
+     // Fetch tasks assigned to the logged-in user with the correct column name
+        $userId = Auth::id(); // Get the authenticated user's ID
+        $assignedTasks = Task::where('assigned_to', $userId)->get(); // Replace 'assigned_to' with the correct column
+    // Return the view with data instead of JSON
+    return view('healthworker.dashboard', [
+        'health_workers' => $health_workers,
+        'stats' => $stats,
+         'assignedTasks' => $assignedTasks
+    ]);
+}
 
     public function show($id)
     {
@@ -68,4 +95,6 @@ class HealthWorkerController extends Controller
         DB::table('users')->where('id', $id)->delete();
         return redirect()->route('health-workers.index')->with('success', 'Health worker deleted successfully.');
     }
+
 }
+
