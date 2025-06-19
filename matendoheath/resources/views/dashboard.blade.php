@@ -1,4 +1,11 @@
 <x-app-layout>
+
+@if(session('temp_link'))
+    <div class="bg-green-100 text-green-800 p-4 rounded my-4">
+        Temporary Link:
+        <a href="{{ session('temp_link') }}" class="underline text-blue-600" target="_blank">Open Dashboard</a>
+    </div>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,9 +28,16 @@
                         <a href="{{ route('upload') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">Upload Documents</a>
                         <a href="{{ route('display') }}" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">View Records</a>
                     </div>
+                    <form action="{{ route('users.generate-temp-link', auth()->user()->id) }}" method="POST" class="mb-6">
+                        @csrf
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
+                            Generate Temporary Access Link
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
+
 
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
