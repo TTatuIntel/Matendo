@@ -27,6 +27,18 @@
                             </svg>
                             Previous
                         </button>
+    <button id="download-data" class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        JSON
+    </button>
+    <button id="download-pdf" class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        PDF
+</button>
                     </div>
                 </div>
             </div>
@@ -346,349 +358,455 @@
         </div>
 
     </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoryFilter = document.getElementById('category-filter');
-            const timeFilter = document.getElementById('time-filter');
-            const searchInput = document.getElementById('search-input');
-            const recordRows = document.querySelectorAll('.record-row');
-            const viewModal = document.getElementById('view-modal');
-            const modalContent = document.getElementById('modal-content');
-            const closeModal = document.getElementById('close-modal');
-            const historyModal = document.getElementById('history-modal');
-            const historyCategory = document.getElementById('history-category');
-            const historyContent = document.getElementById('history-content');
-            const closeHistory = document.getElementById('close-history');
-            const previousModal = document.getElementById('previous-modal');
-            const previousContent = document.getElementById('previous-content');
-            const closePrevious = document.getElementById('close-previous');
-            const viewPrevious = document.getElementById('view-previous');
-            const viewLinks = document.querySelectorAll('.view-record');
-            const deleteLinks = document.querySelectorAll('.delete-record');
-            const historyButtons = document.querySelectorAll('.view-history');
+       document.addEventListener('DOMContentLoaded', function() {
+           const categoryFilter = document.getElementById('category-filter');
+           const timeFilter = document.getElementById('time-filter');
+           const searchInput = document.getElementById('search-input');
+           const recordRows = document.querySelectorAll('.record-row');
+           const viewModal = document.getElementById('view-modal');
+           const modalContent = document.getElementById('modal-content');
+           const closeModal = document.getElementById('close-modal');
+           const historyModal = document.getElementById('history-modal');
+           const historyCategory = document.getElementById('history-category');
+           const historyContent = document.getElementById('history-content');
+           const closeHistory = document.getElementById('close-history');
+           const previousModal = document.getElementById('previous-modal');
+           const previousContent = document.getElementById('previous-content');
+           const closePrevious = document.getElementById('close-previous');
+           const viewPrevious = document.getElementById('view-previous');
+           const viewLinks = document.querySelectorAll('.view-record');
+           const deleteLinks = document.querySelectorAll('.delete-record');
+           const historyButtons = document.querySelectorAll('.view-history');
 
-            // NEW: View All Data Modal elements
-            const viewAllBtn = document.getElementById('view-all-data');
-            const viewAllModal = document.getElementById('view-all-modal');
-            const allDataContent = document.getElementById('all-data-content');
-            const closeAllData = document.getElementById('close-all-data');
-            const downloadBtn = document.getElementById('download-data');
+           // NEW: View All Data Modal elements
+           const viewAllBtn = document.getElementById('view-all-data');
+           const viewAllModal = document.getElementById('view-all-modal');
+           const allDataContent = document.getElementById('all-data-content');
+           const closeAllData = document.getElementById('close-all-data');
+           const downloadBtn = document.getElementById('download-data');
+           const downloadPdfBtn = document.getElementById('download-pdf');
 
-            // All records from PHP, converted to JavaScript array
-            const allRecords = @json($records);
+           // All records from PHP, converted to JavaScript array
+           const allRecords = @json($records);
 
-            // MOVED: Add error checking for allRecords
-            console.log('All records loaded:', allRecords);
-            console.log('Number of records:', allRecords ? allRecords.length : 0);
+           // MOVED: Add error checking for allRecords
+           console.log('All records loaded:', allRecords);
+           console.log('Number of records:', allRecords ? allRecords.length : 0);
 
-            function filterRecords() {
-                const category = categoryFilter.value.toLowerCase();
-                const time = timeFilter.value.toLowerCase();
-                const search = searchInput.value.toLowerCase();
+           // PDF Download functionality
+           downloadPdfBtn.addEventListener('click', function() {
+               // Get the most recent record from each category
+               const groupedRecords = {};
+               allRecords.forEach(record => {
+                   if (!groupedRecords[record.category]) {
+                       groupedRecords[record.category] = record;
+                   } else {
+                       // Keep the most recent record
+                       if (new Date(record.created_at) > new Date(groupedRecords[record.category].created_at)) {
+                           groupedRecords[record.category] = record;
+                       }
+                   }
+               });
 
-                recordRows.forEach(row => {
-                    const rowCategory = row.dataset.category;
-                    const rowText = row.textContent.toLowerCase();
-                    const rowDate = new Date(row.querySelector('td:nth-child(3)').textContent);
-                    const today = new Date('{{ now()->format('Y-m-d') }}');
+               // Initialize jsPDF
+               const { jsPDF } = window.jspdf;
+               const doc = new jsPDF();
 
-                    const categoryMatch = category === '' || rowCategory === category;
-                    const textMatch = search === '' || rowText.includes(search);
+               // Set up the document
+               doc.setFontSize(20);
+               doc.text('Medical Records Summary', 20, 20);
 
-                    let timeMatch = true;
-                    if (time) {
-                        if (time === 'today') {
-                            timeMatch = rowDate.toDateString() === today.toDateString();
-                        } else if (time === 'week') {
-                            const oneWeekAgo = new Date(today);
-                            oneWeekAgo.setDate(today.getDate() - 7);
-                            timeMatch = rowDate >= oneWeekAgo;
-                        } else if (time === 'month') {
-                            const oneMonthAgo = new Date(today);
-                            oneMonthAgo.setMonth(today.getMonth() - 1);
-                            timeMatch = rowDate >= oneMonthAgo;
-                        } else if (time === 'year') {
-                            const oneYearAgo = new Date(today);
-                            oneYearAgo.setFullYear(today.getFullYear() - 1);
-                            timeMatch = rowDate >= oneYearAgo;
-                        }
-                    }
+               doc.setFontSize(12);
+               doc.text(`Generated on: ${new Date().toLocaleDateString('en-US', {
+                   year: 'numeric',
+                   month: 'long',
+                   day: 'numeric',
+                   hour: '2-digit',
+                   minute: '2-digit'
+               })}`, 20, 35);
 
-                    row.style.display = categoryMatch && textMatch && timeMatch ? '' : 'none';
-                });
-            }
+               // Add a line separator
+               doc.line(20, 45, 190, 45);
 
-            categoryFilter.addEventListener('change', filterRecords);
-            timeFilter.addEventListener('change', filterRecords);
-            searchInput.addEventListener('input', filterRecords);
+               let yPosition = 60;
+               const categoryOrder = ['vitals', 'activity', 'pain', 'sleep', 'wellbeing', 'labs', 'infection', 'treatments', 'appointments'];
 
-            viewLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const record = JSON.parse(this.dataset.record);
-                    modalContent.innerHTML = `
-                        <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
-                        <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                        <p><strong>Details:</strong></p>
-                        <ul class="list-disc pl-5">
-                            ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
-                        </ul>
-                    `;
-                    viewModal.classList.remove('hidden');
-                });
-            });
+               categoryOrder.forEach(category => {
+                   const record = groupedRecords[category];
+                   if (!record) return;
 
-            closeModal.addEventListener('click', () => {
-                viewModal.classList.add('hidden');
-            });
+                   // Check if we need a new page
+                   if (yPosition > 250) {
+                       doc.addPage();
+                       yPosition = 20;
+                   }
 
-            deleteLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (confirm('Are you sure you want to delete this record?')) {
-                        this.closest('.delete-form').submit();
-                    }
-                });
-            });
+                   // Category header
+                   doc.setFontSize(14);
+                   doc.setFont(undefined, 'bold');
+                   doc.text(`${category.charAt(0).toUpperCase() + category.slice(1)}`, 20, yPosition);
+                   yPosition += 10;
 
-            // History modal functionality
-            historyButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const category = this.dataset.category;
-                    const categoryRecords = allRecords.filter(record => record.category === category);
+                   // Date
+                   doc.setFontSize(10);
+                   doc.setFont(undefined, 'normal');
+                   doc.setTextColor(100, 100, 100);
+                   doc.text(`Date: ${new Date(record.created_at).toLocaleDateString('en-US', {
+                       year: 'numeric',
+                       month: 'short',
+                       day: 'numeric',
+                       hour: '2-digit',
+                       minute: '2-digit'
+                   })}`, 20, yPosition);
+                   yPosition += 8;
 
-                    historyCategory.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} History`;
-                    historyContent.innerHTML = categoryRecords.length > 0 ? categoryRecords.map(record => `
-                        <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 cursor-pointer history-record" data-record='${JSON.stringify(record)}'>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="font-medium text-gray-800">
-                                        ${Object.entries(record.data).slice(0, 2).map(([key, value]) => `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`).join(', ')}
-                                    </p>
-                                    <p class="text-sm text-gray-500">${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                                </div>
-                                <button class="text-blue-600 hover:text-blue-800 text-sm view-history-record">View Details</button>
-                            </div>
-                        </div>
-                    `).join('') : '<p class="text-sm text-gray-500">No records found for this category.</p>';
+                   // Record data
+                   doc.setFontSize(11);
+                   doc.setTextColor(0, 0, 0);
+                   Object.entries(record.data).forEach(([key, value]) => {
+                       const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                       const text = `${label}: ${value}`;
 
-                    historyModal.classList.remove('hidden');
+                       // Handle long text by splitting into multiple lines
+                       const splitText = doc.splitTextToSize(text, 170);
+                       doc.text(splitText, 25, yPosition);
+                       yPosition += splitText.length * 5;
+                   });
 
-                    // Add event listeners to view details buttons
-                    document.querySelectorAll('.view-history-record').forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            const record = JSON.parse(this.closest('.history-record').dataset.record);
-                            modalContent.innerHTML = `
-                                <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
-                                <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                                <p><strong>Details:</strong></p>
-                                <ul class="list-disc pl-5">
-                                    ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
-                                </ul>
-                            `;
-                            historyModal.classList.add('hidden');
-                            viewModal.classList.remove('hidden');
-                        });
-                    });
-                });
-            });
+                   yPosition += 10; // Add space between categories
 
-            closeHistory.addEventListener('click', () => {
-                historyModal.classList.add('hidden');
-            });
+                   // Add a subtle line separator between categories
+                   doc.setDrawColor(200, 200, 200);
+                   doc.line(20, yPosition - 5, 190, yPosition - 5);
+                   yPosition += 5;
+               });
 
-            // Close history modal when clicking outside
-            historyModal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.add('hidden');
-                }
-            });
+               // Add footer
+               const pageCount = doc.internal.getNumberOfPages();
+               for (let i = 1; i <= pageCount; i++) {
+                   doc.setPage(i);
+                   doc.setFontSize(8);
+                   doc.setTextColor(150, 150, 150);
+                   doc.text(`Page ${i} of ${pageCount}`, 170, 285);
+                   doc.text('Medical Dashboard - Confidential', 20, 285);
+               }
 
-            // Previous records modal functionality
-            viewPrevious.addEventListener('click', function(e) {
-                e.preventDefault();
-                const currentTime = new Date('2025-06-16T09:21:00+03:00'); // EAT is UTC+3
-                const previousRecords = allRecords
-                    .filter(record => new Date(record.created_at) < currentTime)
-                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+               // Save the PDF
+               const fileName = `medical_summary_${new Date().toISOString().split('T')[0]}.pdf`;
+               doc.save(fileName);
+           });
 
-                // Debug: Log filtered records
-                console.log('Previous Records:', previousRecords);
+           function filterRecords() {
+               const category = categoryFilter.value.toLowerCase();
+               const time = timeFilter.value.toLowerCase();
+               const search = searchInput.value.toLowerCase();
 
-                previousContent.innerHTML = previousRecords.length > 0 ? previousRecords.map(record => `
-                    <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 cursor-pointer previous-record" data-record='${JSON.stringify(record)}'>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="font-medium text-gray-800">
-                                    ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}:
-                                    ${Object.entries(record.data).slice(0, 2).map(([key, value]) => `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`).join(', ')}
-                                </p>
-                                <p class="text-sm text-gray-500">${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                            </div>
-                            <button class="text-blue-600 hover:text-blue-800 text-sm view-previous-record">View Details</button>
-                        </div>
-                    </div>
-                `).join('') : '<p class="text-sm text-gray-500">No previous records found.</p>';
+               recordRows.forEach(row => {
+                   const rowCategory = row.dataset.category;
+                   const rowText = row.textContent.toLowerCase();
+                   const rowDate = new Date(row.querySelector('td:nth-child(3)').textContent);
+                   const today = new Date('{{ now()->format('Y-m-d') }}');
 
-                previousModal.classList.remove('hidden');
+                   const categoryMatch = category === '' || rowCategory === category;
+                   const textMatch = search === '' || rowText.includes(search);
 
-                // Add event listeners to view details buttons
-                document.querySelectorAll('.view-previous-record').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const record = JSON.parse(this.closest('.previous-record').dataset.record);
-                        modalContent.innerHTML = `
-                            <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
-                            <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                            <p><strong>Details:</strong></p>
-                            <ul class="list-disc pl-5">
-                                ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
-                            </ul>
-                        `;
-                        previousModal.classList.add('hidden');
-                        viewModal.classList.remove('hidden');
-                    });
-                });
-            });
+                   let timeMatch = true;
+                   if (time) {
+                       if (time === 'today') {
+                           timeMatch = rowDate.toDateString() === today.toDateString();
+                       } else if (time === 'week') {
+                           const oneWeekAgo = new Date(today);
+                           oneWeekAgo.setDate(today.getDate() - 7);
+                           timeMatch = rowDate >= oneWeekAgo;
+                       } else if (time === 'month') {
+                           const oneMonthAgo = new Date(today);
+                           oneMonthAgo.setMonth(today.getMonth() - 1);
+                           timeMatch = rowDate >= oneMonthAgo;
+                       } else if (time === 'year') {
+                           const oneYearAgo = new Date(today);
+                           oneYearAgo.setFullYear(today.getFullYear() - 1);
+                           timeMatch = rowDate >= oneYearAgo;
+                       }
+                   }
 
-            closePrevious.addEventListener('click', () => {
-                previousModal.classList.add('hidden');
-            });
+                   row.style.display = categoryMatch && textMatch && timeMatch ? '' : 'none';
+               });
+           }
 
-            // Close previous modal when clicking outside
-            previousModal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.add('hidden');
-                }
-            });
+           categoryFilter.addEventListener('change', filterRecords);
+           timeFilter.addEventListener('change', filterRecords);
+           searchInput.addEventListener('input', filterRecords);
 
-            // View All Data functionality
-            viewAllBtn.addEventListener('click', function(e) {
-                e.preventDefault();
+           viewLinks.forEach(link => {
+               link.addEventListener('click', function(e) {
+                   e.preventDefault();
+                   const record = JSON.parse(this.dataset.record);
+                   modalContent.innerHTML = `
+                       <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
+                       <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                       <p><strong>Details:</strong></p>
+                       <ul class="list-disc pl-5">
+                           ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
+                       </ul>
+                   `;
+                   viewModal.classList.remove('hidden');
+               });
+           });
 
-                // Group records by category
-                const groupedRecords = {};
-                allRecords.forEach(record => {
-                    if (!groupedRecords[record.category]) {
-                        groupedRecords[record.category] = [];
-                    }
-                    groupedRecords[record.category].push(record);
-                });
+           closeModal.addEventListener('click', () => {
+               viewModal.classList.add('hidden');
+           });
 
-                // Sort records within each category by date (newest first)
-                Object.keys(groupedRecords).forEach(category => {
-                    groupedRecords[category].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                });
+           deleteLinks.forEach(link => {
+               link.addEventListener('click', function(e) {
+                   e.preventDefault();
+                   if (confirm('Are you sure you want to delete this record?')) {
+                       this.closest('.delete-form').submit();
+                   }
+               });
+           });
 
-                // Generate HTML content
-                const categoryOrder = ['vitals', 'activity', 'pain', 'sleep', 'wellbeing', 'labs', 'infection', 'treatments', 'appointments'];
+           // History modal functionality
+           historyButtons.forEach(button => {
+               button.addEventListener('click', function(e) {
+                   e.preventDefault();
+                   const category = this.dataset.category;
+                   const categoryRecords = allRecords.filter(record => record.category === category);
 
-                allDataContent.innerHTML = categoryOrder.map(category => {
-                    const records = groupedRecords[category] || [];
-                    if (records.length === 0) return '';
+                   historyCategory.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} History`;
+                   historyContent.innerHTML = categoryRecords.length > 0 ? categoryRecords.map(record => `
+                       <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 cursor-pointer history-record" data-record='${JSON.stringify(record)}'>
+                           <div class="flex justify-between items-center">
+                               <div>
+                                   <p class="font-medium text-gray-800">
+                                       ${Object.entries(record.data).slice(0, 2).map(([key, value]) => `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`).join(', ')}
+                                   </p>
+                                   <p class="text-sm text-gray-500">${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                               </div>
+                               <button class="text-blue-600 hover:text-blue-800 text-sm view-history-record">View Details</button>
+                           </div>
+                       </div>
+                   `).join('') : '<p class="text-sm text-gray-500">No records found for this category.</p>';
 
-                    return `
-                        <div class="category-section">
-                            <h4 class="text-lg font-semibold mb-3 flex items-center text-gray-800">
-                                <div class="bg-blue-100 p-2 rounded-full mr-3">
-                                    <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                </div>
-                                ${category.charAt(0).toUpperCase() + category.slice(1)} (${records.length})
-                            </h4>
-                            <div class="space-y-2 mb-6">
-                                ${records.map(record => `
-                                    <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors">
-                                        <div class="flex justify-between items-start">
-                                            <div class="flex-1">
-                                                <div class="text-sm font-medium text-gray-800 mb-1">
-                                                    ${Object.entries(record.data).map(([key, value]) =>
-                                                        `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`
-                                                    ).join(', ')}
-                                                </div>
-                                                <div class="text-xs text-gray-500">
-                                                    ${new Date(record.created_at).toLocaleDateString('en-US', {
-                                                        year: 'numeric',
-                                                        month: 'short',
-                                                        day: 'numeric',
-                                                        hour: '2-digit',
-                                                        minute: '2-digit'
-                                                    })}
-                                                </div>
-                                            </div>
-                                            <button class="text-blue-600 hover:text-blue-800 text-xs ml-2 view-all-record" data-record='${JSON.stringify(record)}'>
-                                                View
-                                            </button>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                }).filter(html => html !== '').join('');
+                   historyModal.classList.remove('hidden');
 
-                // Show the modal
-                viewAllModal.classList.remove('hidden');
+                   // Add event listeners to view details buttons
+                   document.querySelectorAll('.view-history-record').forEach(btn => {
+                       btn.addEventListener('click', function() {
+                           const record = JSON.parse(this.closest('.history-record').dataset.record);
+                           modalContent.innerHTML = `
+                               <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
+                               <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                               <p><strong>Details:</strong></p>
+                               <ul class="list-disc pl-5">
+                                   ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
+                               </ul>
+                           `;
+                           historyModal.classList.add('hidden');
+                           viewModal.classList.remove('hidden');
+                       });
+                   });
+               });
+           });
 
-                // Add event listeners to view buttons
-                document.querySelectorAll('.view-all-record').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const record = JSON.parse(this.dataset.record);
-                        modalContent.innerHTML = `
-                            <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
-                            <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                            <p><strong>Details:</strong></p>
-                            <ul class="list-disc pl-5">
-                                ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
-                            </ul>
-                        `;
-                        viewAllModal.classList.add('hidden');
-                        viewModal.classList.remove('hidden');
-                    });
-                });
-            });
+           closeHistory.addEventListener('click', () => {
+               historyModal.classList.add('hidden');
+           });
 
-            // Close View All Data modal
-            closeAllData.addEventListener('click', () => {
-                viewAllModal.classList.add('hidden');
-            });
+           // Close history modal when clicking outside
+           historyModal.addEventListener('click', function(e) {
+               if (e.target === this) {
+                   this.classList.add('hidden');
+               }
+           });
 
-            // Close modal when clicking outside
-            viewAllModal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.add('hidden');
-                }
-            });
+           // Previous records modal functionality
+           viewPrevious.addEventListener('click', function(e) {
+               e.preventDefault();
+               const currentTime = new Date('2025-06-16T09:21:00+03:00'); // EAT is UTC+3
+               const previousRecords = allRecords
+                   .filter(record => new Date(record.created_at) < currentTime)
+                   .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-            // Download functionality
-            downloadBtn.addEventListener('click', function() {
-                const dataToDownload = {
-                    exported_at: new Date().toISOString(),
-                    total_records: allRecords.length,
-                    records: allRecords.map(record => ({
-                        id: record.id,
-                        category: record.category,
-                        data: record.data,
-                        created_at: record.created_at,
-                        updated_at: record.updated_at
-                    }))
-                };
+               // Debug: Log filtered records
+               console.log('Previous Records:', previousRecords);
 
-                const dataStr = JSON.stringify(dataToDownload, null, 2);
-                const dataBlob = new Blob([dataStr], {type: 'application/json'});
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `medical_records_${new Date().toISOString().split('T')[0]}.json`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-            });
-        });
-    </script>
+               previousContent.innerHTML = previousRecords.length > 0 ? previousRecords.map(record => `
+                   <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 cursor-pointer previous-record" data-record='${JSON.stringify(record)}'>
+                       <div class="flex justify-between items-center">
+                           <div>
+                               <p class="font-medium text-gray-800">
+                                   ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}:
+                                   ${Object.entries(record.data).slice(0, 2).map(([key, value]) => `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`).join(', ')}
+                               </p>
+                               <p class="text-sm text-gray-500">${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                           </div>
+                           <button class="text-blue-600 hover:text-blue-800 text-sm view-previous-record">View Details</button>
+                       </div>
+                   </div>
+               `).join('') : '<p class="text-sm text-gray-500">No previous records found.</p>';
+
+               previousModal.classList.remove('hidden');
+
+               // Add event listeners to view details buttons
+               document.querySelectorAll('.view-previous-record').forEach(btn => {
+                   btn.addEventListener('click', function() {
+                       const record = JSON.parse(this.closest('.previous-record').dataset.record);
+                       modalContent.innerHTML = `
+                           <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
+                           <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                           <p><strong>Details:</strong></p>
+                           <ul class="list-disc pl-5">
+                               ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
+                           </ul>
+                       `;
+                       previousModal.classList.add('hidden');
+                       viewModal.classList.remove('hidden');
+                   });
+               });
+           });
+
+           closePrevious.addEventListener('click', () => {
+               previousModal.classList.add('hidden');
+           });
+
+           // Close previous modal when clicking outside
+           previousModal.addEventListener('click', function(e) {
+               if (e.target === this) {
+                   this.classList.add('hidden');
+               }
+           });
+
+           // View All Data functionality
+           viewAllBtn.addEventListener('click', function(e) {
+               e.preventDefault();
+
+               // Group records by category
+               const groupedRecords = {};
+               allRecords.forEach(record => {
+                   if (!groupedRecords[record.category]) {
+                       groupedRecords[record.category] = [];
+                   }
+                   groupedRecords[record.category].push(record);
+               });
+
+               // Sort records within each category by date (newest first)
+               Object.keys(groupedRecords).forEach(category => {
+                   groupedRecords[category].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+               });
+
+               // Generate HTML content
+               const categoryOrder = ['vitals', 'activity', 'pain', 'sleep', 'wellbeing', 'labs', 'infection', 'treatments', 'appointments'];
+
+               allDataContent.innerHTML = categoryOrder.map(category => {
+                   const records = groupedRecords[category] || [];
+                   if (records.length === 0) return '';
+
+                   return `
+                       <div class="category-section">
+                           <h4 class="text-lg font-semibold mb-3 flex items-center text-gray-800">
+                               <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                   <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                   </svg>
+                               </div>
+                               ${category.charAt(0).toUpperCase() + category.slice(1)} (${records.length})
+                           </h4>
+                           <div class="space-y-2 mb-6">
+                               ${records.map(record => `
+                                   <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors">
+                                       <div class="flex justify-between items-start">
+                                           <div class="flex-1">
+                                               <div class="text-sm font-medium text-gray-800 mb-1">
+                                                   ${Object.entries(record.data).map(([key, value]) =>
+                                                       `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`
+                                                   ).join(', ')}
+                                               </div>
+                                               <div class="text-xs text-gray-500">
+                                                   ${new Date(record.created_at).toLocaleDateString('en-US', {
+                                                       year: 'numeric',
+                                                       month: 'short',
+                                                       day: 'numeric',
+                                                       hour: '2-digit',
+                                                       minute: '2-digit'
+                                                   })}
+                                               </div>
+                                           </div>
+                                           <button class="text-blue-600 hover:text-blue-800 text-xs ml-2 view-all-record" data-record='${JSON.stringify(record)}'>
+                                               View
+                                           </button>
+                                       </div>
+                                   </div>
+                               `).join('')}
+                           </div>
+                       </div>
+                   `;
+               }).filter(html => html !== '').join('');
+
+               // Show the modal
+               viewAllModal.classList.remove('hidden');
+
+               // Add event listeners to view buttons
+               document.querySelectorAll('.view-all-record').forEach(btn => {
+                   btn.addEventListener('click', function() {
+                       const record = JSON.parse(this.dataset.record);
+                       modalContent.innerHTML = `
+                           <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
+                           <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                           <p><strong>Details:</strong></p>
+                           <ul class="list-disc pl-5">
+                               ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
+                           </ul>
+                       `;
+                       viewAllModal.classList.add('hidden');
+                       viewModal.classList.remove('hidden');
+                   });
+               });
+           });
+
+           // Close View All Data modal
+           closeAllData.addEventListener('click', () => {
+               viewAllModal.classList.add('hidden');
+           });
+
+           // Close modal when clicking outside
+           viewAllModal.addEventListener('click', function(e) {
+               if (e.target === this) {
+                   this.classList.add('hidden');
+               }
+           });
+
+           // Download functionality
+           downloadBtn.addEventListener('click', function() {
+               const dataToDownload = {
+                   exported_at: new Date().toISOString(),
+                   total_records: allRecords.length,
+                   records: allRecords.map(record => ({
+                       id: record.id,
+                       category: record.category,
+                       data: record.data,
+                       created_at: record.created_at,
+                       updated_at: record.updated_at
+                   }))
+               };
+
+               const dataStr = JSON.stringify(dataToDownload, null, 2);
+               const dataBlob = new Blob([dataStr], {type: 'application/json'});
+               const url = URL.createObjectURL(dataBlob);
+               const link = document.createElement('a');
+               link.href = url;
+               link.download = `medical_records_${new Date().toISOString().split('T')[0]}.json`;
+               document.body.appendChild(link);
+               link.click();
+               document.body.removeChild(link);
+               URL.revokeObjectURL(url);
+           });
+       });
+</script>
 
 </body>
 </html>
