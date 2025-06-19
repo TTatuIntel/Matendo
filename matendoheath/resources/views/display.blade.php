@@ -20,6 +20,7 @@
                     <div class="flex space-x-4">
                         <a href="{{ route('dashboard') }}" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">Back to Dashboard</a>
                         <a href="{{ route('upload') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">Upload Documents</a>
+                        <button id="view-all-data" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">View All Data</button>
                         <button id="view-previous" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -320,7 +321,33 @@
             </div>
         </div>
 
-    <script>
+        <!-- View All Data Modal -->
+        <div id="view-all-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+                <h3 class="text-lg font-semibold mb-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-2 rounded-full mr-3">
+                            <svg class="h-5 w-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </div>
+                        All Medical Data
+                    </div>
+                    <button id="download-data" class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Download
+                    </button>
+                </h3>
+                <div id="all-data-content" class="space-y-6"></div>
+                <button id="close-all-data" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition w-full">Close</button>
+            </div>
+        </div>
+
+    </div>
+
+<script>
         document.addEventListener('DOMContentLoaded', function() {
             const categoryFilter = document.getElementById('category-filter');
             const timeFilter = document.getElementById('time-filter');
@@ -341,8 +368,19 @@
             const deleteLinks = document.querySelectorAll('.delete-record');
             const historyButtons = document.querySelectorAll('.view-history');
 
+            // NEW: View All Data Modal elements
+            const viewAllBtn = document.getElementById('view-all-data');
+            const viewAllModal = document.getElementById('view-all-modal');
+            const allDataContent = document.getElementById('all-data-content');
+            const closeAllData = document.getElementById('close-all-data');
+            const downloadBtn = document.getElementById('download-data');
+
             // All records from PHP, converted to JavaScript array
             const allRecords = @json($records);
+
+            // MOVED: Add error checking for allRecords
+            console.log('All records loaded:', allRecords);
+            console.log('Number of records:', allRecords ? allRecords.length : 0);
 
             function filterRecords() {
                 const category = categoryFilter.value.toLowerCase();
@@ -524,8 +562,134 @@
                     this.classList.add('hidden');
                 }
             });
+
+            // View All Data functionality
+            viewAllBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Group records by category
+                const groupedRecords = {};
+                allRecords.forEach(record => {
+                    if (!groupedRecords[record.category]) {
+                        groupedRecords[record.category] = [];
+                    }
+                    groupedRecords[record.category].push(record);
+                });
+
+                // Sort records within each category by date (newest first)
+                Object.keys(groupedRecords).forEach(category => {
+                    groupedRecords[category].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                });
+
+                // Generate HTML content
+                const categoryOrder = ['vitals', 'activity', 'pain', 'sleep', 'wellbeing', 'labs', 'infection', 'treatments', 'appointments'];
+
+                allDataContent.innerHTML = categoryOrder.map(category => {
+                    const records = groupedRecords[category] || [];
+                    if (records.length === 0) return '';
+
+                    return `
+                        <div class="category-section">
+                            <h4 class="text-lg font-semibold mb-3 flex items-center text-gray-800">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                    <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                ${category.charAt(0).toUpperCase() + category.slice(1)} (${records.length})
+                            </h4>
+                            <div class="space-y-2 mb-6">
+                                ${records.map(record => `
+                                    <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors">
+                                        <div class="flex justify-between items-start">
+                                            <div class="flex-1">
+                                                <div class="text-sm font-medium text-gray-800 mb-1">
+                                                    ${Object.entries(record.data).map(([key, value]) =>
+                                                        `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`
+                                                    ).join(', ')}
+                                                </div>
+                                                <div class="text-xs text-gray-500">
+                                                    ${new Date(record.created_at).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'short',
+                                                        day: 'numeric',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit'
+                                                    })}
+                                                </div>
+                                            </div>
+                                            <button class="text-blue-600 hover:text-blue-800 text-xs ml-2 view-all-record" data-record='${JSON.stringify(record)}'>
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }).filter(html => html !== '').join('');
+
+                // Show the modal
+                viewAllModal.classList.remove('hidden');
+
+                // Add event listeners to view buttons
+                document.querySelectorAll('.view-all-record').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const record = JSON.parse(this.dataset.record);
+                        modalContent.innerHTML = `
+                            <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
+                            <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                            <p><strong>Details:</strong></p>
+                            <ul class="list-disc pl-5">
+                                ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
+                            </ul>
+                        `;
+                        viewAllModal.classList.add('hidden');
+                        viewModal.classList.remove('hidden');
+                    });
+                });
+            });
+
+            // Close View All Data modal
+            closeAllData.addEventListener('click', () => {
+                viewAllModal.classList.add('hidden');
+            });
+
+            // Close modal when clicking outside
+            viewAllModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+
+            // Download functionality
+            downloadBtn.addEventListener('click', function() {
+                const dataToDownload = {
+                    exported_at: new Date().toISOString(),
+                    total_records: allRecords.length,
+                    records: allRecords.map(record => ({
+                        id: record.id,
+                        category: record.category,
+                        data: record.data,
+                        created_at: record.created_at,
+                        updated_at: record.updated_at
+                    }))
+                };
+
+                const dataStr = JSON.stringify(dataToDownload, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `medical_records_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            });
         });
     </script>
+
 </body>
 </html>
 </x-app-layout>
