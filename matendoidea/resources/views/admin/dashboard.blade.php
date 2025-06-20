@@ -157,7 +157,7 @@
                     </button>
                 </form>
             </div>
-            
+
             <!-- Tab Panels -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                 <!-- Dashboard Tab -->
@@ -181,7 +181,7 @@
                                 <span class="w-1.5 h-7 bg-green-600 rounded-full mr-3"></span>
                                 Dashboard Overview
                             </h2>
-                            
+
                             <div class="flex space-x-6 overflow-x-auto pb-4 mb-8">
                                 <!-- Total Applications Card -->
                                 <div class="min-w-[280px] flex-shrink-0 p-6 bg-white rounded-lg shadow-sm card-hover smooth-transition border border-gray-100">

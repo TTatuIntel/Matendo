@@ -86,15 +86,17 @@
                                         Assigned: {{ $task->assigned_at ? \Carbon\Carbon::parse($task->assigned_at)->diffForHumans() : 'N/A' }}
                                     </span>
                                     <div class="space-x-2">
-                                        @if($task->status !== 'completed')
-                                            <form action="{{ route('tasks.complete', $task->id) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
-                                                    Mark Complete
-                                                </button>
-                                            </form>
-                                        @endif
+                                    <!-- Replace the existing Mark Complete form -->
+                                    <div class="space-x-2">
+                                    @if($task->complete == 0 && $task->assigned_to && $task->assigned_to == auth()->user()->id)
+                                    <button onclick="completeTask({{ $task->id }})" class="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
+                                        Mark Complete
+                                    </button>
+                                @endif
+                                        <button onclick="openTaskModal({{ json_encode($task) }})" class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
+                                            View Details
+                                        </button>
+                                    </div>
                                         <button onclick="openTaskModal({{ json_encode($task) }})"
                                                 class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
                                             View Details
@@ -240,6 +242,32 @@
             document.body.classList.add('overflow-hidden');
         }
 
+function completeTask(taskId) {
+    if (confirm('Are you sure you want to mark this task as completed?')) {
+        fetch(`/tasks/${taskId}/complete`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ complete: true })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while marking the task as completed.');
+        });
+    }
+}
+
         function closeTaskModal() {
             document.getElementById('taskModal').classList.add('hidden');
             document.body.classList.remove('overflow-hidden');
@@ -258,5 +286,7 @@
                 closeTaskModal();
             }
         });
+
+
     </script>
 </x-app-layout>

@@ -93,6 +93,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
     Route::post('/tasks/{task}/assign', [TaskController::class, 'assign'])->name('tasks.assign');
+    Route::patch('/tasks/{task}/complete', [App\Http\Controllers\TaskController::class, 'complete'])->name('tasks.complete');
 
 
 Route::resource('health-workers', HealthWorkerController::class);

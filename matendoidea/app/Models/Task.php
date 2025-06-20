@@ -37,6 +37,7 @@ class Task extends Model
         'medications',      // Added
         'assigned_to',
         'assigned_at',
+        'complete', // Add this line
     ];
 
     protected $casts = [
@@ -48,6 +49,7 @@ class Task extends Model
         'status' => 'string',
         // ... your existing casts
         'assigned_at' => 'datetime',
+        'complete' => 'boolean', // Add this line
     ];
 
     public function getStaffNeededAttribute()

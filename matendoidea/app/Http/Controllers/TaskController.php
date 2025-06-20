@@ -18,6 +18,7 @@ class TaskController extends Controller
             'pending' => Task::where('status', 'pending')->count(),
             'approved' => Task::where('status', 'approved')->count(),
             'rejected' => Task::where('status', 'rejected')->count(),
+            'completed' => Task::where('status', 'completed')->count(), // Add this line
             'total' => Task::count(),
         ];
 
@@ -63,6 +64,7 @@ class TaskController extends Controller
     // ... your existing fields
                 'assigned_to' => $task->assignedHealthworker ? $task->assignedHealthworker->name : null,
                 'assigned_at' => $task->assigned_at ? $task->assigned_at->format('M d, Y H:i') : null,
+                'complete' => $task->complete, // Add this line
 
             ];
         });
@@ -185,5 +187,27 @@ public function assign(Request $request, Task $task): JsonResponse
     ]);
 }
 
+
+public function complete(Task $task): JsonResponse
+{
+    try {
+        // Verify the task is assigned to the authenticated user
+        if (!auth()->check() || auth()->user()->id !== $task->assigned_to) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You are not authorized to complete this task'
+            ], 403);
+        }
+
+        $task->update(['complete' => true]);
+        return response()->json(['success' => true, 'message' => 'Task marked as completed']);
+    } catch (\Exception $e) {
+        \Log::error('Error marking task as completed: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'An error occurred while marking the task as completed.'
+        ], 500);
+    }
+}
 
 }
