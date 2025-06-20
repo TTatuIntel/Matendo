@@ -8,6 +8,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Redirect to new.html
-header("Location: new.html");
+header("Location: new1.html");
 exit;
 ?>

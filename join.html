@@ -1879,21 +1879,17 @@ session_start();
             });
 
             // Form submission
-            form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validateStep4()) return;
+            // form.addEventListener('submit', async (e) => {
+            //     e.preventDefault();
+            //     if (!validateStep4()) return;
 
-    const submitButton = document.getElementById('submit-button');
-    const formSubmitting = document.getElementById('formSubmitting');
-    const submissionConfirmation = document.getElementById('submission-confirmation');
+            //     const submitButton = document.getElementById('submit-button');
+            //     const formSubmitting = document.getElementById('formSubmitting');
+            //     const submissionConfirmation = document.getElementById('submission-confirmation');
 
-    submitButton.disabled = true;
-    formSubmitting.style.display = 'block';
+            //     submitButton.disabled = true;
+            //     formSubmitting.style.display = 'block';
 
-<<<<<<< Updated upstream
-    try {
-        const formData = new FormData(form);
-=======
             //     try {
             //         const formData = new FormData(form);
             //         const response = await fetch('join.php', {
@@ -1970,6 +1966,32 @@ session_start();
 // });
 
 
+document.getElementById('form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+        const response = await fetch('join.php', {
+            method: 'POST',
+            body: formData
+        });
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
+        if (!responseText) {
+            throw new Error('Empty response from server');
+        }
+        const data = JSON.parse(responseText);
+        if (data.success) {
+            alert('Submission successful! Reference: ' + data.reference_number);
+        } else {
+            alert('Submission failed: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        alert('Submission failed: ' + error.message);
+    }
+});
+
+
 // document.getElementById('form').addEventListener('submit', async (event) => {
 //     event.preventDefault();
 //     const formData = new FormData(event.target);
@@ -1994,79 +2016,6 @@ session_start();
 //         alert('Submission failed: ' + error.message);
 //     }
 // });
-
-
-// Form submission
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validateStep4()) return;
-
-    const submitButton = document.getElementById('submit-button');
-    const formSubmitting = document.getElementById('formSubmitting');
-    const submissionConfirmation = document.getElementById('submission-confirmation');
-
-    submitButton.disabled = true;
-    formSubmitting.style.display = 'block';
-
-    try {
-        const formData = new FormData(form);
-        
-        // Add reference number and submission date
-        const referenceNumber = 'HP-' + Math.random().toString(36).substr(2, 8).toUpperCase();
-        const submissionDate = new Date().toISOString();
-        formData.append('referenceNumber', referenceNumber);
-        formData.append('submissionDate', submissionDate);
-
->>>>>>> Stashed changes
-        const response = await fetch('join.php', {
-            method: 'POST',
-            body: formData
-        });
-
-<<<<<<< Updated upstream
-        let result;
-        const responseText = await response.text();
-        
-        try {
-            result = JSON.parse(responseText);
-        } catch (error) {
-            console.error('Failed to parse JSON response:', responseText);
-            throw new Error('Invalid server response');
-        }
-=======
-        const result = await response.json();
->>>>>>> Stashed changes
-
-        formSubmitting.style.display = 'none';
-        submitButton.disabled = false;
-
-        if (result.success) {
-            form.style.display = 'none';
-<<<<<<< Updated upstream
-            document.getElementById('reference-number').textContent = result.reference_number || 'N/A';
-            document.getElementById('submission-date').textContent = result.submission_date || new Date().toLocaleString();
-            submissionConfirmation.style.display = 'block';
-        } else {
-            throw new Error(result.message || 'Unknown server error');
-=======
-            document.getElementById('reference-number').textContent = result.reference_number;
-            document.getElementById('submission-date').textContent = new Date(result.submission_date).toLocaleString();
-            submissionConfirmation.style.display = 'block';
-        } else {
-            alert(`Error: ${result.message}`);
->>>>>>> Stashed changes
-        }
-    } catch (error) {
-        console.error('Submission error:', error);
-        formSubmitting.style.display = 'none';
-        submitButton.disabled = false;
-<<<<<<< Updated upstream
-        alert(`Submission failed: ${error.message}`);
-=======
-        alert('An error occurred. Please check your connection and try again.');
->>>>>>> Stashed changes
-    }
-});
 
             // View additional info
             document.getElementById('view-additional-info').addEventListener('click', () => {

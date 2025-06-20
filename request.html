@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Matedo as Healthcare Professional</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#0077b6',secondary:'#4ecdc4'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background-color: #f8fafc;
+}
+.step-content {
+display: none;
+opacity: 0;
+transform: translateY(20px);
+transition: all 0.5s ease-in-out;
+}
+.step-content.active {
+display: block;
+opacity: 1;
+transform: translateY(0);
+}
+.step-indicator {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: #fff;
+border: 2px solid #e2e8f0;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+color: #64748b;
+transition: all 0.3s ease;
+}
+.step-indicator.active {
+background: #0077b6;
+border-color: #0077b6;
+color: white;
+}
+.step-indicator.completed {
+background: #10b981;
+border-color: #10b981;
+color: white;
+}
+.step-line {
+flex: 1;
+height: 2px;
+background: #e2e8f0;
+margin: 0 8px;
+transition: background-color 0.3s ease;
+}
+.step-line.completed {
+background: #10b981;
+}
+.form-appear {
+animation: formAppear 0.5s ease-out forwards;
+}
+@keyframes formAppear {
+from {
+opacity: 0;
+transform: translateY(20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+.slide-in {
+animation: slideIn 0.5s ease-out forwards;
+}
+@keyframes slideIn {
+from {
+opacity: 0;
+transform: translateX(-20px);
+}
+to {
+opacity: 1;
+transform: translateX(0);
+}
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-checkbox {
+position: relative;
+display: inline-block;
+width: 20px;
+height: 20px;
+border: 2px solid #cbd5e1;
+border-radius: 4px;
+transition: all 0.2s;
+}
+.custom-checkbox.checked {
+background-color: #0077b6;
+border-color: #0077b6;
+}
+.custom-checkbox.checked::after {
+content: '';
+position: absolute;
+top: 3px;
+left: 6px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.file-upload-container {
+position: relative;
+overflow: hidden;
+}
+.file-upload-container input[type="file"] {
+position: absolute;
+left: 0;
+top: 0;
+opacity: 0;
+width: 100%;
+height: 100%;
+cursor: pointer;
+}
+.upload-progress {
+height: 4px;
+background-color: #e2e8f0;
+border-radius: 2px;
+overflow: hidden;
+}
+.upload-progress-bar {
+height: 100%;
+background-color: #0077b6;
+width: 0;
+transition: width 0.3s ease;
+}
+</style>
+</head>
+<body>
+<div class="min-h-screen flex flex-col relative">
+<div class="decorative-pattern"></div>
+<div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-secondary/5 to-primary/5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+<header class="w-full glass-effect shadow-lg py-8 header-animation">
+<div class="container mx-auto px-4 flex flex-col items-center">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<h1 class="text-4xl font-['Pacifico'] text-primary">M</h1>
+</div>
+<h2 class="text-3xl font-semibold text-gray-800 mt-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Join Matedo as Healthcare Professional</h2>
+<p class="text-gray-600 mt-4 max-w-2xl text-center text-lg leading-relaxed">Join our network of trusted healthcare professionals and connect with patients who need your expertise. Matedo helps you grow your practice while providing flexible work options.</p>
+<div class="flex gap-4 mt-6">
+<div class="flex items-center px-4 py-2 bg-primary/5 rounded-full">
+<i class="ri-shield-check-line text-primary mr-2"></i>
+<span class="text-sm">Verified Platform</span>
+</div>
+<div class="flex items-center px-4 py-2 bg-primary/5 rounded-full">
+<i class="ri-heart-pulse-line text-primary mr-2"></i>
+<span class="text-sm">24/7 Support</span>
+</div>
+<div class="flex items-center px-4 py-2 bg-primary/5 rounded-full">
+<i class="ri-user-star-line text-primary mr-2"></i>
+<span class="text-sm">Professional Network</span>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow container mx-auto px-4 py-8">
+<div class="flex gap-8 items-start">
+<div class="w-1/4 space-y-6 sticky top-8">
+<div class="glass-effect rounded-lg shadow-xl p-6 hover-scale">
+<h2 class="text-2xl font-semibold text-gray-800 mb-6">How to Apply</h2>
+<div class="space-y-6">
+<div class="relative flex flex-col p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="absolute -left-3 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">1</div>
+<h3 class="text-base font-medium mb-2 pl-4">Complete Profile</h3>
+<p class="text-sm text-gray-600 pl-4">Fill in your professional details and qualifications accurately</p>
+</div>
+<div class="relative flex flex-col p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="absolute -left-3 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">2</div>
+<h3 class="text-base font-medium mb-2 pl-4">Submit Documents</h3>
+<p class="text-sm text-gray-600 pl-4">Upload your license, certifications, and other required documents</p>
+</div>
+<div class="relative flex flex-col p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="absolute -left-3 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">3</div>
+<h3 class="text-base font-medium mb-2 pl-4">Verification</h3>
+<p class="text-sm text-gray-600 pl-4">Our team will verify your credentials and background</p>
+</div>
+<div class="relative flex flex-col p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="absolute -left-3 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">4</div>
+<h3 class="text-base font-medium mb-2 pl-4">Get Started</h3>
+<p class="text-sm text-gray-600 pl-4">Once approved, start accepting appointments and growing your practice</p>
+</div>
+</div>
+<div class="mt-6 text-center">
+<div class="inline-flex items-center justify-center space-x-2 text-sm text-gray-600 bg-white px-4 py-2 rounded-full shadow-sm">
+<i class="ri-time-line"></i>
+<span>Average approval time: 2-3 business days</span>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-effect rounded-lg shadow-xl p-8 w-3/4 form-appear hover-scale relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary"></div>
+<div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2"></div>
+<div class="mb-8">
+<div class="flex items-center justify-between max-w-2xl mx-auto">
+<div class="flex items-center">
+<div class="step-indicator active flex items-center justify-center w-12 h-12 text-lg font-semibold relative" id="step1-indicator">
+1
+<div class="absolute w-full h-full border-2 border-primary rounded-full animate-ping opacity-20"></div>
+</div>
+<div class="step-line" id="line1"></div>
+</div>
+<div class="flex items-center">
+<div class="step-indicator" id="step2-indicator">2</div>
+<div class="step-line" id="line2"></div>
+</div>
+<div class="flex items-center">
+<div class="step-indicator" id="step3-indicator">3</div>
+<div class="step-line" id="line3"></div>
+</div>
+<div class="flex items-center">
+<div class="step-indicator" id="step4-indicator">4</div>
+</div>
+</div>
+<div class="flex justify-between max-w-2xl mx-auto mt-2 text-sm text-gray-600">
+<span>Personal Info</span>
+<span>Professional Details</span>
+<span>Documents</span>
+<span>Terms</span>
+</div>
+</div>
+<form id="healthcare-form" class="space-y-8">
+<div id="step1" class="step-content active">
+<!-- Personal Information -->
+<div class="space-y-4">
+<h3 class="text-xl font-semibold text-gray-800 border-b pb-2">Personal Information</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name <span class="text-red-500">*</span></label>
+<input type="text" id="firstName" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your first name" required>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please enter your first name</div>
+</div>
+<div>
+<label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name <span class="text-red-500">*</span></label>
+<input type="text" id="lastName" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your last name" required>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please enter your last name</div>
+</div>
+<div>
+<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+<input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="name@example.com" required>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please enter a valid email address</div>
+</div>
+<div>
+<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number <span class="text-red-500">*</span></label>
+<input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="(123) 456-7890" required>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please enter a valid phone number</div>
+</div>
+</div>
+</div>
+</div>
+<div id="step2" class="step-content">
+<h3 class="text-xl font-semibold text-gray-800 border-b pb-2">Professional Details</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label for="specialization" class="block text-sm font-medium text-gray-700 mb-1">Specialization <span class="text-red-500">*</span></label>
+<div class="relative">
+<div class="w-full px-4 py-2 border border-gray-300 rounded flex items-center justify-between cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" id="specializationDropdown">
+<span id="specializationText">Select your specialization</span>
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+<div class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg hidden" id="specializationOptions">
+<div class="py-1 max-h-60 overflow-y-auto">
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Family Medicine</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Internal Medicine</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Pediatrics</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Cardiology</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Dermatology</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Neurology</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Psychiatry</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Obstetrics & Gynecology</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Orthopedics</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Physical Therapy</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Nursing</div>
+<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Other</div>
+</div>
+</div>
+</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please select your specialization</div>
+</div>
+<div>
+<label for="licenseNumber" class="block text-sm font-medium text-gray-700 mb-1">License Number <span class="text-red-500">*</span></label>
+<input type="text" id="licenseNumber" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your license number" required>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please enter your license number</div>
+</div>
+<div>
+<label for="experience" class="block text-sm font-medium text-gray-700 mb-1">Years of Experience <span class="text-red-500">*</span></label>
+<input type="number" id="experience" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter years of experience" min="0" required>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please enter your years of experience</div>
+</div>
+<div>
+<label for="education" class="block text-sm font-medium text-gray-700 mb-1">Education <span class="text-red-500">*</span></label>
+<input type="text" id="education" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your highest education" required>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please enter your education</div>
+</div>
+</div>
+</div>
+<!-- Work Preferences -->
+<div class="space-y-4">
+<h3 class="text-xl font-semibold text-gray-800 border-b pb-2">Work Preferences</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Available Hours <span class="text-red-500">*</span></label>
+<div class="space-y-2">
+<div class="flex items-center">
+<div class="custom-checkbox" id="weekdayMorning"></div>
+<label class="ml-2 text-sm text-gray-700">Weekday Mornings (8AM - 12PM)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox" id="weekdayAfternoon"></div>
+<label class="ml-2 text-sm text-gray-700">Weekday Afternoons (12PM - 5PM)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox" id="weekdayEvening"></div>
+<label class="ml-2 text-sm text-gray-700">Weekday Evenings (5PM - 10PM)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox" id="weekendMorning"></div>
+<label class="ml-2 text-sm text-gray-700">Weekend Mornings (8AM - 12PM)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox" id="weekendAfternoon"></div>
+<label class="ml-2 text-sm text-gray-700">Weekend Afternoons (12PM - 5PM)</label>
+</div>
+</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please select at least one available time slot</div>
+</div>
+<div>
+<label for="serviceArea" class="block text-sm font-medium text-gray-700 mb-1">Service Area <span class="text-red-500">*</span></label>
+<div class="space-y-2">
+<div class="flex items-center">
+<div class="custom-checkbox" id="inPerson"></div>
+<label class="ml-2 text-sm text-gray-700">In-person consultations</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox" id="telehealth"></div>
+<label class="ml-2 text-sm text-gray-700">Telehealth consultations</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox" id="homeVisits"></div>
+<label class="ml-2 text-sm text-gray-700">Home visits</label>
+</div>
+</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please select at least one service area</div>
+<div class="mt-4" id="locationContainer" style="display: none;">
+<label for="location" class="block text-sm font-medium text-gray-700 mb-1">Service Location <span class="text-red-500">*</span></label>
+<input type="text" id="location" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your service area (city, state)">
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please enter your service location</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="step3" class="step-content">
+<h3 class="text-xl font-semibold text-gray-800 border-b pb-2">Document Upload</h3>
+<p class="text-sm text-gray-600">Please upload the following documents. Accepted file formats: PDF, JPG, PNG (Max 5MB each)</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="space-y-2">
+<label class="block text-sm font-medium text-gray-700">Professional License <span class="text-red-500">*</span></label>
+<div class="file-upload-container">
+<button type="button" class="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-upload-2-line"></i>
+</div>
+<span>Upload License</span>
+</button>
+<input type="file" id="licenseFile" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+<div class="upload-progress">
+<div class="upload-progress-bar" id="licenseProgress"></div>
+</div>
+<div class="text-xs text-gray-500" id="licenseFileName">No file selected</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please upload your professional license</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-medium text-gray-700">Certification Documents <span class="text-red-500">*</span></label>
+<div class="file-upload-container">
+<button type="button" class="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-upload-2-line"></i>
+</div>
+<span>Upload Certification</span>
+</button>
+<input type="file" id="certificationFile" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+<div class="upload-progress">
+<div class="upload-progress-bar" id="certificationProgress"></div>
+</div>
+<div class="text-xs text-gray-500" id="certificationFileName">No file selected</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please upload your certification documents</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-medium text-gray-700">Profile Photo <span class="text-red-500">*</span></label>
+<div class="file-upload-container">
+<button type="button" class="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 !rounded-button whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-user-add-line"></i>
+</div>
+<span>Upload Photo</span>
+</button>
+<input type="file" id="photoFile" accept=".jpg,.jpeg,.png">
+</div>
+<div class="upload-progress">
+<div class="upload-progress-bar" id="photoProgress"></div>
+</div>
+<div class="text-xs text-gray-500" id="photoFileName">No file selected</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">Please upload your profile photo</div>
+</div>
+</div>
+</div>
+</div>
+<div id="step4" class="step-content">
+<h3 class="text-xl font-semibold text-gray-800 border-b pb-2">Terms & Verification</h3>
+<div class="space-y-3">
+<div class="flex items-start">
+<div class="custom-checkbox mt-0.5" id="termsCheckbox"></div>
+<label class="ml-2 text-sm text-gray-700">I agree to Matedo's <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a> <span class="text-red-500">*</span></label>
+</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">You must agree to the terms and conditions</div>
+<div class="flex items-start">
+<div class="custom-checkbox mt-0.5" id="hipaaCheckbox"></div>
+<label class="ml-2 text-sm text-gray-700">I understand and will comply with HIPAA regulations and patient confidentiality requirements <span class="text-red-500">*</span></label>
+</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">You must agree to comply with HIPAA regulations</div>
+<div class="flex items-start">
+<div class="custom-checkbox mt-0.5" id="verificationCheckbox"></div>
+<label class="ml-2 text-sm text-gray-700">I understand that Matedo will verify my credentials before approving my account <span class="text-red-500">*</span></label>
+</div>
+<div class="error-message text-red-500 text-sm mt-1 hidden">You must acknowledge the verification process</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between mt-8">
+<button type="button" id="prevButton" class="px-6 py-2 text-primary border border-primary rounded hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hidden !rounded-button whitespace-nowrap">Previous</button>
+<button type="button" id="nextButton" class="px-6 py-2 bg-primary text-white rounded hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 !rounded-button whitespace-nowrap">Next</button>
+</div>
+<div class="pt-4 hidden" id="submitSection">
+<button type="submit" id="submitButton" class="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 !rounded-button whitespace-nowrap pulse-animation">
+<span>Join Now</span>
+</button>
+<div id="formSubmitting" class="hidden">
+<div class="flex items-center space-x-2">
+<div class="w-5 h-5 border-t-2 border-r-2 border-primary rounded-full animate-spin"></div>
+<span class="text-gray-700">Processing your application...</span>
+</div>
+</div>
+<div id="formSuccess" class="hidden">
+<div class="flex items-center space-x-2 text-green-600">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-check-line"></i>
+</div>
+<span>Application submitted successfully! We'll review your information and contact you soon.</span>
+</div>
+</div>
+<div id="formError" class="hidden">
+<div class="flex items-center space-x-2 text-red-600">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-error-warning-line"></i>
+</div>
+<span>There was an error submitting your application. Please try again or contact support.</span>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!-- Support Information -->
+<div class="mt-8 glass-effect rounded-lg shadow-xl p-8 max-w-4xl mx-auto hover-scale">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">Need Help?</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+<i class="ri-customer-service-2-line ri-lg"></i>
+</div>
+<div class="ml-3">
+<h4 class="text-sm font-medium text-gray-800">Contact Support</h4>
+<p class="text-sm text-gray-600">support@matedo.com</p>
+<p class="text-sm text-gray-600">(800) 123-4567</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+<i class="ri-question-line ri-lg"></i>
+</div>
+<div class="ml-3">
+<h4 class="text-sm font-medium text-gray-800">FAQ</h4>
+<p class="text-sm text-gray-600">Find answers to common questions</p>
+<a href="#" class="text-sm text-primary hover:underline">View FAQ</a>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<div class="ml-3">
+<h4 class="text-sm font-medium text-gray-800">Help Center</h4>
+<p class="text-sm text-gray-600">Browse our knowledge base</p>
+<a href="#" class="text-sm text-primary hover:underline">Visit Help Center</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="glass-effect py-8 mt-12 border-t border-gray-100">
+<div class="container mx-auto px-4 text-center text-sm text-gray-600">
+<p>© 2025 Matedo. All rights reserved.</p>
+<div class="flex justify-center space-x-4 mt-2">
+<a href="#" class="hover:text-primary">Terms</a>
+<a href="#" class="hover:text-primary">Privacy</a>
+<a href="#" class="hover:text-primary">Cookies</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+let currentStep = 1;
+const totalSteps = 4;
+function updateStepIndicators(step) {
+for (let i = 1; i <= totalSteps; i++) {
+const indicator = document.getElementById(`step${i}-indicator`);
+const line = document.getElementById(`line${i}`);
+if (i < step) {
+indicator.classList.add('completed');
+indicator.classList.remove('active');
+if (line) line.classList.add('completed');
+} else if (i === step) {
+indicator.classList.add('active');
+indicator.classList.remove('completed');
+if (line) line.classList.remove('completed');
+} else {
+indicator.classList.remove('active', 'completed');
+if (line) line.classList.remove('completed');
+}
+}
+}
+function showStep(step) {
+document.querySelectorAll('.step-content').forEach(content => {
+content.classList.remove('active');
+});
+document.getElementById(`step${step}`).classList.add('active');
+const prevButton = document.getElementById('prevButton');
+const nextButton = document.getElementById('nextButton');
+const submitSection = document.getElementById('submitSection');
+prevButton.style.display = step === 1 ? 'none' : 'block';
+if (step === totalSteps) {
+nextButton.style.display = 'none';
+submitSection.classList.remove('hidden');
+} else {
+nextButton.style.display = 'block';
+submitSection.classList.add('hidden');
+}
+updateStepIndicators(step);
+}
+document.getElementById('nextButton').addEventListener('click', function() {
+if (validateCurrentStep()) {
+if (currentStep < totalSteps) {
+currentStep++;
+showStep(currentStep);
+}
+}
+});
+document.getElementById('prevButton').addEventListener('click', function() {
+if (currentStep > 1) {
+currentStep--;
+showStep(currentStep);
+}
+});
+function validateCurrentStep() {
+let isValid = true;
+const currentStepElement = document.getElementById(`step${currentStep}`);
+// Clear previous error messages
+currentStepElement.querySelectorAll('.error-message').forEach(el => {
+el.classList.add('hidden');
+});
+switch(currentStep) {
+case 1:
+const requiredInputs = ['firstName', 'lastName', 'email', 'phone'];
+requiredInputs.forEach(id => {
+const input = document.getElementById(id);
+if (!input.value.trim()) {
+isValid = false;
+input.nextElementSibling.classList.remove('hidden');
+}
+});
+const email = document.getElementById('email');
+if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+isValid = false;
+email.nextElementSibling.classList.remove('hidden');
+}
+break;
+case 2:
+if (document.getElementById('specializationText').textContent === 'Select your specialization') {
+isValid = false;
+document.querySelector('#specializationDropdown').nextElementSibling.classList.remove('hidden');
+}
+const professionalInputs = ['licenseNumber', 'experience', 'education'];
+professionalInputs.forEach(id => {
+const input = document.getElementById(id);
+if (!input.value.trim()) {
+isValid = false;
+input.nextElementSibling.classList.remove('hidden');
+}
+});
+break;
+case 3:
+const fileUploads = ['licenseFile', 'certificationFile', 'photoFile'];
+fileUploads.forEach(id => {
+const input = document.getElementById(id);
+if (input.files.length === 0) {
+isValid = false;
+input.closest('.space-y-2').querySelector('.error-message').classList.remove('hidden');
+}
+});
+break;
+case 4:
+const termsCheckboxes = ['termsCheckbox', 'hipaaCheckbox', 'verificationCheckbox'];
+termsCheckboxes.forEach(id => {
+const checkbox = document.getElementById(id);
+if (!checkbox.classList.contains('checked')) {
+isValid = false;
+checkbox.parentElement.nextElementSibling.classList.remove('hidden');
+}
+});
+break;
+}
+return isValid;
+}
+// Specialization dropdown
+const specializationDropdown = document.getElementById('specializationDropdown');
+const specializationOptions = document.getElementById('specializationOptions');
+const specializationText = document.getElementById('specializationText');
+specializationDropdown.addEventListener('click', function() {
+specializationOptions.classList.toggle('hidden');
+});
+document.querySelectorAll('#specializationOptions div').forEach(option => {
+option.addEventListener('click', function() {
+specializationText.textContent = this.textContent;
+specializationOptions.classList.add('hidden');
+});
+});
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+if (!specializationDropdown.contains(event.target)) {
+specializationOptions.classList.add('hidden');
+}
+});
+// Custom checkboxes
+const checkboxes = document.querySelectorAll('.custom-checkbox');
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('click', function() {
+this.classList.toggle('checked');
+// Show location input if in-person or home visits are selected
+if (checkbox.id === 'inPerson' || checkbox.id === 'homeVisits') {
+document.getElementById('locationContainer').style.display =
+(document.getElementById('inPerson').classList.contains('checked') ||
+document.getElementById('homeVisits').classList.contains('checked')) ? 'block' : 'none';
+}
+});
+});
+// File uploads
+const fileInputs = [
+{ input: document.getElementById('licenseFile'), progress: document.getElementById('licenseProgress'), filename: document.getElementById('licenseFileName') },
+{ input: document.getElementById('certificationFile'), progress: document.getElementById('certificationProgress'), filename: document.getElementById('certificationFileName') },
+{ input: document.getElementById('photoFile'), progress: document.getElementById('photoProgress'), filename: document.getElementById('photoFileName') }
+];
+fileInputs.forEach(({input, progress, filename}) => {
+input.addEventListener('change', function() {
+if (this.files.length > 0) {
+const file = this.files[0];
+filename.textContent = file.name;
+// Simulate upload progress
+let width = 0;
+const interval = setInterval(() => {
+if (width >= 100) {
+clearInterval(interval);
+} else {
+width += 5;
+progress.style.width = width + '%';
+}
+}, 50);
+} else {
+filename.textContent = 'No file selected';
+progress.style.width = '0%';
+}
+});
+});
+// Form submission
+const form = document.getElementById('healthcare-form');
+const submitButton = document.getElementById('submitButton');
+const formSubmitting = document.getElementById('formSubmitting');
+const formSuccess = document.getElementById('formSuccess');
+const formError = document.getElementById('formError');
+form.addEventListener('submit', function(e) {
+e.preventDefault();
+// Hide all error messages
+document.querySelectorAll('.error-message').forEach(el => {
+el.classList.add('hidden');
+});
+// Validate form
+let isValid = true;
+// Required text inputs
+const requiredInputs = ['firstName', 'lastName', 'email', 'phone', 'licenseNumber', 'experience', 'education'];
+requiredInputs.forEach(id => {
+const input = document.getElementById(id);
+if (!input.value.trim()) {
+isValid = false;
+input.nextElementSibling.classList.remove('hidden');
+}
+});
+// Email validation
+const email = document.getElementById('email');
+if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+isValid = false;
+email.nextElementSibling.classList.remove('hidden');
+}
+// Specialization validation
+if (specializationText.textContent === 'Select your specialization') {
+isValid = false;
+specializationDropdown.nextElementSibling.classList.remove('hidden');
+}
+// Available hours validation
+const availableHours = ['weekdayMorning', 'weekdayAfternoon', 'weekdayEvening', 'weekendMorning', 'weekendAfternoon'];
+let hasAvailableHour = availableHours.some(id => document.getElementById(id).classList.contains('checked'));
+if (!hasAvailableHour) {
+isValid = false;
+document.querySelector('[for="weekdayMorning"]').parentElement.nextElementSibling.classList.remove('hidden');
+}
+// Service area validation
+const serviceAreas = ['inPerson', 'telehealth', 'homeVisits'];
+let hasServiceArea = serviceAreas.some(id => document.getElementById(id).classList.contains('checked'));
+if (!hasServiceArea) {
+isValid = false;
+document.querySelector('[for="inPerson"]').parentElement.nextElementSibling.classList.remove('hidden');
+}
+// Location validation if in-person or home visits selected
+if ((document.getElementById('inPerson').classList.contains('checked') ||
+document.getElementById('homeVisits').classList.contains('checked')) &&
+!document.getElementById('location').value.trim()) {
+isValid = false;
+document.getElementById('location').nextElementSibling.classList.remove('hidden');
+}
+// File uploads validation
+const fileUploads = ['licenseFile', 'certificationFile', 'photoFile'];
+fileUploads.forEach(id => {
+const input = document.getElementById(id);
+if (input.files.length === 0) {
+isValid = false;
+input.closest('.space-y-2').querySelector('.error-message').classList.remove('hidden');
+}
+});
+// Terms checkboxes validation
+const termsCheckboxes = ['termsCheckbox', 'hipaaCheckbox', 'verificationCheckbox'];
+termsCheckboxes.forEach(id => {
+const checkbox = document.getElementById(id);
+if (!checkbox.classList.contains('checked')) {
+isValid = false;
+checkbox.parentElement.nextElementSibling.classList.remove('hidden');
+}
+});
+if (isValid) {
+// Show submitting state
+submitButton.classList.add('hidden');
+formSubmitting.classList.remove('hidden');
+formSuccess.classList.add('hidden');
+formError.classList.add('hidden');
+// Simulate form submission
+setTimeout(() => {
+// Hide submitting state
+formSubmitting.classList.add('hidden');
+// Show success message (90% chance) or error message (10% chance)
+if (Math.random() < 0.9) {
+formSuccess.classList.remove('hidden');
+} else {
+formError.classList.remove('hidden');
+submitButton.classList.remove('hidden');
+}
+}, 2000);
+}
+});
+});
+</script>
+</body>
+</html>

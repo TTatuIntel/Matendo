@@ -1,5 +1,4 @@
 <?php
-<<<<<<< Updated upstream
 session_start();
 header('Content-Type: application/json');
 
@@ -7,7 +6,7 @@ header('Content-Type: application/json');
 $host = 'localhost';
 $username = 'root';
 $password = ''; // Empty password
-$database = 'matendb';
+$database = 'matendosdb';
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $database);
@@ -116,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Prepare SQL statement
         $sql = "INSERT INTO applications (
-                    reference_code, first_name, last_name, email, phone, address, 
+                    reference_number, first_name, last_name, email, phone, address, 
                     location, coordinates, profession, other_profession, 
                     specialization, years_experience, license_number, resume, 
                     license_doc, certifications, work_type, shift_type, 
@@ -173,117 +172,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'message' => 'Invalid request method'
     ]);
 }
-=======
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Database connection
-$host = 'localhost';
-$dbname = 'matendo_medics';
-$username = 'root';
-$password = '';
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die(json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]));
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Generate reference number and submission date
-    $referenceNumber = 'HP-' . strtoupper(uniqid());
-    $submissionDate = date('Y-m-d H:i:s');
-    
-    // Process file uploads
-    $uploadDir = "uploads/professionals/";
-    if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-    
-    $resumeFile = '';
-    $licenseFile = '';
-    $certificationsFile = '';
-    
-    // Handle resume upload
-    if (!empty($_FILES['resume']['name'])) {
-        $resumeFile = $uploadDir . basename($_FILES['resume']['name']);
-        move_uploaded_file($_FILES['resume']['tmp_name'], $resumeFile);
-    }
-    
-    // Handle license upload (optional)
-    if (!empty($_FILES['license']['name'])) {
-        $licenseFile = $uploadDir . basename($_FILES['license']['name']);
-        move_uploaded_file($_FILES['license']['tmp_name'], $licenseFile);
-    }
-    
-    // Handle certifications upload (optional)
-    if (!empty($_FILES['certifications']['name'])) {
-        $certificationsFile = $uploadDir . basename($_FILES['certifications']['name']);
-        move_uploaded_file($_FILES['certifications']['tmp_name'], $certificationsFile);
-    }
-    
-    // Sanitize and collect form data
-    $firstName = htmlspecialchars($_POST['firstName'] ?? '', ENT_QUOTES, 'UTF-8');
-    $lastName = htmlspecialchars($_POST['lastName'] ?? '', ENT_QUOTES, 'UTF-8');
-    $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL) ? $_POST['email'] : '';
-    $phone = preg_replace('/[^0-9+]/', '', $_POST['phone'] ?? '');
-    $address = htmlspecialchars($_POST['address'] ?? '', ENT_QUOTES, 'UTF-8');
-    $location = htmlspecialchars($_POST['location'] ?? '', ENT_QUOTES, 'UTF-8');
-    $coordinates = htmlspecialchars($_POST['coordinates'] ?? '', ENT_QUOTES, 'UTF-8');
-    
-    $profession = htmlspecialchars($_POST['profession'] ?? '', ENT_QUOTES, 'UTF-8');
-    if ($profession === 'Other') {
-        $profession = htmlspecialchars($_POST['otherProfession'] ?? '', ENT_QUOTES, 'UTF-8');
-    }
-    $specialization = htmlspecialchars($_POST['specialization'] ?? '', ENT_QUOTES, 'UTF-8');
-    $yearsExperience = filter_var($_POST['yearsExperience'] ?? 0, FILTER_VALIDATE_INT);
-    $licenseNumber = htmlspecialchars($_POST['licenseNumber'] ?? '', ENT_QUOTES, 'UTF-8');
-    
-    $workTypes = is_array($_POST['workType']) ? implode(', ', array_map('htmlspecialchars', $_POST['workType'])) : '';
-    $shiftTypes = is_array($_POST['shiftType']) ? implode(', ', array_map('htmlspecialchars', $_POST['shiftType'])) : '';
-    $preferredLocation = htmlspecialchars($_POST['preferredLocation'] ?? '', ENT_QUOTES, 'UTF-8');
-    $startDate = htmlspecialchars($_POST['startDate'] ?? '', ENT_QUOTES, 'UTF-8');
-    
-    // Validate required fields
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($address) || 
-        empty($profession) || empty($yearsExperience) || empty($workTypes) || empty($shiftTypes) || 
-        empty($startDate) || empty($resumeFile)) {
-        echo json_encode(["success" => false, "message" => "All required fields must be filled"]);
-        exit;
-    }
-    
-    try {
-        // Prepare and execute SQL query
-        $stmt = $pdo->prepare("INSERT INTO healthcare_professionals (
-            first_name, last_name, email, phone, address, location, coordinates,
-            profession, specialization, years_experience, license_number,
-            work_types, shift_types, preferred_location, start_date,
-            resume_file, license_file, certifications_file,
-            reference_number, submission_date
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        
-        $stmt->execute([
-            $firstName, $lastName, $email, $phone, $address, $location, $coordinates,
-            $profession, $specialization, $yearsExperience, $licenseNumber,
-            $workTypes, $shiftTypes, $preferredLocation, $startDate,
-            $resumeFile, $licenseFile, $certificationsFile,
-            $referenceNumber, $submissionDate
-        ]);
-        
-        // Return success response
-        echo json_encode([
-            "success" => true, 
-            "message" => "Application submitted successfully",
-            "reference_number" => $referenceNumber,
-            "submission_date" => $submissionDate
-        ]);
-    } catch (PDOException $e) {
-        echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
-    }
-} else {
-    echo json_encode(["success" => false, "message" => "Invalid request method"]);
-}
->>>>>>> Stashed changes
 ?>

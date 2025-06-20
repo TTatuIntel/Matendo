@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Start session and store user ID
         session_start();
         $_SESSION['user_id'] = $user['id'];
-        echo json_encode(["success" => true, "message" => "Login successful! Redirecting...", "redirect" => "new.html"]);
+        echo json_encode(["success" => true, "message" => "Login successful! Redirecting..."]);
     } else {
         echo json_encode(["success" => false, "message" => "Invalid email or password"]);
     }
