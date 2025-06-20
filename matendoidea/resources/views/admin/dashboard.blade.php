@@ -66,6 +66,7 @@
             background: #cbd5e1;
             border-radius: 3px;
         }
+        [x-cloak] { display: none !important; }
     </style>
     @stack('styles')
 </head>
@@ -89,20 +90,12 @@
                 activeTab: (new URLSearchParams(window.location.search)).get('tab') || 'dashboard',
                 tabs: ['dashboard', 'applications', 'facility', 'individual', 'healthworkers', 'tasks', 'settings', 'reports'],
                 focusNext(index) {
-                    let next = (index + 1) % (this.tabs.length + 1); // +1 for logout button
-                    if (next === this.tabs.length) {
-                        this.$refs['logout-button'][0].focus();
-                    } else {
-                        this.$refs['tab-' + this.tabs[next]][0].focus();
-                    }
+                    let next = (index + 1) % this.tabs.length;
+                    this.$refs['tab-' + this.tabs[next]][0].focus();
                 },
                 focusPrev(index) {
-                    let prev = (index - 1 + this.tabs.length + 1) % (this.tabs.length + 1); // +1 for logout button
-                    if (prev === this.tabs.length) {
-                        this.$refs['logout-button'][0].focus();
-                    } else {
-                        this.$refs['tab-' + this.tabs[prev]][0].focus();
-                    }
+                    let prev = (index - 1 + this.tabs.length) % this.tabs.length;
+                    this.$refs['tab-' + this.tabs[prev]][0].focus();
                 }
             }"
             role="region"
@@ -141,10 +134,7 @@
                     @csrf
                     <button
                         type="submit"
-                        x-ref="logout-button"
                         class="btn-danger px-4 py-2 text-sm rounded-full smooth-transition focus:outline-none focus:ring-2 focus:ring-red-400"
-                        @keydown.arrow-right.prevent="focusNext(tabs.length)"
-                        @keydown.arrow-left.prevent="focusPrev(tabs.length)"
                         x-on:click="if(!confirm('Are you sure you want to logout?')) event.preventDefault()"
                         aria-label="Logout"
                     >
@@ -402,5 +392,6 @@
             </div>
         </div>
     </div>
+    @stack('scripts')
 </body>
 </html>
