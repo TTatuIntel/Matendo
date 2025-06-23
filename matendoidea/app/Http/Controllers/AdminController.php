@@ -198,8 +198,12 @@ class AdminController extends Controller
             'healthworkers' => $healthworkers,
             'facilityRequests' => $facilityRequests,
             'facilityStats' => $facilityStats,
+        'facilityRequestsCount' => $facilityStats['total'], // Add this line
+        'openRequests' => $facilityStats['pending'], // Add this line
+    'individualRequestsCount' => $individualStats['total'],
+    'pendingIndividualRequests' => $individualStats['pending'],
+    'individualStats' => $individualStats,
             'individualRequests' => $individualRequests,
-            'individualStats' => $individualStats,
             'pendingApplications' => $pendingApplications,
             'approvedApplications' => $approvedApplications,
             'rejectedApplications' => $rejectedApplications,

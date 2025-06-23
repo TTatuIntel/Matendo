@@ -96,6 +96,43 @@
                 focusPrev(index) {
                     let prev = (index - 1 + this.tabs.length) % this.tabs.length;
                     this.$refs['tab-' + this.tabs[prev]][0].focus();
+                },
+                navigateToActivity(activityType) {
+                    // Map activity types to corresponding tabs
+                    const activityTabMap = {
+                        'application': 'applications',
+                        'applications': 'applications',
+                        'facility': 'facility',
+                        'facilities': 'facility',
+                        'facility-request': 'facility',
+                        'facility-requests': 'facility',
+                        'individual': 'individual',
+                        'individuals': 'individual',
+                        'individual-request': 'individual',
+                        'individual-requests': 'individual',
+                        'health-worker': 'healthworkers',
+                        'healthworker': 'healthworkers',
+                        'healthworkers': 'healthworkers',
+                        'health-workers': 'healthworkers',
+                        'task': 'tasks',
+                        'tasks': 'tasks',
+                        'setting': 'settings',
+                        'settings': 'settings',
+                        'report': 'reports',
+                        'reports': 'reports'
+                    };
+
+                    const targetTab = activityTabMap[activityType.toLowerCase().trim()];
+                    if (targetTab && this.tabs.includes(targetTab)) {
+                        this.activeTab = targetTab;
+                        // Update URL without page reload
+                        const url = new URL(window.location);
+                        url.searchParams.set('tab', targetTab);
+                        window.history.pushState({}, '', url);
+                    } else {
+                        // Debug: log unmatched activity types
+                        console.log('Unmatched activity type:', activityType, 'Available tabs:', this.tabs);
+                    }
                 }
             }"
             role="region"
@@ -193,23 +230,44 @@
                                 </div>
 
                                 <!-- Facility Requests Card -->
-                                <div class="min-w-[280px] flex-shrink-0 p-6 bg-white rounded-lg shadow-sm card-hover smooth-transition border border-gray-100">
-                                    <div class="flex justify-between items-center mb-3">
-                                        <h3 class="font-semibold text-indigo-700 text-base flex items-center">
-                                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            Facility Requests
-                                        </h3>
-                                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">
-                                            {{ $facilityRequestsCount ?? 45 }}
-                                        </span>
+                                    <!-- Facility Requests Card -->
+                                    <div class="min-w-[280px] flex-shrink-0 p-6 bg-white rounded-lg shadow-sm card-hover smooth-transition border border-gray-100">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <h3 class="font-semibold text-indigo-700 text-base flex items-center">
+                                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Facility Requests
+                                            </h3>
+                                            <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">
+                                                {{ $facilityStats['total'] ?? 0 }}
+                                            </span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm mb-2">Requests from facilities for health staff.</p>
+                                        <div class="text-xs text-gray-600">
+                                            <p>Open requests: <span class="font-semibold">{{ $facilityStats['pending'] ?? 0 }}</span></p>
+                                        </div>
                                     </div>
-                                    <p class="text-gray-600 text-sm mb-2">Requests from facilities for health staff.</p>
-                                    <div class="text-xs text-gray-600">
-                                        <p>Open requests: <span class="font-semibold">{{ $openRequests ?? 12 }}</span></p>
+
+                                    <!-- Individual Requests Card -->
+                                    <div class="min-w-[280px] flex-shrink-0 p-6 bg-white rounded-lg shadow-sm card-hover smooth-transition border border-gray-100">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <h3 class="font-semibold text-green-700 text-base flex items-center">
+                                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Individual Requests
+                                            </h3>
+                                            <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
+                                                {{ $individualStats['total'] ?? 0 }}
+                                            </span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm mb-2">Personal care service requests from individuals.</p>
+                                        <div class="text-xs text-gray-600">
+                                            <p>Pending requests: <span class="font-semibold">{{ $individualStats['pending'] ?? 0 }}</span></p>
+                                            <p>Approved this month: <span class="font-semibold">{{ $individualStats['approved'] ?? 0 }}</span></p>
+                                        </div>
                                     </div>
-                                </div>
 
                                 <!-- Active Health Workers Card -->
                                 <div class="min-w-[280px] flex-shrink-0 p-6 bg-white rounded-lg shadow-sm card-hover smooth-transition border border-gray-100">
@@ -284,12 +342,13 @@
                                                 <th class="px-4 py-3 text-left font-medium text-gray-700">Type</th>
                                                 <th class="px-4 py-3 text-left font-medium text-gray-700">Status</th>
                                                 <th class="px-4 py-3 text-left font-medium text-gray-700">Time</th>
-                                                <th class="px-4 py-3 text-center font-medium text-gray-700">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
                                             @forelse ($recentActivities as $activity)
-                                                <tr class="table-row smooth-transition">
+                                                <tr class="table-row smooth-transition cursor-pointer"
+                                                    @click="navigateToActivity('{{ $activity['type'] ?? '' }}')"
+                                                    title="Click to view {{ $activity['type'] ?? 'activity' }} details">
                                                     <td class="px-4 py-3">
                                                         <div class="flex items-center">
                                                             <div class="flex-shrink-0 h-10 w-10">
@@ -323,22 +382,10 @@
                                                             {{ $activity['timestamp']->diffForHumans() }}
                                                         </div>
                                                     </td>
-                                                    <td class="px-4 py-3 text-center">
-                                                        <div class="flex justify-center space-x-2">
-                                                            @foreach ($activity['actions'] as $action)
-                                                                <a href="{{ $action['route'] }}" class="btn-primary flex items-center">
-                                                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $action['icon'] }}"></path>
-                                                                    </svg>
-                                                                    {{ $action['label'] }}
-                                                                </a>
-                                                            @endforeach
-                                                        </div>
-                                                    </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5" class="px-4 py-3 text-center text-gray-600">
+                                                    <td colspan="4" class="px-4 py-3 text-center text-gray-600">
                                                         No recent activities found.
                                                     </td>
                                                 </tr>
