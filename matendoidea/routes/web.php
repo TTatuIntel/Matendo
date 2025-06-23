@@ -96,6 +96,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::patch('/tasks/{task}/complete', [App\Http\Controllers\TaskController::class, 'complete'])->name('tasks.complete');
 
 
+// Add this route to your routes/web.php file
+Route::patch('/tasks/{taskId}/complete', [TaskController::class, 'completeTask'])
+    ->name('tasks.complete')
+    ->middleware('auth');
+
 Route::resource('health-workers', HealthWorkerController::class);
 Route::post('/health-workers/{id}/toggle-verification', [HealthWorkerController::class, 'toggleVerification'])->name('health-workers.toggle-verification');
 

@@ -54,6 +54,26 @@ class HealthWorkerController extends Controller
 // }
 
 
+// public function index()
+// {
+
+//     $health_workers = DB::table('users')
+//         ->where('usertype', 'healthworker')
+//         ->select('id', 'name', 'email', 'email_verified_at', 'created_at')
+//         ->get();
+
+//     $stats = [
+//         'total' => $health_workers->count(),
+//         'verified' => $health_workers->whereNotNull('email_verified_at')->count(),
+//         'unverified' => $health_workers->whereNull('email_verified_at')->count(),
+//     ];
+
+//     return response()->json([
+//         'health_workers' => $health_workers,
+//         'stats' => $stats,
+//     ]);
+// }
+
 public function index()
 {
     $health_workers = DB::table('users')
@@ -67,12 +87,27 @@ public function index()
         'unverified' => $health_workers->whereNull('email_verified_at')->count(),
     ];
 
-    return response()->json([
-        'health_workers' => $health_workers,
-        'stats' => $stats,
-    ]);
-}
+    // Check if the user is an admin or health worker
+    if (auth()->user()->usertype === 'admin') {
+        // Return JSON for admin dashboard
+        return response()->json([
+            'health_workers' => $health_workers,
+            'stats' => $stats,
+        ]);
+    } else {
+        // Return view for health worker dashboard
+        $userId = Auth::id();
+        $assignedTasks = Task::where('assigned_to', $userId)->get();
 
+        return view('healthworker.dashboard', [
+            'health_workers' => $health_workers, // Optional: include if needed in health worker view
+            'stats' => $stats,                   // Optional: include if needed in health worker view
+            'assignedTasks' => $assignedTasks
+
+
+        ]);
+    }
+}
     public function show($id)
     {
         $worker = DB::table('users')
@@ -116,5 +151,80 @@ public function index()
         return redirect()->route('health-workers.index')->with('success', 'Health worker deleted successfully.');
     }
 
+
+// public function completeTask($taskId)
+// {
+//     try {
+//         $task = Task::findOrFail($taskId);
+
+//         // Verify the task is assigned to the current user
+//         if ($task->assigned_to != auth()->id()) {
+//             return response()->json([
+//                 'success' => false,
+//                 'message' => 'You are not authorized to complete this task'
+//             ], 403);
+//         }
+
+//         // Update the task status
+//         $task->update([
+//             'status' => 'completed',
+//             'completed_at' => now()
+//         ]);
+
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Task marked as completed successfully!'
+//         ]);
+
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'message' => 'Error completing task: ' . $e->getMessage()
+//         ], 500);
+//     }
+// }
+
+
+
+// Add this method to your TaskController class
+
+public function completeTask(Request $request, $taskId)
+{
+    try {
+        // Find the task and ensure it belongs to the authenticated user
+        $task = Task::where('id', $taskId)
+                   ->where('assigned_to', auth()->id()) // Ensure user can only complete their own tasks
+                   ->firstOrFail();
+
+        // Update the task status to completed
+        $task->update([
+            'status' => 'completed',
+            'completed_at' => now(), // Optional: track when it was completed
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Task marked as completed successfully!'
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Task not found or you do not have permission to complete this task.'
+        ], 404);
+    }
+}
+
+// Also, make sure your dashboard method filters out completed tasks
+public function dashboard()
+{
+    // Get only non-completed tasks assigned to the authenticated user
+    $assignedTasks = Task::where('assigned_to', auth()->id())
+                        ->where('status', '!=', 'completed') // Exclude completed tasks
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+    return view('dashboard', compact('assignedTasks'));
+}
 }
 

@@ -26,9 +26,9 @@
 
             <!-- Task Cards -->
             @if($assignedTasks->isNotEmpty())
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tasksGrid">
                     @foreach($assignedTasks as $task)
-                        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 dark:border-gray-700">
+                        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 dark:border-gray-700" id="task-card-{{ $task->id }}">
                             <div class="p-6">
                                 <!-- Task Header -->
                                 <div class="flex justify-between items-start mb-4">
@@ -86,19 +86,12 @@
                                         Assigned: {{ $task->assigned_at ? \Carbon\Carbon::parse($task->assigned_at)->diffForHumans() : 'N/A' }}
                                     </span>
                                     <div class="space-x-2">
-                                    <!-- Replace the existing Mark Complete form -->
-                                    <div class="space-x-2">
-                                    @if($task->complete == 0 && $task->assigned_to && $task->assigned_to == auth()->user()->id)
-                                    <button onclick="completeTask({{ $task->id }})" class="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
-                                        Mark Complete
-                                    </button>
-                                @endif
+                                        @if($task->status !== 'completed')
+                                            <button onclick="completeTask({{ $task->id }})" class="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
+                                                Mark Complete
+                                            </button>
+                                        @endif
                                         <button onclick="openTaskModal({{ json_encode($task) }})" class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
-                                            View Details
-                                        </button>
-                                    </div>
-                                        <button onclick="openTaskModal({{ json_encode($task) }})"
-                                                class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
                                             View Details
                                         </button>
                                     </div>
@@ -108,7 +101,7 @@
                     @endforeach
                 </div>
             @else
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg" id="emptyState">
                     <div class="p-6 text-center">
                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
@@ -242,31 +235,90 @@
             document.body.classList.add('overflow-hidden');
         }
 
-function completeTask(taskId) {
-    if (confirm('Are you sure you want to mark this task as completed?')) {
-        fetch(`/tasks/${taskId}/complete`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ complete: true })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-                window.location.reload();
-            } else {
-                alert('Error: ' + data.message);
+        function completeTask(taskId) {
+            if (confirm('Are you sure you want to mark this task as completed?')) {
+                const taskCard = document.getElementById(`task-card-${taskId}`);
+
+                fetch(`/tasks/${taskId}/complete`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ complete: true })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Add fade-out animation
+                        taskCard.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+                        taskCard.style.opacity = '0';
+                        taskCard.style.transform = 'scale(0.95)';
+
+                        // Remove the task card after animation
+                        setTimeout(() => {
+                            taskCard.remove();
+
+                            // Check if there are any remaining tasks
+                            const tasksGrid = document.getElementById('tasksGrid');
+                            if (tasksGrid && tasksGrid.children.length === 0) {
+                                // Show empty state
+                                const emptyStateHtml = `
+                                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg" id="emptyState">
+                                        <div class="p-6 text-center">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                            </svg>
+                                            <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">All tasks completed!</h3>
+                                            <p class="mt-1 text-gray-600 dark:text-gray-400">Great job! You've completed all your assigned tasks.</p>
+                                        </div>
+                                    </div>
+                                `;
+                                tasksGrid.outerHTML = emptyStateHtml;
+                            }
+                        }, 300); // Wait for animation to complete
+
+                        // Show success message
+                        showNotification(data.message, 'success');
+                    } else {
+                        showNotification('Error: ' + data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showNotification('An error occurred while marking the task as completed.', 'error');
+                });
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while marking the task as completed.');
-        });
-    }
-}
+        }
+
+        function showNotification(message, type = 'success') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-md shadow-lg transform transition-all duration-300 ease-in-out ${
+                type === 'success'
+                    ? 'bg-green-500 text-white'
+                    : 'bg-red-500 text-white'
+            }`;
+            notification.textContent = message;
+            notification.style.transform = 'translateX(100%)';
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+
+            // Animate out and remove
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
 
         function closeTaskModal() {
             document.getElementById('taskModal').classList.add('hidden');
@@ -286,7 +338,5 @@ function completeTask(taskId) {
                 closeTaskModal();
             }
         });
-
-
     </script>
 </x-app-layout>
