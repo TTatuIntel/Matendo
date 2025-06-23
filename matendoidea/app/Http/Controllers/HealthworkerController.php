@@ -28,6 +28,32 @@ class HealthWorkerController extends Controller
     //     ]);
     // }
 
+// public function index()
+// {
+//     $health_workers = DB::table('users')
+//         ->where('usertype', 'healthworker')
+//         ->select('id', 'name', 'email', 'email_verified_at', 'created_at')
+//         ->get();
+
+//     $stats = [
+//         'total' => $health_workers->count(),
+//         'verified' => $health_workers->whereNotNull('email_verified_at')->count(),
+//         'unverified' => $health_workers->whereNull('email_verified_at')->count(),
+//     ];
+
+// // Fetch tasks assigned to the logged-in user
+//      // Fetch tasks assigned to the logged-in user with the correct column name
+//         $userId = Auth::id(); // Get the authenticated user's ID
+//         $assignedTasks = Task::where('assigned_to', $userId)->get(); // Replace 'assigned_to' with the correct column
+//     // Return the view with data instead of JSON
+//     return view('healthworker.dashboard', [
+//         'health_workers' => $health_workers,
+//         'stats' => $stats,
+//          'assignedTasks' => $assignedTasks
+//     ]);
+// }
+
+
 public function index()
 {
     $health_workers = DB::table('users')
@@ -41,15 +67,9 @@ public function index()
         'unverified' => $health_workers->whereNull('email_verified_at')->count(),
     ];
 
-// Fetch tasks assigned to the logged-in user
-     // Fetch tasks assigned to the logged-in user with the correct column name
-        $userId = Auth::id(); // Get the authenticated user's ID
-        $assignedTasks = Task::where('assigned_to', $userId)->get(); // Replace 'assigned_to' with the correct column
-    // Return the view with data instead of JSON
-    return view('healthworker.dashboard', [
+    return response()->json([
         'health_workers' => $health_workers,
         'stats' => $stats,
-         'assignedTasks' => $assignedTasks
     ]);
 }
 
