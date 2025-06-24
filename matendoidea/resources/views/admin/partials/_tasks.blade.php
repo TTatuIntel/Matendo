@@ -8,10 +8,13 @@
     selectedTask: null,
     selectedTaskId: null,
     tasks: [],
+    displayedTasks: [], // New: Store filtered tasks for display
+    filter: 'all', // New: Track filter state ('all', 'completed', 'uncompleted')
     stats: {
         pending: 0,
         approved: 0,
         rejected: 0,
+        completed: 0, // Ensure completed stat is included
         total: 0
     },
     loading: true,
@@ -25,6 +28,7 @@
             .then(data => {
                 console.log('Fetched data:', data); // Debugging
                 this.tasks = data.tasks;
+                this.displayedTasks = [...this.tasks]; // Initialize with all tasks
                 this.stats = data.stats;
                 this.loading = false;
             })
@@ -32,6 +36,16 @@
                 console.error('Error fetching tasks:', error);
                 this.loading = false;
             });
+    },
+    filterTasks(type) {
+        this.filter = type;
+        if (type === 'completed') {
+            this.displayedTasks = this.tasks.filter(task => task.complete);
+        } else if (type === 'uncompleted') {
+            this.displayedTasks = this.tasks.filter(task => !task.complete);
+        } else {
+            this.displayedTasks = [...this.tasks]; // Show all tasks
+        }
     },
     viewTask(task) {
         fetch(`/tasks/${task.id}`)
@@ -135,27 +149,26 @@
         });
     },
     completeTask(taskId) {
-    if (confirm('Are you sure you want to mark this task as completed?')) {
-        fetch(`/tasks/${taskId}/complete`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ complete: true }) // Specify the complete field
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-                this.fetchTasks();
-            } else {
-                alert('Error: ' + data.message);
-            }
-        });
+        if (confirm('Are you sure you want to mark this task as completed?')) {
+            fetch(`/tasks/${taskId}/complete`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ complete: true })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    this.fetchTasks();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            });
+        }
     }
-}
-
 }" class="space-y-8">
 
     <!-- Header -->
@@ -208,19 +221,19 @@
                 </div>
             </div>
         </div>
-<div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-    <div class="flex items-center">
-        <div class="p-2 bg-blue-100 rounded-lg">
-            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
+        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+            <div class="flex items-center">
+                <div class="p-2 bg-blue-100 rounded-lg">
+                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">Completed</p>
+                    <p x-text="stats.completed" class="text-2xl font-semibold text-gray-900"></p>
+                </div>
+            </div>
         </div>
-        <div class="ml-4">
-            <p class="text-sm font-medium text-gray-600">Completed</p>
-            <p x-text="stats.completed" class="text-2xl font-semibold text-gray-900"></p>
-        </div>
-    </div>
-</div>
         <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
             <div class="flex items-center">
                 <div class="p-2 bg-red-100 rounded-lg">
@@ -258,7 +271,13 @@
     <!-- Tasks Table -->
     <div x-show="!loading" class="bg-white rounded-lg shadow-sm border border-gray-200">
         <div class="px-4 py-3 border-b border-gray-200">
-            <h3 class="text-lg font-medium text-gray-900">Recent Tasks</h3>
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-medium text-gray-900">Recent Tasks</h3>
+                <div class="flex space-x-2">
+                    <button @click="filterTasks('completed')" class="btn-primary" :class="{ 'bg-green-600': filter === 'completed' }">Completed</button>
+                    <button @click="filterTasks('uncompleted')" class="btn-primary" :class="{ 'bg-green-600': filter === 'uncompleted' }">Uncompleted</button>
+                </div>
+            </div>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
@@ -270,11 +289,10 @@
                         <th class="px-4 py-3 text-left font-medium text-gray-700">Due Date</th>
                         <th class="px-4 py-3 text-center font-medium text-gray-700">Actions</th>
                         <th class="px-4 py-3 text-center font-medium text-gray-700">Complete</th>
-
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                    <template x-for="task in tasks" :key="task.id">
+                    <template x-for="task in displayedTasks" :key="task.id">
                         <tr class="table-row smooth-transition">
                             <td class="px-4 py-3">
                                 <div class="flex items-center">
@@ -291,14 +309,13 @@
                                     </div>
                                 </div>
                             </td>
-                            <!-- In the table row where you show contact_person -->
                             <td class="px-4 py-3 text-gray-600" x-text="task.assigned_to || 'Unassigned'"></td>
                             <td class="px-4 py-3">
                                 <span class="px-2 py-1 text-xs font-medium rounded-full"
                                       :class="{
                                           'bg-yellow-100 text-yellow-800': task.status === 'Pending',
                                           'bg-green-100 text-green-800': task.status === 'Approved',
-                                          'bg-red-100 text-red-800': task.status === 'Rejected'
+                                          'bg-red-100 text-red-800': task.status === 'Rejected',
                                           'bg-blue-100 text-blue-800': task.status === 'Completed'
                                       }"
                                       x-text="task.status">
@@ -335,19 +352,19 @@
                                     </template>
                                 </div>
                             </td>
-                           <td class="px-4 py-3 text-center">
-                            <template x-if="!task.complete && task.assigned_to">
-                                <button @click="completeTask(task.id)" class="btn-primary">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    Complete
-                                </button>
-                            </template>
-                            <template x-if="task.complete">
-                                <span class="text-gray-600">Completed</span>
-                            </template>
-                        </td>
+                            <td class="px-4 py-3 text-center">
+                                <template x-if="!task.complete && task.assigned_to">
+                                    <button @click="completeTask(task.id)" class="btn-primary">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        Complete
+                                    </button>
+                                </template>
+                                <template x-if="task.complete">
+                                    <span class="text-gray-600">Completed</span>
+                                </template>
+                            </td>
                         </tr>
                     </template>
                 </tbody>
@@ -588,9 +605,5 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-
-
 </div>

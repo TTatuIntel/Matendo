@@ -108,7 +108,18 @@ public function index()
         ]);
     }
 }
-    public function show($id)
+    // public function show($id)
+    // {
+    //     $worker = DB::table('users')
+    //         ->where('id', $id)
+    //         ->where('usertype', 'healthworker')
+    //         ->select('id', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at')
+    //         ->first();
+
+    //     return response()->json($worker);
+    // }
+
+public function show($id)
     {
         $worker = DB::table('users')
             ->where('id', $id)
@@ -116,9 +127,26 @@ public function index()
             ->select('id', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at')
             ->first();
 
-        return response()->json($worker);
-    }
+        // Fetch tasks assigned to this health worker
+        $assignedTasks = Task::where('assigned_to', $id)
+            ->select('id', 'facility_name', 'job_description', 'status', 'complete', 'start_date')
+            ->get()
+            ->map(function ($task) {
+                return [
+                    'id' => $task->id,
+                    'facility_name' => $task->facility_name,
+                    'job_description' => $task->job_description ?? 'Not specified',
+                    'status' => ucfirst($task->status),
+                    'complete' => $task->complete,
+                    'start_date' => $task->start_date ? $task->start_date->format('M d, Y') : 'N/A',
+                ];
+            });
 
+        return response()->json([
+            'worker' => $worker,
+            'assignedTasks' => $assignedTasks
+        ]);
+    }
     public function toggleVerification(Request $request, $id)
     {
         $worker = DB::table('users')->where('id', $id)->where('usertype', 'healthworker')->first();

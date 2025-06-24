@@ -112,5 +112,7 @@ Route::middleware(['auth', 'healthworker'])->prefix('healthworker')->name('healt
     Route::get('/dashboard', [HealthworkerController::class, 'index'])->name('dashboard');
 });
 
+Route::get('/healthworkers/{id}', [HealthWorkerController::class, 'show'])->name('healthworkers.show');
+
 Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
 require __DIR__.'/auth.php';

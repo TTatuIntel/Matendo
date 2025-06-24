@@ -1,6 +1,9 @@
 <div x-data="{
     showModal: false,
     selectedWorker: null,
+    assignedTasks: [], // New: Store assigned tasks
+    displayedTasks: [], // New: Tasks displayed in modal (for filtering)
+    loading: true, // Ensure this exists or keep your existing loading state
     health_workers: [],
     stats: {
         total: 0,
@@ -10,6 +13,25 @@
     loading: true,
     init() {
         this.fetchHealthWorkers();
+    },
+    viewWorker(workerId) {
+        this.loading = true;
+        fetch(`/healthworkers/${workerId}`)
+            .then(response => response.json())
+            .then(data => {
+                this.selectedWorker = data.worker;
+                this.assignedTasks = data.assignedTasks;
+                this.displayedTasks = [...this.assignedTasks]; // Initialize displayed tasks
+                this.showModal = true;
+                this.loading = false;
+            })
+            .catch(error => {
+                console.error('Error fetching worker details:', error);
+                this.loading = false;
+            });
+    },
+    removeCompletedTasks() {
+        this.displayedTasks = this.assignedTasks.filter(task => !task.complete);
     },
     fetchHealthWorkers() {
         this.loading = true;
@@ -23,14 +45,6 @@
             .catch(error => {
                 console.error('Error fetching health workers:', error);
                 this.loading = false;
-            });
-    },
-    viewWorker(worker) {
-        fetch(`/health-workers/${worker.id}`)
-            .then(response => response.json())
-            .then(data => {
-                this.selectedWorker = data;
-                this.showModal = true;
             });
     },
     toggleVerification(workerId) {
@@ -166,7 +180,7 @@
                             <td class="px-4 py-3 text-gray-600" x-text="new Date(worker.created_at).toLocaleDateString()"></td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex justify-center space-x-2">
-                                    <button @click="viewWorker(worker)" class="btn-primary">
+                                    <button @click="viewWorker(worker.id)" class="btn-primary">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -187,55 +201,99 @@
     </div>
 
     {{-- Modal for viewing worker details --}}
-    <div x-show="showModal"
-         x-cloak
-         class="fixed inset-0 z-50 overflow-y-auto modal-backdrop"
-         @click.self="showModal = false">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full modal-content">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-medium text-gray-900">Health Worker Details</h3>
-                        <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
+    <div x-show="showModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto modal-backdrop" @click.self="showModal = false">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full modal-content">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-medium text-gray-900">Health Worker Details</h3>
+                    <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="px-6 py-4 space-y-4" x-show="selectedWorker">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">ID</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.id"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Name</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.name"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.email"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Status</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.email_verified_at ? 'Verified' : 'Unverified'"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Joined</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.created_at ? new Date(selectedWorker.created_at).toLocaleDateString() : 'N/A'"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Last Updated</label>
+                        <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.updated_at ? new Date(selectedWorker.updated_at).toLocaleDateString() : 'N/A'"></p>
                     </div>
                 </div>
-                <div class="px-6 py-4 space-y-4" x-show="selectedWorker">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">ID</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.id"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Name</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.name"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Email</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.email"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Status</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.email_verified_at ? 'Verified' : 'Unverified'"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Joined</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.created_at ? new Date(selectedWorker.created_at).toLocaleDateString() : 'N/A'"></p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Last Updated</label>
-                            <p class="mt-1 text-sm text-gray-900" x-text="selectedWorker?.updated_at ? new Date(selectedWorker.updated_at).toLocaleDateString() : 'N/A'"></p>
-                        </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Assigned Tasks</label>
+                    <div class="mt-2">
+                        <template x-if="displayedTasks.length > 0">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left font-medium text-gray-700">Task ID</th>
+                                            <th class="px-4 py-3 text-left font-medium text-gray-700">Facility</th>
+                                            <th class="px-4 py-3 text-left font-medium text-gray-700">Description</th>
+                                            <th class="px-4 py-3 text-left font-medium text-gray-700">Status</th>
+                                            <th class="px-4 py-3 text-left font-medium text-gray-700">Due Date</th>
+                                            <th class="px-4 py-3 text-left font-medium text-gray-700">Completed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <template x-for="task in displayedTasks" :key="task.id">
+                                            <tr>
+                                                <td class="px-4 py-3 text-gray-600" x-text="task.id"></td>
+                                                <td class="px-4 py-3 text-gray-600" x-text="task.facility_name"></td>
+                                                <td class="px-4 py-3 text-gray-600" x-text="task.job_description.substring(0, 50) + (task.job_description.length > 50 ? '...' : '')"></td>
+                                                <td class="px-4 py-3">
+                                                    <span class="px-2 py-1 text-xs font-medium rounded-full"
+                                                          :class="{
+                                                              'bg-yellow-100 text-yellow-800': task.status === 'Pending',
+                                                              'bg-green-100 text-green-800': task.status === 'Approved',
+                                                              'bg-red-100 text-red-800': task.status === 'Rejected',
+                                                              'bg-blue-100 text-blue-800': task.status === 'Completed'
+                                                          }"
+                                                          x-text="task.status">
+                                                    </span>
+                                                </td>
+                                                <td class="px-4 py-3 text-gray-600" x-text="task.start_date"></td>
+                                                <td class="px-4 py-3 text-gray-600" x-text="task.complete ? 'Yes' : 'No'"></td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+                        <template x-if="displayedTasks.length === 0">
+                            <p class="text-sm text-gray-600">No tasks assigned to this worker.</p>
+                        </template>
                     </div>
                 </div>
-                <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
-                    <button @click="showModal = false" class="btn-secondary">Close</button>
-                    <button @click="toggleVerification(selectedWorker.id); showModal = false" class="btn-primary">Toggle Verification</button>
-                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
+                <button @click="showModal = false" class="btn-secondary">Close</button>
+                <button @click="toggleVerification(selectedWorker.id)" class="btn-primary">Toggle Verification</button>
+                <button @click="removeCompletedTasks" class="btn-danger" x-show="displayedTasks.some(task => task.complete)">Hide Completed Tasks</button>
             </div>
         </div>
     </div>
+</div>
 </div>
