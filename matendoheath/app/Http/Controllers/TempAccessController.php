@@ -7,25 +7,29 @@ use Illuminate\Support\Facades\URL;
 use App\Models\User;
 use App\Models\MedicalRecord;
 use App\Models\Document;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class TempAccessController extends Controller
 {
-    // Handle the temporary access view
     public function view(Request $request, $id)
     {
-        // Verify the user exists
+        // Verify signed URL
+        if (!$request->hasValidSignature()) {
+            abort(403, 'Invalid or expired link');
+        }
+
+        // Set temporary access session
+        session(['temp_access_user_id' => $id]);
+        session(['temp_access_expires_at' => now()->addMinutes(55)]); // Slightly less than URL expiry
+
         $user = User::findOrFail($id);
-
-        // Fetch medical records for the user
         $records = MedicalRecord::where('user_id', $id)->latest()->get();
-
-        // Fetch documents for the user
         $documents = Document::where('user_id', $id)->latest()->get();
 
         return view('temp-dashboard', compact('user', 'records', 'documents'));
     }
 
-    // Generate a temporary signed URL for the user's profile
     public function generateLink(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -38,5 +42,50 @@ class TempAccessController extends Controller
 
         return back()->with('temp_link', $url);
     }
-}
 
+    public function tempUpload(Request $request)
+    {
+        // Verify temporary access
+        if (!session()->has('temp_access_user_id') ||
+            now()->gt(session('temp_access_expires_at'))) {
+            return response()->json(['error' => 'Unauthorized or session expired'], 401);
+        }
+
+        $userId = session('temp_access_user_id');
+        $category = $request->input('category', null);
+
+        $validated = $request->validate([
+            'files.*' => 'required|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
+        ]);
+
+        $uploadedFiles = [];
+
+        foreach ($request->file('files') as $file) {
+            $originalName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $fileName = Str::random(20) . '.' . $extension;
+            $filePath = 'documents/' . $fileName;
+
+            // Store file
+            Storage::put($filePath, file_get_contents($file));
+
+            // Create document record
+            $document = Document::create([
+                'user_id' => $userId,
+                'filename' => $originalName,
+                'path' => $filePath,
+                'size' => $file->getSize(),
+                'category' => $category,
+                'mime_type' => $file->getMimeType(),
+            ]);
+
+            $uploadedFiles[] = $document;
+        }
+
+        return response()->json([
+            'success' => true,
+            'files' => $uploadedFiles,
+            'message' => count($uploadedFiles) . ' file(s) uploaded successfully'
+        ]);
+    }
+}

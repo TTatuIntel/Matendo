@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HealthRecordController;
 use App\Http\Controllers\TempAccessController;
-
+use App\Http\Controllers\DocumentController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -19,6 +19,9 @@ Route::post('/users/{id}/generate-temp-link', [TempAccessController::class, 'gen
     ->name('users.generate-temp-link')
     ->middleware('auth');
 
+
+Route::post('/temp-access/upload', [TempAccessController::class, 'tempUpload'])
+    ->name('temp.upload');
 
 // ✅ Authenticated routes only (require login + email verified)
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -39,6 +42,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+Route::post('/temp-documents/upload', [TempAccessController::class, 'tempUpload'])
+    ->name('temp.documents.upload');
+
+// In routes/web.php
+Route::get('/documents/{document}/view', [DocumentController::class, 'view'])
+    ->name('documents.view')
+    ->middleware('temp.access');
+
+Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
+    ->name('documents.download')
+    ->middleware('temp.access');
 });
 
 require __DIR__.'/auth.php';

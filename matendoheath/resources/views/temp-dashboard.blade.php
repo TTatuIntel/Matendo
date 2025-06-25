@@ -999,17 +999,12 @@ uploadBtn.addEventListener('click', async function() {
         if (categorySelect.value) {
             formData.append('category', categorySelect.value);
         }
-        formData.append('user_id', '{{ $user->id }}'); // Send user_id
 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-        if (!csrfToken) {
-            throw new Error('CSRF token not found');
-        }
-
-        const response = await fetch('{{ route("documents.upload") }}', {
+        // Use the temporary upload endpoint
+        const response = await fetch('{{ route("temp.upload") }}', {
             method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': csrfToken,
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 'Accept': 'application/json',
             },
             body: formData,
@@ -1018,12 +1013,13 @@ uploadBtn.addEventListener('click', async function() {
         const data = await response.json();
 
         if (!response.ok) {
-            console.error('Upload response:', data);
-            throw new Error(data.message || `Upload failed with status ${response.status}`);
+            throw new Error(data.error || data.message || `Upload failed with status ${response.status}`);
         }
 
-        showAlert('success', `Successfully uploaded ${data.files.length} file(s).`);
-        window.location.reload();
+        showAlert('success', data.message || `Successfully uploaded ${data.files.length} file(s).`);
+
+        // Refresh the documents list
+        setTimeout(() => window.location.reload(), 1500);
 
     } catch (error) {
         console.error('Upload error:', error.message);

@@ -148,4 +148,14 @@ public function viewDocument($id)
 
     return response()->file(storage_path('app/'.$document->path), $headers);
 }
+
+public function showMedicalRecords()
+{
+    $records = // Your existing records query
+    $documents = Document::all(); // Adjust this query based on your Document model and needs
+
+    return view('display', compact('records', 'documents'));
+}
+
+
 }
