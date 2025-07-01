@@ -152,4 +152,7 @@ Route::get('/documents/{document}/view', [DocumentController::class, 'view'])
 Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
     ->name('documents.download')
     ->middleware('temp.access');
+
+Route::get('/documents/view/{id}', [HealthRecordController::class, 'viewDocument'])->name('documents.view');
+
 require __DIR__.'/auth.php';

@@ -343,45 +343,75 @@
                 </div>
 
                 <!-- Recent Uploads -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold mb-4">Recent Uploads</h3>
-                        <div id="recent-uploads">
-                            @forelse($documents as $document)
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border mb-2">
-                                    <div class="flex items-center">
-                                        <div class="bg-@php echo $document->category === 'lab_results' ? 'blue' : ($document->category === 'prescriptions' ? 'green' : 'purple'); @endphp-100 p-2 rounded-full mr-3">
-                                            <svg class="h-5 w-5 text-@php echo $document->category === 'lab_results' ? 'blue' : ($document->category === 'prescriptions' ? 'green' : 'purple'); @endphp-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="@php
-                                                    $ext = pathinfo($document->filename, PATHINFO_EXTENSION);
-                                                    echo $ext === 'pdf' ? 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z' :
-                                                    (in_array($ext, ['jpg','jpeg','png']) ? 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' :
-                                                    'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z');
-                                                @endphp"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="font-medium text-gray-900">{{ $document->filename }}</p>
-                                            <p class="text-sm text-gray-500">
-                                                Uploaded {{ $document->created_at->format('M d, Y') }} • {{ round($document->size / 1024 / 1024, 2) }} MB
-                                                @if($document->category)
-                                                     • {{ ucfirst(str_replace('_', ' ', $document->category)) }}
-                                                @endif
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <a href="{{ route('documents.view', $document->id) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
-                                        <a href="{{ route('documents.download', $document->id) }}" class="text-green-600 hover:text-green-800 text-sm">Download</a>
-                                    </div>
+<!-- Recent Uploads -->
+<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="p-6">
+        <h3 class="text-lg font-semibold mb-4">Recent Uploads</h3>
+        <div id="recent-uploads">
+            @forelse($documents as $document)
+                @php
+                    // Determine icon color based on category
+                    $iconColor = 'purple';
+                    if ($document->category === 'lab_results') {
+                        $iconColor = 'blue';
+                    } elseif ($document->category === 'prescriptions') {
+                        $iconColor = 'green';
+                    }
+
+                    // Determine icon path based on file extension
+                    $ext = pathinfo($document->filename, PATHINFO_EXTENSION);
+                    $iconPath = 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'; // Default doc icon
+                    if ($ext === 'pdf') {
+                        $iconPath = 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z';
+                    } elseif (in_array($ext, ['jpg','jpeg','png'])) {
+                        $iconPath = 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z';
+                    }
+                @endphp
+
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border mb-2">
+                    <div class="flex items-center w-full">
+                        <div class="bg-{{ $iconColor }}-100 p-2 rounded-full mr-3">
+                            <svg class="h-5 w-5 text-{{ $iconColor }}-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $iconPath }}"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-gray-900">{{ $document->filename }}</p>
+                                    <p class="text-sm text-gray-500">
+                                        Uploaded {{ $document->created_at->format('M d, Y') }} •
+                                        {{ round($document->size / 1024 / 1024, 2) }} MB
+                                        @if($document->category)
+                                             • {{ ucfirst(str_replace('_', ' ', $document->category)) }}
+                                        @endif
+                                    </p>
+                                    @if($document->uploader_name || $document->uploader_hospital)
+                                        <p class="text-xs text-gray-400 mt-1">
+                                            @if($document->uploader_name && $document->uploader_hospital)
+                                                Uploaded by: {{ $document->uploader_name }} ({{ $document->uploader_hospital }})
+                                            @elseif($document->uploader_name)
+                                                Uploaded by: {{ $document->uploader_name }}
+                                            @elseif($document->uploader_hospital)
+                                                Hospital: {{ $document->uploader_hospital }}
+                                            @endif
+                                        </p>
+                                    @endif
                                 </div>
-                            @empty
-                                <p class="text-sm text-gray-500">No documents uploaded yet.</p>
-                            @endforelse
+                                <div class="flex space-x-2 ml-4">
+                                    <a href="{{ route('documents.view', $document->id) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
+                                    <a href="{{ route('documents.download', $document->id) }}" class="text-green-600 hover:text-green-800 text-sm">Download</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
+            @empty
+                <p class="text-sm text-gray-500">No documents uploaded yet.</p>
+            @endforelse
+        </div>
+    </div>
+</div>
                 <!-- View Record Modal -->
                 <div id="view-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
                     <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -426,15 +456,43 @@
                                 </div>
                                 All Medical Data
                             </div>
-                            <button id="download-data-modal" class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm flex items-center">
+                            <button id="download-pdf-modal" class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                Download
+                                PDF
                             </button>
                         </h3>
                         <div id="all-data-content" class="space-y-6"></div>
                         <button id="close-all-data" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition w-full">Close</button>
+                    </div>
+                </div>
+
+                <!-- Uploader Info Modal -->
+                <div id="uploader-info-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                        <h3 class="text-lg font-semibold mb-4">Uploader Information</h3>
+                        <form id="uploader-info-form">
+                            @csrf
+                            <div class="mb-4">
+                                <label for="uploader-name" class="block text-sm font-medium text-gray-700">Your Full Name</label>
+                                <input type="text" id="uploader-name" name="uploader_name" required
+                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="uploader-hospital" class="block text-sm font-medium text-gray-700">Hospital/Institution</label>
+                                <input type="text" id="uploader-hospital" name="uploader_hospital" required
+                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="flex justify-end space-x-3">
+                                <button type="button" id="cancel-uploader-info" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                                    Continue Upload
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -460,8 +518,8 @@
                 const allDataContent = document.getElementById('all-data-content');
                 const closeAllData = document.getElementById('close-all-data');
                 const downloadBtn = document.getElementById('download-data');
-                const downloadModalBtn = document.getElementById('download-data-modal');
                 const downloadPdfBtn = document.getElementById('download-pdf');
+                const downloadPdfModalBtn = document.getElementById('download-pdf-modal');
                 const viewLinks = document.querySelectorAll('.view-record');
                 const historyButtons = document.querySelectorAll('.view-history');
                 const allRecords = @json($records);
@@ -484,8 +542,12 @@
                 const uploadProgress = document.getElementById('upload-progress');
                 const progressBar = document.getElementById('progress-bar');
                 const progressText = document.getElementById('progress-text');
+                const uploaderInfoModal = document.getElementById('uploader-info-modal');
+                const uploaderInfoForm = document.getElementById('uploader-info-form');
+                const cancelUploaderInfo = document.getElementById('cancel-uploader-info');
 
                 let selectedFiles = [];
+                let pendingFiles = [];
 
                 // Toggle Upload Section
                 toggleUploadBtn.addEventListener('click', () => {
@@ -494,9 +556,6 @@
                 });
 
                 // Records Display Functionality
-                console.log('All records loaded:', allRecords);
-                console.log('Number of records:', allRecords ? allRecords.length : 0);
-
                 function filterRecords() {
                     const category = categoryFilter.value.toLowerCase();
                     const time = timeFilter.value.toLowerCase();
@@ -724,19 +783,13 @@
                     URL.revokeObjectURL(url);
                 }
 
-                downloadBtn.addEventListener('click', downloadJson);
-                downloadModalBtn.addEventListener('click', downloadJson);
-
-                downloadPdfBtn.addEventListener('click', function() {
+                function downloadPdf() {
                     const groupedRecords = {};
                     allRecords.forEach(record => {
                         if (!groupedRecords[record.category]) {
-                            groupedRecords[record.category] = record;
-                        } else {
-                            if (new Date(record.created_at) > new Date(groupedRecords[record.category].created_at)) {
-                                groupedRecords[record.category] = record;
-                            }
+                            groupedRecords[record.category] = [];
                         }
+                        groupedRecords[record.category].push(record);
                     });
 
                     const { jsPDF } = window.jspdf;
@@ -760,8 +813,8 @@
                     const categoryOrder = ['vitals', 'activity', 'pain', 'sleep', 'wellbeing', 'labs', 'infection', 'treatments', 'appointments'];
 
                     categoryOrder.forEach(category => {
-                        const record = groupedRecords[category];
-                        if (!record) return;
+                        const records = groupedRecords[category] || [];
+                        if (records.length === 0) return;
 
                         if (yPosition > 250) {
                             doc.addPage();
@@ -770,35 +823,37 @@
 
                         doc.setFontSize(14);
                         doc.setFont(undefined, 'bold');
-                        doc.text(`${category.charAt(0).toUpperCase() + category.slice(1)}`, 20, yPosition);
+                        doc.text(`${category.charAt(0).toUpperCase() + category.slice(1)} (${records.length})`, 20, yPosition);
                         yPosition += 10;
 
-                        doc.setFontSize(10);
-                        doc.setFont(undefined, 'normal');
-                        doc.setTextColor(100, 100, 100);
-                        doc.text(`Date: ${new Date(record.created_at).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })}`, 20, yPosition);
-                        yPosition += 8;
+                        records.forEach(record => {
+                            doc.setFontSize(10);
+                            doc.setFont(undefined, 'normal');
+                            doc.setTextColor(100, 100, 100);
+                            doc.text(`Date: ${new Date(record.created_at).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })}`, 20, yPosition);
+                            yPosition += 8;
 
-                        doc.setFontSize(11);
-                        doc.setTextColor(0, 0, 0);
-                        Object.entries(record.data).forEach(([key, value]) => {
-                            const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-                            const text = `${label}: ${value}`;
-                            const splitText = doc.splitTextToSize(text, 170);
-                            doc.text(splitText, 25, yPosition);
-                            yPosition += splitText.length * 5;
+                            doc.setFontSize(11);
+                            doc.setTextColor(0, 0, 0);
+                            Object.entries(record.data).forEach(([key, value]) => {
+                                const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                                const text = `${label}: ${value}`;
+                                const splitText = doc.splitTextToSize(text, 170);
+                                doc.text(splitText, 25, yPosition);
+                                yPosition += splitText.length * 5;
+                            });
+
+                            yPosition += 10;
+                            doc.setDrawColor(200, 200, 200);
+                            doc.line(20, yPosition - 5, 190, yPosition - 5);
+                            yPosition += 5;
                         });
-
-                        yPosition += 10;
-                        doc.setDrawColor(200, 200, 200);
-                        doc.line(20, yPosition - 5, 190, yPosition - 5);
-                        yPosition += 5;
                     });
 
                     const pageCount = doc.internal.getNumberOfPages();
@@ -812,6 +867,26 @@
 
                     const fileName = `medical_summary_${new Date().toISOString().split('T')[0]}.pdf`;
                     doc.save(fileName);
+                }
+
+                downloadBtn.addEventListener('click', downloadJson);
+                downloadPdfBtn.addEventListener('click', downloadPdf);
+                downloadPdfModalBtn.addEventListener('click', downloadPdf);
+
+                viewLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const record = JSON.parse(this.dataset.record);
+                        modalContent.innerHTML = `
+                            <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
+                            <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                            <p><strong>Details:</strong></p>
+                            <ul class="list-disc pl-5">
+                                ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
+                            </ul>
+                        `;
+                        viewModal.classList.remove('hidden');
+                    });
                 });
 
                 // File Upload Functionality
@@ -981,59 +1056,88 @@
                     }, 5000);
                 }
 
+                uploadBtn.addEventListener('click', function(e) {
+                    if (selectedFiles.length === 0) {
+                        showAlert('error', 'No files selected for upload.');
+                        return;
+                    }
 
-uploadBtn.addEventListener('click', async function() {
-    if (selectedFiles.length === 0) {
-        showAlert('error', 'No files selected for upload.');
-        return;
+                    // Store files temporarily and show info modal
+                    pendingFiles = [...selectedFiles];
+                    uploaderInfoModal.classList.remove('hidden');
+                });
+
+                // Handle form submission
+               uploaderInfoForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('uploader_name', document.getElementById('uploader-name').value);
+    formData.append('uploader_hospital', document.getElementById('uploader-hospital').value);
+
+    // Add your files
+    selectedFiles.forEach(file => {
+        formData.append('files[]', file);
+    });
+
+    // Add category if selected
+    if (categorySelect.value) {
+        formData.append('category', categorySelect.value);
     }
 
-    uploadBtn.disabled = true;
-    uploadText.classList.add('hidden');
-    uploadSpinner.classList.remove('hidden');
-    uploadProgress.classList.remove('hidden');
+    console.log('Submitting form with:', {
+        name: formData.get('uploader_name'),
+        hospital: formData.get('uploader_hospital'),
+        fileCount: selectedFiles.length
+    });
+                    uploaderInfoModal.classList.add('hidden');
+                    performUpload(formData);
+                });
 
-    try {
-        const formData = new FormData();
-        selectedFiles.forEach(file => formData.append('files[]', file));
-        if (categorySelect.value) {
-            formData.append('category', categorySelect.value);
-        }
+                // Handle cancel button
+                cancelUploaderInfo.addEventListener('click', function() {
+                    uploaderInfoModal.classList.add('hidden');
+                    pendingFiles = [];
+                });
 
-        // Use the temporary upload endpoint
-        const response = await fetch('{{ route("temp.upload") }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json',
-            },
-            body: formData,
-        });
+                // Perform the actual upload
+                async function performUpload(formData) {
+                    uploadBtn.disabled = true;
+                    uploadText.classList.add('hidden');
+                    uploadSpinner.classList.remove('hidden');
+                    uploadProgress.classList.remove('hidden');
 
-        const data = await response.json();
+                    try {
+                        const response = await fetch('{{ route("temp.upload") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: formData,
+                        });
 
-        if (!response.ok) {
-            throw new Error(data.error || data.message || `Upload failed with status ${response.status}`);
-        }
+                        const data = await response.json();
 
-        showAlert('success', data.message || `Successfully uploaded ${data.files.length} file(s).`);
+                        if (!response.ok) {
+                            throw new Error(data.error || data.message || `Upload failed with status ${response.status}`);
+                        }
 
-        // Refresh the documents list
-        setTimeout(() => window.location.reload(), 1500);
+                        showAlert('success', data.message || `Successfully uploaded ${data.files.length} file(s).`);
+                        setTimeout(() => window.location.reload(), 1500);
 
-    } catch (error) {
-        console.error('Upload error:', error.message);
-        showAlert('error', `Upload failed: ${error.message}`);
-    } finally {
-        uploadBtn.disabled = false;
-        uploadText.classList.remove('hidden');
-        uploadSpinner.classList.add('hidden');
-        uploadProgress.classList.add('hidden');
-        progressBar.style.width = '0%';
-        progressText.textContent = 'Uploading...';
-    }
-});
-
+                    } catch (error) {
+                        console.error('Upload error:', error.message);
+                        showAlert('error', `Upload failed: ${error.message}`);
+                    } finally {
+                        uploadBtn.disabled = false;
+                        uploadText.classList.remove('hidden');
+                        uploadSpinner.classList.add('hidden');
+                        uploadProgress.classList.add('hidden');
+                        progressBar.style.width = '0%';
+                        progressText.textContent = 'Uploading...';
+                    }
+                }
             });
         </script>
     </div>

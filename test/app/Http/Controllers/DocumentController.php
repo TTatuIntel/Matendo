@@ -13,7 +13,7 @@ class DocumentController extends Controller
         // Verify access
         if (auth()->id() !== $document->user_id &&
             (!session()->has('temp_access_user_id') ||
-            session('temp_access_user_id') !== $document->user_id) {
+            session('temp_access_user_id') !== $document->user_id)) {
             abort(403);
         }
 
@@ -26,7 +26,7 @@ class DocumentController extends Controller
     {
         // Verify access
         if (auth()->id() !== $document->user_id &&
-            (!session()->has('temp_access_user_id') ||
+            (!session()->has('temp_access_user_id')) ||
             session('temp_access_user_id') !== $document->user_id) {
             abort(403);
         }

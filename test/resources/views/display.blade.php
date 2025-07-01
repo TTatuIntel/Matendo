@@ -1,3 +1,4 @@
+
 <x-app-layout>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,6 +129,25 @@
                             </div>
                         </div>
                     </div>
+
+<!-- Add this card with the other summary cards -->
+<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="p-6 text-gray-900 flex items-center">
+        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+        <div>
+            <h3 class="font-medium">Doctor Documents</h3>
+            @php
+                $doctorDocCount = $documents->where('user_id', auth()->id())->count();
+            @endphp
+            <p class="text-sm text-gray-500">{{ $doctorDocCount }} Uploaded</p>
+            <button class="text-xs text-indigo-600 hover:text-indigo-800 view-doctor-docs">View All</button>
+        </div>
+    </div>
+</div>
                 </div>
 
                 <!-- Recent Overview -->
@@ -335,6 +355,7 @@
         </div>
 
         <!-- View All Data Modal -->
+          <!-- View All Data Modal -->
         <div id="view-all-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
             <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto">
                 <h3 class="text-lg font-semibold mb-4 flex items-center justify-between">
@@ -346,22 +367,44 @@
                         </div>
                         All Medical Data
                     </div>
-                    <button id="download-data" class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        Download
-                    </button>
+                    <div class="flex space-x-2">
+                        <button id="download-all-json" class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition text-sm flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            JSON
+                        </button>
+                        <button id="download-all-pdf" class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            PDF
+                        </button>
+                    </div>
                 </h3>
                 <div id="all-data-content" class="space-y-6"></div>
                 <button id="close-all-data" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition w-full">Close</button>
             </div>
         </div>
+<!-- Doctor Documents Modal -->
+<div id="doctor-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+        <h3 class="text-lg font-semibold mb-4 flex items-center">
+            <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            My Uploaded Documents
+        </h3>
+        <div id="doctor-content" class="space-y-4">
+            <!-- Content will be loaded here -->
+        </div>
+        <button id="close-doctor" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition w-full">Close</button>
+    </div>
+</div>
 
     </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
        document.addEventListener('DOMContentLoaded', function() {
@@ -391,6 +434,84 @@
            const closeAllData = document.getElementById('close-all-data');
            const downloadBtn = document.getElementById('download-data');
            const downloadPdfBtn = document.getElementById('download-pdf');
+
+
+// Add these variables with your other element selectors
+const doctorModal = document.getElementById('doctor-modal');
+const doctorContent = document.getElementById('doctor-content');
+const closeDoctor = document.getElementById('close-doctor');
+const viewDoctorDocsButtons = document.querySelectorAll('.view-doctor-docs');
+
+// Add this event listener with your other modal handlers
+viewDoctorDocsButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        showDoctorDocuments();
+        doctorModal.classList.remove('hidden');
+    });
+});
+
+closeDoctor.addEventListener('click', () => {
+    doctorModal.classList.add('hidden');
+});
+
+doctorModal.addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.add('hidden');
+    }
+});
+
+function showDoctorDocuments() {
+    // Get documents for the current user (doctor)
+    const doctorDocuments = @json($documents->where('user_id', auth()->id())->values());
+
+    if (doctorDocuments.length === 0) {
+        doctorContent.innerHTML = '<p class="text-sm text-gray-500">You haven\'t uploaded any documents yet.</p>';
+        return;
+    }
+
+    doctorContent.innerHTML = doctorDocuments.map(doc => {
+        const ext = doc.filename.split('.').pop().toLowerCase();
+        const iconPath = ext === 'pdf' ?
+            'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z' :
+            (['jpg','jpeg','png'].includes(ext) ?
+                'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' :
+                'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z');
+
+        return `
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
+                <div class="flex items-center">
+                    <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                        <svg class="h-5 w-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${iconPath}"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-900">${doc.filename}</p>
+                        <p class="text-sm text-gray-500">
+                            Uploaded ${new Date(doc.created_at).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                            })} • ${(doc.size / 1024 / 1024).toFixed(2)} MB
+                            ${doc.category ? ' • ' + doc.category.replace('_', ' ').charAt(0).toUpperCase() + doc.category.replace('_', ' ').slice(1) : ''}
+                        </p>
+                        ${doc.uploader_name || doc.uploader_hospital ? `
+                        <p class="text-xs text-gray-400 mt-1">
+                            ${doc.uploader_name ? 'Uploaded by: ' + doc.uploader_name : ''}
+                            ${doc.uploader_hospital ? (doc.uploader_name ? ' (' + doc.uploader_hospital + ')' : 'Hospital: ' + doc.uploader_hospital) : ''}
+                        </p>
+                        ` : ''}
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <a href="${doc.view_url}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
+                    <a href="${doc.download_url}" class="text-green-600 hover:text-green-800 text-sm">Download</a>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
 
            // All records from PHP, converted to JavaScript array
            const allRecords = @json($records);
@@ -684,129 +805,263 @@
            });
 
            // View All Data functionality
-           viewAllBtn.addEventListener('click', function(e) {
-               e.preventDefault();
+          // View All Data functionality
+            viewAllBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                generateAllDataContent();
+                viewAllModal.classList.remove('hidden');
+            });
 
-               // Group records by category
-               const groupedRecords = {};
-               allRecords.forEach(record => {
-                   if (!groupedRecords[record.category]) {
-                       groupedRecords[record.category] = [];
-                   }
-                   groupedRecords[record.category].push(record);
-               });
+// Close All Data modal
+            closeAllData.addEventListener('click', function() {
+                viewAllModal.classList.add('hidden');
+            });
 
-               // Sort records within each category by date (newest first)
-               Object.keys(groupedRecords).forEach(category => {
-                   groupedRecords[category].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-               });
+            // Close modal when clicking outside
+            viewAllModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    viewAllModal.classList.add('hidden');
+                }
+            });
 
-               // Generate HTML content
-               const categoryOrder = ['vitals', 'activity', 'pain', 'sleep', 'wellbeing', 'labs', 'infection', 'treatments', 'appointments'];
 
-               allDataContent.innerHTML = categoryOrder.map(category => {
-                   const records = groupedRecords[category] || [];
-                   if (records.length === 0) return '';
+            // Function to generate content for the all data modal
+            function generateAllDataContent() {
+                // Group records by category
+                const groupedRecords = {};
+                allRecords.forEach(record => {
+                    if (!groupedRecords[record.category]) {
+                        groupedRecords[record.category] = [];
+                    }
+                    groupedRecords[record.category].push(record);
+                });
 
-                   return `
-                       <div class="category-section">
-                           <h4 class="text-lg font-semibold mb-3 flex items-center text-gray-800">
-                               <div class="bg-blue-100 p-2 rounded-full mr-3">
-                                   <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                   </svg>
-                               </div>
-                               ${category.charAt(0).toUpperCase() + category.slice(1)} (${records.length})
-                           </h4>
-                           <div class="space-y-2 mb-6">
-                               ${records.map(record => `
-                                   <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors">
-                                       <div class="flex justify-between items-start">
-                                           <div class="flex-1">
-                                               <div class="text-sm font-medium text-gray-800 mb-1">
-                                                   ${Object.entries(record.data).map(([key, value]) =>
-                                                       `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`
-                                                   ).join(', ')}
-                                               </div>
-                                               <div class="text-xs text-gray-500">
-                                                   ${new Date(record.created_at).toLocaleDateString('en-US', {
-                                                       year: 'numeric',
-                                                       month: 'short',
-                                                       day: 'numeric',
-                                                       hour: '2-digit',
-                                                       minute: '2-digit'
-                                                   })}
-                                               </div>
-                                           </div>
-                                           <button class="text-blue-600 hover:text-blue-800 text-xs ml-2 view-all-record" data-record='${JSON.stringify(record)}'>
-                                               View
-                                           </button>
-                                       </div>
-                                   </div>
-                               `).join('')}
-                           </div>
-                       </div>
-                   `;
-               }).filter(html => html !== '').join('');
+                // Sort records within each category by date (newest first)
+                Object.keys(groupedRecords).forEach(category => {
+                    groupedRecords[category].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                });
 
-               // Show the modal
-               viewAllModal.classList.remove('hidden');
+                // Generate HTML content
+                const categoryOrder = ['vitals', 'activity', 'pain', 'sleep', 'wellbeing', 'labs', 'infection', 'treatments', 'appointments'];
 
-               // Add event listeners to view buttons
-               document.querySelectorAll('.view-all-record').forEach(btn => {
-                   btn.addEventListener('click', function() {
-                       const record = JSON.parse(this.dataset.record);
-                       modalContent.innerHTML = `
-                           <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
-                           <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                           <p><strong>Details:</strong></p>
-                           <ul class="list-disc pl-5">
-                               ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
-                           </ul>
-                       `;
-                       viewAllModal.classList.add('hidden');
-                       viewModal.classList.remove('hidden');
-                   });
-               });
-           });
+                allDataContent.innerHTML = categoryOrder.map(category => {
+                    const records = groupedRecords[category] || [];
+                    if (records.length === 0) return '';
 
-           // Close View All Data modal
-           closeAllData.addEventListener('click', () => {
-               viewAllModal.classList.add('hidden');
-           });
+                    return `
+                        <div class="category-section" data-category="${category}">
+                            <h4 class="text-lg font-semibold mb-3 flex items-center text-gray-800">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                    <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                ${category.charAt(0).toUpperCase() + category.slice(1)} (${records.length})
+                            </h4>
+                            <div class="space-y-2 mb-6">
+                                ${records.map(record => `
+                                    <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors">
+                                        <div class="flex justify-between items-start">
+                                            <div class="flex-1">
+                                                <div class="text-sm font-medium text-gray-800 mb-1">
+                                                    ${Object.entries(record.data).map(([key, value]) =>
+                                                        `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`
+                                                    ).join(', ')}
+                                                </div>
+                                                <div class="text-xs text-gray-500">
+                                                    ${new Date(record.created_at).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'short',
+                                                        day: 'numeric',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit'
+                                                    })}
+                                                </div>
+                                            </div>
+                                            <button class="text-blue-600 hover:text-blue-800 text-xs ml-2 view-all-record" data-record='${JSON.stringify(record)}'>
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }).filter(html => html !== '').join('');
 
-           // Close modal when clicking outside
-           viewAllModal.addEventListener('click', function(e) {
-               if (e.target === this) {
-                   this.classList.add('hidden');
-               }
-           });
+                // Add event listeners to view buttons
+                document.querySelectorAll('.view-all-record').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const record = JSON.parse(this.dataset.record);
+                        modalContent.innerHTML = `
+                            <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
+                            <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                            <p><strong>Details:</strong></p>
+                            <ul class="list-disc pl-5">
+                                ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
+                            </ul>
+                        `;
+                        viewAllModal.classList.add('hidden');
+                        viewModal.classList.remove('hidden');
+                    });
+                });
+            }
 
-           // Download functionality
-           downloadBtn.addEventListener('click', function() {
-               const dataToDownload = {
-                   exported_at: new Date().toISOString(),
-                   total_records: allRecords.length,
-                   records: allRecords.map(record => ({
-                       id: record.id,
-                       category: record.category,
-                       data: record.data,
-                       created_at: record.created_at,
-                       updated_at: record.updated_at
-                   }))
-               };
 
-               const dataStr = JSON.stringify(dataToDownload, null, 2);
-               const dataBlob = new Blob([dataStr], {type: 'application/json'});
-               const url = URL.createObjectURL(dataBlob);
-               const link = document.createElement('a');
-               link.href = url;
-               link.download = `medical_records_${new Date().toISOString().split('T')[0]}.json`;
-               document.body.appendChild(link);
-               link.click();
-               document.body.removeChild(link);
-               URL.revokeObjectURL(url);
-           });
+            // Download All as JSON
+            document.getElementById('download-all-json').addEventListener('click', function() {
+                const dataToDownload = {
+                    exported_at: new Date().toISOString(),
+                    total_records: allRecords.length,
+                    records: allRecords.map(record => ({
+                        id: record.id,
+                        category: record.category,
+                        data: record.data,
+                        created_at: record.created_at,
+                        updated_at: record.updated_at
+                    }))
+                };
+
+                const dataStr = JSON.stringify(dataToDownload, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `medical_records_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            });
+
+            // Download All as PDF
+            document.getElementById('download-all-pdf').addEventListener('click', function() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Set document properties
+                doc.setProperties({
+                    title: 'Medical Records Summary',
+                    subject: 'Complete medical records export',
+                    author: 'Medical Dashboard',
+                    keywords: 'medical, records, health',
+                    creator: 'Medical Dashboard'
+                });
+
+                // Add title and date
+                doc.setFontSize(20);
+                doc.setTextColor(40, 40, 40);
+                doc.text('Medical Records Summary', 20, 20);
+
+                doc.setFontSize(12);
+                doc.setTextColor(100, 100, 100);
+                doc.text(`Generated on: ${new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })}`, 20, 30);
+
+                // Add a line separator
+                doc.setDrawColor(200, 200, 200);
+                doc.line(20, 35, 190, 35);
+
+                let yPosition = 45;
+                const categoryOrder = ['vitals', 'activity', 'pain', 'sleep', 'wellbeing', 'labs', 'infection', 'treatments', 'appointments'];
+                const categoryColors = {
+                    vitals: [65, 105, 225],    // Royal Blue
+                    activity: [34, 139, 34],    // Forest Green
+                    pain: [178, 34, 34],        // Firebrick
+                    sleep: [138, 43, 226],      // Blue Violet
+                    wellbeing: [255, 140, 0],    // Dark Orange
+                    labs: [75, 0, 130],         // Indigo
+                    infection: [220, 20, 60],   // Crimson
+                    treatments: [0, 139, 139],  // Dark Cyan
+                    appointments: [218, 165, 32] // Golden Rod
+                };
+
+                // Process each category
+                categoryOrder.forEach(category => {
+                    const records = allRecords.filter(r => r.category === category);
+                    if (records.length === 0) return;
+
+                    // Check if we need a new page
+                    if (yPosition > 250) {
+                        doc.addPage();
+                        yPosition = 20;
+                    }
+
+                    // Category header
+                    doc.setFontSize(14);
+                    doc.setFont(undefined, 'bold');
+                    doc.setTextColor(...categoryColors[category] || [0, 0, 0]);
+                    doc.text(`${category.charAt(0).toUpperCase() + category.slice(1)} (${records.length} records)`, 20, yPosition);
+                    yPosition += 10;
+
+                    // Add records for this category
+                    records.forEach((record, index) => {
+                        // Check if we need a new page before adding another record
+                        if (yPosition > 250) {
+                            doc.addPage();
+                            yPosition = 20;
+                        }
+
+                        // Record date
+                        doc.setFontSize(10);
+                        doc.setFont(undefined, 'normal');
+                        doc.setTextColor(100, 100, 100);
+                        doc.text(`Record ${index + 1}: ${new Date(record.created_at).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}`, 25, yPosition);
+                        yPosition += 7;
+
+                        // Record data
+                        doc.setFontSize(10);
+                        doc.setTextColor(0, 0, 0);
+                        Object.entries(record.data).forEach(([key, value]) => {
+                            const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                            const text = `${label}: ${value}`;
+
+                            // Handle long text by splitting into multiple lines
+                            const splitText = doc.splitTextToSize(text, 160);
+                            doc.text(splitText, 30, yPosition);
+                            yPosition += splitText.length * 5;
+                        });
+
+                        yPosition += 5; // Add space between records
+
+                        // Add a subtle separator between records
+                        if (index < records.length - 1) {
+                            doc.setDrawColor(220, 220, 220);
+                            doc.line(25, yPosition - 2, 185, yPosition - 2);
+                            yPosition += 5;
+                        }
+                    });
+
+                    yPosition += 10; // Add extra space between categories
+                });
+
+                // Add page numbers
+                const pageCount = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(8);
+                    doc.setTextColor(150, 150, 150);
+                    doc.text(`Page ${i} of ${pageCount}`, 170, 285);
+                    doc.text('Medical Dashboard - Confidential', 20, 285);
+                }
+
+                // Save the PDF
+                const fileName = `medical_records_full_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+            });
+
+
        });
 </script>
 

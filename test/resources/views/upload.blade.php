@@ -147,10 +147,18 @@
                 <!-- Recent Uploads -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold mb-4">Recent Uploads</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold">Recent Uploads</h3>
+                            <div class="flex space-x-2">
+                                <button class="category-filter-btn px-3 py-1 rounded-md bg-blue-500 text-white" data-category="">All</button>
+                                <button class="category-filter-btn px-3 py-1 rounded-md bg-blue-100 text-blue-800" data-category="lab_results">Lab Results</button>
+                                <button class="category-filter-btn px-3 py-1 rounded-md bg-green-100 text-green-800" data-category="prescriptions">Prescriptions</button>
+                                <button class="category-filter-btn px-3 py-1 rounded-md bg-purple-100 text-purple-800" data-category="medical_reports">Medical Reports</button>
+                            </div>
+                        </div>
                         <div id="recent-uploads">
                             @forelse($documents as $document)
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border mb-2">
+                                <div class="document-item flex items-center justify-between p-3 bg-gray-50 rounded-lg border mb-2" data-category="{{ $document->category ?? '' }}">
                                     <div class="flex items-center">
                                         <div class="bg-@php echo $document->category === 'lab_results' ? 'blue' : ($document->category === 'prescriptions' ? 'green' : 'purple'); @endphp-100 p-2 rounded-full mr-3">
                                             <svg class="h-5 w-5 text-@php echo $document->category === 'lab_results' ? 'blue' : ($document->category === 'prescriptions' ? 'green' : 'purple'); @endphp-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,8 +213,58 @@
             const uploadProgress = document.getElementById('upload-progress');
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
+            const categoryFilterBtns = document.querySelectorAll('.category-filter-btn');
+            const documentItems = document.querySelectorAll('.document-item');
 
             let selectedFiles = [];
+
+            // Category filter functionality
+            categoryFilterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.dataset.category;
+
+                    // Update active button styling
+                    categoryFilterBtns.forEach(b => {
+                        if (b === this) {
+                            b.classList.remove('bg-blue-100', 'bg-green-100', 'bg-purple-100');
+                            b.classList.remove('text-blue-800', 'text-green-800', 'text-purple-800');
+                            b.classList.add('bg-blue-500', 'text-white');
+                        } else {
+                            b.classList.remove('bg-blue-500', 'text-white');
+                            if (b.dataset.category === 'lab_results') {
+                                b.classList.add('bg-blue-100', 'text-blue-800');
+                            } else if (b.dataset.category === 'prescriptions') {
+                                b.classList.add('bg-green-100', 'text-green-800');
+                            } else if (b.dataset.category === 'medical_reports') {
+                                b.classList.add('bg-purple-100', 'text-purple-800');
+                            } else {
+                                b.classList.add('bg-gray-100', 'text-gray-800');
+                            }
+                        }
+                    });
+
+                    // Filter documents
+                    documentItems.forEach(item => {
+                        if (category === '' || item.dataset.category === category) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    // Show message if no documents in category
+                    const visibleDocs = Array.from(documentItems).filter(item =>
+                        item.style.display !== 'none'
+                    ).length;
+
+                    const noDocsMsg = document.querySelector('#recent-uploads > p.text-sm.text-gray-500');
+                    if (visibleDocs === 0 && noDocsMsg) {
+                        noDocsMsg.style.display = 'block';
+                    } else if (noDocsMsg) {
+                        noDocsMsg.style.display = 'none';
+                    }
+                });
+            });
 
             // Make upload area clickable
             uploadArea.addEventListener('click', function(e) {

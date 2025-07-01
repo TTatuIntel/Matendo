@@ -8,6 +8,8 @@ class Document extends Model
 {
     protected $fillable = [
         'user_id',
+        'uploader_name',       // Add this line
+        'uploader_hospital',   // Add this line
         'filename',
         'path',
         'size',

@@ -12,8 +12,24 @@ class HealthRecordController extends Controller
 {
     public function display()
     {
-        $records = MedicalRecord::where('user_id', Auth::id())->latest()->get();
-        return view('display', compact('records'));
+        // $records = MedicalRecord::where('user_id', Auth::id())->latest()->get();
+        // return view('display', compact('records'));
+
+    // $records = MedicalRecord::where('user_id', Auth::id())->latest()->get();
+    // $documents = Document::where('user_id', Auth::id())->latest()->get();
+    // return view('display', compact('records', 'documents'));
+
+    $records = MedicalRecord::where('user_id', Auth::id())->latest()->get();
+
+    // Only get documents with both uploader_name and uploader_hospital
+    $documents = Document::where('user_id', Auth::id())
+        ->whereNotNull('uploader_name')
+        ->whereNotNull('uploader_hospital')
+        ->latest()
+        ->get();
+
+    return view('display', compact('records', 'documents'));
+
     }
 
     public function showUploadForm()
@@ -96,7 +112,8 @@ public function store(Request $request)
 
         foreach ($files as $file) {
             $filename = time() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
-            $path = $file->storeAs('uploads', $filename); // Remove 'public/' from the path
+            // $path = $file->storeAs('uploads', $filename); // Remove 'public/' from the path
+            $path = $file->storeAs('private/uploads', $filename);
             $size = $file->getSize();
 
             $document = Document::create([
@@ -126,15 +143,41 @@ public function store(Request $request)
         return Storage::download($document->path, $document->filename);
     }
 
+// public function viewDocument($id)
+// {
+//     $document = Document::where('id', $id)
+//                         ->where('user_id', Auth::id())
+//                         ->firstOrFail();
+
+//     // Check if file exists
+//     if (!Storage::exists($document->path)) {
+//         abort(404);
+//     }
+
+//     // Get the file's MIME type
+//     $mimeType = Storage::mimeType($document->path);
+
+//     // Create response with appropriate headers
+//     $headers = [
+//         'Content-Type' => $mimeType,
+//         'Content-Disposition' => 'inline; filename="'.$document->filename.'"'
+//     ];
+
+//     return response()->file(storage_path('app/'.$document->path), $headers);
+// }
+
 public function viewDocument($id)
 {
     $document = Document::where('id', $id)
                         ->where('user_id', Auth::id())
                         ->firstOrFail();
 
+    // Full file path (for private/uploads/)
+    $fullPath = storage_path('app/' . $document->path);
+
     // Check if file exists
-    if (!Storage::exists($document->path)) {
-        abort(404);
+    if (!file_exists($fullPath)) {
+        return back()->withErrors(['file' => 'File not found on server.']);
     }
 
     // Get the file's MIME type
@@ -143,11 +186,12 @@ public function viewDocument($id)
     // Create response with appropriate headers
     $headers = [
         'Content-Type' => $mimeType,
-        'Content-Disposition' => 'inline; filename="'.$document->filename.'"'
+        'Content-Disposition' => 'inline; filename="' . $document->filename . '"',
     ];
 
-    return response()->file(storage_path('app/'.$document->path), $headers);
+    return response()->file($fullPath, $headers);
 }
+
 
 public function showMedicalRecords()
 {
