@@ -10,6 +10,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\HealthRecordController;
 use App\Http\Controllers\TempAccessController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ReportController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -154,5 +155,10 @@ Route::get('/documents/{document}/download', [DocumentController::class, 'downlo
     ->middleware('temp.access');
 
 Route::get('/documents/view/{id}', [HealthRecordController::class, 'viewDocument'])->name('documents.view');
+
+Route::get('/reports/download', [ReportController::class, 'download'])->name('reports.download');
+Route::prefix('reports')->group(function() {
+    Route::get('/export', [ReportController::class, 'export'])->name('reports.export');
+});
 
 require __DIR__.'/auth.php';
