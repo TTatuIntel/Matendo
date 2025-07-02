@@ -1082,13 +1082,14 @@ session_start();
             <a href="index.html" title="Matendo" aria-label="Matendo">
                 <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
             </a>
-            <div class="main-nav">
-                <a href="about.html" class="main-nav-link">About Us</a>
-                <a href="contact.html" class="main-nav-link">Contact Us</a>
-                <a href="careers.html" class="main-nav-link">Careers</a>
-            </div>
+                <div class="main-nav">
+                    <a href="index.html" class="main-nav-link">Home</a>
+                    <a href="careers.html" class="main-nav-link">Careers</a>
+                    <a href="about.html" class="main-nav-link">About Us</a>
+                    <a href="contact.html" class="main-nav-link">Contact Us</a>                    
+                </div>
             <div class="auth-nav">
-                <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                <!-- <a href="join.html" class="auth-nav-link">Join Matendo</a> -->
                 <a href="login.html" class="auth-nav-link">Login</a>
             </div>
             <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
@@ -1099,10 +1100,10 @@ session_start();
 
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-menu-link">Home</a>
             <a href="about.html" class="mobile-menu-link">About Us</a>
             <a href="contact.html" class="mobile-menu-link">Contact Us</a>
             <a href="careers.html" class="mobile-menu-link">Careers</a>
-            <a href="join.html" class="mobile-menu-link">Join Matendo</a>
             <a href="login.html" class="mobile-menu-link">Login</a>
         </div>
     </div>
@@ -1530,409 +1531,407 @@ session_start();
     </footer>
 
     <script>
-        // Google Maps Integration (Placeholder)
-        let map;
-        let marker;
-        let autocomplete;
-        let mapVisible = false;
+    // Google Maps Integration (Placeholder)
+    let map;
+    let marker;
+    let autocomplete;
+    let mapVisible = false;
 
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map-container'), {
-                center: {lat: 0.3476, lng: 32.5825},
-                zoom: 12,
-                gestureHandling: 'cooperative'
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map-container'), {
+            center: {lat: 0.3476, lng: 32.5825},
+            zoom: 12,
+            gestureHandling: 'cooperative'
+        });
+
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('autocomplete'),
+            {types: ['geocode']}
+        );
+
+        autocomplete.addListener('place_changed', onPlaceChanged);
+    }
+
+    function onPlaceChanged() {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+            document.getElementById('location-error').style.display = 'block';
+            return;
+        }
+
+        document.getElementById('location-error').style.display = 'none';
+
+        if (marker) marker.setMap(null);
+        marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+        });
+
+        map.panTo(place.geometry.location);
+        map.setZoom(16);
+        document.getElementById('coordinates').value = 
+            `${place.geometry.location.lat()},${place.geometry.location.lng()}`;
+
+        if (!mapVisible) {
+            toggleMap();
+        }
+    }
+
+    function toggleMap() {
+        const mapContainer = document.getElementById('map-container');
+        const toggleButton = document.getElementById('map-toggle-text');
+        
+        mapVisible = !mapVisible;
+        mapContainer.style.display = mapVisible ? 'block' : 'none';
+        toggleButton.textContent = mapVisible ? 'Hide Map' : 'Show Map';
+
+        if (mapVisible && !map) initMap();
+    }
+
+    // Form Logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('join-form');
+        const sections = Array.from(document.querySelectorAll('.form-section'));
+        const progressSteps = document.querySelectorAll('.progress-step');
+        let currentStep = 0;
+
+        // Set minimum date for start date
+        const today = new Date();
+        today.setDate(today.getDate() + 1); // Minimum date is tomorrow
+        document.getElementById('start-date').min = today.toISOString().split('T')[0];
+
+        // Show step
+        function showStep(step) {
+            sections.forEach((section, index) => {
+                section.classList.toggle('active', index === step);
             });
-
-            autocomplete = new google.maps.places.Autocomplete(
-                document.getElementById('autocomplete'),
-                {types: ['geocode']}
-            );
-
-            autocomplete.addListener('place_changed', onPlaceChanged);
-        }
-
-        function onPlaceChanged() {
-            const place = autocomplete.getPlace();
-            if (!place.geometry) {
-                document.getElementById('location-error').style.display = 'block';
-                return;
-            }
-
-            document.getElementById('location-error').style.display = 'none';
-
-            if (marker) marker.setMap(null);
-            marker = new google.maps.Marker({
-                map: map,
-                position: place.geometry.location
+            progressSteps.forEach((progressStep, index) => {
+                progressStep.classList.toggle('active', index === step);
+                progressStep.classList.toggle('completed', index < step);
             });
-
-            map.panTo(place.geometry.location);
-            map.setZoom(16);
-            document.getElementById('coordinates').value = 
-                `${place.geometry.location.lat()},${place.geometry.location.lng()}`;
-
-            if (!mapVisible) {
-                toggleMap();
+            currentStep = step;
+            if (step === 3) {
+                updateReviewInfo();
             }
         }
 
-        function toggleMap() {
-            const mapContainer = document.getElementById('map-container');
-            const toggleButton = document.getElementById('map-toggle-text');
-            
-            mapVisible = !mapVisible;
-            mapContainer.style.display = mapVisible ? 'block' : 'none';
-            toggleButton.textContent = mapVisible ? 'Hide Map' : 'Show Map';
+        // Validation functions
+        function validateStep1() {
+            let isValid = true;
 
-            if (mapVisible && !map) initMap();
+            // First Name
+            const firstName = form.querySelector('#first-name');
+            const firstNameError = document.getElementById('first-name-error');
+            if (!firstName.value.trim() || !/^[A-Za-z]{2,}$/.test(firstName.value)) {
+                firstNameError.style.display = 'block';
+                isValid = false;
+            } else {
+                firstNameError.style.display = 'none';
+            }
+
+            // Last Name
+            const lastName = form.querySelector('#last-name');
+            const lastNameError = document.getElementById('last-name-error');
+            if (!lastName.value.trim() || !/^[A-Za-z]{2,}$/.test(lastName.value)) {
+                lastNameError.style.display = 'block';
+                isValid = false;
+            } else {
+                lastNameError.style.display = 'none';
+            }
+
+            // Email
+            const email = form.querySelector('#email');
+            const emailError = document.getElementById('email-error');
+            if (!email.value.trim() || !/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Phone
+            const phone = form.querySelector('#phone');
+            const phoneError = document.getElementById('phone-error');
+            if (!phone.value.trim() || !/^\+?[0-9\s\-()]{7,20}$/.test(phone.value)) {
+                phoneError.style.display = 'block';
+                isValid = false;
+            } else {
+                phoneError.style.display = 'none';
+            }
+
+            // Address
+            const address = form.querySelector('#address');
+            const addressError = document.getElementById('address-error');
+            if (!address.value.trim()) {
+                addressError.style.display = 'block';
+                isValid = false;
+            } else {
+                addressError.style.display = 'none';
+            }
+
+            return isValid;
         }
 
-        // Form Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('join-form');
-            const sections = Array.from(document.querySelectorAll('.form-section'));
-            const progressSteps = document.querySelectorAll('.progress-step');
-            let currentStep = 0;
+        function validateStep2() {
+            let isValid = true;
 
-            // Set minimum date for start date
-            const today = new Date();
-            today.setDate(today.getDate() + 1); // Minimum date is tomorrow
-            document.getElementById('start-date').min = today.toISOString().split('T')[0];
-
-            // Show step
-            function showStep(step) {
-                sections.forEach((section, index) => {
-                    section.classList.toggle('active', index === step);
-                });
-                progressSteps.forEach((progressStep, index) => {
-                    progressStep.classList.toggle('active', index === step);
-                    progressStep.classList.toggle('completed', index < step);
-                });
-                currentStep = step;
-                if (step === 3) {
-                    updateReviewInfo();
-                }
+            // Profession
+            const profession = form.querySelector('#profession');
+            const professionError = document.getElementById('profession-error');
+            if (!profession.value) {
+                professionError.style.display = 'block';
+                isValid = false;
+            } else {
+                professionError.style.display = 'none';
             }
 
-            // Validation functions
-            function validateStep1() {
-                let isValid = true;
-
-                // First Name
-                const firstName = form.querySelector('#first-name');
-                const firstNameError = document.getElementById('first-name-error');
-                if (!firstName.value.trim() || !/^[A-Za-z]{2,}$/.test(firstName.value)) {
-                    firstNameError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    firstNameError.style.display = 'none';
-                }
-
-                // Last Name
-                const lastName = form.querySelector('#last-name');
-                const lastNameError = document.getElementById('last-name-error');
-                if (!lastName.value.trim() || !/^[A-Za-z]{2,}$/.test(lastName.value)) {
-                    lastNameError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    lastNameError.style.display = 'none';
-                }
-
-                // Email
-                const email = form.querySelector('#email');
-                const emailError = document.getElementById('email-error');
-                if (!email.value.trim() || !/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email.value)) {
-                    emailError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    emailError.style.display = 'none';
-                }
-
-                // Phone
-                const phone = form.querySelector('#phone');
-                const phoneError = document.getElementById('phone-error');
-                if (!phone.value.trim() || !/^\+?[0-9\s\-()]{7,20}$/.test(phone.value)) {
-                    phoneError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    phoneError.style.display = 'none';
-                }
-
-                // Address
-                const address = form.querySelector('#address');
-                const addressError = document.getElementById('address-error');
-                if (!address.value.trim()) {
-                    addressError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    addressError.style.display = 'none';
-                }
-
-                return isValid;
+            // Other Profession (if applicable)
+            const otherProfession = form.querySelector('#otherProfessionInput');
+            const otherProfessionError = document.getElementById('otherProfessionInput-error');
+            if (profession.value === 'Other' && !otherProfession.value.trim()) {
+                otherProfessionError.style.display = 'block';
+                isValid = false;
+            } else {
+                otherProfessionError.style.display = 'none';
             }
 
-            function validateStep2() {
-                let isValid = true;
+            // Years of Experience
+            const yearsExperience = form.querySelector('#years-experience');
+            const yearsExperienceError = document.getElementById('years-experience-error');
+            if (!yearsExperience.value || yearsExperience.value < 0) {
+                yearsExperienceError.style.display = 'block';
+                isValid = false;
+            } else {
+                yearsExperienceError.style.display = 'none';
+            }
 
-                // Profession
-                const profession = form.querySelector('#profession');
-                const professionError = document.getElementById('profession-error');
-                if (!profession.value) {
-                    professionError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    professionError.style.display = 'none';
-                }
-
-                // Other Profession (if applicable)
-                const otherProfession = form.querySelector('#otherProfessionInput');
-                const otherProfessionError = document.getElementById('otherProfessionInput-error');
-                if (profession.value === 'Other' && !otherProfession.value.trim()) {
-                    otherProfessionError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    otherProfessionError.style.display = 'none';
-                }
-
-                // Years of Experience
-                const yearsExperience = form.querySelector('#years-experience');
-                const yearsExperienceError = document.getElementById('years-experience-error');
-                if (!yearsExperience.value || yearsExperience.value < 0) {
-                    yearsExperienceError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    yearsExperienceError.style.display = 'none';
-                }
-
-                // Resume
-                const resume = form.querySelector('#resume');
-                const resumeError = document.getElementById('resume-error');
-                if (!resume.files.length) {
+            // Resume
+            const resume = form.querySelector('#resume');
+            const resumeError = document.getElementById('resume-error');
+            if (!resume.files.length) {
+                resumeError.style.display = 'block';
+                isValid = false;
+            } else {
+                const file = resume.files[0];
+                const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                if (!validTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
                     resumeError.style.display = 'block';
                     isValid = false;
                 } else {
-                    const file = resume.files[0];
-                    const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                    if (!validTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
-                        resumeError.style.display = 'block';
-                        isValid = false;
-                    } else {
-                        resumeError.style.display = 'none';
-                    }
+                    resumeError.style.display = 'none';
                 }
-
-                return isValid;
             }
 
-            function validateStep3() {
-                let isValid = true;
+            return isValid;
+        }
 
-                // Work Type
-                const workTypes = form.querySelectorAll('input[name="workType[]"]:checked');
-                const workTypeError = document.getElementById('work-type-error');
-                if (workTypes.length === 0) {
-                    workTypeError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    workTypeError.style.display = 'none';
-                }
+        function validateStep3() {
+            let isValid = true;
 
-                // Shift Type
-                const shiftTypes = form.querySelectorAll('input[name="shiftType[]"]:checked');
-                const shiftTypeError = document.getElementById('shift-type-error');
-                if (shiftTypes.length === 0) {
-                    shiftTypeError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    shiftTypeError.style.display = 'none';
-                }
-
-                // Start Date
-                const startDate = form.querySelector('#start-date');
-                const startDateError = document.getElementById('start-date-error');
-                if (!startDate.value) {
-                    startDateError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    startDateError.style.display = 'none';
-                }
-
-                return isValid;
+            // Work Type
+            const workTypes = form.querySelectorAll('input[name="workType[]"]:checked');
+            const workTypeError = document.getElementById('work-type-error');
+            if (workTypes.length === 0) {
+                workTypeError.style.display = 'block';
+                isValid = false;
+            } else {
+                workTypeError.style.display = 'none';
             }
 
-            function validateStep4() {
-                let isValid = true;
-
-                // Confirmation Checkbox
-                const confirmCheckbox = form.querySelector('#confirm-checkbox');
-                const confirmError = document.getElementById('confirm-checkbox-error');
-                if (!confirmCheckbox.checked) {
-                    confirmError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    confirmError.style.display = 'none';
-                }
-
-                return isValid;
+            // Shift Type
+            const shiftTypes = form.querySelectorAll('input[name="shiftType[]"]:checked');
+            const shiftTypeError = document.getElementById('shift-type-error');
+            if (shiftTypes.length === 0) {
+                shiftTypeError.style.display = 'block';
+                isValid = false;
+            } else {
+                shiftTypeError.style.display = 'none';
             }
 
-            // Update review section
-            function updateReviewInfo() {
-                const personalInfo = document.getElementById('personal-info-column');
-                const professionalInfo = document.getElementById('professional-info-column');
-                const preferencesInfo = document.getElementById('preferences-column');
-                const documentsInfo = document.getElementById('documents-column');
-
-                // Personal Info
-                personalInfo.innerHTML = `
-                    <h3>Personal Information</h3>
-                    <p><strong>First Name:</strong> ${form.querySelector('#first-name').value || 'N/A'}</p>
-                    <p><strong>Last Name:</strong> ${form.querySelector('#last-name').value || 'N/A'}</p>
-                    <p><strong>Email:</strong> ${form.querySelector('#email').value || 'N/A'}</p>
-                    <p><strong>Phone:</strong> ${form.querySelector('#phone').value || 'N/A'}</p>
-                    <p><strong>Address:</strong> ${form.querySelector('#address').value || 'N/A'}</p>
-                    <p><strong>Location:</strong> ${form.querySelector('#autocomplete').value || 'N/A'}</p>
-                `;
-
-                // Professional Info
-                const profession = form.querySelector('#profession').value;
-                professionalInfo.innerHTML = `
-                    <h3>Professional Information</h3>
-                    <p><strong>Profession:</strong> ${profession === 'Other' ? form.querySelector('#otherProfessionInput').value : profession || 'N/A'}</p>
-                    <p><strong>Specialization:</strong> ${form.querySelector('#specialization').value || 'N/A'}</p>
-                    <p><strong>Years of Experience:</strong> ${form.querySelector('#years-experience').value || 'N/A'}</p>
-                    <p><strong>License Number:</strong> ${form.querySelector('#license-number').value || 'N/A'}</p>
-                `;
-
-                // Preferences
-                const workTypes = Array.from(form.querySelectorAll('input[name="workType[]"]:checked')).map(cb => cb.value).join(', ');
-                const shiftTypes = Array.from(form.querySelectorAll('input[name="shiftType[]"]:checked')).map(cb => cb.value).join(', ');
-                preferencesInfo.innerHTML = `
-                    <h3>Work Preferences</h3>
-                    <p><strong>Work Type:</strong> ${workTypes || 'N/A'}</p>
-                    <p><strong>Shift Type:</strong> ${shiftTypes || 'N/A'}</p>
-                    <p><strong>Preferred Location:</strong> ${form.querySelector('#preferred-location').value || 'N/A'}</p>
-                    <p><strong>Start Date:</strong> ${form.querySelector('#start-date').value || 'N/A'}</p>
-                `;
-
-                // Documents
-                const resumeFile = form.querySelector('#resume').files[0]?.name || 'N/A';
-                const licenseDocFile = form.querySelector('#license-doc').files[0]?.name || 'N/A';
-                const certificationsFile = form.querySelector('#certifications').files[0]?.name || 'N/A';
-                documentsInfo.innerHTML = `
-                    <h3>Supporting Documents</h3>
-                    <p><strong>Resume/CV:</strong> ${resumeFile}</p>
-                    <p><strong>License Document:</strong> ${licenseDocFile}</p>
-                    <p><strong>Certifications:</strong> ${certificationsFile}</p>
-                `;
+            // Start Date
+            const startDate = form.querySelector('#start-date');
+            const startDateError = document.getElementById('start-date-error');
+            if (!startDate.value) {
+                startDateError.style.display = 'block';
+                isValid = false;
+            } else {
+                startDateError.style.display = 'none';
             }
 
-            // Navigation buttons
-            document.getElementById('step1Next').addEventListener('click', () => {
-                if (validateStep1()) showStep(1);
-            });
+            return isValid;
+        }
 
-            document.getElementById('step2Next').addEventListener('click', () => {
-                if (validateStep2()) showStep(2);
-            });
+        function validateStep4() {
+            let isValid = true;
 
-            document.getElementById('step3Next').addEventListener('click', () => {
-                if (validateStep3()) showStep(3);
-            });
+            // Confirmation Checkbox
+            const confirmCheckbox = form.querySelector('#confirm-checkbox');
+            const confirmError = document.getElementById('confirm-checkbox-error');
+            if (!confirmCheckbox.checked) {
+                confirmError.style.display = 'block';
+                isValid = false;
+            } else {
+                confirmError.style.display = 'none';
+            }
 
-            document.querySelectorAll('.back-button').forEach(button => {
-                button.addEventListener('click', () => showStep(currentStep - 1));
-            });
+            return isValid;
+        }
 
-            // File upload handling
-            ['resume', 'license-doc', 'certifications'].forEach(id => {
-                const input = document.getElementById(id);
-                const fileNameSpan = document.getElementById(`${id}FileName`);
-                input.addEventListener('change', () => {
-                    fileNameSpan.textContent = input.files[0]?.name || 'No file chosen';
+        // Update review section
+        function updateReviewInfo() {
+            const personalInfo = document.getElementById('personal-info-column');
+            const professionalInfo = document.getElementById('professional-info-column');
+            const preferencesInfo = document.getElementById('preferences-column');
+            const documentsInfo = document.getElementById('documents-column');
+
+            // Personal Info
+            personalInfo.innerHTML = `
+                <h3>Personal Information</h3>
+                <p><strong>First Name:</strong> ${form.querySelector('#first-name').value || 'N/A'}</p>
+                <p><strong>Last Name:</strong> ${form.querySelector('#last-name').value || 'N/A'}</p>
+                <p><strong>Email:</strong> ${form.querySelector('#email').value || 'N/A'}</p>
+                <p><strong>Phone:</strong> ${form.querySelector('#phone').value || 'N/A'}</p>
+                <p><strong>Address:</strong> ${form.querySelector('#address').value || 'N/A'}</p>
+                <p><strong>Location:</strong> ${form.querySelector('#autocomplete').value || 'N/A'}</p>
+            `;
+
+            // Professional Info
+            const profession = form.querySelector('#profession').value;
+            professionalInfo.innerHTML = `
+                <h3>Professional Information</h3>
+                <p><strong>Profession:</strong> ${profession === 'Other' ? form.querySelector('#otherProfessionInput').value : profession || 'N/A'}</p>
+                <p><strong>Specialization:</strong> ${form.querySelector('#specialization').value || 'N/A'}</p>
+                <p><strong>Years of Experience:</strong> ${form.querySelector('#years-experience').value || 'N/A'}</p>
+                <p><strong>License Number:</strong> ${form.querySelector('#license-number').value || 'N/A'}</p>
+            `;
+
+            // Preferences
+            const workTypes = Array.from(form.querySelectorAll('input[name="workType[]"]:checked')).map(cb => cb.value).join(', ');
+            const shiftTypes = Array.from(form.querySelectorAll('input[name="shiftType[]"]:checked')).map(cb => cb.value).join(', ');
+            preferencesInfo.innerHTML = `
+                <h3>Work Preferences</h3>
+                <p><strong>Work Type:</strong> ${workTypes || 'N/A'}</p>
+                <p><strong>Shift Type:</strong> ${shiftTypes || 'N/A'}</p>
+                <p><strong>Preferred Location:</strong> ${form.querySelector('#preferred-location').value || 'N/A'}</p>
+                <p><strong>Start Date:</strong> ${form.querySelector('#start-date').value || 'N/A'}</p>
+            `;
+
+            // Documents
+            const resumeFile = form.querySelector('#resume').files[0]?.name || 'N/A';
+            const licenseDocFile = form.querySelector('#license-doc').files[0]?.name || 'N/A';
+            const certificationsFile = form.querySelector('#certifications').files[0]?.name || 'N/A';
+            documentsInfo.innerHTML = `
+                <h3>Supporting Documents</h3>
+                <p><strong>Resume/CV:</strong> ${resumeFile}</p>
+                <p><strong>License Document:</strong> ${licenseDocFile}</p>
+                <p><strong>Certifications:</strong> ${certificationsFile}</p>
+            `;
+        }
+
+        // Navigation buttons
+        document.getElementById('step1Next').addEventListener('click', () => {
+            if (validateStep1()) showStep(1);
+        });
+
+        document.getElementById('step2Next').addEventListener('click', () => {
+            if (validateStep2()) showStep(2);
+        });
+
+        document.getElementById('step3Next').addEventListener('click', () => {
+            if (validateStep3()) showStep(3);
+        });
+
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', () => showStep(currentStep - 1));
+        });
+
+        // File upload handling
+        ['resume', 'license-doc', 'certifications'].forEach(id => {
+            const input = document.getElementById(id);
+            const fileNameSpan = document.getElementById(`${id}FileName`);
+            input.addEventListener('change', () => {
+                fileNameSpan.textContent = input.files[0]?.name || 'No file chosen';
+            });
+        });
+
+        // Profession toggle
+        const professionSelect = document.getElementById('profession');
+        const otherProfessionContainer = document.getElementById('otherProfessionContainer');
+        professionSelect.addEventListener('change', () => {
+            otherProfessionContainer.style.display = professionSelect.value === 'Other' ? 'block' : 'none';
+        });
+
+        // Toggle optional sections
+        document.getElementById('toggle-license').addEventListener('click', () => {
+            const licenseInfo = document.getElementById('license-info');
+            licenseInfo.style.display = licenseInfo.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.getElementById('toggle-optional-docs').addEventListener('click', () => {
+            const optionalDocs = document.getElementById('optional-docs');
+            optionalDocs.style.display = optionalDocs.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Mobile menu
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!validateStep4()) return;
+
+            const submitButton = document.getElementById('submit-button');
+            const formSubmitting = document.getElementById('formSubmitting');
+            const submissionConfirmation = document.getElementById('submission-confirmation');
+
+            submitButton.disabled = true;
+            formSubmitting.style.display = 'block';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('join.php', {
+                    method: 'POST',
+                    body: formData
                 });
-            });
 
-            // Profession toggle
-            const professionSelect = document.getElementById('profession');
-            const otherProfessionContainer = document.getElementById('otherProfessionContainer');
-            professionSelect.addEventListener('change', () => {
-                otherProfessionContainer.style.display = professionSelect.value === 'Other' ? 'block' : 'none';
-            });
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    throw new Error(`Invalid response from server: ${text.substring(0, 100)}`);
+                }
 
-            // Toggle optional sections
-            document.getElementById('toggle-license').addEventListener('click', () => {
-                const licenseInfo = document.getElementById('license-info');
-                licenseInfo.style.display = licenseInfo.style.display === 'none' ? 'block' : 'none';
-            });
+                const result = await response.json();
 
-            document.getElementById('toggle-optional-docs').addEventListener('click', () => {
-                const optionalDocs = document.getElementById('optional-docs');
-                optionalDocs.style.display = optionalDocs.style.display === 'none' ? 'block' : 'none';
-            });
+                formSubmitting.style.display = 'none';
+                submitButton.disabled = false;
 
-            // Mobile menu
-            const mobileMenuButton = document.getElementById('mobileMenuButton');
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
-            });
-
-            // Form submission
-            form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validateStep4()) return;
-
-    const submitButton = document.getElementById('submit-button');
-    const formSubmitting = document.getElementById('formSubmitting');
-    const submissionConfirmation = document.getElementById('submission-confirmation');
-
-    submitButton.disabled = true;
-    formSubmitting.style.display = 'block';
-
-    try {
-        const formData = new FormData(form);
-        const response = await fetch('join.php', {
-            method: 'POST',
-            body: formData
+                if (result.success) {
+                    form.style.display = 'none';
+                    document.getElementById('reference-number').textContent = result.reference_number || 'N/A';
+                    document.getElementById('submission-date').textContent = result.submission_date || new Date().toLocaleString();
+                    submissionConfirmation.style.display = 'block';
+                } else {
+                    throw new Error(result.message || 'Unknown server error');
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                formSubmitting.style.display = 'none';
+                submitButton.disabled = false;
+                alert(`Submission failed: ${error.message}`);
+            }
         });
 
-        let result;
-        const responseText = await response.text();
-        
-        try {
-            result = JSON.parse(responseText);
-        } catch (error) {
-            console.error('Failed to parse JSON response:', responseText);
-            throw new Error('Invalid server response');
-        }
-
-        formSubmitting.style.display = 'none';
-        submitButton.disabled = false;
-
-        if (result.success) {
-            form.style.display = 'none';
-            document.getElementById('reference-number').textContent = result.reference_number || 'N/A';
-            document.getElementById('submission-date').textContent = result.submission_date || new Date().toLocaleString();
-            submissionConfirmation.style.display = 'block';
-        } else {
-            throw new Error(result.message || 'Unknown server error');
-        }
-    } catch (error) {
-        console.error('Submission error:', error);
-        formSubmitting.style.display = 'none';
-        submitButton.disabled = false;
-        alert(`Submission failed: ${error.message}`);
-    }
-});
-
-            // View additional info
-            document.getElementById('view-additional-info').addEventListener('click', () => {
-                const additionalInfo = document.getElementById('additional-info');
-                additionalInfo.style.display = additionalInfo.style.display === 'none' ? 'block' : 'none';
-            });
+        // View additional info
+        document.getElementById('view-additional-info').addEventListener('click', () => {
+            const additionalInfo = document.getElementById('additional-info');
+            additionalInfo.style.display = additionalInfo.style.display === 'none' ? 'block' : 'none';
         });
-    </script>
+    });
+</script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"></script>
 </body>
 </html>

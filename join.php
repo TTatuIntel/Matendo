@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 $host = 'localhost';
 $username = 'root';
 $password = ''; // Empty password
-$database = 'matendb';
+$database = 'matendo_medics';
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $database);
@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Prepare SQL statement
         $sql = "INSERT INTO applications (
-                    reference_code, first_name, last_name, email, phone, address, 
+                    reference_number, first_name, last_name, email, phone, address, 
                     location, coordinates, profession, other_profession, 
                     specialization, years_experience, license_number, resume, 
                     license_doc, certifications, work_type, shift_type, 

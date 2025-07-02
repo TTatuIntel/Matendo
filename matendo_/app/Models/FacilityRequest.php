@@ -41,4 +41,14 @@ class FacilityRequest extends Model
         'updated_at' => 'datetime',
         'confirmed' => 'boolean',
     ];
+
+    public function assignment()
+    {
+        return $this->hasOne(TaskAssignment::class, 'task_id')->where('task_type', 'facility_booking');
+    }
+
+    public function isAssigned()
+    {
+        return $this->assignment()->exists();
+    }
 }

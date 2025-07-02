@@ -768,7 +768,7 @@
 </head>
 
 <body>
-    <nav class="nav-container">
+<nav class="nav-container">
         <div class="container">
             <div class="nav-content">
                 <a href="index.html" title="Matendo" aria-label="Matendo">
@@ -777,8 +777,9 @@
                 <div class="main-nav">
                     <a href="index.html" class="main-nav-link">Home</a>
                     <a href="careers.html" class="main-nav-link">Careers</a>
+                    <a href="hire.html" class="main-nav-link">Hire</a>
                     <a href="about.html" class="main-nav-link">About Us</a>
-                                        
+                    <a href="contact.html" class="main-nav-link">Contact Us</a>                    
                 </div>
                 <div class="auth-nav">
                     <a href="join.html" class="auth-nav-link">Join Matendo</a>
@@ -794,14 +795,18 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-links">
-            <a href="index.html" class="main-nav-link">Home</a>
-            <a href="careers.html" class="main-nav-link">Careers</a>
-            <a href="about.html" class="main-nav-link">About Us</a>
-            <a href="join.html" class="mobile-menu-link">Join Matendo</a>
+            <a href="index.html" class="mobile-menu-link">Home</a>
+            <a href="careers.html" class="mobile-menu-link">Careers</a>
+            <a href="hire.html" class="mobile-menu-link">Hire</a>
+            <a href="about.html" class="mobile-menu-link">About Us</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+            <a href="#how-to-hire" class="mobile-menu-link">How to Hire</a>
+            <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
+            <a href="join.html" class="mobile-menu-link" id="getStartedBtnMobile">Join Matendo</a>
             <a href="login.html" class="mobile-menu-link">Login</a>
         </div>
     </div>
-
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-content">
@@ -959,15 +964,25 @@
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const mobileMenu = document.getElementById('mobileMenu');
             
-            mobileMenuButton.addEventListener('click', function() {
-                if (mobileMenu.style.display === 'block') {
-                    mobileMenu.style.display = 'none';
-                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                } else {
-                    mobileMenu.style.display = 'block';
-                    mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
-                }
-            });
+// Mobile menu toggle
+    mobileMenuButton.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent click from propagating to document
+        if (mobileMenu.style.display === 'block') {
+            mobileMenu.style.display = 'none';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        } else {
+            mobileMenu.style.display = 'block';
+            mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+        }
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function (event) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
+            mobileMenu.style.display = 'none';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
             
             // Navbar scroll effect
             window.addEventListener('scroll', function() {

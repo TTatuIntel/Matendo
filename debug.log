@@ -2505,3 +2505,555 @@ Stack trace:
 2025-05-12 08:12:20 - Statement closed
 2025-05-12 08:12:20 - Database connection closed
 2025-05-12 08:12:20 - Script completed
+2025-05-28 13:44:28 - Script started
+2025-05-28 13:44:28 - Request method validated
+2025-05-28 13:44:28 - POST data: Array
+(
+    [firstName] => Kib
+    [lastName] => Lug
+    [email] => lugemwa174@gmail.com
+    [phone] => 0770495837
+    [address] => Kla
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => 
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => Remote
+    [startDate] => 2025-06-06
+    [confirm_checkbox] => on
+)
+
+2025-05-28 13:44:28 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Lugemwa Application.pdf
+            [full_path] => Lugemwa Application.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php66DB.tmp
+            [error] => 0
+            [size] => 1427755
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-28 13:44:28 - Attempting database connection
+2025-05-28 13:44:28 - Database connected successfully
+2025-05-28 13:44:28 - All required fields present
+2025-05-28 13:44:29 - Preparing SQL statement
+2025-05-28 13:44:29 - Statement closed
+2025-05-28 13:44:29 - Database connection closed
+2025-05-28 13:44:29 - Script completed
+2025-05-28 13:44:45 - Script started
+2025-05-28 13:44:45 - Request method validated
+2025-05-28 13:44:45 - POST data: Array
+(
+    [firstName] => Kib
+    [lastName] => Lug
+    [email] => lugemwa174@gmail.com
+    [phone] => 0770495837
+    [address] => Kla
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => 
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Full-Time
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => Remote
+    [startDate] => 2025-06-06
+    [confirm_checkbox] => on
+)
+
+2025-05-28 13:44:45 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Lugemwa Application.pdf
+            [full_path] => Lugemwa Application.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\phpA656.tmp
+            [error] => 0
+            [size] => 1427755
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-28 13:44:45 - Attempting database connection
+2025-05-28 13:44:45 - Database connected successfully
+2025-05-28 13:44:45 - All required fields present
+2025-05-28 13:44:45 - Preparing SQL statement
+2025-05-28 13:44:45 - Statement closed
+2025-05-28 13:44:45 - Database connection closed
+2025-05-28 13:44:45 - Script completed
+2025-05-28 13:48:53 - Script started
+2025-05-28 13:48:53 - Request method validated
+2025-05-28 13:48:53 - POST data: Array
+(
+    [firstName] => Kib
+    [lastName] => Lug
+    [email] => lugemwa174@gmail.com
+    [phone] => 0770495837
+    [address] => Kla
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => 
+    [yearsExperience] => 2
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Short-Term
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => 
+    [startDate] => 2025-06-06
+    [confirm_checkbox] => on
+)
+
+2025-05-28 13:48:53 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => document.pdf
+            [full_path] => document.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php71B6.tmp
+            [error] => 0
+            [size] => 233565
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-28 13:48:53 - Attempting database connection
+2025-05-28 13:48:53 - Database connected successfully
+2025-05-28 13:48:53 - All required fields present
+2025-05-28 13:48:53 - Preparing SQL statement
+2025-05-28 13:48:53 - Error: Table 'matendb.healthcare_professionals' doesn't exist
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\Matendo\join.php(138): mysqli->prepare('INSERT INTO hea...')
+#1 {main}
+2025-05-28 13:48:53 - Database connection closed
+2025-05-28 13:48:53 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Table 'matendb.healthcare_professionals' doesn't exist"}
+2025-05-28 13:48:53 - Script completed
+2025-05-28 13:49:51 - Script started
+2025-05-28 13:49:51 - Error: Invalid request method
+Stack trace:
+#0 {main}
+2025-05-28 13:49:51 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
+2025-05-28 13:49:51 - Script completed
+2025-05-28 13:49:54 - Script started
+2025-05-28 13:49:54 - Error: Invalid request method
+Stack trace:
+#0 {main}
+2025-05-28 13:49:54 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
+2025-05-28 13:49:54 - Script completed
+2025-05-28 13:51:14 - Script started
+2025-05-28 13:51:14 - Request method validated
+2025-05-28 13:51:14 - POST data: Array
+(
+    [firstName] => Kib
+    [lastName] => Lug
+    [email] => lugemwa174@gmail.com
+    [phone] => 0770495837
+    [address] => Kla
+    [location] => 
+    [coordinates] => 
+    [profession] => Nurse
+    [otherProfession] => 
+    [specialization] => 
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Short-Term
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Day Shift
+        )
+
+    [preferredLocation] => 
+    [startDate] => 2025-06-05
+    [confirm_checkbox] => on
+)
+
+2025-05-28 13:51:14 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Finhazi Seamlessly Manage Savings, Investments, and Payments..pdf
+            [full_path] => Finhazi Seamlessly Manage Savings, Investments, and Payments..pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php95EF.tmp
+            [error] => 0
+            [size] => 26887
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-28 13:51:14 - Attempting database connection
+2025-05-28 13:51:14 - Database connected successfully
+2025-05-28 13:51:14 - All required fields present
+2025-05-28 13:51:14 - Preparing SQL statement
+2025-05-28 13:51:14 - Error: Unknown column 'reference_number' in 'field list'
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\Matendo\join.php(138): mysqli->prepare('INSERT INTO app...')
+#1 {main}
+2025-05-28 13:51:14 - Database connection closed
+2025-05-28 13:51:14 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Unknown column 'reference_number' in 'field list'"}
+2025-05-28 13:51:14 - Script completed
+2025-05-28 13:53:23 - Script started
+2025-05-28 13:53:23 - Error: Invalid request method
+Stack trace:
+#0 {main}
+2025-05-28 13:53:23 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
+2025-05-28 13:53:23 - Script completed
+2025-05-28 13:53:27 - Script started
+2025-05-28 13:53:27 - Error: Invalid request method
+Stack trace:
+#0 {main}
+2025-05-28 13:53:27 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
+2025-05-28 13:53:27 - Script completed
+2025-05-28 13:54:12 - Script started
+2025-05-28 13:54:12 - Request method validated
+2025-05-28 13:54:12 - POST data: Array
+(
+    [firstName] => Kib
+    [lastName] => Lug
+    [email] => lugemwa174@gmail.com
+    [phone] => 0770495837
+    [address] => Kla
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => 
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Short-Term
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Night Shift
+        )
+
+    [preferredLocation] => 
+    [startDate] => 2025-06-06
+    [confirm_checkbox] => on
+)
+
+2025-05-28 13:54:12 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => Lugemwa Application.pdf
+            [full_path] => Lugemwa Application.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php4D64.tmp
+            [error] => 0
+            [size] => 1427755
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-28 13:54:12 - Attempting database connection
+2025-05-28 13:54:12 - Database connected successfully
+2025-05-28 13:54:12 - All required fields present
+2025-05-28 13:54:12 - Preparing SQL statement
+2025-05-28 13:54:12 - Error: Unknown column 'resume_data' in 'field list'
+Stack trace:
+#0 C:\xampp\htdocs\Matendo\Matendo\join.php(138): mysqli->prepare('INSERT INTO app...')
+#1 {main}
+2025-05-28 13:54:12 - Database connection closed
+2025-05-28 13:54:12 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Unknown column 'resume_data' in 'field list'"}
+2025-05-28 13:54:12 - Script completed
+2025-05-28 13:55:09 - Script started
+2025-05-28 13:55:09 - Error: Invalid request method
+Stack trace:
+#0 {main}
+2025-05-28 13:55:09 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
+2025-05-28 13:55:09 - Script completed
+2025-05-28 14:16:59 - Script started
+2025-05-28 14:16:59 - Error: Invalid request method
+Stack trace:
+#0 {main}
+2025-05-28 14:16:59 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
+2025-05-28 14:16:59 - Script completed
+2025-05-28 14:17:56 - Script started
+2025-05-28 14:17:56 - Request method validated
+2025-05-28 14:17:56 - POST data: Array
+(
+    [firstName] => Kib
+    [lastName] => Lug
+    [email] => healthworker@gmail.com
+    [phone] => 0770495837
+    [address] => Kla
+    [location] => 
+    [coordinates] => 
+    [profession] => Medical Officer
+    [otherProfession] => 
+    [specialization] => 
+    [yearsExperience] => 3
+    [licenseNumber] => 
+    [workType] => Array
+        (
+            [0] => Short-Term
+        )
+
+    [shiftType] => Array
+        (
+            [0] => Rotating
+        )
+
+    [preferredLocation] => 
+    [startDate] => 2025-06-05
+    [confirm_checkbox] => on
+)
+
+2025-05-28 14:17:56 - FILES data: Array
+(
+    [license_doc_optional] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [resume] => Array
+        (
+            [name] => document.pdf
+            [full_path] => document.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php865.tmp
+            [error] => 0
+            [size] => 233565
+        )
+
+    [license] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [certifications] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+2025-05-28 14:17:56 - Attempting database connection
+2025-05-28 14:17:56 - Database connected successfully
+2025-05-28 14:17:56 - All required fields present
+2025-05-28 14:17:56 - Preparing SQL statement
+2025-05-28 14:17:56 - Statement closed
+2025-05-28 14:17:56 - Database connection closed
+2025-05-28 14:17:56 - Script completed
+2025-05-28 14:18:16 - Script started
+2025-05-28 14:18:16 - Error: Invalid request method
+Stack trace:
+#0 {main}
+2025-05-28 14:18:16 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
+2025-05-28 14:18:16 - Script completed
+2025-05-28 14:19:27 - Script started
+2025-05-28 14:19:27 - Error: Invalid request method
+Stack trace:
+#0 {main}
+2025-05-28 14:19:27 - Buffer content before flush: {"success":false,"message":"An error occurred while processing your application","error":"Invalid request method"}
+2025-05-28 14:19:27 - Script completed

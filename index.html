@@ -1857,7 +1857,9 @@
                     <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
                 </a>
                 <div class="main-nav">
+                    <a href="index.html" class="main-nav-link">Home</a>
                     <a href="careers.html" class="main-nav-link">Careers</a>
+                    <a href="hire.html" class="main-nav-link">Hire</a>
                     <a href="about.html" class="main-nav-link">About Us</a>
                     <a href="contact.html" class="main-nav-link">Contact Us</a>                    
                 </div>
@@ -1875,9 +1877,11 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-menu-link">Home</a>
+            <a href="careers.html" class="mobile-menu-link">Careers</a>
+            <a href="hire.html" class="mobile-menu-link">Hire</a>
             <a href="about.html" class="mobile-menu-link">About Us</a>
             <a href="contact.html" class="mobile-menu-link">Contact Us</a>
-            <a href="careers.html" class="mobile-menu-link">Careers</a>
             <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
             <a href="#how-to-hire" class="mobile-menu-link">How to Hire</a>
             <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
@@ -2375,24 +2379,25 @@
                 // Example: disableAnalytics();
             });
 
-            // Mobile menu toggle
-            mobileMenuButton.addEventListener('click', function () {
-                if (mobileMenu.style.display === 'block') {
-                    mobileMenu.style.display = 'none';
-                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                } else {
-                    mobileMenu.style.display = 'block';
-                    mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
-                }
-            });
+// Mobile menu toggle
+    mobileMenuButton.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent click from propagating to document
+        if (mobileMenu.style.display === 'block') {
+            mobileMenu.style.display = 'none';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        } else {
+            mobileMenu.style.display = 'block';
+            mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+        }
+    });
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function (event) {
-                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
-                    mobileMenu.style.display = 'none';
-                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function (event) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
+            mobileMenu.style.display = 'none';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
 
             // Chat button functionality
             chatButton.addEventListener('click', function () {
