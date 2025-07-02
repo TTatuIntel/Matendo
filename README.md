@@ -1,2 +1,0 @@
-# MatendoMedic
- Matendo Outourcing Platform
