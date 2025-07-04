@@ -8,6 +8,9 @@
     <title>Medical Dashboard - Medical Records</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- Add this right after the Tailwind script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body class="bg-gray-100">
     <div class="min-h-screen">
@@ -284,14 +287,11 @@
                                                 @endphp
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->created_at->format('Y-m-d') }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                                <a href="#" class="text-blue-600 hover:text-blue-800 view-record" data-record='{{ json_encode($record) }}'>View</a>
-                                                <form action="{{ route('medical-records.destroy', $record->id) }}" method="POST" class="inline-block delete-form">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="#" class="ml-4 text-red-600 hover:text-red-800 delete-record">Delete</a>
-                                                </form>
-                                            </td>
+<!-- In the table actions column, replace the delete form with this -->
+<td class="px-6 py-4 whitespace-nowrap text-sm">
+    <a href="#" class="text-blue-600 hover:text-blue-800 view-record" data-record='{{ json_encode($record) }}'>View</a>
+    <a href="#" class="ml-4 text-purple-600 hover:text-purple-800 graph-record" data-record='{{ json_encode($record) }}'>Graph</a>
+</td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -404,6 +404,42 @@
     </div>
 </div>
 
+
+<!-- Graph Modal -->
+<div id="graph-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
+<!-- Update the graph modal header section -->
+<h3 class="text-lg font-semibold mb-4 flex items-center justify-between">
+    <div class="flex items-center">
+        <div class="bg-purple-100 p-2 rounded-full mr-3">
+            <svg class="h-5 w-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+        </div>
+        <span id="graph-title">Data Visualization</span>
+    </div>
+    <div class="flex space-x-2">
+        <button id="show-history-graph" class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition text-sm flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            History
+        </button>
+        <button id="download-graph" class="px-3 py-1 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition text-sm flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            PDF
+        </button>
+    </div>
+</h3>
+        <div class="w-full h-96">
+            <canvas id="data-chart"></canvas>
+        </div>
+        <button id="close-graph" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition w-full">Close</button>
+    </div>
+</div>
+
     </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
@@ -426,6 +462,187 @@
            const viewLinks = document.querySelectorAll('.view-record');
            const deleteLinks = document.querySelectorAll('.delete-record');
            const historyButtons = document.querySelectorAll('.view-history');
+
+
+// Graph functionality
+const graphModal = document.getElementById('graph-modal');
+const closeGraph = document.getElementById('close-graph');
+const downloadGraphBtn = document.getElementById('download-graph');
+const graphTitle = document.getElementById('graph-title');
+let currentChart = null;
+let currentRecord = null;
+let currentCategoryRecords = [];
+
+
+// Graph record click handlers
+document.querySelectorAll('.graph-record').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const record = JSON.parse(this.dataset.record);
+        showGraphForRecord(record);
+        graphModal.classList.remove('hidden');
+    });
+});
+
+closeGraph.addEventListener('click', () => {
+    graphModal.classList.add('hidden');
+    if (currentChart) {
+        currentChart.destroy();
+        currentChart = null;
+    }
+});
+
+graphModal.addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.add('hidden');
+        if (currentChart) {
+            currentChart.destroy();
+            currentChart = null;
+        }
+    }
+});
+
+downloadGraphBtn.addEventListener('click', function() {
+    if (!currentChart) return;
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('landscape');
+
+    // Get chart as image
+    const canvas = document.getElementById('data-chart');
+    const chartImage = canvas.toDataURL('image/png');
+
+    // Add to PDF
+    doc.setFontSize(16);
+    doc.text(graphTitle.textContent, 20, 20);
+    doc.addImage(chartImage, 'PNG', 15, 30, 260, 150);
+
+    // Save PDF
+    const fileName = `medical_graph_${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(fileName);
+});
+
+function showGraphForRecord(record) {
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    const ctx = document.getElementById('data-chart').getContext('2d');
+    graphTitle.textContent = `${record.category.charAt(0).toUpperCase() + record.category.slice(1)} Data Visualization`;
+
+    // Determine best chart type based on data
+    const dataKeys = Object.keys(record.data);
+    const dataValues = Object.values(record.data);
+
+    // Numeric data check
+    const isNumeric = dataValues.every(val => !isNaN(parseFloat(val)));
+
+    if (dataKeys.length === 1) {
+        // Single value - use gauge chart
+        currentChart = createGaugeChart(ctx, record);
+    } else if (isNumeric) {
+        // Numeric data - use bar or line chart
+        currentChart = createNumericChart(ctx, record);
+    } else {
+        // Mixed data - use pie or doughnut chart
+        currentChart = createCategoricalChart(ctx, record);
+    }
+}
+
+function createGaugeChart(ctx, record) {
+    const value = parseFloat(Object.values(record.data)[0]);
+    const max = value * 1.5; // Adjust based on your data
+
+    return new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [value, max - value],
+                backgroundColor: ['#4F46E5', '#E5E7EB'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            circumference: Math.PI,
+            rotation: Math.PI,
+            cutout: '80%',
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: false },
+                title: {
+                    display: true,
+                    text: `${Object.keys(record.data)[0]}: ${value}`,
+                    font: { size: 16 }
+                }
+            }
+        }
+    });
+}
+
+function createNumericChart(ctx, record) {
+    const isTimeSeries = record.category === 'vitals' || record.category === 'activity';
+
+    return new Chart(ctx, {
+        type: isTimeSeries ? 'line' : 'bar',
+        data: {
+            labels: Object.keys(record.data).map(key =>
+                key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+            ),
+            datasets: [{
+                label: 'Values',
+                data: Object.values(record.data).map(val => parseFloat(val)),
+                backgroundColor: '#4F46E5',
+                borderColor: '#4F46E5',
+                borderWidth: 2,
+                fill: isTimeSeries
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: false }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `${record.category.charAt(0).toUpperCase() + record.category.slice(1)} Data`,
+                    font: { size: 16 }
+                }
+            }
+        }
+    });
+}
+
+function createCategoricalChart(ctx, record) {
+    return new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(record.data).map(key =>
+                key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+            ),
+            datasets: [{
+                data: Object.values(record.data),
+                backgroundColor: [
+                    '#4F46E5', '#10B981', '#F59E0B', '#EF4444',
+                    '#8B5CF6', '#EC4899', '#14B8A6', '#F97316'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: `${record.category.charAt(0).toUpperCase() + record.category.slice(1)} Distribution`,
+                    font: { size: 16 }
+                }
+            }
+        }
+    });
+}
 
            // NEW: View All Data Modal elements
            const viewAllBtn = document.getElementById('view-all-data');
@@ -701,38 +918,41 @@ function showDoctorDocuments() {
                    const categoryRecords = allRecords.filter(record => record.category === category);
 
                    historyCategory.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} History`;
-                   historyContent.innerHTML = categoryRecords.length > 0 ? categoryRecords.map(record => `
-                       <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 cursor-pointer history-record" data-record='${JSON.stringify(record)}'>
-                           <div class="flex justify-between items-center">
-                               <div>
-                                   <p class="font-medium text-gray-800">
-                                       ${Object.entries(record.data).slice(0, 2).map(([key, value]) => `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`).join(', ')}
-                                   </p>
-                                   <p class="text-sm text-gray-500">${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                               </div>
-                               <button class="text-blue-600 hover:text-blue-800 text-sm view-history-record">View Details</button>
-                           </div>
-                       </div>
-                   `).join('') : '<p class="text-sm text-gray-500">No records found for this category.</p>';
+                   // In the history modal section, modify the content generation to include graph button
+historyContent.innerHTML = categoryRecords.length > 0 ? categoryRecords.map(record => `
+    <div class="p-3 bg-gray-50 rounded-lg hover:bg-blue-50 cursor-pointer history-record" data-record='${JSON.stringify(record)}'>
+        <div class="flex justify-between items-center">
+            <div>
+                <p class="font-medium text-gray-800">
+                    ${Object.entries(record.data).slice(0, 2).map(([key, value]) =>
+                        `${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}`
+                    ).join(', ')}
+                </p>
+                <p class="text-sm text-gray-500">${new Date(record.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })}</p>
+            </div>
+            <div class="flex space-x-2">
+                <button class="text-blue-600 hover:text-blue-800 text-sm view-history-record">View</button>
+                <button class="text-purple-600 hover:text-purple-800 text-sm graph-history-record">Graph</button>
+            </div>
+        </div>
+    </div>
+`).join('') : '<p class="text-sm text-gray-500">No records found for this category.</p>';
 
-                   historyModal.classList.remove('hidden');
-
-                   // Add event listeners to view details buttons
-                   document.querySelectorAll('.view-history-record').forEach(btn => {
-                       btn.addEventListener('click', function() {
-                           const record = JSON.parse(this.closest('.history-record').dataset.record);
-                           modalContent.innerHTML = `
-                               <p><strong>Category:</strong> ${record.category.charAt(0).toUpperCase() + record.category.slice(1)}</p>
-                               <p><strong>Date:</strong> ${new Date(record.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                               <p><strong>Details:</strong></p>
-                               <ul class="list-disc pl-5">
-                                   ${Object.entries(record.data).map(([key, value]) => `<li>${key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}: ${value}</li>`).join('')}
-                               </ul>
-                           `;
-                           historyModal.classList.add('hidden');
-                           viewModal.classList.remove('hidden');
-                       });
-                   });
+// Add event listener for graph buttons in history modal
+document.querySelectorAll('.graph-history-record').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const record = JSON.parse(this.closest('.history-record').dataset.record);
+        showGraphForRecord(record);
+        historyModal.classList.add('hidden');
+        graphModal.classList.remove('hidden');
+    });
+});
                });
            });
 
