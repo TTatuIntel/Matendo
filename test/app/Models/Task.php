@@ -38,6 +38,7 @@ class Task extends Model
         'assigned_to',
         'assigned_at',
         'complete', // Add this line
+        'reply',
     ];
 
     protected $casts = [

@@ -1,9 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('My Tasks Dashboard') }}
-        </h2>
-    </x-slot>
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -18,7 +14,7 @@
                         </div>
                         <div class="ml-4">
                             <h3 class="text-lg font-medium">Welcome back, {{ Auth::user()->name }}!</h3>
-                            <p class="text-gray-600 dark:text-gray-400">Here are your currently assigned tasks</p>
+                            <p class="text-gray-600 dark:text-gray-400">You have {{ $assignedTasks->count() }} incomplete tasks</p>
                         </div>
                     </div>
                 </div>
@@ -86,11 +82,12 @@
                                         Assigned: {{ $task->assigned_at ? \Carbon\Carbon::parse($task->assigned_at)->diffForHumans() : 'N/A' }}
                                     </span>
                                     <div class="space-x-2">
-                                        @if($task->status !== 'completed')
-                                            <button onclick="completeTask({{ $task->id }})" class="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
+                                                  @if($task->complete == 0)
+                                            <button onclick="showCompleteForm({{ $task->id }})" class="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
                                                 Mark Complete
                                             </button>
                                         @endif
+
                                         <button onclick="openTaskModal({{ json_encode($task) }})" class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors">
                                             View Details
                                         </button>
@@ -107,7 +104,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                         </svg>
                         <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">No tasks assigned</h3>
-                        <p class="mt-1 text-gray-600 dark:text-gray-400">You don't have any tasks assigned to you yet.</p>
+                        <p class="mt-1 text-gray-600 dark:text-gray-400">You don't have any incomplete tasks assigned to you.</p>
                     </div>
                 </div>
             @endif
@@ -139,6 +136,72 @@
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                     <button type="button" onclick="closeTaskModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-600 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complete Task Modal -->
+    <div id="completeTaskModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">Complete Task</h3>
+                    <form id="completeTaskForm">
+                        @csrf
+                        <input type="hidden" name="task_id" id="completeTaskId">
+                        <div class="mb-4">
+                            <label for="completion_notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Completion Notes</label>
+                            <textarea name="completion_notes" id="completion_notes" rows="4" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" onclick="submitCompletion()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Submit Completion
+                    </button>
+                    <button type="button" onclick="closeCompleteModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-600 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- All Tasks Modal -->
+    <div id="allTasksModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+                <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">All Your Tasks</h3>
+                    <div class="overflow-y-auto max-h-96">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Facility</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Assigned</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Completed</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allTasksList" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Tasks will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" onclick="closeAllTasksModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-600 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                         Close
                     </button>
                 </div>
@@ -235,60 +298,115 @@
             document.body.classList.add('overflow-hidden');
         }
 
-        function completeTask(taskId) {
-            if (confirm('Are you sure you want to mark this task as completed?')) {
-                const taskCard = document.getElementById(`task-card-${taskId}`);
+        function closeTaskModal() {
+            document.getElementById('taskModal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
 
-                fetch(`/tasks/${taskId}/complete`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ complete: true })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Add fade-out animation
-                        taskCard.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
-                        taskCard.style.opacity = '0';
-                        taskCard.style.transform = 'scale(0.95)';
+        function showCompleteForm(taskId) {
+            document.getElementById('completeTaskId').value = taskId;
+            document.getElementById('completion_notes').value = '';
+            document.getElementById('completeTaskModal').classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
 
-                        // Remove the task card after animation
-                        setTimeout(() => {
-                            taskCard.remove();
+        function closeCompleteModal() {
+            document.getElementById('completeTaskModal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
 
-                            // Check if there are any remaining tasks
-                            const tasksGrid = document.getElementById('tasksGrid');
-                            if (tasksGrid && tasksGrid.children.length === 0) {
-                                // Show empty state
-                                const emptyStateHtml = `
-                                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg" id="emptyState">
-                                        <div class="p-6 text-center">
-                                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                                            </svg>
-                                            <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">All tasks completed!</h3>
-                                            <p class="mt-1 text-gray-600 dark:text-gray-400">Great job! You've completed all your assigned tasks.</p>
-                                        </div>
-                                    </div>
-                                `;
-                                tasksGrid.outerHTML = emptyStateHtml;
-                            }
-                        }, 300); // Wait for animation to complete
+        function submitCompletion() {
+    const taskId = document.getElementById('completeTaskId').value;
+    const completionNotes = document.getElementById('completion_notes').value;
 
-                        // Show success message
-                        showNotification(data.message, 'success');
-                    } else {
-                        showNotification('Error: ' + data.message, 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showNotification('An error occurred while marking the task as completed.', 'error');
-                });
+    fetch(`/tasks/${taskId}/complete`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            completion_notes: completionNotes,
+            complete: 1 // Set complete to 1
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Remove the task card
+            const taskCard = document.getElementById(`task-card-${taskId}`);
+            if (taskCard) {
+                taskCard.remove();
             }
+            // Show success message
+            showNotification('Task marked as completed!', 'success');
+            closeCompleteModal();
+        }
+    })
+    .catch(error => {
+        showNotification('Error completing task', 'error');
+    });
+}
+
+        function showAllTasks() {
+            fetch('/tasks/all', {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const tasksList = document.getElementById('allTasksList');
+                tasksList.innerHTML = '';
+
+                if (data.tasks.length === 0) {
+                    tasksList.innerHTML = `
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                No tasks found
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    data.tasks.forEach(task => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                ${task.facility_name || 'Unnamed Facility'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                <span class="px-2 py-1 text-xs font-medium rounded-full
+                                    ${task.status === 'pending' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                                    task.status === 'completed' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                                    task.status === 'in_progress' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' :
+                                    'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'}">
+                                    ${task.status ? task.status.replace('_', ' ') : 'Not specified'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                ${task.assigned_at ? new Date(task.assigned_at).toLocaleDateString() : 'N/A'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                ${task.completed_at ? new Date(task.completed_at).toLocaleDateString() : '-'}
+                            </td>
+                        `;
+                        tasksList.appendChild(row);
+                    });
+                }
+
+                document.getElementById('allTasksModal').classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            })
+            .catch(error => {
+                console.error('Error fetching all tasks:', error);
+                showNotification('Failed to load tasks', 'error');
+            });
+        }
+
+        function closeAllTasksModal() {
+            document.getElementById('allTasksModal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
         }
 
         function showNotification(message, type = 'success') {
@@ -320,22 +438,35 @@
             }, 3000);
         }
 
-        function closeTaskModal() {
-            document.getElementById('taskModal').classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-        }
-
-        // Close modal when clicking outside content
+        // Close modals when clicking outside content
         document.getElementById('taskModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeTaskModal();
             }
         });
 
-        // Close modal with Escape key
+        document.getElementById('completeTaskModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCompleteModal();
+            }
+        });
+
+        document.getElementById('allTasksModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAllTasksModal();
+            }
+        });
+
+        // Close modals with Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !document.getElementById('taskModal').classList.contains('hidden')) {
-                closeTaskModal();
+            if (e.key === 'Escape') {
+                if (!document.getElementById('taskModal').classList.contains('hidden')) {
+                    closeTaskModal();
+                } else if (!document.getElementById('completeTaskModal').classList.contains('hidden')) {
+                    closeCompleteModal();
+                } else if (!document.getElementById('allTasksModal').classList.contains('hidden')) {
+                    closeAllTasksModal();
+                }
             }
         });
     </script>

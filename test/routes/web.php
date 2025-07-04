@@ -131,6 +131,12 @@ Route::get('/healthworkers/{id}', [HealthWorkerController::class, 'show'])->name
 
 Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
 
+Route::post('/tasks/{task}/complete', [TaskController::class, 'complete'])
+    ->name('tasks.complete')
+    ->middleware('auth');
+
+
+
 // ✅ Temporary signed dashboard route (NO login required)
 Route::get('/temp-access/{id}', [TempAccessController::class, 'view'])
     ->name('temp.access')
@@ -160,5 +166,9 @@ Route::get('/reports/download', [ReportController::class, 'download'])->name('re
 Route::prefix('reports')->group(function() {
     Route::get('/export', [ReportController::class, 'export'])->name('reports.export');
 });
+
+
+// Add this line to your routes/web.php
+Route::get('/health-workers', [HealthworkerController::class, 'getHealthWorkers'])->name('health-workers.getHealthWorkers');
 
 require __DIR__.'/auth.php';
