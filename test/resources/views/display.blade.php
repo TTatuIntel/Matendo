@@ -184,9 +184,9 @@
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 shadow-sm rounded-lg">
+                   <div class="bg-white p-6 shadow-sm rounded-lg">
     <h3 class="text-lg font-semibold mb-4 text-gray-800" id="graph-title">Blood Pressure Trends</h3>
-    <div class="flex space-x-4 mb-4">
+    <div class="grid grid-cols-3 gap-2 mb-4 sm:grid-cols-5">
         <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="blood_pressure" title="Blood Pressure">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -197,14 +197,39 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
             </svg>
         </button>
-        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="pain_level" title="Pain Level">
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="temperature" title="Temperature">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
             </svg>
         </button>
-        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="hours_slept" title="Hours Slept">
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="weight" title="Weight">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-4m6 2l3 1m-3-1l-3 9a5.002 5.002 0 006.001 0M18 7l3 1m0 0L18 16"></path>
+            </svg>
+        </button>
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="cd4_count" title="CD4 Count">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+        </button>
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="viral_load" title="Viral Load">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+        </button>
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="hba1c" title="HbA1c">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-7m8 7v-7m-4 7V6m-7 7h18"></path>
+            </svg>
+        </button>
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="total_cholesterol" title="Total Cholesterol">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+            </svg>
+        </button>
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="blood_sugar" title="Blood Sugar">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
             </svg>
         </button>
     </div>
@@ -1382,25 +1407,75 @@ function createMultiGraph() {
             yMax: 120,
             yStep: 10
         },
-        pain_level: {
-            category: 'pain',
-            fields: ['pain_level'],
-            labels: ['Pain Level (1-10)'],
+        temperature: {
+            category: 'vitals',
+            fields: ['temperature'],
+            labels: ['Temperature (°C)'],
             colors: ['#F59E0B'],
-            yTitle: 'Pain Level',
-            yMin: 0,
-            yMax: 10,
-            yStep: 1
+            yTitle: 'Temperature (°C)',
+            yMin: 35,
+            yMax: 42,
+            yStep: 0.5
         },
-        hours_slept: {
-            category: 'sleep',
-            fields: ['hours_slept'],
-            labels: ['Hours Slept'],
+        weight: {
+            category: 'vitals',
+            fields: ['weight'],
+            labels: ['Weight (kg)'],
             colors: ['#8B5CF6'],
-            yTitle: 'Hours Slept',
+            yTitle: 'Weight (kg)',
+            yMin: 40,
+            yMax: 120,
+            yStep: 10
+        },
+        cd4_count: {
+            category: 'infection',
+            fields: ['cd4_count'],
+            labels: ['CD4 Count (cells/µL)'],
+            colors: ['#14B8A6'],
+            yTitle: 'CD4 Count (cells/µL)',
             yMin: 0,
-            yMax: 12,
-            yStep: 1
+            yMax: 1500,
+            yStep: 100
+        },
+        viral_load: {
+            category: 'infection',
+            fields: ['viral_load'],
+            labels: ['Viral Load (copies/mL)'],
+            colors: ['#EC4899'],
+            yTitle: 'Viral Load (copies/mL)',
+            yMin: 0,
+            yMax: 100000,
+            yStep: 10000
+        },
+        hba1c: {
+            category: 'labs',
+            fields: ['hba1c'],
+            labels: ['HbA1c (%)'],
+            colors: ['#6B7280'],
+            yTitle: 'HbA1c (%)',
+            yMin: 4,
+            yMax: 10,
+            yStep: 0.5
+        },
+        total_cholesterol: {
+            category: 'labs',
+            fields: ['total_cholesterol'],
+            labels: ['Total Cholesterol (mg/dL)'],
+            colors: ['#F97316'],
+            yTitle: 'Total Cholesterol (mg/dL)',
+            yMin: 100,
+            yMax: 300,
+            yStep: 20
+        },
+        blood_sugar: {
+            category: 'labs',
+            fields: ['blood_sugar'],
+            labels: ['Blood Sugar (mg/dL)'],
+            colors: ['#22C55E'],
+            yTitle: 'Blood Sugar (mg/dL)',
+            yMin: 50,
+            yMax: 200,
+            yStep: 10
         }
     };
 
@@ -1483,7 +1558,15 @@ function createMultiGraph() {
                         enabled: true,
                         callbacks: {
                             label: function(context) {
-                                return `${context.dataset.label}: ${context.parsed.y} ${context.dataset.label.includes('mmHg') ? 'mmHg' : context.dataset.label.includes('bpm') ? 'bpm' : ''}`;
+                                const units = context.dataset.label.includes('mmHg') ? 'mmHg' :
+                                            context.dataset.label.includes('bpm') ? 'bpm' :
+                                            context.dataset.label.includes('°C') ? '°C' :
+                                            context.dataset.label.includes('kg') ? 'kg' :
+                                            context.dataset.label.includes('cells/µL') ? 'cells/µL' :
+                                            context.dataset.label.includes('copies/mL') ? 'copies/mL' :
+                                            context.dataset.label.includes('HbA1c') ? '%' :
+                                            context.dataset.label.includes('mg/dL') ? 'mg/dL' : '';
+                                return `${context.dataset.label}: ${context.parsed.y} ${units}`;
                             }
                         }
                     },
