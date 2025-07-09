@@ -185,18 +185,41 @@
                     </div>
 
                     <div class="bg-white p-6 shadow-sm rounded-lg">
-    <h3 class="text-lg font-semibold mb-4 flex items-center text-gray-800">
-        <div class="bg-blue-100 p-2 rounded-full mr-3">
-            <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <h3 class="text-lg font-semibold mb-4 text-gray-800" id="graph-title">Blood Pressure Trends</h3>
+    <div class="flex space-x-4 mb-4">
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="blood_pressure" title="Blood Pressure">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
-        </h3>
-        Blood Pressure Trends
-    </h3>
+        </button>
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="heart_rate" title="Heart Rate">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+        </button>
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="pain_level" title="Pain Level">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            </svg>
+        </button>
+        <button class="graph-icon p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200" data-type="hours_slept" title="Hours Slept">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+        </button>
+    </div>
     <div class="relative h-64">
         <canvas id="bp-chart"></canvas>
     </div>
-    <p id="bp-no-data" class="text-sm text-gray-500 hidden">No blood pressure data available.</p>
+    <p id="bp-no-data" class="text-sm text-gray-500 hidden">No data available for this metric.</p>
+    <div class="mt-4 flex justify-end">
+        <button id="download-bp-pdf" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+            Download PDF
+        </button>
+    </div>
 </div>
                 </div>
 
@@ -1330,107 +1353,203 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.save(fileName);
     });
 // Blood Pressure Chart Initialization
-function createBloodPressureChart() {
+// Multi-Graph Initialization
+function createMultiGraph() {
     const ctx = document.getElementById('bp-chart').getContext('2d');
     const noDataMessage = document.getElementById('bp-no-data');
+    const graphTitle = document.getElementById('graph-title');
+    let currentChart = null;
 
-    // Filter vitals records and sort by date
-    const vitalsRecords = allRecords
-        .filter(record => record.category === 'vitals' && record.data.systolic && record.data.diastolic)
-        .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-
-    if (vitalsRecords.length === 0) {
-        document.getElementById('bp-chart').classList.add('hidden');
-        noDataMessage.classList.remove('hidden');
-        return;
-    }
-
-    const dates = vitalsRecords.map(record => new Date(record.created_at).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-    }));
-    const systolicData = vitalsRecords.map(record => parseFloat(record.data.systolic));
-    const diastolicData = vitalsRecords.map(record => parseFloat(record.data.diastolic));
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Systolic (mmHg)',
-                    data: systolicData,
-                    borderColor: '#3B82F6',
-                    backgroundColor: '#3B82F6',
-                    fill: false,
-                    tension: 0.4,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                },
-                {
-                    label: 'Diastolic (mmHg)',
-                    data: diastolicData,
-                    borderColor: '#10B981',
-                    backgroundColor: '#10B981',
-                    fill: false,
-                    tension: 0.4,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                }
-            ]
+    // Data types configuration
+    const dataTypes = {
+        blood_pressure: {
+            category: 'vitals',
+            fields: ['systolic', 'diastolic'],
+            labels: ['Systolic (mmHg)', 'Diastolic (mmHg)'],
+            colors: ['#3B82F6', '#10B981'],
+            yTitle: 'Blood Pressure (mmHg)',
+            yMin: 60,
+            yMax: 200,
+            yStep: 20
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Date'
-                    },
-                    ticks: {
-                        maxTicksLimit: 10,
-                        autoSkip: true
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Blood Pressure (mmHg)'
-                    },
-                    suggestedMin: 60,
-                    suggestedMax: 200,
-                    ticks: {
-                        stepSize: 20
-                    }
-                }
+        heart_rate: {
+            category: 'vitals',
+            fields: ['heart_rate'],
+            labels: ['Heart Rate (bpm)'],
+            colors: ['#EF4444'],
+            yTitle: 'Heart Rate (bpm)',
+            yMin: 40,
+            yMax: 120,
+            yStep: 10
+        },
+        pain_level: {
+            category: 'pain',
+            fields: ['pain_level'],
+            labels: ['Pain Level (1-10)'],
+            colors: ['#F59E0B'],
+            yTitle: 'Pain Level',
+            yMin: 0,
+            yMax: 10,
+            yStep: 1
+        },
+        hours_slept: {
+            category: 'sleep',
+            fields: ['hours_slept'],
+            labels: ['Hours Slept'],
+            colors: ['#8B5CF6'],
+            yTitle: 'Hours Slept',
+            yMin: 0,
+            yMax: 12,
+            yStep: 1
+        }
+    };
+
+    function renderGraph(dataType) {
+        if (currentChart) {
+            currentChart.destroy();
+        }
+
+        const config = dataTypes[dataType];
+        const records = allRecords
+            .filter(record => record.category === config.category && config.fields.every(field => record.data[field] && !isNaN(parseFloat(record.data[field]))))
+            .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+
+        if (records.length === 0) {
+            document.getElementById('bp-chart').classList.add('hidden');
+            noDataMessage.classList.remove('hidden');
+            graphTitle.textContent = `${dataType.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Trends`;
+            return;
+        }
+
+        document.getElementById('bp-chart').classList.remove('hidden');
+        noDataMessage.classList.add('hidden');
+        graphTitle.textContent = `${dataType.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Trends`;
+
+        const dates = records.map(record => new Date(record.created_at).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        }));
+
+        const datasets = config.fields.map((field, index) => ({
+            label: config.labels[index],
+            data: records.map(record => parseFloat(record.data[field])),
+            borderColor: config.colors[index],
+            backgroundColor: config.colors[index],
+            fill: false,
+            tension: 0.4,
+            pointRadius: 4,
+            pointHoverRadius: 6
+        }));
+
+        currentChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: datasets
             },
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top'
-                },
-                tooltip: {
-                    enabled: true,
-                    callbacks: {
-                        label: function(context) {
-                            return `${context.dataset.label}: ${context.parsed.y} mmHg`;
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        },
+                        ticks: {
+                            maxTicksLimit: 10,
+                            autoSkip: true
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: config.yTitle
+                        },
+                        suggestedMin: config.yMin,
+                        suggestedMax: config.yMax,
+                        ticks: {
+                            stepSize: config.yStep
                         }
                     }
                 },
-                title: {
-                    display: true,
-                    text: 'Blood Pressure Trends',
-                    font: { size: 16 }
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true,
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y} ${context.dataset.label.includes('mmHg') ? 'mmHg' : context.dataset.label.includes('bpm') ? 'bpm' : ''}`;
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: `${dataType.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Trends`,
+                        font: { size: 16 }
+                    }
                 }
             }
-        }
+        });
+
+        // Update download button
+        document.getElementById('download-bp-pdf').removeEventListener('click', downloadHandler);
+        downloadHandler = function() {
+            if (!currentChart) return;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('landscape');
+
+            // Get chart as image
+            const canvas = document.getElementById('bp-chart');
+            const chartImage = canvas.toDataURL('image/png');
+
+            // Add to PDF
+            doc.setFontSize(16);
+            doc.text(`${dataType.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Trends`, 20, 20);
+            doc.setFontSize(12);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`Generated on: ${new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })}`, 20, 30);
+            doc.addImage(chartImage, 'PNG', 15, 40, 260, 150);
+
+            // Save PDF
+            const fileName = `${dataType}_trends_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(fileName);
+        };
+        document.getElementById('download-bp-pdf').addEventListener('click', downloadHandler);
+    }
+
+    let downloadHandler = () => {};
+
+    // Icon click handlers
+    document.querySelectorAll('.graph-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const dataType = this.dataset.type;
+            renderGraph(dataType);
+
+            // Update active state
+            document.querySelectorAll('.graph-icon').forEach(i => i.classList.remove('ring-2', 'ring-blue-500'));
+            this.classList.add('ring-2', 'ring-blue-500');
+        });
     });
+
+    // Initialize with blood pressure
+    renderGraph('blood_pressure');
+    document.querySelector('.graph-icon[data-type="blood_pressure"]').classList.add('ring-2', 'ring-blue-500');
 }
 
-// Initialize the blood pressure chart on page load
-createBloodPressureChart();
+// Initialize the multi-graph on page load
+createMultiGraph();
 });
 </script>
 
