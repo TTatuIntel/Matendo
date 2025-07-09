@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+
 
 class AdminSettingsController extends Controller
 {
@@ -22,28 +24,58 @@ class AdminSettingsController extends Controller
         });
     }
 
-    public function index()
-    {
-        try {
-            $settings = Setting::pluck('value', 'key')->all();
-            $users = User::orderBy('created_at', 'desc')->paginate(10);
+    // public function index()
+    // {
+    //     try {
+    //         $settings = Setting::pluck('value', 'key')->all();
+    //         $users = User::orderBy('created_at', 'desc')->paginate(10);
 
-            // Debug logging
-            Log::info('Settings retrieved: ' . count($settings) . ' items');
-            Log::info('Users retrieved: ' . $users->count() . ' items');
 
-            return view('admin.settings', compact('settings', 'users'));
-        } catch (\Exception $e) {
-            Log::error('Error in AdminSettingsController@index: ' . $e->getMessage());
+    //         // Debug logging
+    //         Log::info('Settings retrieved: ' . count($settings) . ' items');
+    //         Log::info('Users retrieved: ' . $users->count() . ' items');
 
-            // Fallback data
-            $settings = [];
-            $users = collect(); // Empty collection
+    //         return view('admin.settings', compact('settings', 'users'));
+    //     } catch (\Exception $e) {
+    //         Log::error('Error in AdminSettingsController@index: ' . $e->getMessage());
 
-            return view('admin.settings', compact('settings', 'users'))
-                ->with('error', 'There was an issue loading the data. Please try again.');
-        }
+    //         // Fallback data
+    //         $settings = [];
+    //         $users = collect(); // Empty collection
+
+    //         return view('admin.settings', compact('settings', 'users'))
+    //             ->with('error', 'There was an issue loading the data. Please try again.');
+
+    //     }
+    // }
+
+public function index()
+{
+    try {
+        $settings = Setting::pluck('value', 'key')->all();
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
+        $currentUser = Auth::user(); // Get logged-in user
+
+
+        // Debug logging
+        Log::info('Settings retrieved: ' . count($settings) . ' items');
+        Log::info('Users retrieved: ' . $users->count() . ' items');
+
+        return view('admin.settings', compact('settings', 'users', 'currentUser'));
+
+    } catch (\Exception $e) {
+        Log::error('Error in AdminSettingsController@index: ' . $e->getMessage());
+
+        // Fallback data
+        $settings = [];
+        $users = collect(); // Empty collection
+        $currentUser = Auth::user();
+
+        return view('admin.settings', compact('settings', 'users', 'currentUser'))
+            ->with('error', 'There was an issue loading the data. Please try again.');
     }
+}
+
 
     public function updateSettings(Request $request)
     {

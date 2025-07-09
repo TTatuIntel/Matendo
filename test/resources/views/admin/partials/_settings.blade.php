@@ -1,3 +1,5 @@
+@include('profile.partials.profile-section', ['user' => Auth::user()])
+
 <div class="max-w-7xl mx-auto p-6 sm:p-8 bg-gray-100 min-h-screen">
     <!-- Toggle Buttons -->
     <div class="flex space-x-4 mb-6">
@@ -111,6 +113,15 @@
             </div>
         @endif
     </div>
+
+    {{-- 🔽 Profile Section --}}
+    <div class="bg-white shadow rounded-lg p-6">
+         {{-- 🔽 Profile Management Section --}}
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">My Profile</h2>
+    @include('profile.partials.profile-section')
+
+    </div>
+
 </div>
 
 <script>
