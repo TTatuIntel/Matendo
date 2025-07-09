@@ -1,10 +1,9 @@
-@include('profile.partials.profile-section', ['user' => Auth::user()])
-
 <div class="max-w-7xl mx-auto p-6 sm:p-8 bg-gray-100 min-h-screen">
     <!-- Toggle Buttons -->
     <div class="flex space-x-4 mb-6">
         <button id="show-settings" class="toggle-btn bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition duration-200 active">Platform Settings</button>
         <button id="show-users" class="toggle-btn bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition duration-200">User Management</button>
+        <button id="show-profile" class="toggle-btn bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition duration-200">My Profile</button>
     </div>
 
     <!-- Platform Settings Form -->
@@ -114,32 +113,50 @@
         @endif
     </div>
 
-    {{-- 🔽 Profile Section --}}
-    <div class="bg-white shadow rounded-lg p-6">
-         {{-- 🔽 Profile Management Section --}}
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">My Profile</h2>
-    @include('profile.partials.profile-section')
-
+    <!-- Profile Section -->
+    <div id="profile-section" class="bg-white rounded-xl shadow-lg p-6 hidden transition-opacity duration-300">
+        <h3 class="text-xl font-semibold text-gray-800 mb-6">My Profile</h3>
+        @include('profile.partials.profile-section', ['user' => Auth::user()])
     </div>
-
 </div>
 
 <script>
+    // Function to reset all buttons and sections
+    function resetToggle() {
+        const sections = ['settings-section', 'users-section', 'profile-section'];
+        const buttons = ['show-settings', 'show-users', 'show-profile'];
+
+        sections.forEach(section => {
+            document.getElementById(section).classList.add('hidden');
+        });
+
+        buttons.forEach(button => {
+            document.getElementById(button).classList.add('bg-gray-200', 'text-gray-700');
+            document.getElementById(button).classList.remove('bg-blue-600', 'text-white', 'active');
+        });
+    }
+
+    // Show Platform Settings
     document.getElementById('show-settings').addEventListener('click', function() {
+        resetToggle();
         document.getElementById('settings-section').classList.remove('hidden');
-        document.getElementById('users-section').classList.add('hidden');
         this.classList.add('bg-blue-600', 'text-white', 'active');
         this.classList.remove('bg-gray-200', 'text-gray-700');
-        document.getElementById('show-users').classList.add('bg-gray-200', 'text-gray-700');
-        document.getElementById('show-users').classList.remove('bg-blue-600', 'text-white', 'active');
     });
 
+    // Show User Management
     document.getElementById('show-users').addEventListener('click', function() {
+        resetToggle();
         document.getElementById('users-section').classList.remove('hidden');
-        document.getElementById('settings-section').classList.add('hidden');
         this.classList.add('bg-blue-600', 'text-white', 'active');
         this.classList.remove('bg-gray-200', 'text-gray-700');
-        document.getElementById('show-settings').classList.add('bg-gray-200', 'text-gray-700');
-        document.getElementById('show-settings').classList.remove('bg-blue-600', 'text-white', 'active');
+    });
+
+    // Show Profile
+    document.getElementById('show-profile').addEventListener('click', function() {
+        resetToggle();
+        document.getElementById('profile-section').classList.remove('hidden');
+        this.classList.add('bg-blue-600', 'text-white', 'active');
+        this.classList.remove('bg-gray-200', 'text-gray-700');
     });
 </script>
