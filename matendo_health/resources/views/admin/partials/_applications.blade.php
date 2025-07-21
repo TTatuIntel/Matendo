@@ -1,17 +1,29 @@
 <!-- resources/views/admin/partials/_applications.blade.php -->
 
 <div class="p-6 space-y-8">
-    <!-- Flash Messages -->
-    @if (session('success'))
-        <div class="bg-green-50 border-l-4 border-green-400 text-green-800 p-3 rounded-md text-sm">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="bg-red-50 border-l-4 border-red-400 text-red-800 p-3 rounded-md text-sm">
-            {{ session('error') }}
-        </div>
-    @endif
+    <!-- Flash Messages - Enhanced visibility -->
+    <div id="flashMessages" class="fixed top-4 right-4 z-[60] space-y-2">
+        @if (session('success'))
+            <div class="bg-green-50 border-l-4 border-green-400 text-green-800 p-4 rounded-md shadow-lg max-w-md">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="font-medium">{{ session('success') }}</span>
+                </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="bg-red-50 border-l-4 border-red-400 text-red-800 p-4 rounded-md shadow-lg max-w-md">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="font-medium">{{ session('error') }}</span>
+                </div>
+            </div>
+        @endif
+    </div>
 
     <!-- Applications Overview Section -->
     <div>
@@ -111,6 +123,7 @@
                             <th class="px-4 py-3 text-left font-medium text-gray-700">Ref Number</th>
                             <th class="px-4 py-3 text-left font-medium text-gray-700">Name</th>
                             <th class="px-4 py-3 text-left font-medium text-gray-700">Profession</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-700">Documents</th>
                             <th class="px-4 py-3 text-left font-medium text-gray-700">Submitted</th>
                             <th class="px-4 py-3 text-center font-medium text-gray-700">Actions</th>
                         </tr>
@@ -121,9 +134,37 @@
                                 <td class="px-4 py-3 text-gray-900">{{ $application->reference_number }}</td>
                                 <td class="px-4 py-3 text-gray-800">{{ $application->first_name }} {{ $application->last_name }}</td>
                                 <td class="px-4 py-3 text-gray-700">{{ $application->profession }}</td>
+                                <td class="px-4 py-3">
+                                    <div class="flex space-x-1">
+                                        @if($application->resume)
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Resume
+                                            </span>
+                                        @endif
+                                        @if($application->license_doc)
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                License
+                                            </span>
+                                        @endif
+                                        @if($application->certifications)
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Certs
+                                            </span>
+                                        @endif
+                                    </div>
+                                </td>
                                 <td class="px-4 py-3 text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
                                 <td class="px-4 py-3 text-center">
-                                    <button onclick="openModal('{{ $application->reference_number }}', '{{ $application->first_name }} {{ $application->last_name }}', '{{ $application->email }}', '{{ $application->phone }}', '{{ $application->address }}', '{{ $application->profession }}', '{{ $application->specialization ?? 'none' }}', '{{ $application->years_experience }} years', '{{ $application->start_date?->format('Y-m-d') ?? 'N/A' }}', '{{ $application->resume ? Storage::url($application->resume) : '#' }}', '{{ $application->license_doc ? Storage::url($application->license_doc) : '#' }}', '{{ $application->certifications ? Storage::url($application->certifications) : '#' }}', '{{ $application->id }}')" class="btn-secondary px-4 py-2 rounded-full text-sm font-semibold flex items-center mx-auto">
+                                    <button onclick="openModal('{{ $application->reference_number }}', '{{ $application->first_name }} {{ $application->last_name }}', '{{ $application->email }}', '{{ $application->phone }}', '{{ $application->address }}', '{{ $application->profession }}', '{{ $application->specialization ?? 'none' }}', '{{ $application->years_experience }} years', '{{ $application->start_date?->format('Y-m-d') ?? 'N/A' }}', '{{ $application->resume ? Storage::url($application->resume) : '#' }}', '{{ $application->license_doc ? Storage::url($application->license_doc) : '#' }}', '{{ $application->certifications ? Storage::url($application->certifications) : '#' }}', '{{ $application->id }}', '{{ $application->work_type ?? 'N/A' }}', '{{ $application->shift_type ?? 'N/A' }}', '{{ $application->preferred_location ?? 'N/A' }}')" class="btn-secondary px-4 py-2 rounded-full text-sm font-semibold flex items-center mx-auto">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -134,7 +175,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-4 py-3 text-center text-gray-600">No pending applications found.</td>
+                                <td colspan="6" class="px-4 py-3 text-center text-gray-600">No pending applications found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -149,7 +190,7 @@
 
     <!-- Application Modal -->
     <div id="applicationModal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg max-w-5xl w-full mx-4 modal-content">
+        <div class="bg-white rounded-lg shadow-lg max-w-6xl w-full mx-4 modal-content">
             <div class="sticky top-0 bg-gray-50 border-b border-gray-200 px-6 py-3 flex justify-between items-center">
                 <h3 class="text-xl font-semibold text-gray-900 flex items-center">
                     <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +207,7 @@
 
             <div class="p-6">
                 <!-- Review Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                     <!-- Personal Information -->
                     <div class="p-4 bg-white border border-gray-200 rounded-lg">
                         <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
@@ -234,39 +275,110 @@
                         <div class="space-y-2 text-sm">
                             <div class="flex justify-between">
                                 <span class="font-medium text-gray-600">Work Type:</span>
-                                <span class="text-gray-800">{{ $application->work_type ?? 'N/A' }}</span>
+                                <span id="modalWorkType" class="text-gray-800"></span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="font-medium text-gray-600">Shift Type:</span>
-                                <span class="text-gray-800">{{ $application->shift_type ?? 'N/A' }}</span>
+                                <span id="modalShiftType" class="text-gray-800"></span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="font-medium text-gray-600">Location:</span>
-                                <span class="text-gray-800">{{ $application->preferred_location ?? 'N/A' }}</span>
+                                <span id="modalPreferredLocation" class="text-gray-800"></span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Supporting Documents -->
-                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
-                        <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
-                            </svg>
-                            Supporting Documents
-                        </h4>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-gray-600">Resume:</span>
-                                <a id="modalResume" href="#" class="text-blue-600 hover:text-blue-800 underline" target="_blank">View</a>
+                <!-- Enhanced Supporting Documents Section -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
+                        </svg>
+                        Supporting Documents
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Resume Document -->
+                        <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                            <div class="flex items-center justify-between mb-3">
+                                <h5 class="font-medium text-gray-900 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Resume
+                                </h5>
+                                <span id="resumeStatus" class="px-2 py-1 text-xs font-medium rounded-full"></span>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-gray-600">License:</span>
-                                <a id="modalLicense" href="#" class="text-blue-600 hover:text-blue-800 underline" target="_blank">View</a>
+                            <div class="space-y-2">
+                                <button id="viewResumeBtn" class="w-full btn-secondary text-sm py-2 flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    View Document
+                                </button>
+                                <button id="downloadResumeBtn" class="w-full btn-outline text-sm py-2 flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    Download
+                                </button>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-gray-600">Certifications:</span>
-                                <a id="modalCertifications" href="#" class="text-blue-600 hover:text-blue-800 underline" target="_blank">View</a>
+                        </div>
+
+                        <!-- License Document -->
+                        <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                            <div class="flex items-center justify-between mb-3">
+                                <h5 class="font-medium text-gray-900 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    License
+                                </h5>
+                                <span id="licenseStatus" class="px-2 py-1 text-xs font-medium rounded-full"></span>
+                            </div>
+                            <div class="space-y-2">
+                                <button id="viewLicenseBtn" class="w-full btn-secondary text-sm py-2 flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    View Document
+                                </button>
+                                <button id="downloadLicenseBtn" class="w-full btn-outline text-sm py-2 flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Certifications Document -->
+                        <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                            <div class="flex items-center justify-between mb-3">
+                                <h5 class="font-medium text-gray-900 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Certifications
+                                </h5>
+                                <span id="certificationsStatus" class="px-2 py-1 text-xs font-medium rounded-full"></span>
+                            </div>
+                            <div class="space-y-2">
+                                <button id="viewCertificationsBtn" class="w-full btn-secondary text-sm py-2 flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    View Document
+                                </button>
+                                <button id="downloadCertificationsBtn" class="w-full btn-outline text-sm py-2 flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    Download
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -294,8 +406,45 @@
         </div>
     </div>
 
+    <!-- Document Viewer Modal -->
+    <div id="documentViewerModal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center z-[60]">
+        <div class="bg-white rounded-lg shadow-lg max-w-5xl w-full mx-4 h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span id="documentTitle">Document Viewer</span>
+                </h3>
+                <div class="flex items-center space-x-2">
+                    <button id="downloadCurrentDoc" class="btn-secondary text-sm px-3 py-1 flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Save
+                    </button>
+                    <button onclick="closeDocumentViewer()" class="text-gray-400 hover:bg-gray-100 p-1 rounded-full smooth-transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 p-4">
+                <div id="documentContent" class="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg">
+                    <div class="text-center">
+                        <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <p class="text-gray-500">Loading document...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Approval Confirmation Popup -->
-    <div id="approvalPopup" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center z-50">
+    <div id="approvalPopup" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center z-[55]">
         <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
             <div class="border-b border-gray-200 px-4 py-3 flex justify-between items-center">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center">
@@ -395,7 +544,7 @@
 @push('styles')
 <style>
     .modal-content {
-        max-height: 80vh;
+        max-height: 85vh;
         overflow-y: auto;
         scrollbar-width: thin;
     }
@@ -406,21 +555,41 @@
         background: #cbd5e1;
         border-radius: 3px;
     }
+    .btn-outline {
+        @apply border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200;
+    }
+    #flashMessages {
+        animation: slideInRight 0.3s ease-out;
+    }
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
 </style>
 @endpush
 
 @push('scripts')
 <script>
     let currentApplicationData = {};
+    let currentDocumentUrls = {};
 
-    // Modal handling
-    function openModal(refNumber, name, email, phone, address, profession, specialization, experience, startDate, resumeUrl, licenseUrl, certificationsUrl, applicationId) {
+    // Enhanced modal handling with document support
+    function openModal(refNumber, name, email, phone, address, profession, specialization, experience, startDate, resumeUrl, licenseUrl, certificationsUrl, applicationId, workType, shiftType, preferredLocation) {
         if (!refNumber || !name || !email) {
             showToast('Missing application data!', 'error');
             return;
         }
 
         currentApplicationData = { refNumber, name, email, applicationId };
+        currentDocumentUrls = { resumeUrl, licenseUrl, certificationsUrl };
+        
+        // Populate modal fields
         document.getElementById('modalRefNumber').textContent = refNumber;
         document.getElementById('modalName').textContent = name;
         document.getElementById('modalEmail').textContent = email;
@@ -430,16 +599,141 @@
         document.getElementById('modalSpecialization').textContent = specialization || 'N/A';
         document.getElementById('modalExperience').textContent = experience || 'N/A';
         document.getElementById('modalStartDate').textContent = startDate || 'N/A';
-        document.getElementById('modalResume').href = resumeUrl !== '#' ? resumeUrl : '#';
-        document.getElementById('modalResume').textContent = resumeUrl !== '#' ? 'View' : 'Not Provided';
-        document.getElementById('modalLicense').href = licenseUrl !== '#' ? licenseUrl : '#';
-        document.getElementById('modalLicense').textContent = licenseUrl !== '#' ? 'View' : 'Not Provided';
-        document.getElementById('modalCertifications').href = certificationsUrl !== '#' ? certificationsUrl : '#';
-        document.getElementById('modalCertifications').textContent = certificationsUrl !== '#' ? 'View' : 'Not Provided';
+        document.getElementById('modalWorkType').textContent = workType || 'N/A';
+        document.getElementById('modalShiftType').textContent = shiftType || 'N/A';
+        document.getElementById('modalPreferredLocation').textContent = preferredLocation || 'N/A';
+
+        // Setup document buttons and status
+        setupDocumentSection('resume', resumeUrl);
+        setupDocumentSection('license', licenseUrl);
+        setupDocumentSection('certifications', certificationsUrl);
+
         document.getElementById('applicationModal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
 
         // Set up action buttons
+        setupActionButtons(applicationId);
+    }
+
+    function setupDocumentSection(docType, url) {
+        const viewBtn = document.getElementById(`view${docType.charAt(0).toUpperCase() + docType.slice(1)}Btn`);
+        const downloadBtn = document.getElementById(`download${docType.charAt(0).toUpperCase() + docType.slice(1)}Btn`);
+        const status = document.getElementById(`${docType}Status`);
+
+        if (url && url !== '#') {
+            status.textContent = 'Available';
+            status.className = 'px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800';
+            
+            viewBtn.disabled = false;
+            viewBtn.onclick = () => openDocumentViewer(docType, url);
+            
+            downloadBtn.disabled = false;
+            downloadBtn.onclick = () => downloadDocument(url, `${docType}_${currentApplicationData.refNumber}`);
+        } else {
+            status.textContent = 'Not Provided';
+            status.className = 'px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800';
+            
+            viewBtn.disabled = true;
+            viewBtn.onclick = null;
+            viewBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            
+            downloadBtn.disabled = true;
+            downloadBtn.onclick = null;
+            downloadBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+    }
+
+    function openDocumentViewer(docType, url) {
+        const modal = document.getElementById('documentViewerModal');
+        const title = document.getElementById('documentTitle');
+        const content = document.getElementById('documentContent');
+        const downloadBtn = document.getElementById('downloadCurrentDoc');
+
+        title.textContent = `${docType.charAt(0).toUpperCase() + docType.slice(1)} - ${currentApplicationData.name}`;
+        
+        // Show loading state
+        content.innerHTML = `
+            <div class="text-center">
+                <svg class="animate-spin w-8 h-8 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <p class="text-gray-500">Loading document...</p>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        // Setup download button
+        downloadBtn.onclick = () => downloadDocument(url, `${docType}_${currentApplicationData.refNumber}`);
+
+        // Load document based on file type
+        loadDocument(url, content);
+    }
+
+    function loadDocument(url, container) {
+        const fileExtension = url.split('.').pop().toLowerCase();
+        
+        if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(fileExtension)) {
+            // Image files
+            container.innerHTML = `
+                <img src="${url}" alt="Document" class="max-w-full max-h-full object-contain rounded-lg shadow-sm" 
+                     onerror="this.parentElement.innerHTML='<div class=\\'text-center text-red-500\\'>Failed to load image</div>'" />
+            `;
+        } else if (fileExtension === 'pdf') {
+            // PDF files
+            container.innerHTML = `
+                <iframe src="${url}" class="w-full h-full border-0 rounded-lg" 
+                        onerror="this.parentElement.innerHTML='<div class=\\'text-center text-red-500\\'>Failed to load PDF</div>'">
+                    <p>Your browser doesn't support PDF viewing. <a href="${url}" target="_blank" class="text-blue-600 underline">Download the PDF</a></p>
+                </iframe>
+            `;
+        } else if (['doc', 'docx'].includes(fileExtension)) {
+            // Word documents - use Google Docs viewer
+            const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+            container.innerHTML = `
+                <iframe src="${viewerUrl}" class="w-full h-full border-0 rounded-lg"
+                        onerror="this.parentElement.innerHTML='<div class=\\'text-center text-red-500\\'>Failed to load document. <a href=\\'${url}\\' target=\\'_blank\\' class=\\'text-blue-600 underline\\'>Download instead</a></div>'">
+                    <p>Loading document viewer... <a href="${url}" target="_blank" class="text-blue-600 underline">Download if viewer fails</a></p>
+                </iframe>
+            `;
+        } else {
+            // Other file types - show download option
+            container.innerHTML = `
+                <div class="text-center">
+                    <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <p class="text-gray-600 mb-4">Preview not available for this file type (.${fileExtension})</p>
+                    <a href="${url}" target="_blank" class="btn-primary inline-flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Download File
+                    </a>
+                </div>
+            `;
+        }
+    }
+
+    function downloadDocument(url, filename) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast('Download started', 'success');
+    }
+
+    function closeDocumentViewer() {
+        document.getElementById('documentViewerModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    function setupActionButtons(applicationId) {
         const approveButton = document.getElementById('approveButton');
         const rejectButton = document.getElementById('rejectButton');
 
@@ -449,6 +743,16 @@
             formData.append('_token', document.querySelector('meta[name="csrf-token"]')?.content || '');
             formData.append('id', applicationId);
             formData.append('action', 'approve');
+
+            // Show loading state
+            approveButton.disabled = true;
+            approveButton.innerHTML = `
+                <svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+            `;
 
             try {
                 const response = await fetch(url, {
@@ -461,22 +765,44 @@
                 });
                 const result = await response.json();
                 if (response.ok) {
-                    openApprovalPopup(refNumber, name, result.data.email, result.data.password, result.data.snapshot_url, result.data.pdf_url);
+                    openApprovalPopup(currentApplicationData.refNumber, currentApplicationData.name, result.data.email, result.data.password, result.data.snapshot_url, result.data.pdf_url);
                     showToast('Application approved successfully!', 'success');
                 } else {
                     throw new Error(result.message || 'Failed to approve application');
                 }
             } catch (error) {
                 showToast(`Failed to approve application: ${error.message}`, 'error');
+                // Reset button state
+                approveButton.disabled = false;
+                approveButton.innerHTML = `
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Approve Application
+                `;
             }
         };
 
         rejectButton.onclick = async () => {
+            if (!confirm('Are you sure you want to reject this application? This action cannot be undone.')) {
+                return;
+            }
+
             const url = '{{ route("admin.applications.process") }}';
             const formData = new FormData();
             formData.append('_token', document.querySelector('meta[name="csrf-token"]')?.content || '');
             formData.append('id', applicationId);
             formData.append('action', 'reject');
+
+            // Show loading state
+            rejectButton.disabled = true;
+            rejectButton.innerHTML = `
+                <svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+            `;
 
             try {
                 const response = await fetch(url, {
@@ -497,6 +823,14 @@
                 }
             } catch (error) {
                 showToast(`Failed to reject application: ${error.message}`, 'error');
+                // Reset button state
+                rejectButton.disabled = false;
+                rejectButton.innerHTML = `
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Reject Application
+                `;
             }
         };
     }
@@ -602,9 +936,10 @@
         } finally {
             button.disabled = false;
             button.innerHTML = `
-                <svg class="w-4 hproduction-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24                    <path stroke-linecap="round" stroke="none" stroke-linejoin="round" stroke-width="1" d="M4 4v5h.582m15.356 2 A2 2 0 004.582 9m0 0H9m11 11v-5h-.581m0 0 a8.003 a0 0 0 0 0 a0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-            Regenerate Password
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+                Regenerate Password
             `;
         }
     }
@@ -615,18 +950,23 @@
         // Example: window.location.href = '/admin/applications/export';
     }
 
-    // Toast notification
+    // Enhanced toast notification with better positioning
     function showToast(message, type) {
         const toast = document.createElement('div');
-        toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-md text-sm font-medium text-white ${
+        toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg text-sm font-medium text-white shadow-lg z-[70] transform transition-all duration-300 ${
             type === 'success' ? 'bg-green-600' : 'bg-red-600'
         }`;
         toast.textContent = message;
         document.body.appendChild(toast);
+        
+        // Animate in
+        setTimeout(() => toast.classList.add('translate-x-0'), 10);
+        
+        // Auto remove
         setTimeout(() => {
-            toast.classList.add('opacity-0');
+            toast.classList.add('opacity-0', 'translate-x-full');
             setTimeout(() => toast.remove(), 300);
-        }, 3000);
+        }, 4000);
     }
 
     // Close modals on click outside
@@ -642,12 +982,29 @@
         }
     });
 
+    document.getElementById('documentViewerModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeDocumentViewer();
+        }
+    });
+
     // Close modals with Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeModal();
             closeApprovalPopup();
+            closeDocumentViewer();
         }
     });
+
+    // Auto-hide flash messages
+    setTimeout(() => {
+        const flashMessages = document.getElementById('flashMessages');
+        if (flashMessages) {
+            flashMessages.style.opacity = '0';
+            flashMessages.style.transform = 'translateX(100%)';
+            setTimeout(() => flashMessages.remove(), 300);
+        }
+    }, 5000);
 </script>
 @endpush
