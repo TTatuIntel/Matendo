@@ -210,4 +210,92 @@ public function complete(Task $task): JsonResponse
     }
 }
 
+// In your controller method that fetches tasks for the dashboard
+public function dashboard()
+{
+    $assignedTasks = Task::where('assigned_to', auth()->id())
+                        ->where('status', '!=', 'completed') // Exclude completed tasks
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+    return view('dashboard', compact('assignedTasks'));
+}
+
+public function allTasks()
+{
+    $userId = auth()->id();
+    $tasks = Task::where('assigned_to', $userId)
+                ->orderBy('created_at', 'desc')
+                ->get(['id', 'facility_name', 'status', 'assigned_at', 'completed_at']);
+
+    return response()->json([
+        'tasks' => $tasks
+    ]);
+}
+
+// public function completeTask(Request $request, $taskId)
+// {
+//     try {
+//         // Find the task and ensure it belongs to the authenticated user
+//         $task = Task::where('id', $taskId)
+//                    ->where('assigned_to', auth()->id())
+//                    ->firstOrFail();
+
+//         // Validate the request
+//         $request->validate([
+//             'completion_notes' => 'required|string'
+//         ]);
+
+//         // Update the task status to completed
+//         $task->update([
+//             'status' => 'completed',
+//             'completed_at' => now(),
+//             'completion_notes' => $request->completion_notes
+//         ]);
+
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Task marked as completed successfully!'
+//         ]);
+
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'message' => 'Task not found or you do not have permission to complete this task.'
+//         ], 404);
+//     }
+// }
+
+public function completeTask(Request $request, $taskId)
+{
+    try {
+        // Find the task and ensure it belongs to the authenticated user
+        $task = Task::where('id', $taskId)
+                   ->where('assigned_to', auth()->id())
+                   ->firstOrFail();
+
+        // Validate the request
+        $request->validate([
+            'completion_notes' => 'required|string'
+        ]);
+
+        // Update the task status to completed
+        $task->update([
+            'status' => 'completed',
+            'completed_at' => now(),
+            'completion_notes' => $request->completion_notes
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Task marked as completed successfully!'
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Task not found or you do not have permission to complete this task.'
+        ], 404);
+    }
+}
 }

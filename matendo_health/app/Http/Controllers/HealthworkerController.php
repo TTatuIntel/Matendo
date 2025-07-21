@@ -72,42 +72,22 @@ class HealthWorkerController extends Controller
 //         'health_workers' => $health_workers,
 //         'stats' => $stats,
 //     ]);
+//     $userId = Auth::id();
+//     $assignedTasks = Task::where('assigned_to', $userId)
+//                         ->where('complete', 0)
+//                         ->orderBy('created_at', 'desc')
+//                         ->get();
+
+//     return view('healthworker.dashboard', [
+//         'health_workers' => $health_workers,
+//         'stats' => $stats,
+//         'assignedTasks' => $assignedTasks
+//     ]);
 // }
 
-public function index()
-{
-    $health_workers = DB::table('users')
-        ->where('usertype', 'healthworker')
-        ->select('id', 'name', 'email', 'email_verified_at', 'created_at')
-        ->get();
-
-    $stats = [
-        'total' => $health_workers->count(),
-        'verified' => $health_workers->whereNotNull('email_verified_at')->count(),
-        'unverified' => $health_workers->whereNull('email_verified_at')->count(),
-    ];
-
-    // Check if the user is an admin or health worker
-    if (auth()->user()->usertype === 'admin') {
-        // Return JSON for admin dashboard
-        return response()->json([
-            'health_workers' => $health_workers,
-            'stats' => $stats,
-        ]);
-    } else {
-        // Return view for health worker dashboard
-        $userId = Auth::id();
-        $assignedTasks = Task::where('assigned_to', $userId)->get();
-
-        return view('healthworker.dashboard', [
-            'health_workers' => $health_workers, // Optional: include if needed in health worker view
-            'stats' => $stats,                   // Optional: include if needed in health worker view
-            'assignedTasks' => $assignedTasks
 
 
-        ]);
-    }
-}
+
     // public function show($id)
     // {
     //     $worker = DB::table('users')
@@ -119,6 +99,51 @@ public function index()
     //     return response()->json($worker);
     // }
 
+// public function index()
+// {
+//     $health_workers = DB::table('users')
+//         ->where('usertype', 'healthworker')
+//         ->select('id', 'name', 'email', 'email_verified_at', 'created_at')
+//         ->get();
+
+//     $stats = [
+//         'total' => $health_workers->count(),
+//         'verified' => $health_workers->whereNotNull('email_verified_at')->count(),
+//         'unverified' => $health_workers->whereNull('email_verified_at')->count(),
+//     ];
+
+//     // Return view for health worker dashboard
+//     $userId = Auth::id();
+//     $assignedTasks = Task::where('assigned_to', $userId)
+//                         ->where('complete', 0)
+//                         ->orderBy('created_at', 'desc')
+//                         ->get();
+
+//     // return view('healthworker.dashboard', [
+//     //     'health_workers' => $health_workers,
+//     //     'stats' => $stats,
+//     //     'assignedTasks' => $assignedTasks
+//     // ]);
+//     return response()->json([
+//         'health_workers' => $health_workers,
+//         'stats' => $stats,
+//         'assignedTasks' => $assignedTasks
+//     ]);
+// }
+
+
+public function index()
+{
+    $userId = Auth::id();
+    $assignedTasks = Task::where('assigned_to', $userId)
+                        ->where('complete', 0)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+    return view('healthworker.dashboard', [
+        'assignedTasks' => $assignedTasks
+    ]);
+}
 public function show($id)
     {
         $worker = DB::table('users')
@@ -253,6 +278,25 @@ public function dashboard()
                         ->get();
 
     return view('dashboard', compact('assignedTasks'));
+}
+
+public function getHealthWorkers()
+{
+    $health_workers = DB::table('users')
+        ->where('usertype', 'healthworker')
+        ->select('id', 'name', 'email', 'email_verified_at', 'created_at')
+        ->get();
+
+    $stats = [
+        'total' => $health_workers->count(),
+        'verified' => $health_workers->whereNotNull('email_verified_at')->count(),
+        'unverified' => $health_workers->whereNull('email_verified_at')->count(),
+    ];
+
+    return response()->json([
+        'health_workers' => $health_workers,
+        'stats' => $stats
+    ]);
 }
 }
 

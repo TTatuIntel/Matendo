@@ -47,18 +47,23 @@
             this.displayedTasks = [...this.tasks]; // Show all tasks
         }
     },
-    viewTask(task) {
-        fetch(`/tasks/${task.id}`)
-            .then(response => response.json())
-            .then(data => {
-                this.selectedTask = data;
-                this.showModal = true;
-            });
-    },
-    showAssignModal(taskId) {
-        this.selectedTaskId = taskId;
-        this.assignModal = true;
-    },
+viewTask(task) {
+    fetch(`/tasks/${task.id}`)
+        .then(response => response.json())
+        .then(data => {
+            this.selectedTask = data;
+            this.showModal = true;
+        });
+},
+showAssignModal(taskId) {
+    fetch(`/tasks/${taskId}`)
+        .then(response => response.json())
+        .then(data => {
+            this.selectedTask = data;
+            this.selectedTaskId = taskId;
+            this.assignModal = true;
+        });
+},
     assignTask() {
         const healthworkerId = document.getElementById('healthworker_id').value;
         if (!healthworkerId) {
@@ -575,35 +580,64 @@
     </div>
 
     <!-- Assign Task Modal -->
-    <div x-show="assignModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto modal-backdrop" @click.self="assignModal = false">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg shadow-xl max-w-md w-full modal-content">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-medium text-gray-900">Assign Task</h3>
-                        <button @click="assignModal = false" class="text-gray-400 hover:text-gray-600">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
+    <!-- Assign Task Modal -->
+<div x-show="assignModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto modal-backdrop" @click.self="assignModal = false">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full modal-content">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-medium text-gray-900">Assign Task</h3>
+                    <button @click="assignModal = false" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="px-6 py-4 space-y-4">
+                <!-- Task Details Section -->
+                <div class="mb-6">
+                    <h4 class="text-md font-medium text-gray-900 mb-3">Task Details</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Facility Name</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.facility_name"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Job Description</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.job_description || 'Not specified'"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Start Date</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.start_date"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Priority</label>
+                            <p class="mt-1 text-sm text-gray-900" x-text="selectedTask?.urgency"></p>
+                        </div>
                     </div>
                 </div>
-                <div class="px-6 py-4 space-y-4">
-                    <div>
-                        <label for="healthworker_id" class="block text-sm font-medium text-gray-700">Select Health Worker</label>
-                        <select id="healthworker_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400 sm:text-sm">
+
+                <!-- Assign Section -->
+                <div class="pt-4 border-t border-gray-200">
+                    <h4 class="text-md font-medium text-gray-900 mb-3">Assign to Health Worker</h4>
+                    <div class="flex items-center space-x-3">
+                        <select id="healthworker_id" class="flex-1 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400 sm:text-sm">
                             <option value="">Select a health worker</option>
                             @foreach ($healthworkers as $worker)
                                 <option value="{{ $worker->id }}">{{ $worker->name }}</option>
                             @endforeach
                         </select>
+                        <button @click="assignTask" class="btn-primary whitespace-nowrap">
+                            Assign
+                        </button>
                     </div>
                 </div>
-                <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
-                    <button @click="assignModal = false" class="btn-secondary">Cancel</button>
-                    <button @click="assignTask" class="btn-primary">Assign</button>
-                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-end">
+                <button @click="assignModal = false" class="btn-secondary">Cancel</button>
             </div>
         </div>
     </div>
+</div>
 </div>
