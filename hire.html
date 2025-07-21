@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>Matendo Medics - Hire Top Medical Professionals</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-        content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team." />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Matendo Medics Outsourcing connects businesses with top medical professionals. Hire full-time, part-time, or hourly medical experts for your team.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        * {
+         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -190,23 +189,24 @@
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .hero-title {
             font-size: 1.8rem;
-            color: #06124f; /* Changed from blue to green to match index */
+            color: #06124f;
             margin-bottom: 15px;
             line-height: 1.2;
+            font-weight: 700;
         }
 
         .hero-description {
             font-size: 1rem;
             color: #666;
-            margin-bottom: 20px;
             line-height: 1.5;
             max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         /* Option Cards */
@@ -483,7 +483,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-fill-color: transparent;
+            -text-fill-color: transparent;
         }
 
         .modal-close {
@@ -1378,184 +1378,357 @@
                 padding: 10px;
             }
         }
+        /* Modal overlay styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-container {
+            background-color: rgba(255, 255, 255, 0.65);
+            border-radius: 24px;
+            max-width: 800px;
+            width: 90%;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 8px rgba(255, 255, 255, 0.2) inset, 0 -1px 8px rgba(0, 0, 0, 0.05) inset;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #333;
+            position: relative;
+            background: linear-gradient(to right, #28a745, #1e7e7c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #333;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .submission-confirmation {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(40, 167, 69, 0.05);
+            border-radius: 12px;
+            animation: fadeIn 0.5s ease;
+            display: none;
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        .submission-confirmation h3 {
+            color: #28a745;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .submission-confirmation p {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .submission-confirmation strong {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            margin-left: 10px;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-field-error {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
+
 <body>
-<nav class="nav-container">
-<div class="nav-content">
-    <a href="index.html" title="Matendo" aria-label="Matendo">
-        <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
-    </a>
-    <div class="nav-links">
-        <a href="join.html" class="nav-link">Join Matendo</a>
-        <a href="login.html" class="nav-link">Login</a>
-    </div>
-    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
-        <i class="fas fa-bars"></i>
-    </button>
-</div>
-</nav>
-
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-<div class="mobile-menu-links">
-    <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
-    <a href="join.html" class="mobile-menu-link">Join Matendo</a>
-    <a href="login.html" class="mobile-menu-link">Login</a>
-</div>
-</div>
-
-<!-- Hero Section -->
-<section class="hero-section">
-<div class="hero-content">
-    <h1 class="hero-title">Connect with Top Healthcare Professionals</h1>
-    <p class="hero-description">Matendo Medics provides seamless access to qualified healthcare staff for facilities and individuals. Our platform connects you with verified professionals tailored to your specific needs.</p>
-</div>
-</section>
-
-<!-- Main Content -->
-<section id="options">
-<div class="options-container">
-    <!-- Facility Hiring Option -->
-    <div class="option-card">
-        <div class="option-header">
-            <div class="option-icon">
-                <i class="fas fa-hospital"></i>
+    <nav class="nav-container">
+        <div class="nav-content">
+            <a href="index.html" title="Matendo" aria-label="Matendo">
+                <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+            </a>
+            <div class="main-nav">
+                <a href="index.html" class="main-nav-link">Home</a>
+                <a href="careers.html" class="main-nav-link">Careers</a>
+                <a href="hire.html" class="main-nav-link">Hire</a>
+                <a href="about.html" class="main-nav-link">About Us</a>
+                <a href="contact.html" class="main-nav-link">Contact Us</a>
             </div>
-            <h2 class="option-title">Facility Hiring</h2>
-            <p class="option-description">For hospitals, clinics, and healthcare facilities seeking qualified staff</p>
+            <div class="auth-nav">
+                <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                 <a href="http://localhost:8000/login" class="auth-nav-link">Login</a>
+            </div>
+            <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <div class="option-features">
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>Access to verified healthcare professionals</span>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>Flexible staffing solutions</span>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>Streamlined hiring process</span>
-            </div>
-            <button id="facilityHiringBtn" class="option-button">Start Facility Hiring</button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-menu-link">Home</a>
+            <a href="careers.html" class="mobile-menu-link">Careers</a>
+            <a href="hire.html" class="mobile-menu-link">Hire</a>
+            <a href="about.html" class="mobile-menu-link">About Us</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+            <a href="join.html" class="mobile-menu-link">Join Matendo</a>
+            <a href="http://localhost:8000/login" class="mobile-menu-link">Login</a>
         </div>
     </div>
-
-    <!-- Individual Care Option -->
-    <div class="option-card">
-        <div class="option-header">
-            <div class="option-icon">
-                <i class="fas fa-user-md"></i>
-            </div>
-            <h2 class="option-title">Individual Care</h2>
-            <p class="option-description">For individuals and families seeking personalized healthcare support</p>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Connect with Top Healthcare Professionals</h1>
+            <p class="hero-description">Matendo Medics provides seamless access to qualified healthcare staff for facilities and individuals. Our platform connects you with verified professionals tailored to your specific needs.</p>
         </div>
-        <div class="option-features">
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>Personalized care matching</span>
+    </section>
+    
+    <!-- Main Content -->
+    <section id="options">
+        <div class="options-container">
+            <!-- Facility Hiring Option -->
+            <div class="option-card">
+                <div class="option-header">
+                    <div class="option-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h2 class="option-title">Facility Hiring</h2>
+                    <p class="option-description">For hospitals, clinics, and healthcare facilities seeking qualified staff</p>
+                </div>
+                <div class="option-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Access to verified healthcare professionals</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Flexible staffing solutions</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Streamlined hiring process</span>
+                    </div>
+                    <button id="facilityHiringBtn" class="option-button">Start Facility Hiring</button>
+                </div>
             </div>
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>Verified healthcare providers</span>
+
+            <!-- Individual Care Option -->
+            <div class="option-card">
+                <div class="option-header">
+                    <div class="option-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h2 class="option-title">Individual Care</h2>
+                    <p class="option-description">For individuals and families seeking personalized healthcare support</p>
+                </div>
+                <div class="option-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Personalized care matching</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verified healthcare providers</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>24/7 support available</span>
+                    </div>
+                    <button id="personalCareBtn" class="option-button">Find Personal Care</button>
+                </div>
             </div>
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>24/7 support available</span>
-            </div>
-            <button id="personalCareBtn" class="option-button">Find Personal Care</button>
         </div>
-    </div>
-</div>
-</section>
+    </section>
 
-<!-- How It Works Section -->
-<section class="how-it-works" id="how-it-works">
-<h2 class="section-title">How Matendo Works</h2>
-<div class="steps-container">
-    <div class="step-item">
-        <div class="step-number">1</div>
-        <h3 class="step-title">Submit Request</h3>
-        <p class="step-description">Tell us about your staffing needs or care requirements</p>
-    </div>
-    <div class="step-item">
-        <div class="step-number">2</div>
-        <h3 class="step-title">Review & Match</h3>
-        <p class="step-description">Our team reviews and matches you with qualified professionals</p>
-    </div>
-    <div class="step-item">
-        <div class="step-number">3</div>
-        <h3 class="step-title">Connect</h3>
-        <p class="step-description">Get connected with matched healthcare providers</p>
-    </div>
-    <div class="step-item">
-        <div class="step-number">4</div>
-        <h3 class="step-title">Start Working</h3>
-        <p class="step-description">Begin your healthcare staffing relationship</p>
-    </div>
-</div>
-</section>
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <h2 class="section-title">How Matendo Works</h2>
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Submit Request</h3>
+                <p class="step-description">Tell us about your staffing needs or care requirements</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Review & Match</h3>
+                <p class="step-description">Our team reviews and matches you with qualified professionals</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Connect</h3>
+                <p class="step-description">Get connected with matched healthcare providers</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Start Working</h3>
+                <p class="step-description">Begin your healthcare staffing relationship</p>
+            </div>
+        </div>
+    </section>
 
-<!-- Facility Hiring Modal -->
-<div id="facilityModal" class="modal-overlay">
-<div class="modal-container">
-    <div class="modal-header">
-        <h3 class="modal-title">Start Facility Hiring</h3>
-        <button class="modal-close" id="closeFacilityModal" aria-label="Close modal">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form id="facilityForm"  method="POST" enctype="multipart/form-data" novalidate>            <!-- Multi-step form with reorganized steps -->
-            <div class="form-progress">
-                <div class="progress-step active" data-step="1">Contact</div>
-                <div class="progress-step" data-step="2">Facility Details</div>
-                <div class="progress-step" data-step="3">Employment</div>
-                <div class="progress-step" data-step="4">Job Requirements</div>
-                <div class="progress-step" data-step="5">Review & Submit</div>
+    <!-- Facility Hiring Modal -->
+    <div id="facilityModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Start Facility Hiring</h3>
+                <button class="modal-close" id="closeFacilityModal" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            
-            <!-- Step 1: Contact Information -->
-            <div class="form-section active" data-step="1">
-                <div class="form-row">
-                    <div class="form-col">
-                        <label class="form-label">Facility Name *</label>
-                        <input type="text" name="facilityName" class="form-control" required pattern=".{3,}" title="Facility name must be at least 3 characters">
-                        <div class="error-message" id="facilityName-error">Please enter a valid facility name</div>
+            <div class="modal-body">
+                <form id="facilityForm" method="POST" enctype="multipart/form-data" novalidate>
+                    <!-- Multi-step form with reorganized steps -->
+                    <div class="form-progress">
+                        <div class="progress-step active" data-step="1">Contact</div>
+                        <div class="progress-step" data-step="2">Facility Details</div>
+                        <div class="progress-step" data-step="3">Employment</div>
+                        <div class="progress-step" data-step="4">Job Requirements</div>
+                        <div class="progress-step" data-step="5">Review & Submit</div>
                     </div>
-                    <div class="form-col">
-                        <label class="form-label">Contact Person *</label>
-                        <input type="text" name="contactPerson" class="form-control" required pattern="[A-Za-z ]{3,}" title="Contact name must contain only letters and be at least 3 characters">
-                        <div class="error-message" id="contactPerson-error">Please enter a valid contact name</div>
+                    
+                    <!-- Step 1: Contact Information -->
+                    <div class="form-section active" data-step="1">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label class="form-label">Facility Name *</label>
+                                <input type="text" name="facilityName" class="form-control" required pattern=".{3,}" title="Facility name must be at least 3 characters">
+                                <div class="error-message" id="facilityName-error">Please enter a valid facility name</div>
+                            </div>
+                            <div class="form-col">
+                                <label class="form-label">Contact Person *</label>
+                                <input type="text" name="contactPerson" class="form-control" required pattern="[A-Za-z ]{3,}" title="Contact name must contain only letters and be at least 3 characters">
+                                <div class="error-message" id="contactPerson-error">Please enter a valid contact name</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label class="form-label">Email *</label>
+                                <input type="email" name="email" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                                <div class="error-message" id="email-error">Please enter a valid email address</div>
+                            </div>
+                            <div class="form-col">
+                                <label class="form-label">Phone *</label>
+                                <input type="tel" name="phone" class="form-control" required pattern="[0-9+\-\s]{10,15}" title="Phone number must be 10-15 digits">
+                                <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Facility Location (Optional)</label>
+                            <input type="text" id="autocomplete" class="form-control" placeholder="Search location (optional)">
+                            <div class="location-error" id="location-error">Please select a valid location</div>
+                            <button type="button" class="map-toggle" onclick="toggleMap()">
+                                <i class="fas fa-map-marker-alt"></i> <span id="map-toggle-text">Show Map</span>
+                            </button>
+                            <div id="map-container"></div>
+                            <input type="hidden" id="coordinates" name="coordinates">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary next-btn" id="step1Next">Next</button>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label class="form-label">Email *</label>
-                        <input type="email" name="email" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
-                        <div class="error-message" id="email-error">Please enter a valid email address</div>
-                    </div>
-                    <div class="form-col">
-                        <label class="form-label">Phone *</label>
-                        <input type="tel" name="phone" class="form-control" required pattern="[0-9+\-\s]{10,15}" title="Phone number must be 10-15 digits">
-                        <div class="error-message" id="phone-error">Please enter a valid phone number</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Facility Location (Optional)</label>
-                    <input type="text" id="autocomplete" class="form-control" placeholder="Search location (optional)">
-                    <div class="location-error" id="location-error">Please select a valid location</div>
-                    <button type="button" class="map-toggle" onclick="toggleMap()">
-                        <i class="fas fa-map-marker-alt"></i> <span id="map-toggle-text">Show Map</span>
-                    </button>
-                    <div id="map-container"></div>
-                    <input type="hidden" id="coordinates" name="coordinates">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary next-btn" id="step1Next">Next</button>
-                </div>
-            </div>
             
             <!-- Step 2: Facility Details -->
             <div class="form-section" data-step="2">

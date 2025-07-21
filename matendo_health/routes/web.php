@@ -11,6 +11,8 @@ use App\Http\Controllers\HealthRecordController;
 use App\Http\Controllers\TempAccessController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminSettingsController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -131,6 +133,12 @@ Route::get('/healthworkers/{id}', [HealthWorkerController::class, 'show'])->name
 
 Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
 
+Route::post('/tasks/{task}/complete', [TaskController::class, 'complete'])
+    ->name('tasks.complete')
+    ->middleware('auth');
+
+
+
 // ✅ Temporary signed dashboard route (NO login required)
 Route::get('/temp-access/{id}', [TempAccessController::class, 'view'])
     ->name('temp.access')
@@ -161,4 +169,26 @@ Route::prefix('reports')->group(function() {
     Route::get('/export', [ReportController::class, 'export'])->name('reports.export');
 });
 
+
+// Add this line to your routes/web.php
+Route::get('/health-workers', [HealthworkerController::class, 'getHealthWorkers'])->name('health-workers.getHealthWorkers');
+
+Route::middleware(['auth'])->group(function () {
+    // Admin routes
+    Route::prefix('admin')->group(function () {
+        // Settings routes
+        Route::get('/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
+        Route::put('/settings/update', [AdminSettingsController::class, 'updateSettings'])->name('admin.settings.update');
+
+        // User management routes
+        Route::prefix('users')->group(function () {
+            Route::get('/create', [AdminSettingsController::class, 'createUser'])->name('admin.users.create');
+            Route::post('/store', [AdminSettingsController::class, 'storeUser'])->name('admin.users.store');
+            Route::get('/{user}/edit', [AdminSettingsController::class, 'editUser'])->name('admin.users.edit');
+            Route::put('/{user}/update', [AdminSettingsController::class, 'updateUser'])->name('admin.users.update');
+            Route::delete('/{user}/destroy', [AdminSettingsController::class, 'destroyUser'])->name('admin.users.destroy');
+        });
+    });
+});
+Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
 require __DIR__.'/auth.php';

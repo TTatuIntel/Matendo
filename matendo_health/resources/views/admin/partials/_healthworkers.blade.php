@@ -35,7 +35,7 @@
     },
     fetchHealthWorkers() {
         this.loading = true;
-        fetch('{{ route('health-workers.index') }}')
+        fetch('{{ route('health-workers.getHealthWorkers') }}')
             .then(response => response.json())
             .then(data => {
                 this.health_workers = data.health_workers;
