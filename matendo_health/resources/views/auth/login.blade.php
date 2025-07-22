@@ -2,32 +2,13 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     
-    <!-- Make sure any logo in guest layout redirects to matendohealth.com -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Find any logo elements and make them redirect to matendohealth.com
-            const logoElements = document.querySelectorAll('a[href*="welcome"], a[href="/"], img[alt*="logo"], img[alt*="Logo"], .logo, #logo');
-            logoElements.forEach(function(element) {
-                if (element.tagName === 'A') {
-                    element.href = 'https://matendohealth.com';
-                } else {
-                    element.style.cursor = 'pointer';
-                    element.addEventListener('click', function() {
-                        window.location.href = 'https://matendohealth.com';
-                    });
-                }
-            });
-        });
-    </script>
-    
-    <form method="POST" action="{{ route('login') }}" class="space-y-6">
-        @csrf
-        
+    <form method="POST" action="{{ route('login') }}" class="space-y-4">
+            @csrf
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" 
-                class="block mt-2 w-full transition-colors duration-200 focus:ring-2 focus:ring-blue-500" 
+                class="block mt-1 w-full transition-colors duration-200 focus:ring-2 focus:ring-blue-500" 
                 type="email" 
                 name="email" 
                 :value="old('email')" 
@@ -42,7 +23,7 @@
         <div>
             <x-input-label for="password" :value="__('Password')" />
             <x-text-input id="password" 
-                class="block mt-2 w-full transition-colors duration-200 focus:ring-2 focus:ring-blue-500"
+                class="block mt-1 w-full transition-colors duration-200 focus:ring-2 focus:ring-blue-500"
                 type="password"
                 name="password"
                 required 
@@ -52,7 +33,7 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-8">
+        <div class="block">
             <label for="remember_me" class="inline-flex items-center cursor-pointer">
                 <input id="remember_me" 
                     type="checkbox" 
@@ -62,7 +43,7 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-between mt-10">
+        <div class="flex items-center justify-between">
             @if (Route::has('password.request'))
                 <a class="text-sm text-blue-600 hover:text-blue-800 transition-colors duration-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" 
                     href="{{ route('password.request') }}">
@@ -76,7 +57,7 @@
         </div>
 
         <!-- Register Link -->
-        <div class="text-center pt-8 mt-8 border-t border-gray-200">
+        <div class="text-center pt-2 border-t border-gray-200">
             <p class="text-sm text-gray-600">
                 Don't have an account?
                 <a href="{{ route('register') }}" 
