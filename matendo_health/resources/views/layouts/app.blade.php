@@ -262,7 +262,7 @@
             <!-- Enhanced Page Content -->
             <main class="pb-12">
                 <div class="fade-in">
-                    @yield('content')
+                    {{ $slot }}
                 </div>
             </main>
         </div>

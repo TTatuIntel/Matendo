@@ -8,9 +8,8 @@ use App\Models\Healthworker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf; // Use DomPDF for PDF generation
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response;
 
 class ApplicationController extends Controller
 {
@@ -37,7 +36,7 @@ class ApplicationController extends Controller
         $avgOnboardingTime = Healthworker::whereNotNull('verified_at')
             ->avg(DB::raw('DATEDIFF(verified_at, created_at)')) ?? 0;
         $avgOnboardingTime = round($avgOnboardingTime, 1) . ' days';
-        $commonRejectionReasons = 'Missing documents, expired licenses';
+        $commonRejectionReasons = 'Missing documents, expired licenses'; // Placeholder; customize as needed
 
         return view('admin.partials._applications', compact(
             'applications',
@@ -78,7 +77,7 @@ class ApplicationController extends Controller
                 $user = User::create([
                     'name' => $application->first_name . ' ' . $application->last_name,
                     'email' => $application->email,
-                    'usertype' => 'healthworker',
+                    'usertype' => 'healthworker', // As per schema
                     'password' => $hashedPassword,
                     'email_verified_at' => now(),
                     'created_at' => now(),
@@ -161,141 +160,5 @@ class ApplicationController extends Controller
             DB::rollBack();
             return response()->json(['message' => 'Failed to regenerate password: ' . $e->getMessage()], 500);
         }
-    }
-
-    /**
-     * View document in browser
-     */
-    public function viewDocument(Request $request, $applicationId, $documentType)
-    {
-        $application = Application::findOrFail($applicationId);
-        
-        $documentPath = null;
-        switch ($documentType) {
-            case 'resume':
-                $documentPath = $application->resume;
-                break;
-            case 'license':
-                $documentPath = $application->license_doc;
-                break;
-            case 'certifications':
-                $documentPath = $application->certifications;
-                break;
-            default:
-                abort(404, 'Document type not found');
-        }
-
-        if (!$documentPath || !Storage::exists($documentPath)) {
-            abort(404, 'Document not found');
-        }
-
-        $file = Storage::get($documentPath);
-        $mimeType = Storage::mimeType($documentPath);
-        $filename = basename($documentPath);
-
-        return Response::make($file, 200, [
-            'Content-Type' => $mimeType,
-            'Content-Disposition' => 'inline; filename="' . $filename . '"',
-            'Cache-Control' => 'no-cache, must-revalidate',
-        ]);
-    }
-
-    /**
-     * Download document
-     */
-    public function downloadDocument(Request $request, $applicationId, $documentType)
-    {
-        $application = Application::findOrFail($applicationId);
-        
-        $documentPath = null;
-        $documentName = null;
-        
-        switch ($documentType) {
-            case 'resume':
-                $documentPath = $application->resume;
-                $documentName = 'resume_' . $application->reference_number;
-                break;
-            case 'license':
-                $documentPath = $application->license_doc;
-                $documentName = 'license_' . $application->reference_number;
-                break;
-            case 'certifications':
-                $documentPath = $application->certifications;
-                $documentName = 'certifications_' . $application->reference_number;
-                break;
-            default:
-                abort(404, 'Document type not found');
-        }
-
-        if (!$documentPath || !Storage::exists($documentPath)) {
-            abort(404, 'Document not found');
-        }
-
-        $fileExtension = pathinfo($documentPath, PATHINFO_EXTENSION);
-        $filename = $documentName . '.' . $fileExtension;
-
-        return Storage::download($documentPath, $filename);
-    }
-
-    /**
-     * Export applications to CSV
-     */
-    public function export(Request $request)
-    {
-        $applications = Application::where('status', 'pending')->get();
-        
-        $filename = 'pending_applications_' . now()->format('Y-m-d_H-i-s') . '.csv';
-        
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-        ];
-
-        $callback = function() use ($applications) {
-            $file = fopen('php://output', 'w');
-            
-            // CSV headers
-            fputcsv($file, [
-                'Reference Number',
-                'Name',
-                'Email',
-                'Phone',
-                'Profession',
-                'Specialization',
-                'Experience (Years)',
-                'Work Type',
-                'Shift Type',
-                'Preferred Location',
-                'Submitted Date',
-                'Documents'
-            ]);
-
-            // CSV data
-            foreach ($applications as $application) {
-                $documents = [];
-                if ($application->resume) $documents[] = 'Resume';
-                if ($application->license_doc) $documents[] = 'License';
-                if ($application->certifications) $documents[] = 'Certifications';
-                
-                fputcsv($file, [
-                    $application->reference_number,
-                    $application->first_name . ' ' . $application->last_name,
-                    $application->email,
-                    $application->phone,
-                    $application->profession,
-                    $application->specialization ?? 'N/A',
-                    $application->years_experience ?? 'N/A',
-                    $application->work_type ?? 'N/A',
-                    $application->shift_type ?? 'N/A',
-                    $application->preferred_location ?? 'N/A',
-                    $application->created_at->format('Y-m-d H:i:s'),
-                    implode(', ', $documents)
-                ]);
-            }
-
-            fclose($file);
-        };
-
-        return Response::stream($callback, 200, $headers);
     }
 }
