@@ -161,4 +161,36 @@ class ApplicationController extends Controller
             return response()->json(['message' => 'Failed to regenerate password: ' . $e->getMessage()], 500);
         }
     }
+
+    /**
+     * Download stored application documents.
+     */
+    public function download(Application $application, $type)
+    {
+        switch ($type) {
+            case 'resume':
+                $data = $application->resume;
+                $name = 'resume_' . $application->reference_number;
+                break;
+            case 'license':
+                $data = $application->license_doc;
+                $name = 'license_' . $application->reference_number;
+                break;
+            case 'certifications':
+                $data = $application->certifications;
+                $name = 'certifications_' . $application->reference_number;
+                break;
+            default:
+                abort(404);
+        }
+
+        if (!$data) {
+            abort(404);
+        }
+
+        return response($data, 200, [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Disposition' => 'attachment; filename="'.$name.'"'
+        ]);
+    }
 }

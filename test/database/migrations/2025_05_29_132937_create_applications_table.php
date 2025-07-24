@@ -28,9 +28,10 @@ class CreateApplicationsTable extends Migration
             $table->string('specialization')->nullable();
             $table->integer('years_experience')->default(0);
             $table->string('license_number')->nullable();
-            $table->string('resume')->nullable();
-            $table->string('license_doc')->nullable();
-            $table->string('certifications')->nullable();
+            // Store uploaded documents directly in the database
+            $table->binary('resume')->nullable();
+            $table->binary('license_doc')->nullable();
+            $table->binary('certifications')->nullable();
             $table->longText('work_type')->nullable();
             $table->longText('shift_type')->nullable();
             $table->string('preferred_location')->nullable();
