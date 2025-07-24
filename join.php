@@ -63,53 +63,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $status = 'pending';
         $confirmed = 0;
         
-        // Handle file uploads
+        // Handle file uploads as binary data
         $resume = null;
         $license_doc = null;
         $certifications = null;
-        
+
+        $allowedTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        $maxSize = 5 * 1024 * 1024; // 5MB
+
         // Process resume upload
         if (isset($_FILES['resume']) && $_FILES['resume']['error'] == 0) {
-            $upload_dir = 'uploads/resumes/';
-            if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
-            }
-            
-            $file_name = $reference_code . '_' . basename($_FILES['resume']['name']);
-            $target_file = $upload_dir . $file_name;
-            
-            if (move_uploaded_file($_FILES['resume']['tmp_name'], $target_file)) {
-                $resume = $target_file;
+            if ($_FILES['resume']['size'] <= $maxSize && in_array(mime_content_type($_FILES['resume']['tmp_name']), $allowedTypes)) {
+                $resume = file_get_contents($_FILES['resume']['tmp_name']);
             }
         }
-        
+
         // Process license document upload
         if (isset($_FILES['license']) && $_FILES['license']['error'] == 0) {
-            $upload_dir = 'uploads/licenses/';
-            if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
-            }
-            
-            $file_name = $reference_code . '_' . basename($_FILES['license']['name']);
-            $target_file = $upload_dir . $file_name;
-            
-            if (move_uploaded_file($_FILES['license']['tmp_name'], $target_file)) {
-                $license_doc = $target_file;
+            if ($_FILES['license']['size'] <= $maxSize && in_array(mime_content_type($_FILES['license']['tmp_name']), $allowedTypes)) {
+                $license_doc = file_get_contents($_FILES['license']['tmp_name']);
             }
         }
-        
+
         // Process certifications upload
         if (isset($_FILES['certifications']) && $_FILES['certifications']['error'] == 0) {
-            $upload_dir = 'uploads/certifications/';
-            if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
-            }
-            
-            $file_name = $reference_code . '_' . basename($_FILES['certifications']['name']);
-            $target_file = $upload_dir . $file_name;
-            
-            if (move_uploaded_file($_FILES['certifications']['tmp_name'], $target_file)) {
-                $certifications = $target_file;
+            if ($_FILES['certifications']['size'] <= $maxSize && in_array(mime_content_type($_FILES['certifications']['tmp_name']), $allowedTypes)) {
+                $certifications = file_get_contents($_FILES['certifications']['tmp_name']);
             }
         }
         
@@ -131,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         
         $stmt->bind_param(
-            "sssssssssssisssssssssi",
+            "sssssssssssisbbbsssssi",
             $reference_code, $first_name, $last_name, $email, $phone, $address,
             $location, $coordinates, $profession, $other_profession,
             $specialization, $years_experience, $license_number, $resume,
