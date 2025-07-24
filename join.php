@@ -42,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $start_date = sanitizeInput($_POST['startDate'] ?? null);
         $status = 'pending';
         $confirmed = 0;
-<<<<<<< Updated upstream
 
         function getFileBlob($key) {
             return isset($_FILES[$key]) && $_FILES[$key]['error'] === UPLOAD_ERR_OK
@@ -87,83 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $certifications, $certifications_name, $certifications_type,
             $work_type, $shift_type, $preferred_location, $start_date,
             $status, $confirmed
-=======
-        
-        // Handle file uploads
-        $resume = null;
-        $license_doc = null;
-        $certifications = null;
-        
-        // Process resume upload
-        if (isset($_FILES['resume']) && $_FILES['resume']['error'] == 0) {
-            $upload_dir = 'uploads/resumes/';
-            if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
-            }
-            
-            $file_name = $reference_code . '_' . basename($_FILES['resume']['name']);
-            $target_file = $upload_dir . $file_name;
-            
-            if (move_uploaded_file($_FILES['resume']['tmp_name'], $target_file)) {
-                $resume = $target_file;
-            }
-        }
-        
-        // Process license document upload
-        if (isset($_FILES['license']) && $_FILES['license']['error'] == 0) {
-            $upload_dir = 'uploads/licenses/';
-            if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
-            }
-            
-            $file_name = $reference_code . '_' . basename($_FILES['license']['name']);
-            $target_file = $upload_dir . $file_name;
-            
-            if (move_uploaded_file($_FILES['license']['tmp_name'], $target_file)) {
-                $license_doc = $target_file;
-            }
-        }
-        
-        // Process certifications upload
-        if (isset($_FILES['certifications']) && $_FILES['certifications']['error'] == 0) {
-            $upload_dir = 'uploads/certifications/';
-            if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
-            }
-            
-            $file_name = $reference_code . '_' . basename($_FILES['certifications']['name']);
-            $target_file = $upload_dir . $file_name;
-            
-            if (move_uploaded_file($_FILES['certifications']['tmp_name'], $target_file)) {
-                $certifications = $target_file;
-            }
-        }
-        
-        // Prepare SQL statement
-        $sql = "INSERT INTO applications (
-                    reference_number, first_name, last_name, email, phone, address, 
-                    location, coordinates, profession, other_profession, 
-                    specialization, years_experience, license_number, resume, 
-                    license_doc, certifications, work_type, shift_type, 
-                    preferred_location, start_date, status, confirmed, created_at, updated_at
-                ) VALUES (
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
-                )";
-        
-        $stmt = $conn->prepare($sql);
-        
-        if (!$stmt) {
-            throw new Exception("Prepare failed: " . $conn->error);
-        }
-        
-        $stmt->bind_param(
-            "sssssssssssisssssssssi",
-            $reference_code, $first_name, $last_name, $email, $phone, $address,
-            $location, $coordinates, $profession, $other_profession,
-            $specialization, $years_experience, $license_number, $resume,
-            $license_doc, $certifications, $work_type, $shift_type,
-            $preferred_location, $start_date, $status, $confirmed
->>>>>>> Stashed changes
         );
 
         $stmt->send_long_data(13, $resume);
