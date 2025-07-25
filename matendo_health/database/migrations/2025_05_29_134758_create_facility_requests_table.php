@@ -3,47 +3,44 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
-return new class extends Migration
+class CreateFacilityRequestsTable extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('facility_requests', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('facility_name');
             $table->string('contact_person');
             $table->string('email');
             $table->string('phone');
             $table->string('coordinates')->nullable();
-            $table->string('facility_type')->nullable();
-            $table->string('positions')->nullable();
-            $table->string('employment_type')->nullable();
-            $table->string('shift_type')->nullable();
-            $table->integer('staff_number')->nullable();
-            $table->date('start_date')->nullable();
-
+            $table->string('facility_type');
+            $table->string('positions');
+            $table->string('employment_type');
+            $table->string('shift_type');
+            $table->integer('staff_number');
+            $table->date('start_date');
             $table->string('job_requirement_option')->nullable();
             $table->text('qualifications')->nullable();
             $table->text('experience')->nullable();
             $table->text('job_description')->nullable();
-
-            $table->string('job_description_file_name')->nullable();
-            $table->string('job_description_file_type')->nullable();
-
+            $table->string('job_description_file')->nullable();
             $table->string('reference_number')->unique();
+            $table->timestamp('submission_date')->useCurrent()->useCurrentOnUpdate();
             $table->string('csrf_token');
-            $table->string('status')->default('pending');
-            $table->string('priority')->nullable();
-            $table->boolean('confirmed')->default(false);
-            $table->timestamps();
-        });
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
 
-        DB::statement("ALTER TABLE facility_requests ADD job_description_file LONGBLOB NULL");
+            // Add this priority column as a string, nullable to allow flexibility
+            $table->string('priority')->nullable();
+
+            $table->boolean('confirmed')->default(false);
+            $table->timestamps();  // created_at and updated_at
+        });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('facility_requests');
     }
-};
+}
