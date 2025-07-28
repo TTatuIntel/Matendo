@@ -123,7 +123,7 @@
                                 <td class="px-4 py-3 text-gray-700">{{ $application->profession }}</td>
                                 <td class="px-4 py-3 text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
                                 <td class="px-4 py-3 text-center">
-                                    <button onclick="openModal({{ $application->id }})" class="btn-secondary px-4 py-2 rounded-full text-sm font-semibold flex items-center mx-auto">
+                                    <button onclick="openModal('{{ $application->reference_number }}', '{{ $application->first_name }} {{ $application->last_name }}', '{{ $application->email }}', '{{ $application->phone }}', '{{ $application->address }}', '{{ $application->profession }}', '{{ $application->specialization ?? 'none' }}', '{{ $application->years_experience }} years', '{{ $application->start_date?->format('Y-m-d') ?? 'N/A' }}', '{{ $application->resume ? Storage::url($application->resume) : '#' }}', '{{ $application->license_doc ? Storage::url($application->license_doc) : '#' }}', '{{ $application->certifications ? Storage::url($application->certifications) : '#' }}', '{{ $application->id }}')" class="btn-secondary px-4 py-2 rounded-full text-sm font-semibold flex items-center mx-auto">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -165,160 +165,130 @@
             </div>
 
             <div class="p-6">
-                <!-- Loading State -->
-                <div id="modalLoading" class="text-center py-8">
-                    <svg class="animate-spin h-8 w-8 text-blue-600 mx-auto" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <p class="mt-2 text-gray-600">Loading application details...</p>
+                <!-- Review Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <!-- Personal Information -->
+                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                        <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                            </svg>
+                            Personal Information
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Name:</span>
+                                <span id="modalName" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Email:</span>
+                                <span id="modalEmail" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Phone:</span>
+                                <span id="modalPhone" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Address:</span>
+                                <span id="modalAddress" class="text-gray-800 text-right"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Professional Information -->
+                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                        <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            Professional Information
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Profession:</span>
+                                <span id="modalProfession" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Specialization:</span>
+                                <span id="modalSpecialization" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Experience:</span>
+                                <span id="modalExperience" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Start Date:</span>
+                                <span id="modalStartDate" class="text-gray-800"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Work Preferences -->
+                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                        <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                            </svg>
+                            Work Preferences
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Work Type:</span>
+                                <span class="text-gray-800">{{ $application->work_type ?? 'N/A' }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Shift Type:</span>
+                                <span class="text-gray-800">{{ $application->shift_type ?? 'N/A' }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">Location:</span>
+                                <span class="text-gray-800">{{ $application->preferred_location ?? 'N/A' }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Supporting Documents -->
+                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                        <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
+                            </svg>
+                            Supporting Documents
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-gray-600">Resume:</span>
+                                <a id="modalResume" href="#" class="text-blue-600 hover:text-blue-800 underline" target="_blank">View</a>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-gray-600">License:</span>
+                                <a id="modalLicense" href="#" class="text-blue-600 hover:text-blue-800 underline" target="_blank">View</a>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-gray-600">Certifications:</span>
+                                <a id="modalCertifications" href="#" class="text-blue-600 hover:text-blue-800 underline" target="_blank">View</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Application Content -->
-                <div id="modalContent" class="hidden">
-                    <!-- Review Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <!-- Personal Information -->
-                        <div class="p-4 bg-white border border-gray-200 rounded-lg">
-                            <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                                </svg>
-                                Personal Information
-                            </h4>
-                            <div class="space-y-2 text-sm">
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Name:</span>
-                                    <span id="modalName" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Email:</span>
-                                    <span id="modalEmail" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Phone:</span>
-                                    <span id="modalPhone" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Address:</span>
-                                    <span id="modalAddress" class="text-gray-800 text-right"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Location:</span>
-                                    <span id="modalLocation" class="text-gray-800"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Professional Information -->
-                        <div class="p-4 bg-white border border-gray-200 rounded-lg">
-                            <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                                </svg>
-                                Professional Information
-                            </h4>
-                            <div class="space-y-2 text-sm">
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Profession:</span>
-                                    <span id="modalProfession" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Other Profession:</span>
-                                    <span id="modalOtherProfession" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Specialization:</span>
-                                    <span id="modalSpecialization" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Experience:</span>
-                                    <span id="modalExperience" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">License Number:</span>
-                                    <span id="modalLicenseNumber" class="text-gray-800"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Work Preferences -->
-                        <div class="p-4 bg-white border border-gray-200 rounded-lg">
-                            <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-                                </svg>
-                                Work Preferences
-                            </h4>
-                            <div class="space-y-2 text-sm">
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Work Type:</span>
-                                    <span id="modalWorkType" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Shift Type:</span>
-                                    <span id="modalShiftType" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Preferred Location:</span>
-                                    <span id="modalPreferredLocation" class="text-gray-800"></span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="font-medium text-gray-600">Start Date:</span>
-                                    <span id="modalStartDate" class="text-gray-800"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Supporting Documents -->
-                        <div class="p-4 bg-white border border-gray-200 rounded-lg">
-                            <h4 class="text-base font-semibold text-gray-900 mb-2 flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
-                                </svg>
-                                Supporting Documents
-                            </h4>
-                            <div class="space-y-2 text-sm">
-                                <div class="flex justify-between items-center">
-                                    <span class="font-medium text-gray-600">Resume:</span>
-                                    <div id="modalResumeContainer">
-                                        <span class="text-gray-500">Not provided</span>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="font-medium text-gray-600">License:</span>
-                                    <div id="modalLicenseContainer">
-                                        <span class="text-gray-500">Not provided</span>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="font-medium text-gray-600">Certifications:</span>
-                                    <div id="modalCertificationsContainer">
-                                        <span class="text-gray-500">Not provided</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="flex justify-center space-x-3 pt-4 border-t border-gray-200">
-                        <button id="approveButton" class="btn-primary flex items-center">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            Approve Application
-                        </button>
-                        <button id="rejectButton" class="btn-danger flex items-center">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                            Reject Application
-                        </button>
-                        <button onclick="closeModal()" class="bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium smooth-transition">
-                            Close
-                        </button>
-                    </div>
+                <!-- Action Buttons -->
+                <div class="flex justify-center space-x-3 pt-4 border-t border-gray-200">
+                    <button id="approveButton" class="btn-primary flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Approve Application
+                    </button>
+                    <button id="rejectButton" class="btn-danger flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        Reject Application
+                    </button>
+                    <button onclick="closeModal()" class="bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium smooth-transition">
+                        Close
+                    </button>
                 </div>
             </div>
         </div>
@@ -386,23 +356,23 @@
                         <svg class="w-4 h-4 mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
                         </svg>
-                        Application Snapshot
+                        Snapshot
                     </h4>
                     <div class="flex justify-between items-center text-sm">
-                        <span class="font-medium text-gray-600">Generated PDF:</span>
+                        <span class="font-medium text-gray-600">Application Snapshot:</span>
                         <div class="flex space-x-2">
                             <a id="viewSnapshotLink" href="#" class="text-blue-600 hover:text-blue-800 flex items-center" target="_blank">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542-7-4.477 0-8.268-2.943-9.542-7z"></path>
                                 </svg>
-                                View PDF
+                                View
                             </a>
-                            <a id="downloadPdfLink" href="#" class="text-blue-600 hover:text-blue-800 flex items-center" download>
+                            <a id="downloadPdfLink" href="#" class="text-blue-600 hover:text-blue-800 flex items-center" target="_blank">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
-                                Download
+                                PDF
                             </a>
                         </div>
                     </div>
@@ -443,205 +413,92 @@
 <script>
     let currentApplicationData = {};
 
-    // Modal handling - now fetches data from database
-    async function openModal(applicationId) {
-        if (!applicationId) {
-            showToast('Invalid application ID!', 'error');
+    // Modal handling
+    function openModal(refNumber, name, email, phone, address, profession, specialization, experience, startDate, resumeUrl, licenseUrl, certificationsUrl, applicationId) {
+        if (!refNumber || !name || !email) {
+            showToast('Missing application data!', 'error');
             return;
         }
 
-        // Show modal and loading state
+        currentApplicationData = { refNumber, name, email, applicationId };
+        document.getElementById('modalRefNumber').textContent = refNumber;
+        document.getElementById('modalName').textContent = name;
+        document.getElementById('modalEmail').textContent = email;
+        document.getElementById('modalPhone').textContent = phone || 'N/A';
+        document.getElementById('modalAddress').textContent = address || 'N/A';
+        document.getElementById('modalProfession').textContent = profession || 'N/A';
+        document.getElementById('modalSpecialization').textContent = specialization || 'N/A';
+        document.getElementById('modalExperience').textContent = experience || 'N/A';
+        document.getElementById('modalStartDate').textContent = startDate || 'N/A';
+        document.getElementById('modalResume').href = resumeUrl !== '#' ? resumeUrl : '#';
+        document.getElementById('modalResume').textContent = resumeUrl !== '#' ? 'View' : 'Not Provided';
+        document.getElementById('modalLicense').href = licenseUrl !== '#' ? licenseUrl : '#';
+        document.getElementById('modalLicense').textContent = licenseUrl !== '#' ? 'View' : 'Not Provided';
+        document.getElementById('modalCertifications').href = certificationsUrl !== '#' ? certificationsUrl : '#';
+        document.getElementById('modalCertifications').textContent = certificationsUrl !== '#' ? 'View' : 'Not Provided';
         document.getElementById('applicationModal').classList.remove('hidden');
-        document.getElementById('modalLoading').classList.remove('hidden');
-        document.getElementById('modalContent').classList.add('hidden');
         document.body.style.overflow = 'hidden';
 
-        try {
-            // Fetch application data from server
-            const response = await fetch(`/admin/applications/${applicationId}/details`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch application details');
-            }
-
-            const application = await response.json();
-            
-            // Store current application data
-            currentApplicationData = application;
-
-            // Populate modal with application data
-            populateModal(application);
-
-            // Hide loading and show content
-            document.getElementById('modalLoading').classList.add('hidden');
-            document.getElementById('modalContent').classList.remove('hidden');
-
-        } catch (error) {
-            showToast(`Failed to load application: ${error.message}`, 'error');
-            closeModal();
-        }
-    }
-
-    function populateModal(application) {
-        // Reference number
-        document.getElementById('modalRefNumber').textContent = application.reference_number;
-
-        // Personal Information
-        document.getElementById('modalName').textContent = `${application.first_name} ${application.last_name}`;
-        document.getElementById('modalEmail').textContent = application.email || 'N/A';
-        document.getElementById('modalPhone').textContent = application.phone || 'N/A';
-        document.getElementById('modalAddress').textContent = application.address || 'N/A';
-        document.getElementById('modalLocation').textContent = application.location || 'N/A';
-
-        // Professional Information
-        document.getElementById('modalProfession').textContent = application.profession || 'N/A';
-        document.getElementById('modalOtherProfession').textContent = application.other_profession || 'N/A';
-        document.getElementById('modalSpecialization').textContent = application.specialization || 'N/A';
-        document.getElementById('modalExperience').textContent = application.years_experience ? `${application.years_experience} years` : 'N/A';
-        document.getElementById('modalLicenseNumber').textContent = application.license_number || 'N/A';
-
-        // Work Preferences
-        document.getElementById('modalWorkType').textContent = application.work_type_display || 'N/A';
-        document.getElementById('modalShiftType').textContent = application.shift_type_display || 'N/A';
-        document.getElementById('modalPreferredLocation').textContent = application.preferred_location || 'N/A';
-        document.getElementById('modalStartDate').textContent = application.start_date_formatted || 'N/A';
-
-        // Documents
-        populateDocumentLinks(application);
-
         // Set up action buttons
-        setupActionButtons(application.id);
-    }
-
-    function populateDocumentLinks(application) {
-        // Resume
-        const resumeContainer = document.getElementById('modalResumeContainer');
-        if (application.resume_name && application.resume_base64) {
-            resumeContainer.innerHTML = `
-                <div class="flex space-x-2">
-                    <button onclick="viewDocument('${application.id}', 'resume')" class="text-blue-600 hover:text-blue-800 text-sm">
-                        View
-                    </button>
-                    <button onclick="downloadDocument('${application.id}', 'resume', '${application.resume_name}')" class="text-blue-600 hover:text-blue-800 text-sm">
-                        Download
-                    </button>
-                </div>
-            `;
-        } else {
-            resumeContainer.innerHTML = '<span class="text-gray-500 text-sm">Not provided</span>';
-        }
-
-        // License
-        const licenseContainer = document.getElementById('modalLicenseContainer');
-        if (application.license_name && application.license_base64) {
-            licenseContainer.innerHTML = `
-                <div class="flex space-x-2">
-                    <button onclick="viewDocument('${application.id}', 'license')" class="text-blue-600 hover:text-blue-800 text-sm">
-                        View
-                    </button>
-                    <button onclick="downloadDocument('${application.id}', 'license', '${application.license_name}')" class="text-blue-600 hover:text-blue-800 text-sm">
-                        Download
-                    </button>
-                </div>
-            `;
-        } else {
-            licenseContainer.innerHTML = '<span class="text-gray-500 text-sm">Not provided</span>';
-        }
-
-        // Certifications
-        const certificationsContainer = document.getElementById('modalCertificationsContainer');
-        if (application.certifications_name && application.certifications_base64) {
-            certificationsContainer.innerHTML = `
-                <div class="flex space-x-2">
-                    <button onclick="viewDocument('${application.id}', 'certifications')" class="text-blue-600 hover:text-blue-800 text-sm">
-                        View
-                    </button>
-                    <button onclick="downloadDocument('${application.id}', 'certifications', '${application.certifications_name}')" class="text-blue-600 hover:text-blue-800 text-sm">
-                        Download
-                    </button>
-                </div>
-            `;
-        } else {
-            certificationsContainer.innerHTML = '<span class="text-gray-500 text-sm">Not provided</span>';
-        }
-    }
-
-    function setupActionButtons(applicationId) {
         const approveButton = document.getElementById('approveButton');
         const rejectButton = document.getElementById('rejectButton');
 
         approveButton.onclick = async () => {
-            await processApplication(applicationId, 'approve');
+            const url = '{{ route("admin.applications.process") }}';
+            const formData = new FormData();
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]')?.content || '');
+            formData.append('id', applicationId);
+            formData.append('action', 'approve');
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                        'Accept': 'application/json'
+                    }
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    openApprovalPopup(refNumber, name, result.data.email, result.data.password, result.data.snapshot_url, result.data.pdf_url);
+                    showToast('Application approved successfully!', 'success');
+                } else {
+                    throw new Error(result.message || 'Failed to approve application');
+                }
+            } catch (error) {
+                showToast(`Failed to approve application: ${error.message}`, 'error');
+            }
         };
 
         rejectButton.onclick = async () => {
-            await processApplication(applicationId, 'reject');
-        };
-    }
+            const url = '{{ route("admin.applications.process") }}';
+            const formData = new FormData();
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]')?.content || '');
+            formData.append('id', applicationId);
+            formData.append('action', 'reject');
 
-    async function processApplication(applicationId, action) {
-        const url = '{{ route("admin.applications.process") }}';
-        const formData = new FormData();
-        formData.append('_token', document.querySelector('meta[name="csrf-token"]')?.content || '');
-        formData.append('id', applicationId);
-        formData.append('action', action);
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
-                    'Accept': 'application/json'
-                }
-            });
-
-            const result = await response.json();
-            
-            if (response.ok) {
-                if (action === 'approve') {
-                    openApprovalPopup(
-                        currentApplicationData.reference_number,
-                        `${currentApplicationData.first_name} ${currentApplicationData.last_name}`,
-                        result.data.email,
-                        result.data.password,
-                        result.data.snapshot_url,
-                        result.data.pdf_url
-                    );
-                    showToast('Application approved successfully!', 'success');
-                } else {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                        'Accept': 'application/json'
+                    }
+                });
+                const result = await response.json();
+                if (response.ok) {
                     showToast('Application rejected successfully!', 'success');
                     closeModal();
-                    setTimeout(() => location.reload(), 1000);
+                    location.reload();
+                } else {
+                    throw new Error(result.message || 'Failed to reject application');
                 }
-            } else {
-                throw new Error(result.message || `Failed to ${action} application`);
+            } catch (error) {
+                showToast(`Failed to reject application: ${error.message}`, 'error');
             }
-        } catch (error) {
-            showToast(`Failed to ${action} application: ${error.message}`, 'error');
-        }
-    }
-
-    // Document viewing functions
-    function viewDocument(applicationId, documentType) {
-        const url = `/admin/applications/${applicationId}/document/${documentType}`;
-        window.open(url, '_blank');
-    }
-
-    function downloadDocument(applicationId, documentType, filename) {
-        const url = `/admin/applications/${applicationId}/document/${documentType}/download`;
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        };
     }
 
     function closeModal() {
@@ -666,7 +523,7 @@
     function closeApprovalPopup() {
         document.getElementById('approvalPopup').classList.add('hidden');
         document.body.style.overflow = 'auto';
-        setTimeout(() => location.reload(), 500);
+        location.reload();
     }
 
     // Copy to clipboard
@@ -682,7 +539,6 @@
         const passwordSpan = document.getElementById('popupPassword');
         const passwordInput = document.getElementById('popupPasswordInput');
         const toggleButton = document.getElementById('togglePassword');
-        
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             passwordSpan.textContent = passwordInput.value;
@@ -727,9 +583,7 @@
                     'Accept': 'application/json'
                 }
             });
-            
             const result = await response.json();
-            
             if (response.ok) {
                 document.getElementById('popupPassword').textContent = result.password;
                 document.getElementById('popupPasswordInput').value = result.password;
@@ -748,23 +602,23 @@
         } finally {
             button.disabled = false;
             button.innerHTML = `
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                </svg>
-                Regenerate Password
+                <svg class="w-4 hproduction-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24                    <path stroke-linecap="round" stroke="none" stroke-linejoin="round" stroke-width="1" d="M4 4v5h.582m15.356 2 A2 2 0 004.582 9m0 0H9m11 11v-5h-.581m0 0 a8.003 a0 0 0 0 0 a0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Regenerate Password
             `;
         }
     }
 
-    // Export applications
+    // Export applications (placeholder; implement server-side export)
     function exportApplications() {
-        window.location.href = '/admin/applications/export';
+        showToast('Export functionality not implemented yet.', 'error');
+        // Example: window.location.href = '/admin/applications/export';
     }
 
     // Toast notification
     function showToast(message, type) {
         const toast = document.createElement('div');
-        toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-md text-sm font-medium text-white z-50 ${
+        toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-md text-sm font-medium text-white ${
             type === 'success' ? 'bg-green-600' : 'bg-red-600'
         }`;
         toast.textContent = message;
