@@ -41,6 +41,16 @@ class AdminController extends Controller
             'total' => IndividualRequest::count(),
         ];
 
+        // Task statistics
+        $taskStats = [
+            'pending' => Task::where('status', 'Pending')->count(),
+            'approved' => Task::where('status', 'Approved')->count(),
+            'rejected' => Task::where('status', 'Rejected')->count(),
+            'completed' => Task::where('status', 'Completed')->count(),
+            'in_progress' => Task::where('status', 'In Progress')->count(),
+            'total' => Task::count(),
+        ];
+
         $pendingApplications = Application::where('status', 'pending')->count();
         $approvedApplications = Application::where('status', 'approved')->count();
         $rejectedApplications = Application::where('status', 'rejected')->count();
@@ -161,9 +171,9 @@ class AdminController extends Controller
             ->merge($recentTasks->map(function ($item) {
                 return [
                     'type' => 'Task',
-                    'title' => $item->facility_name ?? 'Task #' . $item->id,
-                    'description' => $item->description ?? ($item->facility_name ?? 'Unknown') . ' approved as a task',
-                    'status' => ucfirst($item->status ?? 'Approved'),
+                    'title' => $item->facility_name ?? $item->full_name ?? $item->title ?? 'Task #' . $item->id,
+                    'description' => $item->description ?? ($item->facility_name ?? $item->full_name ?? 'Unknown') . ' task created',
+                    'status' => ucfirst($item->status ?? 'Pending'),
                     'timestamp' => $item->created_at,
                     'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
                     'color' => 'teal',
@@ -172,6 +182,11 @@ class AdminController extends Controller
                             'label' => 'View Details',
                             'route' => url('/admin/tasks?item=' . $item->id),
                             'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z',
+                        ],
+                        [
+                            'label' => 'Manage',
+                            'route' => url('/admin/tasks/view?item=' . $item->id . '&action=manage'),
+                            'icon' => 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
                         ],
                     ],
                 ];
@@ -204,6 +219,11 @@ class AdminController extends Controller
             'pendingIndividualRequests' => $individualStats['pending'],
             'individualStats' => $individualStats,
             'individualRequests' => $individualRequests,
+            'taskStats' => $taskStats,
+            'tasksCount' => $taskStats['total'],
+            'pendingTasks' => $taskStats['pending'],
+            'approvedTasks' => $taskStats['approved'],
+            'completedTasks' => $taskStats['completed'],
             'pendingApplications' => $pendingApplications,
             'approvedApplications' => $approvedApplications,
             'rejectedApplications' => $rejectedApplications,
@@ -226,6 +246,14 @@ class AdminController extends Controller
     public function facility(Request $request)
     {
         return redirect()->route('admin.facility.view');
+    }
+
+    /**
+     * Add individual method to handle legacy individual requests
+     */
+    public function individual(Request $request)
+    {
+        return redirect()->route('admin.individual.view');
     }
 
     /**

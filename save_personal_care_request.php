@@ -58,7 +58,7 @@ try {
     $care_type = sanitizeInput($_POST['careType'] ?? '');
     $care_requirements = sanitizeInput($_POST['careRequirements'] ?? null);
     
-    // Handle schedule as JSON for multi-select
+    // Handle schedule as JSON for multi-select (consistent with join.php pattern)
     $schedule = json_encode($_POST['schedule'] ?? []);
     
     $medical_conditions = sanitizeInput($_POST['medicalConditions'] ?? null);
@@ -69,11 +69,11 @@ try {
     $experience = sanitizeInput($_POST['experience'] ?? null);
     $job_description = sanitizeInput($_POST['jobDescription'] ?? null);
 
-    // Handle file upload for job description
-    list($job_description_file, $job_description_file_name, $job_description_file_type, $job_description_file_size) = 
+    // Handle file upload for job description (using base64 storage like join.php)
+    list($job_description_base64, $job_description_name, $job_description_mime, $job_description_size) = 
         getBase64File('jobDescriptionFile', ALLOWED_DOC_TYPES);
 
-    // Additional metadata
+    // Additional metadata (consistent with join.php)
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? null;
     $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? null;
     $csrf_token = substr(md5(uniqid(mt_rand(), true)), 0, 32);
@@ -83,17 +83,18 @@ try {
         'care_type' => $care_type
     ]);
 
+    // Updated SQL to match the new migration schema
     $stmt = $conn->prepare("
         INSERT INTO individual_requests (
             reference_number, full_name, email, phone, address, care_type,
             care_requirements, schedule, medical_conditions, medications,
             emergency_contact, emergency_phone, qualifications, experience,
-            job_description, job_description_file, job_description_file_name, 
-            job_description_file_type, job_description_file_size,
-            csrf_token, status, confirmed, ip_address, user_agent, form_metadata,
+            job_description, job_description_base64, job_description_name, 
+            job_description_mime, job_description_size,
+            csrf_token, status, priority, confirmed, ip_address, user_agent, form_metadata,
             created_at, updated_at
         ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', 0, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', 'normal', 0, ?, ?, ?,
             NOW(), NOW()
         )
     ");
@@ -117,10 +118,10 @@ try {
         $qualifications,
         $experience,
         $job_description,
-        $job_description_file,
-        $job_description_file_name,
-        $job_description_file_type,
-        $job_description_file_size,
+        $job_description_base64,
+        $job_description_name,
+        $job_description_mime,
+        $job_description_size,
         $csrf_token,
         $ip_address,
         $user_agent,
@@ -130,6 +131,8 @@ try {
     if (!$stmt->execute()) throw new Exception('Failed to save individual care request: ' . $stmt->error);
 
     $request_id = $conn->insert_id;
+    
+    // Success response (matching join.php format)
     echo json_encode([
         'success' => true,
         'message' => 'Individual care request submitted successfully',
@@ -137,12 +140,16 @@ try {
         'submission_date' => date('Y-m-d H:i:s'),
         'request_id' => $request_id
     ]);
+    
     $stmt->close();
 
 } catch (Exception $e) {
+    // Error response
     echo json_encode([
         'success' => false,
-        'message' => $e->getMessage()
+        'message' => $e->getMessage(),
+        'error_code' => 'INDIVIDUAL_REQUEST_ERROR',
+        'timestamp' => date('Y-m-d H:i:s')
     ]);
 } finally {
     if (isset($conn)) $conn->close();

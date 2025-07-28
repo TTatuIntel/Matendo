@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,43 +18,49 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('email');
             $table->string('phone');
-            $table->text('address')->nullable();
+            $table->text('address');
             
-            // Care Requirements
-            $table->string('care_type')->nullable();
+            // Care Details
+            $table->string('care_type');
             $table->text('care_requirements')->nullable();
-            $table->json('schedule')->nullable(); // Store as JSON array
+            $table->json('schedule')->nullable(); // JSON for multi-select
+            
+            // Medical Information
             $table->text('medical_conditions')->nullable();
             $table->text('medications')->nullable();
-            $table->text('allergies')->nullable(); // Added field
             
             // Emergency Contact
-            $table->string('emergency_contact')->nullable();
-            $table->string('emergency_phone')->nullable();
-
-            // Job Description (if applicable)
+            $table->string('emergency_contact');
+            $table->string('emergency_phone');
+            
+            // Job Requirements
             $table->text('qualifications')->nullable();
             $table->text('experience')->nullable();
-            $table->text('job_description')->nullable();
-
-            // Document Storage (File path instead of LONGBLOB)
-            $table->string('job_description_file_path')->nullable();
-            $table->string('job_description_file_name')->nullable();
-            $table->string('job_description_file_type')->nullable();
-
+            $table->longText('job_description')->nullable();
+            
+            // Document Storage (Base64 storage for consistency with join.php)
+            $table->longText('job_description_base64')->nullable();
+            $table->string('job_description_name')->nullable();
+            $table->string('job_description_mime')->nullable();
+            $table->integer('job_description_size')->nullable();
+            
             // Processing Information
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'rejected', 'in_progress', 'completed'])->default('pending');
+            $table->enum('priority', ['low', 'normal', 'high', 'urgent'])->default('normal');
             $table->boolean('confirmed')->default(false);
             $table->text('rejection_reason')->nullable();
             $table->timestamp('processed_at')->nullable();
             $table->unsignedBigInteger('processed_by')->nullable();
             
-            // CSRF protection
-            $table->string('csrf_token');
+            // System Fields (consistent with join.php)
+            $table->string('csrf_token')->nullable();
+            $table->string('ip_address')->nullable();
+            $table->text('user_agent')->nullable();
+            $table->text('form_metadata')->nullable(); // JSON string for consistency
             
             $table->timestamps();
             $table->softDeletes(); // For rejected requests
-
+            
             // Foreign key constraints
             $table->foreign('processed_by')->references('id')->on('users')->onDelete('set null');
             
@@ -63,6 +68,10 @@ return new class extends Migration
             $table->index(['status', 'created_at']);
             $table->index('email');
             $table->index('reference_number');
+            $table->index('care_type');
+            $table->index('priority');
+            $table->index('full_name');
+            $table->index('processed_at');
         });
     }
 

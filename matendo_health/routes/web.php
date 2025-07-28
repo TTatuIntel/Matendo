@@ -100,11 +100,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/export', [ReportController::class, 'export'])->name('export');
     });
 
-    // Task completion routes accessible to different user types
-    Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete-general');
-    Route::patch('/tasks/{taskId}/complete', [TaskController::class, 'completeTask'])->name('tasks.complete-by-id');
-    Route::post('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete-post');
-
     // Health Worker Resource Routes
     Route::resource('health-workers', HealthworkerController::class);
     Route::get('/health-workers', [HealthworkerController::class, 'getHealthWorkers'])->name('health-workers.getHealthWorkers');
@@ -128,7 +123,7 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Task Routes (Global - needed for tasks.getTasks)
+| Global Task Routes (Accessible by authenticated users)
 |--------------------------------------------------------------------------
 */
 
@@ -136,12 +131,17 @@ Route::middleware(['auth'])->group(function () {
     // Global task routes that need to be accessible
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     Route::get('/tasks/get-tasks', [TaskController::class, 'getTasks'])->name('tasks.getTasks');
-    Route::post('/tasks/{task}/approve', [TaskController::class, 'approve'])->name('tasks.approve');
-    Route::post('/tasks/{task}/reject', [TaskController::class, 'reject'])->name('tasks.reject');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+    Route::post('/tasks/{task}/approve', [TaskController::class, 'approve'])->name('tasks.approve');
+    Route::post('/tasks/{task}/reject', [TaskController::class, 'reject'])->name('tasks.reject');
     Route::post('/tasks/{task}/assign', [TaskController::class, 'assign'])->name('tasks.assign');
     Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
+    Route::post('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete-post');
+    
+    // Task completion routes accessible to different user types
+    Route::patch('/tasks/{taskId}/complete', [TaskController::class, 'completeTask'])->name('tasks.complete-by-id');
+    Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete-general');
 });
 
 /*
@@ -230,7 +230,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     |--------------------------------------------------------------------------
     */
     Route::prefix('tasks')->name('tasks.')->group(function () {
-        Route::get('/', [TaskController::class, 'getTasks'])->name('index');
+        Route::get('/', [TaskController::class, 'index'])->name('index');
         Route::get('/view', [TaskController::class, 'index'])->name('view');
         Route::get('/get-tasks', [TaskController::class, 'getTasks'])->name('get-tasks');
         Route::post('/', [TaskController::class, 'store'])->name('store');
@@ -240,6 +240,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::post('/{task}/assign', [TaskController::class, 'assign'])->name('assign');
         Route::patch('/{task}/complete', [TaskController::class, 'complete'])->name('complete');
         Route::post('/{task}/complete', [TaskController::class, 'complete'])->name('complete-post');
+        Route::patch('/{taskId}/complete', [TaskController::class, 'completeTask'])->name('complete-by-id');
     });
 
     /*
@@ -301,9 +302,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/individual/{individualRequest}/reject', [IndividualRequestController::class, 'reject'])->name('admin.individual.reject');
 
     // Additional task routes
-    Route::get('/admin/tasks', [TaskController::class, 'getTasks'])->name('admin.tasks');
+    Route::get('/admin/tasks', [TaskController::class, 'index'])->name('admin.tasks');
     Route::get('/admin/tasks/view', [TaskController::class, 'index'])->name('admin.tasks.view');
+    Route::get('/admin/tasks/get-tasks', [TaskController::class, 'getTasks'])->name('admin.tasks.get-tasks');
     Route::get('/admin/tasks/{task}', [TaskController::class, 'show'])->name('admin.tasks.show');
+    Route::post('/admin/tasks', [TaskController::class, 'store'])->name('admin.tasks.store');
+    Route::post('/admin/tasks/{task}/approve', [TaskController::class, 'approve'])->name('admin.tasks.approve');
+    Route::post('/admin/tasks/{task}/reject', [TaskController::class, 'reject'])->name('admin.tasks.reject');
+    Route::post('/admin/tasks/{task}/assign', [TaskController::class, 'assign'])->name('admin.tasks.assign');
+    Route::patch('/admin/tasks/{task}/complete', [TaskController::class, 'complete'])->name('admin.tasks.complete');
+    Route::post('/admin/tasks/{task}/complete', [TaskController::class, 'complete'])->name('admin.tasks.complete-post');
+    Route::patch('/admin/tasks/{taskId}/complete', [TaskController::class, 'completeTask'])->name('admin.tasks.complete-by-id');
 });
 
 /*
@@ -314,6 +323,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware(['auth', 'healthworker'])->prefix('healthworker')->name('healthworker.')->group(function () {
     Route::get('/dashboard', [HealthworkerController::class, 'index'])->name('dashboard');
+    
+    // Healthworker specific task routes
+    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+    Route::get('/tasks/assigned', function() {
+        return view('healthworker.tasks.assigned');
+    })->name('tasks.assigned');
+    Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
+    Route::post('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete-post');
 });
 
 /*

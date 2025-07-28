@@ -57,12 +57,12 @@ try {
     $phone = sanitizeInput($_POST['phone'] ?? '');
     $coordinates = sanitizeInput($_POST['coordinates'] ?? null);
     
-    // Handle JSON fields for multi-select
+    // Handle JSON fields for multi-select (consistent with join.php pattern)
     $facility_type = json_encode($_POST['facilityType'] ?? []);
     $other_facility_type = sanitizeInput($_POST['otherFacilityType'] ?? null);
     $positions = json_encode($_POST['positions'] ?? []);
     $other_position = sanitizeInput($_POST['otherPosition'] ?? null);
-    $employment_type = json_encode($_POST['duration'] ?? []);
+    $employment_type = json_encode($_POST['duration'] ?? []); // duration maps to employment_type
     $shift_type = json_encode($_POST['shiftType'] ?? []);
     
     $staff_number = intval($_POST['staffNumber'] ?? 0);
@@ -72,11 +72,11 @@ try {
     $experience = sanitizeInput($_POST['experience'] ?? null);
     $job_description = sanitizeInput($_POST['jobDescription'] ?? null);
 
-    // Handle file upload for job description
-    list($job_description_file, $job_description_file_name, $job_description_file_type, $job_description_file_size) = 
+    // Handle file upload for job description (using base64 storage like join.php)
+    list($job_description_base64, $job_description_name, $job_description_mime, $job_description_size) = 
         ($job_requirement_option === 'upload') ? getBase64File('jobDescriptionFile', ALLOWED_DOC_TYPES) : [null, null, null, null];
 
-    // Additional metadata
+    // Additional metadata (consistent with join.php)
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? null;
     $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? null;
     $csrf_token = substr(md5(uniqid(mt_rand(), true)), 0, 32);
@@ -86,13 +86,14 @@ try {
         'job_requirement_option' => $job_requirement_option
     ]);
 
+    // Updated SQL to match the new migration schema
     $stmt = $conn->prepare("
         INSERT INTO facility_requests (
             reference_number, facility_name, contact_person, email, phone, coordinates,
             facility_type, other_facility_type, positions, other_position, 
             employment_type, shift_type, staff_number, start_date, 
             job_requirement_option, qualifications, experience, job_description,
-            job_description_file, job_description_file_name, job_description_file_type, job_description_file_size,
+            job_description_base64, job_description_name, job_description_mime, job_description_size,
             csrf_token, status, priority, confirmed, ip_address, user_agent, form_metadata,
             created_at, updated_at
         ) VALUES (
@@ -123,10 +124,10 @@ try {
         $qualifications,
         $experience,
         $job_description,
-        $job_description_file,
-        $job_description_file_name,
-        $job_description_file_type,
-        $job_description_file_size,
+        $job_description_base64,
+        $job_description_name,
+        $job_description_mime,
+        $job_description_size,
         $csrf_token,
         $ip_address,
         $user_agent,
@@ -136,6 +137,8 @@ try {
     if (!$stmt->execute()) throw new Exception('Failed to save facility request: ' . $stmt->error);
 
     $request_id = $conn->insert_id;
+    
+    // Success response (matching join.php format)
     echo json_encode([
         'success' => true,
         'message' => 'Facility request submitted successfully',
@@ -143,12 +146,16 @@ try {
         'submission_date' => date('Y-m-d H:i:s'),
         'request_id' => $request_id
     ]);
+    
     $stmt->close();
 
 } catch (Exception $e) {
+    // Error response
     echo json_encode([
         'success' => false,
-        'message' => $e->getMessage()
+        'message' => $e->getMessage(),
+        'error_code' => 'FACILITY_REQUEST_ERROR',
+        'timestamp' => date('Y-m-d H:i:s')
     ]);
 } finally {
     if (isset($conn)) $conn->close();
