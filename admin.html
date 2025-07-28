@@ -1,0 +1,2744 @@
+<?php
+// Database connection
+$host = 'localhost';
+$username = 'root'; // Replace with your DB username
+$password = ''; // Replace with your DB password
+$database = 'matendo_medics';
+
+$conn = new mysqli($host, $username, $password, $database);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query users
+$users_query = $conn->query("SELECT id, email, created_at FROM users"); // Exclude password for security
+// Query all tables
+$facility_query = $conn->query("SELECT * FROM facility_hiring_requests");
+$profiles_query = $conn->query("SELECT * FROM professional_profiles");
+$personal_care_query = $conn->query("SELECT * FROM personal_care_requests");
+$users_query = $conn->query("SELECT id, email, created_at FROM users"); // Exclude password for security
+?>
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Matendo Health</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#0ea5e9'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .custom-checkbox input:checked~.checkmark {
+            background-color: #1e40af;
+            border-color: #1e40af;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .password-strength {
+            height: 4px;
+            transition: all 0.3s;
+        }
+
+        .password-strength-indicator {
+            display: flex;
+            margin-top: 6px;
+        }
+
+        .strength-segment {
+            height: 4px;
+            flex: 1;
+            margin-right: 4px;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+        }
+
+        .strength-segment:last-child {
+            margin-right: 0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 bg-white shadow-md fixed h-full transition-all duration-300">
+            <div class="p-4 border-b">
+                <a href="https://readdy.ai/home/3de26f53-73bd-4a6f-918e-d52047d3351e/832181d2-7322-4021-b743-8b0e3ffa96ce"
+                    data-readdy="true" class="flex items-center space-x-2">
+                    <span class="text-primary text-2xl font-['Pacifico']">Matendo</span>
+                    <span class="text-secondary font-semibold">Health</span>
+                </a>
+            </div>
+            <nav class="p-4">
+                <div class="space-y-2">
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-primary bg-blue-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-dashboard-line"></i>
+                        </div>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                    <a href="https://readdy.ai/home/3de26f53-73bd-4a6f-918e-d52047d3351e/25731562-a1e8-46fd-8d46-2cc54f56f3f9"
+                        data-readdy="true"
+                        class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        <span>Users</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-hospital-line"></i>
+                        </div>
+                        <span>Facilities</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-nurse-line"></i>
+                        </div>
+                        <span>Professionals</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-calendar-line"></i>
+                        </div>
+                        <span>Appointments</span>
+                    </a>
+                    <!-- New Individual Request Tab -->
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-file-list-3-line"></i>
+                        </div>
+                        <span>Individual Requests</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-message-2-line"></i>
+                        </div>
+                        <span>Messages</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-settings-line"></i>
+                        </div>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <div id="mainContent" class="flex-1 ml-64 transition-all duration-300">
+            <!-- Header -->
+            <header class="bg-white shadow-sm sticky top-0 z-50">
+                <div class="flex items-center justify-between px-8 py-4">
+                    <div class="flex items-center space-x-4">
+                        <button id="sidebarToggle" class="text-gray-500 hover:text-gray-600">
+                            <i class="ri-menu-line text-xl"></i>
+                        </button>
+                        <div class="relative">
+                            <input type="text" placeholder="Search..."
+                                class="pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary w-64 text-sm">
+                            <div
+                                class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 flex items-center justify-center">
+                                <i class="ri-search-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative text-gray-500 hover:text-gray-600">
+                            <i class="ri-notification-line text-xl"></i>
+                            <span
+                                class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs flex items-center justify-center rounded-full">3</span>
+                        </button>
+                        <div class="flex items-center space-x-3">
+                            <img src="https://readdy.ai/api/search-image?query=professional+headshot+of+a+male+administrator+wearing+a+business+suit%252C+looking+confident+and+approachable%252C+against+a+neutral+background%252C+high+quality%252C+studio+lighting&width=40&height=40&seq=1&orientation=squarish"
+                                alt="Admin" class="w-8 h-8 rounded-full object-cover">
+                            <div class="text-sm">
+                                <p class="font-medium text-gray-700">John Anderson</p>
+                                <p class="text-gray-500">Admin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Content -->
+            <main class="p-8">
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Total Users</p>
+                                <h3 class="text-2xl font-semibold text-gray-900">2,847</h3>
+                                <p class="text-sm text-green-500 flex items-center mt-1">
+                                    <i class="ri-arrow-up-line mr-1"></i>
+                                    12.5% vs last month
+                                </p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-primary">
+                                <i class="ri-user-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Active Facilities</p>
+                                <h3 class="text-2xl font-semibold text-gray-900">156</h3>
+                                <p class="text-sm text-green-500 flex items-center mt-1">
+                                    <i class="ri-arrow-up-line mr-1"></i>
+                                    8.2% vs last month
+                                </p>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center text-green-500">
+                                <i class="ri-hospital-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Healthcare Pros</p>
+                                <h3 class="text-2xl font-semibold text-gray-900">2,691</h3>
+                                <p class="text-sm text-red-500 flex items-center mt-1">
+                                    <i class="ri-arrow-down-line mr-1"></i>
+                                    3.1% vs last month
+                                </p>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center text-purple-500">
+                                <i class="ri-nurse-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Total Revenue</p>
+                                <h3 class="text-2xl font-semibold text-gray-900">$84,295</h3>
+                                <p class="text-sm text-green-500 flex items-center mt-1">
+                                    <i class="ri-arrow-up-line mr-1"></i>
+                                    15.3% vs last month
+                                </p>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-yellow-50 rounded-lg flex items-center justify-center text-yellow-500">
+                                <i class="ri-money-dollar-circle-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Charts & Recent Activity -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                    <!-- User Growth Chart -->
+                    <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">User Growth</h3>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1 text-sm text-gray-600 hover:text-gray-900">Week</button>
+                                <button class="px-3 py-1 text-sm bg-gray-100 rounded text-gray-900">Month</button>
+                                <button class="px-3 py-1 text-sm text-gray-600 hover:text-gray-900">Year</button>
+                            </div>
+                        </div>
+                        <div id="userGrowthChart" class="w-full h-80"></div>
+                    </div>
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
+                            <button class="text-sm text-primary hover:text-primary/80">View All</button>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div
+                                    class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                                    <i class="ri-user-add-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-900">New user registration</p>
+                                    <p class="text-sm text-gray-500">Sarah Wilson joined as a healthcare professional
+                                    </p>
+                                    <p class="text-xs text-gray-400 mt-1">2 minutes ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div
+                                    class="w-8 h-8 bg-green-50 rounded-full flex items-center justify-center text-green-500 flex-shrink-0">
+                                    <i class="ri-hospital-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-900">New facility added</p>
+                                    <p class="text-sm text-gray-500">Central Medical Center completed verification</p>
+                                    <p class="text-xs text-gray-400 mt-1">15 minutes ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div
+                                    class="w-8 h-8 bg-yellow-50 rounded-full flex items-center justify-center text-yellow-500 flex-shrink-0">
+                                    <i class="ri-calendar-check-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-900">Appointment scheduled</p>
+                                    <p class="text-sm text-gray-500">Dr. Michael Brown - Cardiology Consultation</p>
+                                    <p class="text-xs text-gray-400 mt-1">1 hour ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div
+                                    class="w-8 h-8 bg-purple-50 rounded-full flex items-center justify-center text-purple-500 flex-shrink-0">
+                                    <i class="ri-message-2-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-900">New message received</p>
+                                    <p class="text-sm text-gray-500">Support ticket from City Hospital</p>
+                                    <p class="text-xs text-gray-400 mt-1">2 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Request Management & Task Assignment Section -->
+                <div class="bg-white rounded-lg shadow-sm mb-8">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Requests & Tasks</h3>
+                                <p class="text-sm text-gray-500 mt-1">Manage incoming requests and assign tasks to
+                                    health workers</p>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button id="viewRequestsBtn"
+                                    class="text-sm border border-primary text-primary px-4 py-2 !rounded-button hover:bg-primary/5 flex items-center">
+                                    <i class="ri-inbox-line mr-2"></i>
+                                    <span>View Requests</span>
+                                    <span class="ml-2 bg-primary text-white text-xs px-2 py-0.5 rounded-full">3</span>
+                                </button>
+                                <button id="assignTaskBtn"
+                                    class="text-sm bg-primary text-white px-4 py-2 !rounded-button hover:bg-primary/90 flex items-center">
+                                    <i class="ri-add-line mr-2"></i>
+                                    <span>Assign Task</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <button class="text-sm font-medium text-gray-900 border-b-2 border-primary px-3 py-2">Active
+                                Tasks (5)</button>
+                            <button class="text-sm font-medium text-gray-500 hover:text-gray-900 px-3 py-2">Completed
+                                (12)</button>
+                            <button class="text-sm font-medium text-gray-500 hover:text-gray-900 px-3 py-2">Pending
+                                Requests (3)</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Request/Task</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Patient</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Assigned To</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Due Date</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Priority</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Status</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr class="bg-blue-50/30">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-start space-x-3">
+                                                <span
+                                                    class="flex-shrink-0 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                                                    <i class="ri-inbox-line text-primary text-sm"></i>
+                                                </span>
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">New Patient
+                                                        Consultation Request</p>
+                                                    <p class="text-xs text-gray-500">Urgent care needed for severe back
+                                                        pain</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=portrait%20of%20a%20middle%20aged%20man%20patient%20with%20concerned%20expression%252C%20natural%20lighting%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=10&orientation=squarish"
+                                                    alt="Patient" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Robert Martinez</p>
+                                                    <p class="text-xs text-gray-500">ID: #PT78392</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20nurse%20in%20scrubs%252C%20warm%20smile%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=32&height=32&seq=7&orientation=squarish"
+                                                    alt="User" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Emma Rodriguez</p>
+                                                    <p class="text-xs text-gray-500">Nurse</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 10, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">High</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">In
+                                                Progress</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-edit-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-start space-x-3">
+                                                <span
+                                                    class="flex-shrink-0 w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center">
+                                                    <i class="ri-time-line text-yellow-600 text-sm"></i>
+                                                </span>
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Blood Test Results
+                                                        Review</p>
+                                                    <p class="text-xs text-gray-500">Review and provide analysis of
+                                                        recent blood work</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=portrait%20of%20an%20elderly%20female%20patient%20with%20gentle%20smile%252C%20natural%20lighting%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=11&orientation=squarish"
+                                                    alt="Patient" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Mary Johnson</p>
+                                                    <p class="text-xs text-gray-500">ID: #PT78345</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20pharmacist%20in%20white%20coat%252C%20confident%20pose%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=32&height=32&seq=8&orientation=squarish"
+                                                    alt="User" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">David Kim</p>
+                                                    <p class="text-xs text-gray-500">Pharmacist</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 11, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Medium</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-edit-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-start space-x-3">
+                                                <span
+                                                    class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                                    <i class="ri-check-line text-green-600 text-sm"></i>
+                                                </span>
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Medication Schedule
+                                                        Review</p>
+                                                    <p class="text-xs text-gray-500">Update patient's medication
+                                                        schedule post-surgery</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=portrait%20of%20a%20young%20female%20patient%20with%20friendly%20expression%252C%20natural%20lighting%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=12&orientation=squarish"
+                                                    alt="Patient" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Sarah Williams</p>
+                                                    <p class="text-xs text-gray-500">ID: #PT78401</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20technician%20in%20work%20uniform%252C%20focused%20expression%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=32&height=32&seq=9&orientation=squarish"
+                                                    alt="User" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Michael Chang</p>
+                                                    <p class="text-xs text-gray-500">Technician</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 12, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Low</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Pending</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-edit-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Health Worker Applications -->
+                <div class="bg-white rounded-lg shadow-sm mb-8">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Health Worker Applications</h3>
+                                <p class="text-sm text-gray-500 mt-1">Review and manage healthcare professional
+                                    applications</p>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button
+                                    class="text-sm border border-primary text-primary px-4 py-2 !rounded-button hover:bg-primary/5 flex items-center">
+                                    <i class="ri-download-line mr-2"></i>
+                                    <span>Export</span>
+                                </button>
+                                <button
+                                    class="text-sm bg-primary text-white px-4 py-2 !rounded-button hover:bg-primary/90 flex items-center">
+                                    <i class="ri-filter-3-line mr-2"></i>
+                                    <span>Filter</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <button
+                                class="text-sm font-medium text-gray-900 border-b-2 border-primary px-3 py-2">Pending
+                                Review (4)</button>
+                            <button class="text-sm font-medium text-gray-500 hover:text-gray-900 px-3 py-2">Approved
+                                (12)</button>
+                            <button class="text-sm font-medium text-gray-500 hover:text-gray-900 px-3 py-2">Rejected
+                                (3)</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Applicant</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Role</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Experience</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Interview Date</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Status</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20doctor%20in%20white%20coat%252C%20stethoscope%252C%20confident%20pose%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=40&height=40&seq=20&orientation=squarish"
+                                                    alt="Applicant" class="w-10 h-10 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Dr. Rachel Anderson</p>
+                                                    <p class="text-xs text-gray-500">rachel.anderson@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">Cardiologist</span>
+                                            <p class="text-xs text-gray-500">Specialist</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">8 years</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 10, 2025</span>
+                                            <p class="text-xs text-gray-500">2:00 PM</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending
+                                                Review</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button
+                                                    class="px-3 py-1 bg-green-500 text-white text-sm rounded !rounded-button hover:bg-green-600 flex items-center"
+                                                    onclick="approveApplication(this)">
+                                                    <i class="ri-check-line mr-1"></i>
+                                                    <span>Approve</span>
+                                                </button>
+                                                <button
+                                                    class="px-3 py-1 bg-red-500 text-white text-sm rounded !rounded-button hover:bg-red-600 flex items-center"
+                                                    onclick="rejectApplication(this)">
+                                                    <i class="ri-close-line mr-1"></i>
+                                                    <span>Reject</span>
+                                                </button>
+                                                <button
+                                                    class="text-gray-400 hover:text-gray-500 w-8 h-8 flex items-center justify-center"
+                                                    onclick="viewApplication(this)">
+                                                    <i class="ri-eye-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20nurse%20in%20scrubs%252C%20caring%20expression%252C%20neutral%20background%252C%20high%20quality%252C%20studio%20lighting&width=40&height=40&seq=21&orientation=squarish"
+                                                    alt="Applicant" class="w-10 h-10 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Mark Thompson</p>
+                                                    <p class="text-xs text-gray-500">mark.thompson@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">Registered Nurse</span>
+                                            <p class="text-xs text-gray-500">Emergency Care</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">5 years</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-900">May 11, 2025</span>
+                                            <p class="text-xs text-gray-500">10:30 AM</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending
+                                                Review</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button
+                                                    class="px-3 py-1 bg-green-500 text-white text-sm rounded !rounded-button hover:bg-green-600 flex items-center"
+                                                    onclick="approveApplication(this)">
+                                                    <i class="ri-check-line mr-1"></i>
+                                                    <span>Approve</span>
+                                                </button>
+                                                <button
+                                                    class="px-3 py-1 bg-red-500 text-white text-sm rounded !rounded-button hover:bg-red-600 flex items-center"
+                                                    onclick="rejectApplication(this)">
+                                                    <i class="ri-close-line mr-1"></i>
+                                                    <span>Reject</span>
+                                                </button>
+                                                <button
+                                                    class="text-gray-400 hover:text-gray-500 w-8 h-8 flex items-center justify-center"
+                                                    onclick="viewApplication(this)">
+                                                    <i class="ri-eye-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feedback Overview -->
+                <div class="bg-white rounded-lg shadow-sm mb-8">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Feedback Overview</h3>
+                                <p class="text-sm text-gray-500 mt-1">Monitor and manage feedback from all parties</p>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button
+                                    class="text-sm border border-primary text-primary px-4 py-2 !rounded-button hover:bg-primary/5 flex items-center">
+                                    <i class="ri-filter-3-line mr-2"></i>
+                                    <span>Filter</span>
+                                </button>
+                                <button
+                                    class="text-sm bg-primary text-white px-4 py-2 !rounded-button hover:bg-primary/90 flex items-center">
+                                    <i class="ri-download-line mr-2"></i>
+                                    <span>Export Report</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-6 mb-6">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-medium text-gray-900">Overall Rating</p>
+                                    <p class="text-sm font-medium text-gray-900">4.7/5.0</p>
+                                </div>
+                                <div class="h-2 bg-gray-100 rounded-full">
+                                    <div class="h-2 bg-primary rounded-full" style="width: 94%"></div>
+                                </div>
+                                <div class="flex items-center justify-between mt-2">
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                    </div>
+                                    <p class="text-sm text-green-600">+4.2% vs last month</p>
+                                </div>
+                            </div>
+                            <div class="w-px h-12 bg-gray-200"></div>
+                            <div class="flex space-x-6">
+                                <div class="text-center">
+                                    <p class="text-2xl font-semibold text-gray-900">2,847</p>
+                                    <p class="text-sm text-gray-500">Total Reviews</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-2xl font-semibold text-gray-900">89%</p>
+                                    <p class="text-sm text-gray-500">Satisfaction</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-2xl font-semibold text-gray-900">95%</p>
+                                    <p class="text-sm text-gray-500">Response Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                <div
+                                    class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-4">
+                                    <i class="ri-user-smile-line text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Patient</p>
+                                    <div class="flex items-center">
+                                        <p class="text-lg font-semibold text-gray-900 mr-2">4.8</p>
+                                        <div class="flex text-yellow-400 text-sm">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                <div
+                                    class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-4">
+                                    <i class="ri-nurse-line text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Health Worker</p>
+                                    <div class="flex items-center">
+                                        <p class="text-lg font-semibold text-gray-900 mr-2">4.6</p>
+                                        <div class="flex text-yellow-400 text-sm">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-half-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                <div
+                                    class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mr-4">
+                                    <i class="ri-hospital-line text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Facility</p>
+                                    <div class="flex items-center">
+                                        <p class="text-lg font-semibold text-gray-900 mr-2">4.5</p>
+                                        <div class="flex text-yellow-400 text-sm">
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-fill"></i>
+                                            <i class="ri-star-half-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="relative flex-1">
+                                <input type="text" placeholder="Search feedback..."
+                                    class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                                <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <i class="ri-search-line"></i>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button
+                                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 flex items-center">
+                                    <i class="ri-calendar-line mr-2"></i>
+                                    <span>Date Range</span>
+                                </button>
+                                <button
+                                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 flex items-center">
+                                    <i class="ri-filter-3-line mr-2"></i>
+                                    <span>Filters</span>
+                                </button>
+                                <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                    <i class="ri-sort-desc"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Feedback From</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Type</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Rating</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Comment</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Date</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Status</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=portrait%20of%20a%20young%20female%20patient%20with%20friendly%20smile%252C%20natural%20lighting%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=30&orientation=squarish"
+                                                    alt="Patient" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Jennifer Parker</p>
+                                                    <p class="text-xs text-gray-500">Patient</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Service
+                                                Review</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center">
+                                                <span class="text-sm font-medium text-gray-900 mr-2">5.0</span>
+                                                <div class="flex text-yellow-400">
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="text-sm text-gray-600">Excellent service and care. Dr. Thompson
+                                                was very thorough and professional.</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-500">May 9, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Published</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-eye-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-reply-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20male%20nurse%20in%20scrubs%252C%20confident%20pose%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=31&orientation=squarish"
+                                                    alt="Health Worker" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Michael Chen</p>
+                                                    <p class="text-xs text-gray-500">Health Worker</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Platform
+                                                Feedback</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center">
+                                                <span class="text-sm font-medium text-gray-900 mr-2">4.5</span>
+                                                <div class="flex text-yellow-400">
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-half-fill"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="text-sm text-gray-600">The platform is intuitive but could use
+                                                some improvements in the scheduling system.</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-500">May 8, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Under
+                                                Review</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-eye-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-reply-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20female%20hospital%20administrator%252C%20business%20attire%252C%20neutral%20background%252C%20high%20quality&width=32&height=32&seq=32&orientation=squarish"
+                                                    alt="Facility Admin" class="w-8 h-8 rounded-full object-cover">
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">Sarah Williams</p>
+                                                    <p class="text-xs text-gray-500">Facility Admin</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">System
+                                                Update</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center">
+                                                <span class="text-sm font-medium text-gray-900 mr-2">4.0</span>
+                                                <div class="flex text-yellow-400">
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-line"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="text-sm text-gray-600">Recent updates have improved workflow but
+                                                need better integration with existing systems.</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm text-gray-500">May 7, 2025</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Addressed</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-eye-line"></i>
+                                                </button>
+                                                <button class="text-gray-400 hover:text-gray-500">
+                                                    <i class="ri-reply-line"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+<section id="users" class="collapsible-content bg-white rounded-lg shadow-md" aria-label="Users">
+    <div class="p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-800">Recent Users</h2>
+            <a href="#" class="text-blue-600 hover:underline" aria-label="View All Users">View All Users</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50 text-xs font-semibold text-gray-500 uppercase">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left">User</th>
+                        <th scope="col" class="px-6 py-3 text-left">Role</th>
+                        <th scope="col" class="px-6 py-3 text-left">Status</th>
+                        <th scope="col" class="px-6 py-3 text-left">Joined</th>
+                        <th scope="col" class="px-6 py-3 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-100 text-sm text-gray-700">
+                    <?php while ($row = $users_query->fetch_assoc()): ?>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-cover bg-center" style="background-image: url('{{profile-picture-' . $row['id'] . '}}' ?: '');"></div>
+                                <div>
+                                    <p class="font-medium text-gray-900"><?php echo htmlspecialchars($row['name'] ?? 'N/A'); ?></p>
+                                    <p class="text-gray-500 text-sm"><?php echo htmlspecialchars($row['email'] ?? 'N/A'); ?></p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4"><?php echo htmlspecialchars($row['role'] ?? 'N/A'); ?></td>
+                            <td class="px-6 py-4">
+                                <?php
+                                    $status = strtolower($row['status'] ?? 'N/A');
+                                    $statusClasses = [
+                                        'active' => 'bg-green-100 text-green-800',
+                                        'pending' => 'bg-yellow-100 text-yellow-800',
+                                        'inactive' => 'bg-red-100 text-red-800'
+                                    ];
+                                ?>
+                                <span class="inline-block px-3 py-1 text-xs font-medium rounded-full <?php echo $statusClasses[$status] ?? 'bg-gray-100 text-gray-600'; ?>">
+                                    <?php echo ucfirst($status); ?>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4"><?php echo htmlspecialchars($row['created_at'] ?? 'N/A'); ?></td>
+                            <td class="px-6 py-4 flex items-center space-x-2">
+                                <button class="text-gray-500 hover:text-blue-600" aria-label="Edit User">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                    </svg>
+                                </button>
+                                <button class="text-gray-500 hover:text-red-600" aria-label="Delete User">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                    <?php if ($users_query->num_rows === 0): ?>
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">No data available</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-6 flex justify-end space-x-2">
+            <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Previous</button>
+            <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Next</button>
+        </div>
+    </div>
+</section>
+
+
+
+        <!-- Facility -->
+<!-- Facility -->
+<!-- Facility Hiring Requests Section -->
+<section class="bg-white rounded-lg shadow-md">
+    <div class="collapsible-header bg-gray-100 p-4 flex justify-between items-center" onclick="toggleSection('facility-hiring')">
+        <h2 class="text-xl font-semibold text-gray-800">Facility Hiring Requests</h2>
+        <span class="text-gray-800">▼</span>
+    </div>
+    <div id="facility-hiring" class="collapsible-content p-4 active">
+        <div class="table-container overflow-x-auto">
+            <table class="min-w-full bg-white border">
+                <thead class="bg-gray-50 sticky top-0">
+                    <tr>
+                        <th class="py-2 px-4 border">ID</th>
+                        <th class="py-2 px-4 border">Facility Name</th>
+                        <th class="py-2 px-4 border">Contact Person</th>
+                        <th class="py-2 px-4 border">Email</th>
+                        <th class="py-2 px-4 border">Phone</th>
+                        <!-- <th class="py-2 px-4 border">Coordinates</th>
+                        <th class="py-2 px-4 border">Facility Type</th>
+                        <th class="py-2 px-4 border">Positions</th>
+                        <th class="py-2 px-4 border">Employment Type</th>
+                        <th class="py-2 px-4 border">Shift Type</th>
+                        <th class="py-2 px-4 border">Staff Number</th>
+                        <th class="py-2 px-4 border">Start Date</th>
+                        <th class="py-2 px-4 border">Job Requirement Option</th>
+                        <th class="py-2 px-4 border">Qualifications</th>
+                        <th class="py-2 px-4 border">Experience</th>
+                        <th class="py-2 px-4 border">Job Description</th>
+                        <th class="py-2 px-4 border">Job Description File</th>
+                        <th class="py-2 px-4 border">Reference Number</th>
+                        <th class="py-2 px-4 border">Submission Date</th>
+                        <th class="py-2 px-4 border">CSRF Token</th>
+                        <th class="py-2 px-4 border">Created At</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $facility_query->fetch_assoc()): ?>
+                        <tr>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['facility_name']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['contact_person']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
+                            <!-- <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['coordinates'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['facility_type']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['positions']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['employment_type']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['shift_type']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['staff_number']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['start_date']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_requirement_option'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['qualifications'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['experience'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_description'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['job_description_file'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['csrf_token'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td> -->
+                        </tr>
+                    <?php endwhile; ?>
+                    <?php if ($facility_query->num_rows === 0): ?>
+                        <tr><td colspan="21" class="py-2 px-4 border text-center">No data available</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 flex justify-end">
+            <button class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">Previous</button>
+            <button class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 ml-2">Next</button>
+        </div>
+    </div>
+</section>
+
+
+
+            
+<!-- Personal -->
+ <section class="bg-white rounded-lg shadow-md">
+    <div class="collapsible-header bg-green-100 p-4 flex justify-between items-center" onclick="toggleSection('professional-profiles')">
+        <h2 class="text-xl font-semibold text-green-800">Professional Profiles</h2>
+        <span class="text-green-800">▼</span>
+    </div>
+    <div id="professional-profiles" class="collapsible-content p-4">
+        <div class="table-container overflow-x-auto">
+            <table class="min-w-full bg-white border">
+                <thead class="bg-green-50 sticky top-0">
+                    <tr>
+                        <th class="py-2 px-4 border">ID</th>
+                        <th class="py-2 px-4 border">Reference Number</th>
+                        <th class="py-2 px-4 border">Full Name</th>
+                        <th class="py-2 px-4 border">Email</th>
+                        <!-- <th class="py-2 px-4 border">Phone</th>
+                        <th class="py-2 px-4 border">Location</th>
+                        <th class="py-2 px-4 border">Summary</th>
+                        <th class="py-2 px-4 border">Experience</th>
+                        <th class="py-2 px-4 border">Education</th>
+                        <th class="py-2 px-4 border">Skills</th>
+                        <th class="py-2 px-4 border">Certifications</th>
+                        <th class="py-2 px-4 border">Documents</th>
+                        <th class="py-2 px-4 border">Submission Date</th>
+                        <th class="py-2 px-4 border">Created At</th>
+                        <th class="py-2 px-4 border">Updated At</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $profiles_query->fetch_assoc()): ?>
+                        <tr>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['full_name']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
+                            <!-- <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['location']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['summary'] ?: '-'); ?></td> -->
+                            <!-- <td class="py-2 px-4 border"> -->
+                                <?php
+                                $experience = json_decode($row['experience'], true);
+                                if (is_array($experience) && !empty($experience)) {
+                                    echo '<ul class="list-disc list-inside">';
+                                    foreach ($experience as $exp) {
+                                        echo '<li>' . htmlspecialchars($exp['title'] . ' at ' . $exp['company']) . '</li>';
+                                    }
+                                    echo '</ul>';
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>
+                            <td class="py-2 px-4 border">
+                                <?php
+                                $education = json_decode($row['education'], true);
+                                if (is_array($education) && !empty($education)) {
+                                    echo '<ul class="list-disc list-inside">';
+                                    foreach ($education as $edu) {
+                                        echo '<li>' . htmlspecialchars($edu['degree'] . ' from ' . $edu['institution']) . '</li>';
+                                    }
+                                    echo '</ul>';
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>
+                            <td class="py-2 px-4 border">
+                                <?php
+                                $skills = json_decode($row['skills'], true);
+                                if (is_array($skills) && !empty($skills)) {
+                                    echo implode(', ', array_map('htmlspecialchars', $skills));
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>
+                            <td class="py-2 px-4 border">
+                                <?php
+                                $certifications = json_decode($row['certifications'], true);
+                                if (is_array($certifications) && !empty($certifications)) {
+                                    echo implode(', ', array_map('htmlspecialchars', $certifications));
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>
+                            <td class="py-2 px-4 border">
+                                <?php
+                                $documents = json_decode($row['documents'], true);
+                                if (is_array($documents) && !empty($documents)) {
+                                    foreach ($documents as $doc) {
+                                        echo '<a href="download.php?type=document&id=' . $row['id'] . '&name=' . urlencode($doc['name']) . '" class="text-blue-500 hover:underline">' . htmlspecialchars($doc['name']) . '</a><br>';
+                                    }
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['updated_at']); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                    <?php if ($profiles_query->num_rows === 0): ?>
+                        <tr><td colspan="15" class="py-2 px-4 border text-center">No data available</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 flex justify-end">
+            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Previous</button>
+            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Next</button>
+        </div>
+    </div>
+</section>
+
+<!-- personal_care_query -->
+ <section class="bg-white rounded-lg shadow-md">
+    <div class="collapsible-header bg-purple-100 p-4 flex justify-between items-center" onclick="toggleSection('personal-care')">
+        <h2 class="text-xl font-semibold text-purple-800">Personal Care Requests</h2>
+        <span class="text-purple-800">▼</span>
+    </div>
+    <div id="personal-care" class="collapsible-content p-4 active">
+        <div class="table-container overflow-x-auto">
+            <table class="min-w-full bg-white border">
+                <thead class="bg-purple-50 sticky top-0">
+                    <tr>
+                        <th class="py-2 px-4 border">ID</th>
+                        <th class="py-2 px-4 border">Full Name</th>
+                        <th class="py-2 px-4 border">Email</th>
+                        <th class="py-2 px-4 border">Phone</th>
+                        <!-- <th class="py-2 px-4 border">Address</th>
+                        <th class="py-2 px-4 border">Care Type</th>
+                        <th class="py-2 px-4 border">Care Frequency</th>
+                        <th class="py-2 px-4 border">Start Date</th>
+                        <th class="py-2 px-4 border">Medical Conditions</th>
+                        <th class="py-2 px-4 border">Additional Notes</th>
+                        <th class="py-2 px-4 border">Reference Number</th>
+                        <th class="py-2 px-4 border">Submission Date</th>
+                        <th class="py-2 px-4 border">CSRF Token</th>
+                        <th class="py-2 px-4 border">Created At</th>
+                        <th class="py-2 px-4 border">Care Requirements</th>
+                        <th class="py-2 px-4 border">Schedule</th>
+                        <th class="py-2 px-4 border">Medications</th>
+                        <th class="py-2 px-4 border">Allergies</th>
+                        <th class="py-2 px-4 border">Emergency Contact</th>
+                        <th class="py-2 px-4 border">Emergency Phone</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $personal_care_query->fetch_assoc()): ?>
+                        <tr>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['id']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['full_name']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['email']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['phone']); ?></td>
+                            <!-- <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['address']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_type']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_frequency'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['start_date'] === '0000-00-00' ? '-' : $row['start_date']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['medical_conditions'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['additional_notes'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['reference_number']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['submission_date']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['csrf_token'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['created_at']); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['care_requirements'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['schedule'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['medications'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['allergies'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['emergency_contact'] ?: '-'); ?></td>
+                            <td class="py-2 px-4 border"><?php echo htmlspecialchars($row['emergency_phone'] ?: '-'); ?></td> -->
+                        </tr>
+                    <?php endwhile; ?>
+                    <?php if ($personal_care_query->num_rows === 0): ?>
+                        <tr><td colspan="20" class="py-2 px-4 border text-center">No data available</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 flex justify-end">
+            <button class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">Previous</button>
+            <button class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 ml-2">Next</button>
+        </div>
+    </div>
+</section>
+
+                <!-- Recent Users Table -->
+                <div class="bg-white rounded-lg shadow-sm">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-900">Recent Users</h3>
+                            <button class="text-sm text-primary hover:text-primary/80">View All Users</button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        User</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Role</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Status</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Joined</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=professional+headshot+of+a+female+doctor+in+white+coat%252C+smiling%252C+confident%252C+against+neutral+background%252C+high+quality%252C+studio+lighting&width=40&height=40&seq=2&orientation=squarish"
+                                                alt="User" class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">Dr. Emily Thompson</p>
+                                                <p class="text-sm text-gray-500">emily.t@example.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">Healthcare Professional</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 7, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <div class="flex items-center space-x-3">
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-edit-line"></i>
+                                            </button>
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=professional+headshot+of+a+male+healthcare+administrator%252C+business+attire%252C+confident+pose%252C+neutral+background%252C+high+quality%252C+studio+lighting&width=40&height=40&seq=3&orientation=squarish"
+                                                alt="User" class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">Robert Chen</p>
+                                                <p class="text-sm text-gray-500">robert.c@example.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">Facility Admin</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 6, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <div class="flex items-center space-x-3">
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-edit-line"></i>
+                                            </button>
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=professional+headshot+of+a+female+nurse%252C+wearing+scrubs%252C+warm+smile%252C+neutral+background%252C+high+quality%252C+studio+lighting&width=40&height=40&seq=4&orientation=squarish"
+                                                alt="User" class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">Maria Garcia</p>
+                                                <p class="text-sm text-gray-500">maria.g@example.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">Nurse</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 6, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <div class="flex items-center space-x-3">
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-edit-line"></i>
+                                            </button>
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=professional+headshot+of+a+male+doctor%252C+wearing+white+coat%252C+stethoscope%252C+confident+pose%252C+neutral+background%252C+high+quality%252C+studio+lighting&width=40&height=40&seq=5&orientation=squarish"
+                                                alt="User" class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">Dr. James Wilson</p>
+                                                <p class="text-sm text-gray-500">james.w@example.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">Healthcare Professional</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Inactive</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 5, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <div class="flex items-center space-x-3">
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-edit-line"></i>
+                                            </button>
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=professional+headshot+of+a+female+healthcare+administrator%252C+business+professional+attire%252C+friendly+expression%252C+neutral+background%252C+high+quality%252C+studio+lighting&width=40&height=40&seq=6&orientation=squarish"
+                                                alt="User" class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">Sarah Brown</p>
+                                                <p class="text-sm text-gray-500">sarah.b@example.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">Facility Admin</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 5, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <div class="flex items-center space-x-3">
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-edit-line"></i>
+                                            </button>
+                                            <button class="text-gray-400 hover:text-gray-500">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2" style="margin-top: 100px;">Create Your Account</h1>
+        <p class="text-gray-600">Join Matendo Health to connect with healthcare opportunities</p>
+    </div>
+    <!-- User Type Selection Tabs -->
+    <div class="flex justify-center mb-8">
+        <div class="inline-flex p-1 bg-gray-100 rounded-full">
+            <button id="facilityTab"
+                class="px-6 py-2 rounded-full bg-primary text-white font-medium whitespace-nowrap">Healthcare
+                Facility</button>
+            <button id="professionalTab"
+                class="px-6 py-2 rounded-full text-gray-700 font-medium hover:bg-gray-200 whitespace-nowrap">Healthcare
+                Professional</button>
+        </div>
+    </div>
+    <!-- Registration Form -->
+    <form id="registrationForm" class="space-y-8" action="https://readdy.ai/api/form/d0e94li0893vq0l7cap0"
+        method="POST">
+        <!-- Personal Information Section -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                    <input type="text" id="firstName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        placeholder="Enter your first name">
+                </div>
+                <div>
+                    <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                    <input type="text" id="lastName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        placeholder="Enter your last name">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input type="email" id="email"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        placeholder="Enter your email address">
+                </div>
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <input type="tel" id="phone"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        placeholder="Enter your phone number">
+                </div>
+            </div>
+        </div>
+        <!-- Facility Details (Default Active) -->
+        <div id="facilityContent" class="tab-content active space-y-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Facility Details</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="facilityName" class="block text-sm font-medium text-gray-700 mb-1">Facility Name</label>
+                    <input type="text" id="facilityName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        placeholder="Enter facility name">
+                </div>
+                <div>
+                    <label for="facilityType" class="block text-sm font-medium text-gray-700 mb-1">Facility Type</label>
+                    <div class="relative">
+                        <select id="facilityType"
+                            class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                            <option value="" disabled selected>Select facility type</option>
+                            <option value="hospital">Hospital</option>
+                            <option value="clinic">Clinic</option>
+                            <option value="nursing_home">Nursing Home</option>
+                            <option value="rehabilitation_center">Rehabilitation Center</option>
+                            <option value="diagnostic_center">Diagnostic Center</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="registrationNumber" class="block text-sm font-medium text-gray-700 mb-1">Registration
+                    Number</label>
+                <input type="text" id="registrationNumber"
+                    class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                    placeholder="Enter facility registration number">
+            </div>
+            <div>
+                <label for="facilityAddress" class="block text-sm font-medium text-gray-700 mb-1">Facility
+                    Address</label>
+                <textarea id="facilityAddress" rows="3"
+                    class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                    placeholder="Enter facility address"></textarea>
+            </div>
+        </div>
+        <!-- Professional Details (Initially Hidden) -->
+        <div id="professionalContent" class="tab-content space-y-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Professional Details</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="specialization"
+                        class="block text-sm font-medium text-gray-700 mb-1">Specialization</label>
+                    <div class="relative">
+                        <select id="specialization"
+                            class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                            <option value="" disabled selected>Select specialization</option>
+                            <option value="general_practitioner">General Practitioner</option>
+                            <option value="pediatrician">Pediatrician</option>
+                            <option value="nurse">Registered Nurse</option>
+                            <option value="surgeon">Surgeon</option>
+                            <option value="physiotherapist">Physiotherapist</option>
+                            <option value="midwife">Midwife</option>
+                            <option value="dentist">Dentist</option>
+                            <option value="pharmacist">Pharmacist</option>
+                            <option value="lab_technician">Lab Technician</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="licenseNumber" class="block text-sm font-medium text-gray-700 mb-1">License
+                        Number</label>
+                    <input type="text" id="licenseNumber"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        placeholder="Enter your license number">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="experience" class="block text-sm font-medium text-gray-700 mb-1">Years of
+                        Experience</label>
+                    <input type="number" id="experience" min="0" max="50"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        placeholder="Enter years of experience">
+                </div>
+                <div>
+                    <label for="qualifications" class="block text-sm font-medium text-gray-700 mb-1">Highest
+                        Qualification</label>
+                    <div class="relative">
+                        <select id="qualifications"
+                            class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                            <option value="" disabled selected>Select qualification</option>
+                            <option value="diploma">Diploma</option>
+                            <option value="bachelors">Bachelor's Degree</option>
+                            <option value="masters">Master's Degree</option>
+                            <option value="phd">PhD</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Account Credentials Section -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Account Credentials</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <div class="relative">
+                        <input type="password" id="password"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                            placeholder="Create a password">
+                        <button type="button" id="togglePassword"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                            <i class="ri-eye-line"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength-indicator mt-2">
+                        <div class="strength-segment" id="strength1"></div>
+                        <div class="strength-segment" id="strength2"></div>
+                        <div class="strength-segment" id="strength3"></div>
+                        <div class="strength-segment" id="strength4"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1" id="passwordStrengthText">Password strength: Enter a password
+                    </p>
+                </div>
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm
+                        Password</label>
+                    <div class="relative">
+                        <input type="password" id="confirmPassword"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                            placeholder="Confirm your password">
+                        <button type="button" id="toggleConfirmPassword"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                            <i class="ri-eye-line"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-red-500 mt-1 hidden" id="passwordMatchError">Passwords do not match</p>
+                </div>
+            </div>
+        </div>
+        <!-- Terms and Privacy Policy -->
+        <div class="space-y-4">
+            <label class="custom-checkbox flex items-start">
+                <input type="checkbox" id="termsCheckbox">
+                <span class="checkmark mr-3 mt-0.5"></span>
+                <span class="text-sm text-gray-700">
+                    I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#"
+                        class="text-primary hover:underline">Privacy Policy</a>. I understand how Matendo Health
+                    processes my data as described in the Privacy Policy.
+                </span>
+            </label>
+            <label class="custom-checkbox flex items-start">
+                <input type="checkbox" id="marketingCheckbox">
+                <span class="checkmark mr-3 mt-0.5"></span>
+                <span class="text-sm text-gray-700">
+                    I would like to receive updates, news, and promotional offers from Matendo Health (optional).
+                </span>
+            </label>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" id="createAccountBtn"
+            class="w-full bg-primary text-white font-medium py-3 !rounded-button hover:bg-primary/90 whitespace-nowrap flex items-center justify-center">
+            <span>Create Account</span>
+            <span id="loadingSpinner" class="ml-2 hidden">
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+            </span>
+        </button>
+        <!-- Social Registration Options -->
+        <div class="relative flex items-center justify-center my-6">
+            <div class="border-t border-gray-300 absolute w-full"></div>
+            <span class="bg-white px-4 relative text-sm text-gray-500">or register with</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button type="button"
+                class="flex items-center justify-center py-2 px-4 border border-gray-300 rounded !rounded-button hover:bg-gray-50 whitespace-nowrap">
+                <i class="ri-google-fill ri-lg text-red-500 mr-2"></i>
+                <span>Google</span>
+            </button>
+            <button type="button"
+                class="flex items-center justify-center py-2 px-4 border border-gray-300 rounded !rounded-button hover:bg-gray-50 whitespace-nowrap">
+                <i class="ri-facebook-fill ri-lg text-blue-600 mr-2"></i>
+                <span>Facebook</span>
+            </button>
+            <button type="button"
+                class="flex items-center justify-center py-2 px-4 border border-gray-300 rounded !rounded-button hover:bg-gray-50 whitespace-nowrap">
+                <i class="ri-linkedin-fill ri-lg text-blue-700 mr-2"></i>
+                <span>LinkedIn</span>
+            </button>
+        </div>
+        <!-- Login Link -->
+        <div class="text-center">
+            <p class="text-gray-600">
+                Already have an account?
+                <a href="https://readdy.ai/home/3de26f53-73bd-4a6f-918e-d52047d3351e/832181d2-7322-4021-b743-8b0e3ffa96ce"
+                    data-readdy="true" class="text-primary font-medium hover:underline">Log in</a>
+            </p>
+        </div>
+    </form>
+    </div>
+    </div>
+    </div>
+            </main>
+        </div>
+    </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-50 py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Matendo Health. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors">Terms of Service</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+        function approveApplication(button) {
+            const row = button.closest('tr');
+            const nameElement = row.querySelector('.text-sm.font-medium');
+            const name = nameElement.textContent;
+            const emailElement = row.querySelector('.text-xs.text-gray-500');
+            const email = emailElement.textContent;
+            const roleElement = row.querySelector('td:nth-child(2) .text-sm');
+            const role = roleElement.textContent;
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+<div class="bg-white rounded-lg w-full max-w-md mx-4 p-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Approve Application</h3>
+<p class="text-sm text-gray-500 mb-4">You are about to approve ${name}'s application. This will create an account for them with the following details:</p>
+<div class="space-y-4 mb-6">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Email (Username)</label>
+<input type="text" value="${email}" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" readonly>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+<input type="text" value="${role}" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" readonly>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Access Level</label>
+<div class="relative">
+<select class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+<option value="standard">Standard Access</option>
+<option value="restricted">Restricted Access</option>
+<option value="full">Full Access</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<i class="ri-arrow-down-s-line text-gray-500"></i>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Temporary Password</label>
+<div class="relative">
+<input type="text" value="Matendo@${Math.random().toString(36).substring(2, 8)}" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" readonly>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="copyToClipboard(this.previousElementSibling)">
+<i class="ri-file-copy-line"></i>
+</button>
+</div>
+<p class="text-xs text-gray-500 mt-1">The health worker will be required to change this password on first login</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Send Welcome Email</label>
+<label class="custom-checkbox flex items-start">
+<input type="checkbox" checked>
+<span class="checkmark mr-3 mt-0.5"></span>
+<span class="text-sm text-gray-700">Send account credentials via email</span>
+</label>
+</div>
+</div>
+<div class="flex justify-end space-x-3">
+<button class="px-4 py-2 border border-gray-300 rounded !rounded-button text-gray-700 hover:bg-gray-50" onclick="this.closest('.fixed').remove()">Cancel</button>
+<button class="px-4 py-2 bg-green-500 text-white rounded !rounded-button hover:bg-green-600" onclick="confirmApproval(this, '${name}')">Confirm Approval</button>
+</div>
+</div>
+`;
+            document.body.appendChild(modal);
+        }
+        function confirmApproval(button, name) {
+            const modal = button.closest('.fixed');
+            const row = document.querySelector('tr.pending-approval') || button.closest('tr');
+            const statusCell = row.querySelector('td:nth-child(5)');
+            const accessLevel = modal.querySelector('select').value;
+            // Update status and show processing state
+            statusCell.innerHTML = '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Processing...</span>';
+            // Simulate API call to create account
+            setTimeout(() => {
+                // Update status to approved
+                statusCell.innerHTML = '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Approved</span>';
+                // Update actions cell
+                const actionsCell = row.querySelector('td:last-child');
+                actionsCell.innerHTML = `
+<div class="flex items-center space-x-2">
+<span class="text-sm text-green-500">Account Active</span>
+<div class="flex items-center space-x-1">
+<button class="text-gray-400 hover:text-gray-500 w-8 h-8 flex items-center justify-center" onclick="viewApplication(this)">
+<i class="ri-eye-line"></i>
+</button>
+<button class="text-gray-400 hover:text-gray-500 w-8 h-8 flex items-center justify-center" onclick="manageAccess(this)">
+<i class="ri-settings-line"></i>
+</button>
+</div>
+</div>
+`;
+                // Show success message
+                showMessage(`${name}'s application has been approved with ${accessLevel} access. Account created and welcome email sent.`, 'success');
+            }, 1000);
+            modal.remove();
+        }
+        function manageAccess(button) {
+            const row = button.closest('tr');
+            const nameElement = row.querySelector('.text-sm.font-medium');
+            const name = nameElement.textContent;
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+<div class="bg-white rounded-lg w-full max-w-md mx-4 p-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Manage Access - ${name}</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Access Level</label>
+<div class="relative">
+<select class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+<option value="standard">Standard Access</option>
+<option value="restricted">Restricted Access</option>
+<option value="full">Full Access</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<i class="ri-arrow-down-s-line text-gray-500"></i>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Account Status</label>
+<div class="relative">
+<select class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+<option value="active">Active</option>
+<option value="suspended">Suspended</option>
+<option value="deactivated">Deactivated</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<i class="ri-arrow-down-s-line text-gray-500"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end space-x-3">
+<button class="px-4 py-2 border border-gray-300 rounded !rounded-button text-gray-700 hover:bg-gray-50" onclick="this.closest('.fixed').remove()">Cancel</button>
+<button class="px-4 py-2 bg-primary text-white rounded !rounded-button hover:bg-primary/90" onclick="updateAccess(this)">Update Access</button>
+</div>
+</div>
+`;
+            document.body.appendChild(modal);
+        }
+        function updateAccess(button) {
+            const modal = button.closest('.fixed');
+            const accessLevel = modal.querySelector('select').value;
+            const accountStatus = modal.querySelectorAll('select')[1].value;
+            showMessage('Access settings updated successfully', 'success');
+            modal.remove();
+        }
+        function copyToClipboard(input) {
+            input.select();
+            document.execCommand('copy');
+            showMessage('Copied to clipboard!', 'success');
+        }
+        function rejectApplication(button) {
+            const row = button.closest('tr');
+            const nameElement = row.querySelector('.text-sm.font-medium');
+            const name = nameElement.textContent;
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+<div class="bg-white rounded-lg w-full max-w-md mx-4 p-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Reject Application</h3>
+<p class="text-sm text-gray-500 mb-4">Please provide a reason for rejecting ${name}'s application:</p>
+<textarea class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary mb-4" rows="3" placeholder="Enter rejection reason"></textarea>
+<div class="flex justify-end space-x-3">
+<button class="px-4 py-2 border border-gray-300 rounded !rounded-button text-gray-700 hover:bg-gray-50" onclick="this.closest('.fixed').remove()">Cancel</button>
+<button class="px-4 py-2 bg-red-500 text-white rounded !rounded-button hover:bg-red-600" onclick="confirmReject(this)">Confirm Reject</button>
+</div>
+</div>
+`;
+            document.body.appendChild(modal);
+        }
+        function confirmReject(button) {
+            const modal = button.closest('.fixed');
+            const row = document.querySelector('tr.pending-rejection') || button.closest('tr');
+            const nameElement = row.querySelector('.text-sm.font-medium');
+            const name = nameElement.textContent;
+            const statusCell = row.querySelector('td:nth-child(5)');
+            statusCell.innerHTML = '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Rejected</span>';
+            const actionsCell = row.querySelector('td:last-child');
+            actionsCell.innerHTML = `
+<div class="flex items-center space-x-2">
+<button class="text-gray-400 hover:text-gray-500 w-8 h-8 flex items-center justify-center" onclick="viewApplication(this)">
+<i class="ri-eye-line"></i>
+</button>
+</div>
+`;
+            modal.remove();
+            showMessage(`${name}'s application has been rejected`, 'error');
+        }
+        function viewApplication(button) {
+            const row = button.closest('tr');
+            const nameElement = row.querySelector('.text-sm.font-medium');
+            const name = nameElement.textContent;
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+<div class="bg-white rounded-lg w-full max-w-4xl mx-4">
+<div class="p-6 border-b border-gray-100">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-semibold text-gray-900">Application Details</h3>
+<button class="text-gray-400 hover:text-gray-500" onclick="this.closest('.fixed').remove()">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+</div>
+<div class="p-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<h4 class="text-sm font-medium text-gray-500 mb-2">Personal Information</h4>
+<div class="space-y-2">
+<p class="text-sm"><span class="font-medium">Name:</span> ${name}</p>
+<p class="text-sm"><span class="font-medium">Email:</span> ${row.querySelector('.text-xs.text-gray-500').textContent}</p>
+<p class="text-sm"><span class="font-medium">Phone:</span> +1 (555) 123-4567</p>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-medium text-gray-500 mb-2">Professional Information</h4>
+<div class="space-y-2">
+<p class="text-sm"><span class="font-medium">Role:</span> ${row.querySelector('td:nth-child(2) .text-sm').textContent}</p>
+<p class="text-sm"><span class="font-medium">Experience:</span> ${row.querySelector('td:nth-child(3)').textContent}</p>
+<p class="text-sm"><span class="font-medium">License Number:</span> ML123456</p>
+</div>
+</div>
+</div>
+<div class="mt-6">
+<h4 class="text-sm font-medium text-gray-500 mb-2">Additional Information</h4>
+<p class="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+<div class="mt-6">
+<h4 class="text-sm font-medium text-gray-500 mb-2">Attached Documents</h4>
+<div class="space-y-2">
+<div class="flex items-center space-x-2">
+<i class="ri-file-text-line text-gray-400"></i>
+<span class="text-sm text-primary hover:underline cursor-pointer">Resume.pdf</span>
+</div>
+<div class="flex items-center space-x-2">
+<i class="ri-file-text-line text-gray-400"></i>
+<span class="text-sm text-primary hover:underline cursor-pointer">Medical_License.pdf</span>
+</div>
+<div class="flex items-center space-x-2">
+<i class="ri-file-text-line text-gray-400"></i>
+<span class="text-sm text-primary hover:underline cursor-pointer">Certifications.pdf</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+`;
+            document.body.appendChild(modal);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            let sidebarExpanded = true;
+            sidebarToggle.addEventListener('click', function () {
+                sidebarExpanded = !sidebarExpanded;
+                if (sidebarExpanded) {
+                    sidebar.classList.remove('w-16');
+                    sidebar.classList.add('w-64');
+                    mainContent.classList.remove('ml-16');
+                    mainContent.classList.add('ml-64');
+                    sidebar.querySelectorAll('span').forEach(span => {
+                        span.classList.remove('hidden');
+                    });
+                } else {
+                    sidebar.classList.remove('w-64');
+                    sidebar.classList.add('w-16');
+                    mainContent.classList.remove('ml-64');
+                    mainContent.classList.add('ml-16');
+                    sidebar.querySelectorAll('span').forEach(span => {
+                        span.classList.add('hidden');
+                    });
+                }
+            });
+            // Initialize user growth chart
+            const userGrowthChart = echarts.init(document.getElementById('userGrowthChart'));
+            const userGrowthOption = {
+                animation: false,
+                grid: {
+                    top: 10,
+                    right: 30,
+                    bottom: 30,
+                    left: 40,
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    axisLine: {
+                        lineStyle: {
+                            color: '#E5E7EB'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#6B7280'
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    splitLine: {
+                        lineStyle: {
+                            color: '#E5E7EB'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#6B7280'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderColor: '#E5E7EB',
+                    borderWidth: 1,
+                    textStyle: {
+                        color: '#1F2937'
+                    },
+                    formatter: function (params) {
+                        return `${params[0].name}: ${params[0].value} users`;
+                    }
+                },
+                series: [{
+                    name: 'Users',
+                    data: [820, 932, 901, 934, 1290, 1330, 1520, 1650, 1750, 1850, 2100, 2847],
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'none',
+                    lineStyle: {
+                        color: '#1e40af'
+                    },
+                    areaStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0,
+                                color: 'rgba(30, 64, 175, 0.15)'
+                            }, {
+                                offset: 1,
+                                color: 'rgba(30, 64, 175, 0.01)'
+                            }]
+                        }
+                    }
+                }]
+            };
+            userGrowthChart.setOption(userGrowthOption);
+            // Handle window resize
+            window.addEventListener('resize', function () {
+                userGrowthChart.resize();
+            });
+            const professionalTab = document.getElementById('professionalTab');
+            const facilityContent = document.getElementById('facilityContent');
+            const professionalContent = document.getElementById('professionalContent');
+            facilityTab.addEventListener('click', function () {
+                facilityTab.classList.add('bg-primary', 'text-white');
+                facilityTab.classList.remove('text-gray-700', 'hover:bg-gray-200');
+                professionalTab.classList.remove('bg-primary', 'text-white');
+                professionalTab.classList.add('text-gray-700', 'hover:bg-gray-200');
+                facilityContent.classList.add('active');
+                professionalContent.classList.remove('active');
+            });
+            professionalTab.addEventListener('click', function () {
+                professionalTab.classList.add('bg-primary', 'text-white');
+                professionalTab.classList.remove('text-gray-700', 'hover:bg-gray-200');
+                facilityTab.classList.remove('bg-primary', 'text-white');
+                facilityTab.classList.add('text-gray-700', 'hover:bg-gray-200');
+                professionalContent.classList.add('active');
+                facilityContent.classList.remove('active');
+            });
+            // Password visibility toggle
+            const togglePassword = document.getElementById('togglePassword');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type');
+                passwordInput.setAttribute('type', type === 'password' ? 'text' : 'password');
+                togglePassword.innerHTML = type === 'password' ? '<i class="ri-eye-off-line"></i>' : '<i class="ri-eye-line"></i>';
+            });
+            toggleConfirmPassword.addEventListener('click', function () {
+                const type = confirmPasswordInput.getAttribute('type');
+                confirmPasswordInput.setAttribute('type', type === 'password' ? 'text' : 'password');
+                toggleConfirmPassword.innerHTML = type === 'password' ? '<i class="ri-eye-off-line"></i>' : '<i class="ri-eye-line"></i>';
+            });
+            // Password strength meter
+            const strengthSegments = [
+                document.getElementById('strength1'),
+                document.getElementById('strength2'),
+                document.getElementById('strength3'),
+                document.getElementById('strength4')
+            ];
+            const passwordStrengthText = document.getElementById('passwordStrengthText');
+            passwordInput.addEventListener('input', function () {
+                const password = this.value;
+                const passwordMatchError = document.getElementById('passwordMatchError');
+                // Check password match
+                if (confirmPasswordInput.value && confirmPasswordInput.value !== password) {
+                    passwordMatchError.classList.remove('hidden');
+                } else {
+                    passwordMatchError.classList.add('hidden');
+                }
+                // Calculate password strength
+                let strength = 0;
+                if (password.length > 0) strength += 1;
+                if (password.length >= 8) strength += 1;
+                if (/[A-Z]/.test(password) && /[a-z]/.test(password)) strength += 1;
+                if (/[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password)) strength += 1;
+                // Update strength meter
+                const strengthColors = ['#ef4444', '#f97316', '#eab308', '#22c55e'];
+                const strengthTexts = ['Weak', 'Fair', 'Good', 'Strong'];
+                for (let i = 0; i < 4; i++) {
+                    if (i < strength) {
+                        strengthSegments[i].style.backgroundColor = strengthColors[strength - 1];
+                    } else {
+                        strengthSegments[i].style.backgroundColor = '#e5e7eb';
+                    }
+                }
+                if (password.length === 0) {
+                    passwordStrengthText.textContent = 'Password strength: Enter a password';
+                    passwordStrengthText.className = 'text-xs text-gray-500 mt-1';
+                } else {
+                    passwordStrengthText.textContent = `Password strength: ${strengthTexts[strength - 1]}`;
+                    passwordStrengthText.className = `text-xs mt-1 text-${strength === 1 ? 'red' : strength === 2 ? 'orange' : strength === 3 ? 'yellow' : 'green'}-500`;
+                }
+            });
+            // Confirm password validation
+            confirmPasswordInput.addEventListener('input', function () {
+                const passwordMatchError = document.getElementById('passwordMatchError');
+                if (this.value && this.value !== passwordInput.value) {
+                    passwordMatchError.classList.remove('hidden');
+                } else {
+                    passwordMatchError.classList.add('hidden');
+                }
+            });
+            // Form submission
+            const registrationForm = document.getElementById('registrationForm');
+            const createAccountBtn = document.getElementById('createAccountBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            registrationForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                // Validate form
+                if (!termsCheckbox.checked) {
+                    showMessage('Please accept the Terms of Service and Privacy Policy to continue.', 'error');
+                    return;
+                }
+                if (confirmPasswordInput.value !== passwordInput.value) {
+                    showMessage('Passwords do not match. Please try again.', 'error');
+                    return;
+                }
+                // Show loading state
+                createAccountBtn.disabled = true;
+                loadingSpinner.classList.remove('hidden');
+                // Get form data
+                const formData = new FormData(registrationForm);
+                const selectedTab = document.getElementById('facilityContent').classList.contains('active') ? 'facility' : 'professional';
+                formData.append('accountType', selectedTab);
+                // Convert FormData to URLSearchParams for application/x-www-form-urlencoded
+                const urlEncodedData = new URLSearchParams(formData);
+                // Submit form
+                fetch(registrationForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: urlEncodedData.toString()
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        showMessage('Account created successfully! You will be redirected to the login page.', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'https://readdy.ai/home/3de26f53-73bd-4a6f-918e-d52047d3351e/832181d2-7322-4021-b743-8b0e3ffa96ce';
+                        }, 2000);
+                    })
+                    .catch(error => {
+                        showMessage('An error occurred. Please try again.', 'error');
+                    })
+                    .finally(() => {
+                        loadingSpinner.classList.add('hidden');
+                        createAccountBtn.disabled = false;
+                    });
+            });
+            // Message display function
+            function showMessage(message, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `fixed top-4 right-4 p-4 rounded shadow-lg ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white`;
+                messageDiv.textContent = message;
+                document.body.appendChild(messageDiv);
+                setTimeout(() => messageDiv.remove(), 3000);
+            }
+        });
+    </script>
+    <!-- Request & Task Management Modals -->
+    <div id="taskModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg w-full max-w-2xl mx-4">
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-900">Assign New Task</h3>
+                    <button id="closeTaskModal" class="text-gray-400 hover:text-gray-500">
+                        <i class="ri-close-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <form id="taskForm" class="p-6">
+                <div class="space-y-4">
+                    <div>
+                        <label for="taskTitle" class="block text-sm font-medium text-gray-700 mb-1">Task Title</label>
+                        <input type="text" id="taskTitle"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                            placeholder="Enter task title">
+                    </div>
+                    <div>
+                        <label for="taskDescription"
+                            class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea id="taskDescription" rows="3"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                            placeholder="Enter task description"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="assignee" class="block text-sm font-medium text-gray-700 mb-1">Assign To</label>
+                            <div class="relative">
+                                <select id="assignee"
+                                    class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                                    <option value="" disabled selected>Select staff member</option>
+                                    <option value="emma">Emma Rodriguez - Nurse</option>
+                                    <option value="david">David Kim - Pharmacist</option>
+                                    <option value="michael">Michael Chang - Technician</option>
+                                    <option value="sarah">Sarah Wilson - Doctor</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="dueDate" class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                            <input type="date" id="dueDate"
+                                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="priority" class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                            <div class="relative">
+                                <select id="priority"
+                                    class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                                    <option value="" disabled selected>Select priority</option>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                            <div class="relative">
+                                <select id="status"
+                                    class="w-full px-4 py-2 pr-8 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary bg-white">
+                                    <option value="" disabled selected>Select status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" id="cancelTaskBtn"
+                        class="px-4 py-2 border border-gray-300 rounded !rounded-button text-gray-700 hover:bg-gray-50">Cancel</button>
+                    <button type="submit"
+                        class="px-4 py-2 bg-primary text-white rounded !rounded-button hover:bg-primary/90">Assign
+                        Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add feedback view/reply functionality
+            document.querySelectorAll('button .ri-eye-line, button .ri-reply-line').forEach(button => {
+                button.parentElement.addEventListener('click', function () {
+                    const row = this.closest('tr');
+                    const name = row.querySelector('.text-sm.font-medium').textContent;
+                    const type = row.querySelector('td:nth-child(2) span').textContent;
+                    const comment = row.querySelector('td:nth-child(4) p').textContent;
+                    const modal = document.createElement('div');
+                    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                    modal.innerHTML = `
+<div class="bg-white rounded-lg w-full max-w-2xl mx-4">
+<div class="p-6 border-b border-gray-100">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-semibold text-gray-900">Feedback Details</h3>
+<button class="text-gray-400 hover:text-gray-500" onclick="this.closest('.fixed').remove()">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+</div>
+<div class="p-6">
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">From</label>
+<p class="text-sm text-gray-900">${name}</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+<p class="text-sm text-gray-900">${type}</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
+<p class="text-sm text-gray-900">${comment}</p>
+</div>
+${this.querySelector('.ri-reply-line') ? `
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Reply</label>
+<textarea class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" rows="3" placeholder="Enter your reply..."></textarea>
+</div>
+` : ''}
+</div>
+<div class="mt-6 flex justify-end space-x-3">
+<button class="px-4 py-2 border border-gray-300 rounded !rounded-button text-gray-700 hover:bg-gray-50" onclick="this.closest('.fixed').remove()">Close</button>
+${this.querySelector('.ri-reply-line') ? `
+<button class="px-4 py-2 bg-primary text-white rounded !rounded-button hover:bg-primary/90" onclick="sendReply(this)">Send Reply</button>
+` : ''}
+</div>
+</div>
+</div>
+`;
+                    document.body.appendChild(modal);
+                });
+            });
+            function sendReply(button) {
+                const modal = button.closest('.fixed');
+                const textarea = modal.querySelector('textarea');
+                if (textarea.value.trim()) {
+                    showMessage('Reply sent successfully!', 'success');
+                    modal.remove();
+                } else {
+                    showMessage('Please enter a reply message.', 'error');
+                }
+            }
+            const taskModal = document.getElementById('taskModal');
+            const assignTaskBtn = document.getElementById('assignTaskBtn');
+            const viewRequestsBtn = document.getElementById('viewRequestsBtn');
+            const closeTaskModal = document.getElementById('closeTaskModal');
+            const cancelTaskBtn = document.getElementById('cancelTaskBtn');
+            const taskForm = document.getElementById('taskForm');
+            // Handle request viewing
+            viewRequestsBtn.addEventListener('click', function () {
+                const requestsModal = document.createElement('div');
+                requestsModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                requestsModal.innerHTML = `
+<div class="bg-white rounded-lg w-full max-w-4xl mx-4">
+<div class="p-6 border-b border-gray-100">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="text-lg font-semibold text-gray-900">Pending Requests</h3>
+<p class="text-sm text-gray-500 mt-1">Review and assign incoming patient requests</p>
+</div>
+<button class="text-gray-400 hover:text-gray-500 close-requests-modal">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+</div>
+<div class="p-6">
+<div class="space-y-4">
+<!-- Request Items -->
+<div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-start space-x-4">
+<div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+<i class="ri-heart-pulse-line text-red-600"></i>
+</div>
+<div>
+<h4 class="text-sm font-medium text-gray-900">Emergency Consultation Request</h4>
+<p class="text-sm text-gray-500 mt-1">Patient reporting severe chest pain and shortness of breath</p>
+<div class="flex items-center space-x-4 mt-2">
+<div class="flex items-center text-xs text-gray-500">
+<i class="ri-user-line mr-1"></i>
+<span>John Anderson</span>
+</div>
+<div class="flex items-center text-xs text-gray-500">
+<i class="ri-time-line mr-1"></i>
+<span>10 minutes ago</span>
+</div>
+</div>
+</div>
+</div>
+<button class="px-3 py-1 bg-primary text-white text-sm rounded !rounded-button hover:bg-primary/90">Assign</button>
+</div>
+</div>
+<div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-start space-x-4">
+<div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+<i class="ri-medicine-bottle-line text-yellow-600"></i>
+</div>
+<div>
+<h4 class="text-sm font-medium text-gray-900">Prescription Renewal</h4>
+<p class="text-sm text-gray-500 mt-1">Request for diabetes medication renewal</p>
+<div class="flex items-center space-x-4 mt-2">
+<div class="flex items-center text-xs text-gray-500">
+<i class="ri-user-line mr-1"></i>
+<span>Maria Garcia</span>
+</div>
+<div class="flex items-center text-xs text-gray-500">
+<i class="ri-time-line mr-1"></i>
+<span>25 minutes ago</span>
+</div>
+</div>
+</div>
+</div>
+<button class="px-3 py-1 bg-primary text-white text-sm rounded !rounded-button hover:bg-primary/90">Assign</button>
+</div>
+</div>
+<div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex items-start space-x-4">
+<div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+<i class="ri-mental-health-line text-blue-600"></i>
+</div>
+<div>
+<h4 class="text-sm font-medium text-gray-900">Mental Health Consultation</h4>
+<p class="text-sm text-gray-500 mt-1">First-time consultation request for anxiety management</p>
+<div class="flex items-center space-x-4 mt-2">
+<div class="flex items-center text-xs text-gray-500">
+<i class="ri-user-line mr-1"></i>
+<span>Emily Thompson</span>
+</div>
+<div class="flex items-center text-xs text-gray-500">
+<i class="ri-time-line mr-1"></i>
+<span>1 hour ago</span>
+</div>
+</div>
+</div>
+</div>
+<button class="px-3 py-1 bg-primary text-white text-sm rounded !rounded-button hover:bg-primary/90">Assign</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+`;
+                document.body.appendChild(requestsModal);
+                // Close requests modal
+                const closeRequestsModal = requestsModal.querySelector('.close-requests-modal');
+                closeRequestsModal.addEventListener('click', function () {
+                    requestsModal.remove();
+                });
+                // Close on outside click
+                requestsModal.addEventListener('click', function (e) {
+                    if (e.target === requestsModal) {
+                        requestsModal.remove();
+                    }
+                });
+                // Handle assign buttons
+                const assignButtons = requestsModal.querySelectorAll('button:not(.close-requests-modal)');
+                assignButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const requestInfo = button.closest('.bg-white').querySelector('h4').textContent;
+                        openTaskModal(requestInfo);
+                        requestsModal.remove();
+                    });
+                });
+            });
+            function openTaskModal(requestInfo = '') {
+                taskModal.classList.remove('hidden');
+                taskModal.classList.add('flex');
+                if (requestInfo) {
+                    document.getElementById('taskTitle').value = requestInfo;
+                }
+            }
+            function openModal() {
+                taskModal.classList.remove('hidden');
+                taskModal.classList.add('flex');
+            }
+            function closeModal() {
+                taskModal.classList.add('hidden');
+                taskModal.classList.remove('flex');
+            }
+            assignTaskBtn.addEventListener('click', openModal);
+            closeTaskModal.addEventListener('click', closeModal);
+            cancelTaskBtn.addEventListener('click', closeModal);
+            taskModal.addEventListener('click', function (e) {
+                if (e.target === taskModal) {
+                    closeModal();
+                }
+            });
+            taskForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(taskForm);
+                const task = {
+                    title: formData.get('taskTitle'),
+                    description: formData.get('taskDescription'),
+                    assignee: formData.get('assignee'),
+                    dueDate: formData.get('dueDate'),
+                    priority: formData.get('priority'),
+                    status: formData.get('status')
+                };
+                showMessage('Task assigned successfully!', 'success');
+                closeModal();
+                taskForm.reset();
+            });
+        });
+    </script>
+    <?php $conn->close(); ?>
+</body>
+
+</html>

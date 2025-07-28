@@ -1,0 +1,148 @@
+<!-- resources/views/admin/partials/_applications.blade.php -->
+
+<div class="p-6 space-y-8">
+    <!-- Flash Messages -->
+    @if (session('success'))
+        <div class="bg-green-50 border-l-4 border-green-400 text-green-800 p-3 rounded-md text-sm">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="bg-red-50 border-l-4 border-red-400 text-red-800 p-3 rounded-md text-sm">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <!-- Applications Overview Section -->
+    <!-- (This section remains unchanged and already included) -->
+
+    <!-- Application Modal -->
+    <div id="applicationModal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg max-w-5xl w-full mx-4 modal-content">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-4">Application Details - <span id="modalRefNumber"></span></h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold mb-2">Personal Information</h4>
+                        <ul class="text-sm space-y-1">
+                            <li><strong>Name:</strong> <span id="modalName"></span></li>
+                            <li><strong>Email:</strong> <span id="modalEmail"></span></li>
+                            <li><strong>Phone:</strong> <span id="modalPhone"></span></li>
+                            <li><strong>Address:</strong> <span id="modalAddress"></span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">Professional Information</h4>
+                        <ul class="text-sm space-y-1">
+                            <li><strong>Profession:</strong> <span id="modalProfession"></span></li>
+                            <li><strong>Specialization:</strong> <span id="modalSpecialization"></span></li>
+                            <li><strong>Experience:</strong> <span id="modalExperience"></span></li>
+                            <li><strong>Start Date:</strong> <span id="modalStartDate"></span></li>
+                            <li><strong>License Number:</strong> <span id="modalLicenseNumber"></span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">Supporting Documents</h4>
+                        <ul class="text-sm space-y-2">
+                            <li><strong>Resume:</strong> <a id="modalResume" href="#" target="_blank" class="text-blue-600 underline">View</a></li>
+                            <li><strong>License:</strong> <a id="modalLicense" href="#" target="_blank" class="text-blue-600 underline">View</a></li>
+                            <li><strong>Certifications:</strong> <a id="modalCertifications" href="#" target="_blank" class="text-blue-600 underline">View</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="space-x-2">
+                        <button id="approveButton" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Approve</button>
+                        <button id="rejectButton" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Reject</button>
+                        <a id="snapshotButton" href="#" target="_blank" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Snapshot</a>
+                        <a id="pdfButton" href="#" target="_blank" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Download PDF</a>
+                        <button id="passwordButton" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Generate Password</button>
+                    </div>
+                    <button onclick="document.getElementById('applicationModal').classList.add('hidden')" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+let currentApplicationId = null;
+
+function openModal(refNumber, name, email, phone, address, profession, specialization, experience, startDate, licenseNumber, resumeUrl, licenseUrl, certificationsUrl, applicationId) {
+    currentApplicationId = applicationId;
+    document.getElementById('modalRefNumber').textContent = refNumber;
+    document.getElementById('modalName').textContent = name;
+    document.getElementById('modalEmail').textContent = email;
+    document.getElementById('modalPhone').textContent = phone;
+    document.getElementById('modalAddress').textContent = address;
+    document.getElementById('modalProfession').textContent = profession;
+    document.getElementById('modalSpecialization').textContent = specialization;
+    document.getElementById('modalExperience').textContent = experience;
+    document.getElementById('modalStartDate').textContent = startDate;
+    document.getElementById('modalLicenseNumber').textContent = licenseNumber;
+    document.getElementById('modalResume').href = resumeUrl;
+    document.getElementById('modalLicense').href = licenseUrl;
+    document.getElementById('modalCertifications').href = certificationsUrl;
+    document.getElementById('snapshotButton').href = `/admin/applications/${applicationId}/snapshot`;
+    document.getElementById('pdfButton').href = `/admin/applications/${applicationId}/pdf`;
+}
+
+document.getElementById('approveButton').addEventListener('click', async () => {
+    if (!currentApplicationId) return;
+    try {
+        const response = await fetch(`/admin/applications/${currentApplicationId}/approve`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            }
+        });
+        const result = await response.json();
+        alert(result.message || 'Application approved.');
+        location.reload();
+    } catch (error) {
+        alert('Failed to approve application.');
+    }
+});
+
+document.getElementById('rejectButton').addEventListener('click', async () => {
+    if (!currentApplicationId) return;
+    const reason = prompt('Enter rejection reason:');
+    if (reason === null) return; // User cancelled
+    try {
+        const response = await fetch(`/admin/applications/${currentApplicationId}/reject`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ reason })
+        });
+        const result = await response.json();
+        alert(result.message || 'Application rejected.');
+        location.reload();
+    } catch (error) {
+        alert('Failed to reject application.');
+    }
+});
+
+document.getElementById('passwordButton').addEventListener('click', async () => {
+    if (!currentApplicationId) return;
+    try {
+        const response = await fetch(`/admin/applications/${currentApplicationId}/regenerate-password`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            }
+        });
+        const result = await response.json();
+        alert(result.message || 'Password generated.');
+    } catch (error) {
+        alert('Failed to generate password.');
+    }
+});
+</script>
+@endpush
