@@ -129,12 +129,12 @@ class AdminController extends Controller
                     'actions' => [
                         [
                             'label' => 'View Details',
-                            'route' => url('/admin/facility/view?item=' . $item->id),
+                            'route' => url('/admin/facility?item=' . $item->id),
                             'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z',
                         ],
                         [
                             'label' => 'Manage',
-                            'route' => url('/admin/facility/view?item=' . $item->id . '&action=manage'),
+                            'route' => url('/admin/facility?item=' . $item->id . '&action=manage'),
                             'icon' => 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
                         ],
                     ],
@@ -198,11 +198,11 @@ class AdminController extends Controller
             'healthworkers' => $healthworkers,
             'facilityRequests' => $facilityRequests,
             'facilityStats' => $facilityStats,
-            'facilityRequestsCount' => $facilityStats['total'],
-            'openRequests' => $facilityStats['pending'],
-            'individualRequestsCount' => $individualStats['total'],
-            'pendingIndividualRequests' => $individualStats['pending'],
-            'individualStats' => $individualStats,
+        'facilityRequestsCount' => $facilityStats['total'], // Add this line
+        'openRequests' => $facilityStats['pending'], // Add this line
+    'individualRequestsCount' => $individualStats['total'],
+    'pendingIndividualRequests' => $individualStats['pending'],
+    'individualStats' => $individualStats,
             'individualRequests' => $individualRequests,
             'pendingApplications' => $pendingApplications,
             'approvedApplications' => $approvedApplications,
@@ -218,33 +218,5 @@ class AdminController extends Controller
             'activeItemId' => $request->input('item', null),
             'action' => $request->input('action', null),
         ]);
-    }
-
-    /**
-     * Add facility method to handle legacy facility requests
-     */
-    public function facility(Request $request)
-    {
-        return redirect()->route('admin.facility.view');
-    }
-
-    /**
-     * Add healthworkers method
-     */
-    public function healthworkers(Request $request)
-    {
-        $healthworkers = Healthworker::with('user')
-            ->latest()
-            ->paginate(15);
-
-        return view('admin.healthworkers', compact('healthworkers'));
-    }
-
-    /**
-     * Add tasks method to handle legacy task requests
-     */
-    public function tasks(Request $request)
-    {
-        return redirect()->route('admin.tasks.view');
     }
 }

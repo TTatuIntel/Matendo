@@ -2907,9 +2907,75 @@ document.addEventListener('DOMContentLoaded', function() {
 //     facilityForm.appendChild(hiddenDate);
 // });
     // const facilityForm = document.getElementById('facilityForm');
-facilityForm.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent default form submission
 
+
+
+// facilityForm.addEventListener('submit', function(e) {
+
+//     e.preventDefault(); // Prevent default form submission
+
+//     // Validate the form
+//     const confirmCheckbox = document.getElementById('confirm-checkbox');
+//     const confirmCheckboxError = document.getElementById('confirm-checkbox-error');
+
+//     if (!confirmCheckbox.checked) {
+//         confirmCheckboxError.style.display = 'block';
+//         return;
+//     } else {
+//         confirmCheckboxError.style.display = 'none';
+//     }
+
+//     // Collect form data
+//     const formData = new FormData(this);
+//     formData.append('referenceNumber', updateReferenceInfo('facility')); // Add reference number
+//     formData.append('submissionDate', new Date().toISOString()); // Add submission date
+
+//     // Send data to PHP via AJAX
+//     fetch('save_facility_request.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             // Hide the form and show confirmation
+//             this.style.display = 'none'; // Hide the form
+//             const submissionConfirmation = document.getElementById('submission-confirmation');
+//             submissionConfirmation.style.display = 'block'; // Show the confirmation div
+
+//             // Update the reference number and submission date
+//             document.getElementById('facility-reference-number').textContent = data.referenceNumber;
+//             document.getElementById('facility-submission-date').textContent = new Date().toLocaleString('en-US', {
+//                 year: 'numeric',
+//                 month: 'long',
+//                 day: 'numeric',
+//                 hour: '2-digit',
+//                 minute: '2-digit'
+//             });
+
+//             // Optional: Add click event for "View Additional Information" button
+//             const viewAdditionalInfoBtn = document.getElementById('view-additional-info');
+//             const additionalInfo = document.getElementById('additional-info');
+//             viewAdditionalInfoBtn.addEventListener('click', function() {
+//                 additionalInfo.style.display = 'block'; // Show additional info
+//                 viewAdditionalInfoBtn.style.display = 'none'; // Hide the button
+//             });
+//         } else {
+//             alert('Error submitting request: ' + data.message);
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         alert('An error occurred while submitting the request.');
+//     });
+// });
+
+
+
+
+facilityForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
     // Validate the form
     const confirmCheckbox = document.getElementById('confirm-checkbox');
     const confirmCheckboxError = document.getElementById('confirm-checkbox-error');
@@ -2921,51 +2987,38 @@ facilityForm.addEventListener('submit', function(e) {
         confirmCheckboxError.style.display = 'none';
     }
 
-    // Collect form data
-    const formData = new FormData(this);
-    formData.append('referenceNumber', updateReferenceInfo('facility')); // Add reference number
-    formData.append('submissionDate', new Date().toISOString()); // Add submission date
-
-    // Send data to PHP via AJAX
-    fetch('save_facility_request.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Hide the form and show confirmation
-            this.style.display = 'none'; // Hide the form
-            const submissionConfirmation = document.getElementById('submission-confirmation');
-            submissionConfirmation.style.display = 'block'; // Show the confirmation div
-
-            // Update the reference number and submission date
-            document.getElementById('facility-reference-number').textContent = data.referenceNumber;
-            document.getElementById('facility-submission-date').textContent = new Date().toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            // Optional: Add click event for "View Additional Information" button
-            const viewAdditionalInfoBtn = document.getElementById('view-additional-info');
-            const additionalInfo = document.getElementById('additional-info');
-            viewAdditionalInfoBtn.addEventListener('click', function() {
-                additionalInfo.style.display = 'block'; // Show additional info
-                viewAdditionalInfoBtn.style.display = 'none'; // Hide the button
-            });
-        } else {
-            alert('Error submitting request: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while submitting the request.');
+    // Generate reference info
+    const referenceNumber = updateReferenceInfo('facility');
+    const submissionDate = new Date().toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
     });
+
+    // Update the confirmation section
+    document.getElementById('facility-reference-number').textContent = referenceNumber;
+    document.getElementById('facility-submission-date').textContent = submissionDate;
+
+    // Hide form and show confirmation
+    this.style.display = 'none';
+    document.getElementById('submission-confirmation').style.display = 'block';
+    
+    // Here you would normally send the form data to your server
+    // For demo purposes, we're just showing the confirmation
+    
+    // Optional: Reset form after submission if needed
+    // setTimeout(() => {
+    //     this.reset();
+    //     showFacilityStep(0);
+    //     this.style.display = 'block';
+    //     document.getElementById('submission-confirmation').style.display = 'none';
+    // }, 5000);
 });
-    // personalCareForm.addEventListener('submit', function(e) {
+   
+
+// personalCareForm.addEventListener('submit', function(e) {
     //     e.preventDefault();
         
     //     // Validate the form
@@ -3013,9 +3066,69 @@ facilityForm.addEventListener('submit', function(e) {
     // });
     
 
-    personalCareForm.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent default form submission
+//     personalCareForm.addEventListener('submit', function(e) {
+//     e.preventDefault(); // Prevent default form submission
 
+//     // Validate the form
+//     const confirmCheckbox = document.getElementById('personal-confirm-checkbox');
+//     const confirmCheckboxError = document.getElementById('personal-confirm-checkbox-error');
+
+//     if (!confirmCheckbox.checked) {
+//         confirmCheckboxError.style.display = 'block';
+//         return;
+//     } else {
+//         confirmCheckboxError.style.display = 'none';
+//     }
+
+//     // Collect form data
+//     const formData = new FormData(this);
+//     formData.append('referenceNumber', updateReferenceInfo('personalCare')); // Add reference number
+//     formData.append('submissionDate', new Date().toISOString()); // Add submission date
+
+//     // Send data to PHP via AJAX
+//     fetch('save_personal_care_request.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             // Hide the form and show confirmation
+//             this.style.display = 'none'; // Hide the form
+//             const submissionConfirmation = document.getElementById('personal-submission-confirmation');
+//             submissionConfirmation.style.display = 'block'; // Show the confirmation div
+
+//             // Update the reference number and submission date
+//             document.getElementById('personal-reference-number').textContent = data.referenceNumber;
+//             document.getElementById('personal-submission-date').textContent = new Date().toLocaleString('en-US', {
+//                 year: 'numeric',
+//                 month: 'long',
+//                 day: 'numeric',
+//                 hour: '2-digit',
+//                 minute: '2-digit'
+//             });
+
+//             // Optional: Add click event for "View Additional Information" button
+//             const viewAdditionalInfoBtn = document.getElementById('personal-view-additional-info');
+//             const additionalInfo = document.getElementById('personal-additional-info');
+//             viewAdditionalInfoBtn.addEventListener('click', function() {
+//                 additionalInfo.style.display = 'block'; // Show additional info
+//                 viewAdditionalInfoBtn.style.display = 'none'; // Hide the button
+//             });
+//         } else {
+//             alert('Error submitting request: ' + data.message);
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         alert('An error occurred while submitting the request.');
+//     });
+// });
+
+
+personalCareForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
     // Validate the form
     const confirmCheckbox = document.getElementById('personal-confirm-checkbox');
     const confirmCheckboxError = document.getElementById('personal-confirm-checkbox-error');
@@ -3027,50 +3140,28 @@ facilityForm.addEventListener('submit', function(e) {
         confirmCheckboxError.style.display = 'none';
     }
 
-    // Collect form data
-    const formData = new FormData(this);
-    formData.append('referenceNumber', updateReferenceInfo('personalCare')); // Add reference number
-    formData.append('submissionDate', new Date().toISOString()); // Add submission date
-
-    // Send data to PHP via AJAX
-    fetch('save_personal_care_request.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Hide the form and show confirmation
-            this.style.display = 'none'; // Hide the form
-            const submissionConfirmation = document.getElementById('personal-submission-confirmation');
-            submissionConfirmation.style.display = 'block'; // Show the confirmation div
-
-            // Update the reference number and submission date
-            document.getElementById('personal-reference-number').textContent = data.referenceNumber;
-            document.getElementById('personal-submission-date').textContent = new Date().toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            // Optional: Add click event for "View Additional Information" button
-            const viewAdditionalInfoBtn = document.getElementById('personal-view-additional-info');
-            const additionalInfo = document.getElementById('personal-additional-info');
-            viewAdditionalInfoBtn.addEventListener('click', function() {
-                additionalInfo.style.display = 'block'; // Show additional info
-                viewAdditionalInfoBtn.style.display = 'none'; // Hide the button
-            });
-        } else {
-            alert('Error submitting request: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while submitting the request.');
+    // Generate reference info
+    const referenceNumber = updateReferenceInfo('personal');
+    const submissionDate = new Date().toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
     });
+
+    // Update the confirmation section
+    document.getElementById('personal-reference-number').textContent = referenceNumber;
+    document.getElementById('personal-submission-date').textContent = submissionDate;
+
+    // Hide form and show confirmation
+    this.style.display = 'none';
+    document.getElementById('personal-submission-confirmation').style.display = 'block';
+    
+    // Here you would normally send the form data to your server
+    // For demo purposes, we're just showing the confirmation
 });
+
     // Generate CSRF token for form security
     function generateCSRFToken() {
         return Math.random().toString(36).substring(2, 15) + 

@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\DB;
 class RequestController extends Controller
 {
     /**
-     * Display facility requests view (returns blade template).
+     * Display facility requests view.
      */
     public function index()
     {
         $facilityRequests = FacilityRequest::latest()->paginate(10);
 
-        $facilityStats = [
+        $stats = [
             'pending' => FacilityRequest::where('status', 'pending')->count(),
             'approved' => FacilityRequest::where('status', 'approved')->count(),
             'rejected' => FacilityRequest::where('status', 'rejected')->count(),
@@ -26,11 +26,10 @@ class RequestController extends Controller
 
         return view('admin._facility', [
             'facilityRequests' => $facilityRequests,
-            'facilityStats' => $facilityStats,
-            'pendingCount' => $facilityStats['pending'],
-            'approvedCount' => $facilityStats['approved'],
-            'rejectedCount' => $facilityStats['rejected'],
-            'totalCount' => $facilityStats['total'],
+            'pendingCount' => $stats['pending'],
+            'approvedCount' => $stats['approved'],
+            'rejectedCount' => $stats['rejected'],
+            'totalCount' => $stats['total'],
         ]);
     }
 
@@ -47,19 +46,19 @@ class RequestController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'location' => $request->coordinates ?? 'N/A',
-                'staff_needed' => $this->formatJsonField($request->positions) ?? 'Not specified',
-                'urgency' => $this->determinePriority($request->priority ?? 'normal'),
+                'staff_needed' => $request->staff_needed,
+                'urgency' => $request->urgency,
                 'status' => ucfirst($request->status),
-                'submitted_at' => $request->created_at->diffForHumans(),
-                'description' => $request->job_description ?? 'Not specified',
-                'facility_type' => $this->formatJsonField($request->facility_type),
-                'employment_type' => $this->formatJsonField($request->employment_type),
-                'shift_type' => $this->formatJsonField($request->shift_type),
-                'start_date' => $request->start_date ? $request->start_date->toDateString() : 'Not specified',
+                'submitted_at' => $request->submission_date->diffForHumans(),
+                'description' => $request->description,
+                'facility_type' => $request->facility_type,
+                'employment_type' => $request->employment_type,
+                'shift_type' => $request->shift_type,
+                'start_date' => $request->start_date->toDateString(),
                 'reference_number' => $request->reference_number,
-                'qualifications' => $request->qualifications ?? 'Not specified',
-                'experience' => $request->experience ?? 'Not specified',
-                'job_description' => $request->job_description ?? 'Not specified',
+                'qualifications' => $request->qualifications,
+                'experience' => $request->experience,
+                'job_description' => $request->job_description,
             ];
         });
 
@@ -77,47 +76,6 @@ class RequestController extends Controller
     }
 
     /**
-     * Format JSON field for display
-     */
-    private function formatJsonField($jsonField)
-    {
-        if (empty($jsonField)) {
-            return 'Not specified';
-        }
-
-        if (is_string($jsonField)) {
-            $decoded = json_decode($jsonField, true);
-            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                return implode(', ', $decoded);
-            }
-            return $jsonField;
-        }
-
-        if (is_array($jsonField)) {
-            return implode(', ', $jsonField);
-        }
-
-        return 'Not specified';
-    }
-
-    /**
-     * Determine priority level for display
-     */
-    private function determinePriority($priority)
-    {
-        switch (strtolower($priority)) {
-            case 'urgent':
-                return 'High';
-            case 'high':
-                return 'High';
-            case 'low':
-                return 'Low';
-            default:
-                return 'Medium';
-    }
-}
-
-    /**
      * Get a single facility request details.
      */
     public function show(FacilityRequest $facilityRequest): JsonResponse
@@ -129,19 +87,19 @@ class RequestController extends Controller
             'email' => $facilityRequest->email,
             'phone' => $facilityRequest->phone,
             'location' => $facilityRequest->coordinates ?? 'N/A',
-            'staff_needed' => $this->formatJsonField($facilityRequest->positions) ?? 'Not specified',
-            'urgency' => $this->determinePriority($facilityRequest->priority ?? 'normal'),
+            'staff_needed' => $facilityRequest->staff_needed,
+            'urgency' => $facilityRequest->urgency,
             'status' => ucfirst($facilityRequest->status),
-            'submitted_at' => $facilityRequest->created_at->diffForHumans(),
-            'description' => $facilityRequest->job_description ?? 'Not specified',
-            'facility_type' => $this->formatJsonField($facilityRequest->facility_type),
-            'employment_type' => $this->formatJsonField($facilityRequest->employment_type),
-            'shift_type' => $this->formatJsonField($facilityRequest->shift_type),
-            'start_date' => $facilityRequest->start_date ? $facilityRequest->start_date->toDateString() : 'Not specified',
+            'submitted_at' => $facilityRequest->submission_date->diffForHumans(),
+            'description' => $facilityRequest->description,
+            'facility_type' => $facilityRequest->facility_type,
+            'employment_type' => $facilityRequest->employment_type,
+            'shift_type' => $facilityRequest->shift_type,
+            'start_date' => $facilityRequest->start_date->toDateString(),
             'reference_number' => $facilityRequest->reference_number,
-            'qualifications' => $facilityRequest->qualifications ?? 'Not specified',
-            'experience' => $facilityRequest->experience ?? 'Not specified',
-            'job_description' => $facilityRequest->job_description ?? 'Not specified',
+            'qualifications' => $facilityRequest->qualifications,
+            'experience' => $facilityRequest->experience,
+            'job_description' => $facilityRequest->job_description,
         ]);
     }
 
@@ -170,23 +128,19 @@ class RequestController extends Controller
                     'qualifications' => $facilityRequest->qualifications,
                     'experience' => $facilityRequest->experience,
                     'job_description' => $facilityRequest->job_description,
-                    'job_description_file' => $facilityRequest->job_description_file_path,
+                    'job_description_file' => $facilityRequest->job_description_file,
                     'reference_number' => $facilityRequest->reference_number,
                     'status' => 'approved',
                     'priority' => $facilityRequest->priority,
                     'confirmed' => $facilityRequest->confirmed,
                     'csrf_token' => $facilityRequest->csrf_token,
-                    'submission_date' => $facilityRequest->created_at,
+                    'submission_date' => $facilityRequest->submission_date,
                     'created_at' => $facilityRequest->created_at,
-                    'updated_at' => now(),
+                    'updated_at' => $facilityRequest->updated_at,
                 ]);
 
-                // Update the request status instead of deleting it
-                $facilityRequest->update([
-                    'status' => 'approved',
-                    'processed_at' => now(),
-                    'processed_by' => auth()->id(),
-                ]);
+                // Delete the request from facility_requests
+                $facilityRequest->delete();
             });
 
             return response()->json([
@@ -207,12 +161,7 @@ class RequestController extends Controller
     public function reject(FacilityRequest $facilityRequest): JsonResponse
     {
         try {
-            $facilityRequest->update([
-                'status' => 'rejected',
-                'processed_at' => now(),
-                'processed_by' => auth()->id(),
-                'rejection_reason' => request()->input('reason', 'Request does not meet requirements'),
-            ]);
+            $facilityRequest->update(['status' => 'rejected']);
 
             return response()->json([
                 'success' => true,
@@ -225,5 +174,4 @@ class RequestController extends Controller
             ], 500);
         }
     }
-    }
-    
+}
