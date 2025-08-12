@@ -13,6 +13,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminSettingsController;
+use App\Http\Controllers\JoinController;
+use App\Http\Controllers\FacilityRequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +25,32 @@ use Illuminate\Support\Facades\Route;
 
 // Home route
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.index');
 })->name('home');
+
+// Application submission endpoints
+Route::middleware('web')->group(function () {
+    Route::post('/api/v1/join', [JoinController::class, 'store']);
+    Route::withoutMiddleware(['csrf'])->group(function () {
+        Route::post('/api/v1/facility-request', [FacilityRequestController::class, 'store']);
+    });
+});
+
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
+
+Route::get('/join', function () {
+    return view('pages.join');
+})->name('join');
+
+Route::get('/hire', function () {
+    return view('pages.hire');
+})->name('hire');
+
+Route::get('/careers', function () {
+    return view('pages.careers');
+})->name('careers');
 
 /*
 |--------------------------------------------------------------------------

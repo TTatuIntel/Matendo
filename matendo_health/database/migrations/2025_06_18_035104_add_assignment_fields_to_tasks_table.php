@@ -9,10 +9,13 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->unsignedBigInteger('assigned_to')->nullable()->after('status');
-            $table->timestamp('assigned_at')->nullable()->after('assigned_to');
-
-            $table->foreign('assigned_to')->references('id')->on('users')->onDelete('set null');
+            if (!Schema::hasColumn('tasks', 'assigned_to')) {
+                $table->unsignedBigInteger('assigned_to')->nullable()->after('status');
+                $table->foreign('assigned_to')->references('id')->on('users')->onDelete('set null');
+            }
+            if (!Schema::hasColumn('tasks', 'assigned_at')) {
+                $table->timestamp('assigned_at')->nullable()->after('assigned_to');
+            }
         });
     }
 

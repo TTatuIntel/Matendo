@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Matendo Medics - Careers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Matendo Medics Outsourcing connects businesses with top medical professionals. Join our team and help transform healthcare staffing." />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            font-family: 'Proxima Nova', proxima-nova, Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            scroll-behavior: smooth;
+            font-size: 14px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Add subtle section dividers and alternating patterns */
+        section {
+            position: relative;
+            padding: 20px 5%;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        section:nth-child(odd) {
+            background-image: linear-gradient(rgba(248, 249, 250, 0.7), rgba(248, 249, 250, 0.7)),
+                url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        section:nth-child(even) {
+            background-color: white;
+        }
+
+        /* Enhanced section title styling with reduced size */
+        .section-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: #323030;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, #28a745, #1e7e7c);
+            border-radius: 2px;
+        }
+        
+       /* Updated navigation code with middle links */
+       .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 8px 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container.scrolled {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-img {
+            width: 150px;
+            height: auto;
+        }
+
+        /* Main navigation links */
+        .main-nav {
+            display: flex;
+            gap: 25px;
+            margin: 0 auto;
+        }
+
+        .main-nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .main-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav-link:hover {
+            color: #28a745;
+        }
+
+        .main-nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Auth navigation links */
+        .auth-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .auth-nav-link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        .auth-nav-link:nth-child(1) {
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+
+        .auth-nav-link:nth-child(2) {
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        .auth-nav-link:nth-child(1):hover {
+            color: #218838;
+            border-color: #218838;
+        }
+
+        .auth-nav-link:nth-child(2):hover {
+            color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mobile-menu-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Hero Section - remove margin-top since nav is now part of it */
+        .hero-section {
+            background-color: #d0d0d0;
+            padding: 80px 5% 40px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0; /* Changed from 70px to 0 */
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            color: #323030;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Careers Page Specific Styles */
+        .careers-section {
+            padding: 40px 5%;
+        }
+
+        .careers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .career-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .career-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .career-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .career-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .career-tag {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .career-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .career-meta div {
+            display: flex;
+            align-items: center;
+        }
+
+        .career-meta i {
+            margin-right: 5px;
+            color: #28a745;
+        }
+
+        .career-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .career-btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            align-self: flex-start;
+        }
+
+        .career-btn:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .values-section {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 30px auto 0;
+        }
+
+        .value-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .value-icon i {
+            font-size: 1.5rem;
+            color: #28a745;
+        }
+
+        .value-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .value-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .benefits-section {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 30px auto 0;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .benefit-icon i {
+            font-size: 1.3rem;
+            color: #28a745;
+        }
+
+        .benefit-card h3 {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .benefit-card p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            padding: 60px 5%;
+            background-color: #28a745;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-description {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: white;
+            color: #28a745;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            padding: 40px 5% 30px;
+            border-top: 1px solid #eee;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, transparent, rgba(40, 167, 69, 0.3), transparent);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #333;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: rgba(40, 167, 69, 0.5);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-column a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(40, 167, 69, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #28a745;
+            padding-left: 20px;
+        }
+
+        .footer-column a:hover::before {
+            background-color: #28a745;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 50%;
+            color: #28a745;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .social-icons a:hover {
+            background-color: #28a745;
+            color: white;
+            transform: translateY(-5px);
+            padding: 0;
+        }
+
+        .social-icons a::before {
+            display: none;
+        }
+
+        .social-icons i {
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 25px auto 0;
+            padding: 15px 0 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .main-nav {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                justify-content: space-between;
+                padding: 30px 0;
+            }
+            
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            .hero-description {
+                font-size: 1.05rem;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .careers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .values-grid, .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+            
+            .auth-nav {
+                display: none;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+            }
+            
+            .nav-content {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .logo-img {
+                width: 130px;
+            }
+
+            .hero-title {
+                font-size: 1.4rem;
+            }
+
+            .hero-description {
+                font-size: 0.9rem;
+            }
+            
+            .careers-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .career-header {
+                flex-direction: column;
+            }
+            
+            .career-tag {
+                margin-top: 10px;
+            }
+            
+            .values-grid, .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-title {
+                font-size: 1.5rem;
+            }
+            
+            .cta-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .career-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .value-icon, .benefit-icon {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .value-icon i, .benefit-icon i {
+                font-size: 1.2rem;
+            }
+            
+            .value-card h3, .benefit-card h3 {
+                font-size: 1rem;
+            }
+            
+            .value-card p, .benefit-card p {
+                font-size: 0.85rem;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Fix for iOS Safari 100vh issue */
+        @supports (-webkit-touch-callout: none) {
+            .mobile-menu {
+                height: -webkit-fill-available;
+            }
+        }
+
+        /* Improve touch targets for mobile */
+        @media (max-width: 768px) {
+            .nav-link,
+            .mobile-menu-link,
+            .career-btn,
+            .cta-btn {
+                padding: 10px 15px;
+            }
+
+            .footer-column a {
+                padding: 8px 15px;
+                display: block;
+            }
+
+            /* Improve spacing for mobile */
+            section {
+                padding: 30px 4%;
+            }
+
+            .hero-section {
+                padding-top: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<nav class="nav-container">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" title="Matendo" aria-label="Matendo">
+                    <img src="images/matelogo4.png" alt="Matendo Logo" class="logo-img">
+                </a>
+                <div class="main-nav">
+                    <a href="index.html" class="main-nav-link">Home</a>
+                    <a href="careers.html" class="main-nav-link">Careers</a>
+                    <a href="hire.html" class="main-nav-link">Hire</a>
+                    <a href="about.html" class="main-nav-link">About Us</a>
+                    <a href="contact.html" class="main-nav-link">Contact Us</a>                    
+                </div>
+                <div class="auth-nav">
+                    <a href="join.html" class="auth-nav-link">Join Matendo</a>
+                    <a href="login.html" class="auth-nav-link">Login</a>
+                </div>
+                <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-menu-link">Home</a>
+            <a href="careers.html" class="mobile-menu-link">Careers</a>
+            <a href="hire.html" class="mobile-menu-link">Hire</a>
+            <a href="about.html" class="mobile-menu-link">About Us</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+            <a href="#how-to-hire" class="mobile-menu-link">How to Hire</a>
+            <a href="#personal-healthcare" class="mobile-menu-link">Personal Healthcare</a>
+            <a href="join.html" class="mobile-menu-link" id="getStartedBtnMobile">Join Matendo</a>
+            <a href="login.html" class="mobile-menu-link">Login</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Join Our Team</h1>
+            <p class="hero-description">Be part of a team that's transforming healthcare staffing. We're looking for talented individuals who are passionate about making a difference.</p>
+        </div>
+    </section>
+
+ <!-- Current Openings Section -->
+<section class="careers-section">
+    <h2 class="section-title">Current Openings</h2>
+    <div class="careers-grid">
+        <div class="career-card">
+            <div class="career-header">
+                <h3 class="career-title">Registered Nurse</h3>
+                <span class="career-tag">Full-time</span>
+            </div>
+            <div class="career-meta">
+                <div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Mbarara, Uganda</span>
+                </div>
+                <div>
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Posted: May 4, 2025</span>
+                </div>
+            </div>
+            <p class="career-description">Seeking a compassionate Registered Nurse to provide patient care at our regional hospital in Mbarara. Must be licensed with the Uganda Nurses and Midwives Council.</p>
+            <a href="#" class="career-btn">Apply Now</a>
+        </div>
+
+        <div class="career-card">
+            <div class="career-header">
+                <h3 class="career-title">Medical Intern</h3>
+                <span class="career-tag">Internship</span>
+            </div>
+            <div class="career-meta">
+                <div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Mulago, Kampala</span>
+                </div>
+                <div>
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Posted: May 1, 2025</span>
+                </div>
+            </div>
+            <p class="career-description">We are offering internship opportunities for final-year medical students at Mulago National Referral Hospital. Hands-on training under senior clinicians.</p>
+            <a href="#" class="career-btn">Apply Now</a>
+        </div>
+
+        <div class="career-card">
+            <div class="career-header">
+                <h3 class="career-title">Laboratory Technician</h3>
+                <span class="career-tag">Full-time</span>
+            </div>
+            <div class="career-meta">
+                <div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Jinja, Uganda</span>
+                </div>
+                <div>
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Posted: April 28, 2025</span>
+                </div>
+            </div>
+            <p class="career-description">Join our diagnostics team as a Laboratory Technician. Responsible for specimen collection, testing, and reporting results in accordance with MOH standards.</p>
+            <a href="#" class="career-btn">Apply Now</a>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Our Values Section -->
+    <section class="values-section">
+        <h2 class="section-title">Our Values</h2>
+        <p>At Matendo Medics, we're guided by a set of core values that shape everything we do.</p>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Compassion</h3>
+                <p>We care deeply about healthcare professionals and the patients they serve.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Integrity</h3>
+                <p>We operate with honesty, transparency, and ethical standards in all our interactions.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Innovation</h3>
+                <p>We continuously seek new and better ways to solve healthcare staffing challenges.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Collaboration</h3>
+                <p>We believe in the power of teamwork to create better solutions for everyone.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <h2 class="section-title">Benefits & Perks</h2>
+        <p>We take care of our team so they can focus on our mission.</p>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Health Insurance</h3>
+                <p>Comprehensive medical, dental, and vision coverage for you and your family.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3>Competitive Salary</h3>
+                <p>We offer competitive compensation packages based on experience and skills.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Flexible Schedule</h3>
+                <p>Work-life balance is important to us. We offer flexible scheduling options.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Professional Development</h3>
+                <p>Continuous learning opportunities and career growth pathways.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <h3>Paid Time Off</h3>
+                <p>Generous vacation policy and paid holidays to help you recharge.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-piggy-bank"></i>
+                </div>
+                <h3>Retirement Plan</h3>
+                <p>401(k) plan with company matching to help you save for the future.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Join Our Team?</h2>
+            <p class="cta-description">Explore our open positions and take the next step in your career.</p>
+            <a href="#" class="cta-btn">View All Positions</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.4;">
+                    Connecting healthcare facilities with top medical talent worldwide.
+                </p>
+                <div class="social-icons">
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                    <li><a href="tel:+256781053105">+256 781 053 105</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Matendo Health. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+        
+// Mobile menu toggle
+    mobileMenuButton.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent click from propagating to document
+        if (mobileMenu.style.display === 'block') {
+            mobileMenu.style.display = 'none';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        } else {
+            mobileMenu.style.display = 'block';
+            mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+        }
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function (event) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
+            mobileMenu.style.display = 'none';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+        
+            // Navbar scroll effect - updated to handle position change
+            const nav = document.querySelector('.nav-container');
+            const heroSection = document.querySelector('.hero-section');
+            let heroHeight;
+
+            function updateNavPosition() {
+                // Get the hero section height (accounting for potential resize)
+                heroHeight = heroSection.offsetHeight;
+            
+                // Check if we've scrolled past the hero section
+                if (window.scrollY > heroHeight - 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+
+            // Initialize on page load
+            updateNavPosition();
+
+            // Update on scroll
+            window.addEventListener('scroll', updateNavPosition);
+
+            // Update on resize (in case hero height changes)
+            window.addEventListener('resize', updateNavPosition);
+        
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.style.display === 'block') {
+                    mobileMenu.style.display = 'none';
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

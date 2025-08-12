@@ -9,7 +9,9 @@ class AddMimeTypeToDocumentsTable extends Migration
     public function up()
     {
         Schema::table('documents', function (Blueprint $table) {
-            $table->string('mime_type')->nullable()->after('category');
+            if (!Schema::hasColumn('documents', 'mime_type')) {
+                $table->string('mime_type')->nullable()->after('category');
+            }
         });
     }
 

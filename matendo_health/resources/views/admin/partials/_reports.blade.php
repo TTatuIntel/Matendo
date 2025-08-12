@@ -212,9 +212,9 @@
                         <div class="absolute top-0 left-0 w-full h-full rounded-full border-4 border-blue-500"
                              style="clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0);"></div>
                         <div class="absolute top-0 left-0 w-full h-full rounded-full border-4 border-green-500"
-                             style="clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0); transform: rotate({{ ($pendingApplications / ($pendingApplications + $approvedApplications + $rejectedApplications)) * 360 }}deg);"></div>
+                             style="clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0); transform: rotate({{ ($pendingApplications + $approvedApplications + $rejectedApplications) > 0 ? ($pendingApplications / ($pendingApplications + $approvedApplications + $rejectedApplications)) * 360 : 0 }}deg);"></div>
                         <div class="absolute top-0 left-0 w-full h-full rounded-full border-4 border-red-500"
-                             style="clip-path: polygon(50% 50%, 100% 100%, 0 100%); transform: rotate({{ (($pendingApplications + $approvedApplications) / ($pendingApplications + $approvedApplications + $rejectedApplications)) * 360 }}deg);"></div>
+                             style="clip-path: polygon(50% 50%, 100% 100%, 0 100%); transform: rotate({{ ($pendingApplications + $approvedApplications + $rejectedApplications) > 0 ? (($pendingApplications + $approvedApplications) / ($pendingApplications + $approvedApplications + $rejectedApplications)) * 360 : 0 }}deg);"></div>
                     </div>
                     <div class="flex justify-center space-x-4">
                         <div class="flex items-center">
