@@ -43,30 +43,34 @@ jobs:
           sudo dpkg -i pscale.deb
           rm pscale.deb
 
+      - name: Setup PlanetScale CLI
+        uses: planetscale/setup-pscale-action@v1
+        with:
+          pscale_version: 'v0.150.0'
+
       - name: Setup PlanetScale Database
         env:
           PLANETSCALE_TOKEN: ${{ secrets.PLANETSCALE_TOKEN }}
           PLANETSCALE_ORG: ${{ secrets.PLANETSCALE_ORG }}
         run: |
-          # Create config directory
-          mkdir -p ~/.config/planetscale
-          
-          # Create config file with service token
-          echo "service-token = $PLANETSCALE_TOKEN" > ~/.config/planetscale/access-token
-          echo "organization = $PLANETSCALE_ORG" > ~/.config/planetscale/config.yml
+          # Authenticate with PlanetScale using environment variables
+          export PLANETSCALE_SERVICE_TOKEN="$PLANETSCALE_TOKEN"
+          export PLANETSCALE_SERVICE_TOKEN_ID="$PLANETSCALE_ORG"
 
           # Check if database exists, create if it doesn't
-          if ! pscale database list | grep matendo_health; then
-            pscale database create matendo_health --region eu-west --org "$PLANETSCALE_ORG"
+          if ! pscale database list --format json | jq -r '.[].name' | grep -q '^matendo_health$'; then
+            pscale database create matendo_health --region eu-west
           fi
 
           # Create or switch to deploy branch
-          if ! pscale branch list matendo_health | grep deploy; then
-            pscale branch create matendo_health deploy --org "$PLANETSCALE_ORG"
+          if ! pscale branch list matendo_health --format json | jq -r '.[].name' | grep -q '^deploy$'; then
+            pscale branch create matendo_health deploy
           fi
 
-          # Get database credentials and set them as environment variables
-          CREDS=$(pscale password create matendo_health deploy --format json --org "$PLANETSCALE_ORG")
+          # Get database credentials
+          CREDS=$(pscale password create matendo_health deploy --format json)
+
+          # Set database environment variables
           echo "DB_HOST=$(echo $CREDS | jq -r '.host')" >> $GITHUB_ENV
           echo "DB_PORT=$(echo $CREDS | jq -r '.port')" >> $GITHUB_ENV
           echo "DB_USERNAME=$(echo $CREDS | jq -r '.username')" >> $GITHUB_ENV
