@@ -48,21 +48,25 @@ jobs:
           PLANETSCALE_TOKEN: ${{ secrets.PLANETSCALE_TOKEN }}
           PLANETSCALE_ORG: ${{ secrets.PLANETSCALE_ORG }}
         run: |
-          # Authenticate with PlanetScale
-          pscale auth login --service-token $PLANETSCALE_TOKEN --org $PLANETSCALE_ORG
+          # Create config directory
+          mkdir -p ~/.config/planetscale
+          
+          # Create config file with service token
+          echo "service-token = $PLANETSCALE_TOKEN" > ~/.config/planetscale/access-token
+          echo "organization = $PLANETSCALE_ORG" > ~/.config/planetscale/config.yml
 
           # Check if database exists, create if it doesn't
-          if ! pscale database show matendo_health; then
-            pscale database create matendo_health --region eu-west
+          if ! pscale database list | grep matendo_health; then
+            pscale database create matendo_health --region eu-west --org "$PLANETSCALE_ORG"
           fi
 
           # Create or switch to deploy branch
-          if ! pscale branch show matendo_health deploy; then
-            pscale branch create matendo_health deploy
+          if ! pscale branch list matendo_health | grep deploy; then
+            pscale branch create matendo_health deploy --org "$PLANETSCALE_ORG"
           fi
 
           # Get database credentials and set them as environment variables
-          CREDS=$(pscale password create matendo_health deploy --format json)
+          CREDS=$(pscale password create matendo_health deploy --format json --org "$PLANETSCALE_ORG")
           echo "DB_HOST=$(echo $CREDS | jq -r '.host')" >> $GITHUB_ENV
           echo "DB_PORT=$(echo $CREDS | jq -r '.port')" >> $GITHUB_ENV
           echo "DB_USERNAME=$(echo $CREDS | jq -r '.username')" >> $GITHUB_ENV
