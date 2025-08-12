@@ -3,7 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build && cp -r public/build .",
+        "build": "vite build",
         "dev": "vite"
     },
     "devDependencies": {
@@ -13,6 +13,7 @@
         "autoprefixer": "^10.4.2",
         "axios": "^1.8.2",
         "concurrently": "^9.0.1",
+        "laravel-mix": "^6.0.49",
         "laravel-vite-plugin": "^1.2.0",
         "postcss": "^8.4.31",
         "tailwindcss": "^3.1.0",

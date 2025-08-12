@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "outputDirectory": "matendo_health/build",
+    "outputDirectory": "matendo_health/dist",
     "functions": {
         "matendo_health/api/*.php": {
             "runtime": "vercel-php@0.6.0"
