@@ -30,9 +30,9 @@ Route::get('/', function () {
 
 // Application submission endpoints
 Route::middleware('web')->group(function () {
-    Route::post('/api/v1/join', [JoinController::class, 'store']);
+    Route::post('/requests/join', [JoinController::class, 'store']);
     Route::withoutMiddleware(['csrf'])->group(function () {
-        Route::post('/api/v1/facility-request', [FacilityRequestController::class, 'store']);
+        Route::post('/requests/facility-request', [FacilityRequestController::class, 'store']);
     });
 });
 

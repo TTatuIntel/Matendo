@@ -853,7 +853,7 @@
                         <div class="progress-step" data-step="4">Review & Submit</div>
                     </div>
                     
-                    <form id="join-form" action="/api/v1/join" method="POST" enctype="multipart/form-data" novalidate>
+                    <form id="join-form" action="/requests/join" method="POST" enctype="multipart/form-data" novalidate>
                         <meta name="csrf-token" content="{{ csrf_token() }}">
                         <!-- Step 1: Personal Information -->
                         <section class="form-section active" data-step="1">
@@ -1640,7 +1640,7 @@
                     const formData = new FormData(form);
                     
                     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    const response = await fetch('/api/v1/join', {
+                    const response = await fetch('/requests/join', {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': token
