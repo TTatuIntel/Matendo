@@ -37,7 +37,7 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://matendo-health.vercel.app",
+        "APP_URL": "https://matendohealth.com/",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
@@ -50,7 +50,7 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "SESSION_LIFETIME": "120",
-        "SESSION_DOMAIN": ".vercel.app",
+        "SESSION_DOMAIN": ".matendohealth.com",
         "SESSION_SECURE_COOKIE": "true"
     }
 }
