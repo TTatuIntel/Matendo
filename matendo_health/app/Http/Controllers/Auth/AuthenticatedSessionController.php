@@ -1,5 +1,6 @@
 <?php
 
+// app/Http/Controllers/Auth/AuthenticatedSessionController.php
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -19,24 +20,21 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-   /**
+    /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
- 
+
         $request->session()->regenerate();
- 
-        if ($request->user()->usertype == 'admin') {
-            return redirect('admin/dashboard');
-        }
-        elseif ($request->user()->usertype == 'healthworker') {
-            return redirect('healthworker/dashboard');
-        }
- 
-        //return redirect()->intended(route('dashboard', absolute: false));
-        return redirect()->intended(route('dashboard'));
+
+        // Update last activity
+        auth()->user()->update(['last_activity' => now()]);
+
+        // Redirect based on user role
+        $user = auth()->user();
+        return $this->redirectBasedOnRole($user);
     }
 
     /**
@@ -47,9 +45,25 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    /**
+     * Redirect user based on their role
+     */
+    private function redirectBasedOnRole($user): RedirectResponse
+    {
+        switch ($user->role) {
+            case 'admin':
+                return redirect()->route('admin.dashboard');
+            case 'doctor':
+                return redirect()->route('doctor.dashboard');
+            case 'patient':
+                return redirect()->route('patient.dashboard');
+            default:
+                return redirect()->route('patient.dashboard'); // Default fallback
+        }
     }
 }

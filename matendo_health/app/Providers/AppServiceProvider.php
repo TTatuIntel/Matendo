@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Providers;
 
+
+use App\Models\User;
+use App\Observers\DoctorObserver;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,13 +19,16 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+public function boot(): void
     {
-        //
-        if (app()->environment('production')) {
-            URL::forceScheme('https');
-            // Optional, ensures helpers use the correct root:
-            URL::forceRootUrl(config('app.url'));
-        }
+        // Register the User observer
+        User::observe(DoctorObserver::class);
+
+Notification::extend('custom_appointment', function ($app) {
+        return new \App\Channels\AppointmentNotificationChannel();
+    });
     }
+
+// app/Providers/AppServiceProvider.php
+
 }
