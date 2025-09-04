@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+         'doctor' => [  // Add this guard
+        'driver' => 'session',
+        'provider' => 'doctors',
+    ],
     ],
 
     /*
@@ -69,6 +73,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+         'doctors' => [  // Add this provider
+        'driver' => 'eloquent',
+        'model' => App\Models\Doctor::class,  // Make sure you have this model
+    ],
     ],
 
     /*

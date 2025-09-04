@@ -16,7 +16,6 @@ class User extends Authenticatable
 
     // REMOVE HasApiTokens for now since Sanctum is not installed
     use HasFactory, Notifiable, HasUuids, SoftDeletes;
-use Notifiable;
 
     protected $fillable = [
         'name',

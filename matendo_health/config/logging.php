@@ -54,7 +54,7 @@ return [
 
         'stack' => [
             'driver' => 'stack',
-            'channels' => explode(',', env('LOG_STACK', 'single')),
+            'channels' => explode(',', (string) env('LOG_STACK', 'single')),
             'ignore_exceptions' => false,
         ],
 
@@ -125,6 +125,38 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        'security' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/security.log'),
+            'level' => env('LOG_SECURITY_LEVEL', 'info'),
+            'days' => env('LOG_SECURITY_DAYS', 90), // Keep security logs for 90 days
+            'replace_placeholders' => true,
+        ],
+
+        'audit' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/audit.log'),
+            'level' => env('LOG_AUDIT_LEVEL', 'info'),
+            'days' => env('LOG_AUDIT_DAYS', 365), // Keep audit logs for 1 year
+            'replace_placeholders' => true,
+        ],
+
+        'performance' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/performance.log'),
+            'level' => env('LOG_PERFORMANCE_LEVEL', 'info'),
+            'days' => env('LOG_PERFORMANCE_DAYS', 30),
+            'replace_placeholders' => true,
+        ],
+
+        'medical' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/medical.log'),
+            'level' => env('LOG_MEDICAL_LEVEL', 'info'),
+            'days' => env('LOG_MEDICAL_DAYS', 2555), // Keep medical logs for 7 years (compliance)
+            'replace_placeholders' => true,
         ],
 
     ],

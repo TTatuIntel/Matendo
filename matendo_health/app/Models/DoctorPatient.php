@@ -22,7 +22,9 @@ class DoctorPatient extends Model
         'last_consultation',
         'status',
         'notes',
-        'assigned_by'
+        'assigned_by',
+        'removed_at',
+        'removed_by'
     ];
 
     protected $casts = [

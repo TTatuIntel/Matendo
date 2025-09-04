@@ -1,10 +1,11 @@
 <?php
 
-
+namespace App\Providers;
 
 use App\Models\User;
 use App\Observers\DoctorObserver;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Notification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,16 +20,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-public function boot(): void
+    public function boot(): void
     {
-        // Register the User observer
+        // Register the User observer for role changes
         User::observe(DoctorObserver::class);
 
-Notification::extend('custom_appointment', function ($app) {
-        return new \App\Channels\AppointmentNotificationChannel();
-    });
+        // Register custom notification channel for appointments
+        Notification::extend('custom_appointment', function ($app) {
+            return new \App\Channels\AppointmentNotificationChannel();
+        });
     }
-
-// app/Providers/AppServiceProvider.php
-
 }

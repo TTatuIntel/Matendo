@@ -18,28 +18,37 @@ class Document extends Model
     protected $fillable = [
         'id',
         'patient_id',
+        'doctor_id',
         'uploaded_by',
+        'upload_source',
+        'temp_access_id',
         'title',
         'description',
         'file_name',
         'file_type',
+        'document_type',
         'file_size',
         'file_data',
         'file_hash',
         'category',
         'tags',
         'is_confidential',
+        'external_access_count',
         'status',
-        'metadata'
+        'metadata',
+        'last_accessed_at',
+        'last_accessed_by'
     ];
 
     protected $casts = [
         'tags' => 'array',
         'is_confidential' => 'boolean',
+        'external_access_count' => 'integer',
         'metadata' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
+        'last_accessed_at' => 'datetime'
     ];
 
     protected $hidden = [

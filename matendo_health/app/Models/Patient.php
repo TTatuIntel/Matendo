@@ -24,15 +24,23 @@ class Patient extends Model
         'current_medications',
         'insurance_provider',
         'insurance_policy_number',
+        'insurance_number', // Alias for insurance_policy_number
         'family_medical_history',
         'activity_level',
         'smoker',
         'alcohol_consumption',
         'dietary_restrictions',
         'emergency_contacts',
+        'emergency_contact',
+        'emergency_phone',
+        'phone',
+        'date_of_birth',
+        'gender',
+        'address',
         'baseline_heart_rate',
         'baseline_blood_pressure',
-        'baseline_temperature'
+        'baseline_temperature',
+        'risk_level'
     ];
 
     protected $casts = [
@@ -77,6 +85,12 @@ class Patient extends Model
     public function latestVitalSigns()
     {
         return $this->hasOne(VitalSign::class)->latestOfMany('measured_at');
+    }
+
+    // Alias for blade template compatibility
+    public function latestVitals()
+    {
+        return $this->latestVitalSigns();
     }
 
     public function medicalRecords()

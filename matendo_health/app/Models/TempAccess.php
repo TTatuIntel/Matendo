@@ -24,6 +24,7 @@ class TempAccess extends Model
         'verified_at',
         'revoked_at',
         'is_active',
+        'status',
         'generated_by',
         'permissions',
         'notes',

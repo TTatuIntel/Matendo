@@ -54,10 +54,12 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'doctor' => \App\Http\Middleware\EnsureUserIsDoctor::class, // Add this line
-
-        'temp.access' => \App\Http\Middleware\CheckTempAccess::class,
         'doctor' => \App\Http\Middleware\EnsureUserIsDoctor::class,
+        'patient' => \App\Http\Middleware\EnsureUserIsPatient::class,
+        'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+        'temp.access' => \App\Http\Middleware\CheckTempAccess::class,
+        'security.audit' => \App\Http\Middleware\SecurityAuditMiddleware::class,
+        'input.sanitization' => \App\Http\Middleware\InputSanitizationMiddleware::class,
 
 
     ];

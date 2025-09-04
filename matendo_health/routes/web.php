@@ -7,11 +7,21 @@ use App\Http\Controllers\ProfileController;
 
 // Admin Controllers
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\DoctorManagementController;
 use App\Http\Controllers\Admin\PatientManagementController;
 use App\Http\Controllers\Admin\SystemSettingsController;
 use App\Http\Controllers\Admin\ReportsController;
+use App\Http\Controllers\Admin\SystemMonitoringController;
+use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\Admin\BackupController;
+use App\Http\Controllers\Admin\SecurityController;
+use App\Http\Controllers\Admin\AlertManagementController;
+use App\Http\Controllers\Admin\CareQualityController;
+use App\Http\Controllers\Admin\ExternalAccessController;
+use App\Http\Controllers\Admin\CriticalPatientMonitorController;
+use App\Http\Controllers\Admin\OverallMonitorController;
 
 // Doctor Controllers
 use App\Http\Controllers\Doctor\DoctorDashboardController;
@@ -36,6 +46,7 @@ use App\Http\Controllers\Patient\ProfileTwoController;
 // Shared
 use App\Http\Controllers\TempAccessController;
 use App\Http\Controllers\DoctorDocumentController;
+use App\Http\Controllers\SearchController;
 
 // Models for short link
 use App\Models\TempAccess;
@@ -70,15 +81,64 @@ Route::middleware(['auth', 'verified', 'role:admin'])
     ->group(function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/realtime', [AdminDashboardController::class, 'getRealTimeData'])->name('dashboard.realtime');
+
+    // Add missing parent routes (redirect to .index where applicable)
+    Route::get('/users-redirect', function () {
+        return redirect()->route('admin.users.index');
+    })->name('users');
+
+    Route::get('/doctors-redirect', function () {
+        return redirect()->route('admin.doctors.index');
+    })->name('doctors');
+
+    Route::get('/patients-redirect', function () {
+        return redirect()->route('admin.patients.index');
+    })->name('patients');
+
+    Route::get('/monitoring-redirect', function () {
+        return redirect()->route('admin.monitoring.index');
+    })->name('monitoring');
+
+    Route::get('/settings-redirect', function () {
+        return redirect()->route('admin.settings.index');
+    })->name('settings');
+
+    Route::get('/reports-redirect', function () {
+        return redirect()->route('admin.reports.index');
+    })->name('reports');
+
+    Route::get('/alerts-redirect', function () {
+        return redirect()->route('admin.alerts.index');
+    })->name('alerts');
+
+    Route::get('/audit-redirect', function () {
+        return redirect()->route('admin.audit.index');
+    })->name('audit');
+
+    Route::get('/security-redirect', function () {
+        return redirect()->route('admin.security.index');
+    })->name('security');
+
+    Route::get('/backup-redirect', function () {
+        return redirect()->route('admin.backup.index');
+    })->name('backup');
+
+    // Add logs route (redirects to audit logs)
+    Route::get('/logs-redirect', function () {
+        return redirect()->route('admin.audit.logs');
+    })->name('logs.index');
 
     Route::controller(UserManagementController::class)->prefix('users')->name('users.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
+        Route::get('/export', 'export')->name('export');
         Route::get('/{user}', 'show')->name('show');
         Route::put('/{user}', 'update')->name('update');
         Route::delete('/{user}', 'destroy')->name('destroy');
         Route::post('/{user}/toggle-status', 'toggleStatus')->name('toggle-status');
         Route::post('/{user}/reset-password', 'resetPassword')->name('reset-password');
+        Route::post('/{user}/verify-doctor', 'verifyDoctor')->name('verify-doctor');
     });
 
     Route::controller(DoctorManagementController::class)->prefix('doctors')->name('doctors.')->group(function () {
@@ -90,6 +150,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])
         Route::delete('/{doctor}/remove-patient/{patient}', 'removePatient')->name('remove-patient');
         Route::get('/{doctor}/patients', 'patients')->name('patients');
         Route::post('/{doctor}/update-specialization', 'updateSpecialization')->name('update-specialization');
+        Route::delete('/{doctor}', 'destroy')->name('destroy');
+        Route::post('/{doctor}/toggle-status', 'toggleStatus')->name('toggle-status');
+        Route::get('/export', 'export')->name('export');
     });
 
     Route::controller(PatientManagementController::class)->prefix('patients')->name('patients.')->group(function () {
@@ -100,6 +163,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])
         Route::get('/{patient}/medical-history', 'medicalHistory')->name('medical-history');
         Route::post('/{patient}/update-profile', 'updateProfile')->name('update-profile');
         Route::get('/{patient}/alerts', 'alerts')->name('alerts');
+        Route::delete('/{patient}', 'destroy')->name('destroy');
+        Route::get('/export', 'export')->name('export');
     });
 
     Route::controller(SystemSettingsController::class)->prefix('settings')->name('settings.')->group(function () {
@@ -109,6 +174,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])
         Route::post('/restore', 'restore')->name('restore');
         Route::get('/logs', 'logs')->name('logs');
         Route::post('/clear-cache', 'clearCache')->name('clear-cache');
+        Route::get('/system-report', 'systemReport')->name('system-report');
+        Route::get('/health-check', 'healthCheck')->name('health-check');
+        Route::get('/export-configuration', 'exportConfiguration')->name('export-configuration');
+        Route::post('/import-configuration', 'importConfiguration')->name('import-configuration');
     });
 
     Route::controller(ReportsController::class)->prefix('reports')->name('reports.')->group(function () {
@@ -119,6 +188,128 @@ Route::middleware(['auth', 'verified', 'role:admin'])
         Route::get('/health-metrics', 'healthMetricsReport')->name('health-metrics');
         Route::post('/generate', 'generateReport')->name('generate');
         Route::get('/export/{type}', 'export')->name('export');
+        
+        // Advanced Analytics Routes
+        Route::get('/service-quality', 'serviceQualityReport')->name('service-quality');
+        Route::get('/doctor-workload', 'doctorWorkloadReport')->name('doctor-workload');
+        Route::get('/patient-outcomes', 'patientOutcomesReport')->name('patient-outcomes');
+        Route::get('/external-access', 'externalAccessReport')->name('external-access');
+    });
+
+    // Enhanced System Monitoring Routes
+    Route::controller(SystemMonitoringController::class)->prefix('monitoring')->name('monitoring.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/dashboard', 'index')->name('dashboard');
+        Route::get('/realtime', 'getRealTimeData')->name('realtime');
+        Route::get('/health', 'getHealthStatus')->name('health');
+        Route::get('/metrics', 'getSystemMetrics')->name('metrics');
+        Route::get('/export', 'exportReport')->name('export');
+    });
+
+    // Audit Log Routes
+    Route::controller(AuditLogController::class)->prefix('audit')->name('audit.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/logs', 'index')->name('logs');
+        Route::get('/user/{user}', 'userLogs')->name('user-logs');
+        Route::get('/export', 'exportLogs')->name('export');
+        Route::delete('/clear-old', 'clearOldLogs')->name('clear-old');
+    });
+
+    // Backup Management Routes
+    Route::controller(BackupController::class)->prefix('backup')->name('backup.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/create', 'create')->name('create');
+        Route::get('/download/{backup}', 'download')->name('download');
+        Route::delete('/{backup}', 'destroy')->name('destroy');
+        Route::post('/restore/{backup}', 'restore')->name('restore');
+        Route::get('/schedule', 'schedule')->name('schedule');
+    });
+
+    // Security Management Routes
+    Route::controller(SecurityController::class)->prefix('security')->name('security.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/incidents', 'incidents')->name('incidents');
+        Route::post('/incidents', 'createIncident')->name('create-incident');
+        Route::get('/sessions', 'sessions')->name('sessions');
+        Route::post('/revoke-session/{session}', 'revokeSession')->name('revoke-session');
+        Route::get('/failed-logins', 'failedLogins')->name('failed-logins');
+        Route::post('/block-ip', 'blockIp')->name('block-ip');
+        Route::post('/unblock-ip', 'unblockIp')->name('unblock-ip');
+        Route::post('/force-password-reset', 'forcePasswordReset')->name('force-password-reset');
+        Route::post('/security-scan', 'runSecurityScan')->name('security-scan');
+        Route::get('/export-logs', 'exportSecurityLogs')->name('export-logs');
+    });
+
+    // Admin Profile Management Routes
+    Route::controller(AdminProfileController::class)->prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/password', 'updatePassword')->name('password');
+        Route::post('/two-factor', 'toggleTwoFactor')->name('two-factor');
+        Route::get('/activity-logs', 'getActivityLogs')->name('activity-logs');
+        Route::get('/export-activity', 'exportActivity')->name('export-activity');
+        Route::post('/notifications', 'updateNotificationPreferences')->name('notifications');
+    });
+
+    // System Management Routes
+    Route::prefix('system')->name('system.')->group(function () {
+        Route::post('/clear-cache', [SystemSettingsController::class, 'clearCache'])->name('clear-cache');
+        Route::post('/optimize', [SystemSettingsController::class, 'optimize'])->name('optimize');
+        Route::post('/maintenance-mode', [SystemSettingsController::class, 'toggleMaintenance'])->name('maintenance');
+    });
+
+    // Advanced User Management
+    Route::prefix('users-advanced')->name('users.advanced.')->group(function () {
+        Route::get('/bulk-actions', [UserManagementController::class, 'bulkActions'])->name('bulk-actions');
+        Route::post('/bulk-update', [UserManagementController::class, 'bulkUpdate'])->name('bulk-update');
+        Route::get('/export-csv', [UserManagementController::class, 'exportCsv'])->name('export-csv');
+        Route::post('/import-csv', [UserManagementController::class, 'importCsv'])->name('import-csv');
+    });
+
+    // Intelligent Alert Management Routes
+    Route::controller(AlertManagementController::class)->prefix('alerts')->name('alerts.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/realtime', 'getRealTimeAlerts')->name('realtime');
+        Route::post('/escalation-rule', 'createEscalationRule')->name('create-escalation-rule');
+        Route::post('/smart-filter', 'applySmartFiltering')->name('apply-smart-filter');
+        Route::post('/bulk-escalate', 'bulkEscalate')->name('bulk-escalate');
+        Route::post('/auto-routing', 'configureAutoRouting')->name('configure-auto-routing');
+        Route::get('/suspicious-activity', 'detectSuspiciousActivity')->name('detect-suspicious-activity');
+    });
+
+    // Care Quality Management Routes
+    Route::controller(CareQualityController::class)->prefix('care-quality')->name('care-quality.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/realtime-metrics', 'getRealTimeMetrics')->name('realtime-metrics');
+        Route::get('/detect-missing-data', 'detectMissingData')->name('detect-missing-data');
+        Route::get('/detect-irregular-vitals', 'detectIrregularVitals')->name('detect-irregular-vitals');
+        Route::post('/generate-report', 'generateQualityReport')->name('generate-report');
+    });
+
+    // External Access Monitoring Routes
+    Route::controller(ExternalAccessController::class)->prefix('external-access')->name('external-access.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/realtime-data', 'getRealTimeAccessData')->name('realtime-data');
+        Route::post('/grant-access', 'grantTemporaryAccess')->name('grant-access');
+        Route::post('/{accessId}/revoke', 'revokeAccess')->name('revoke-access');
+        Route::post('/{sessionId}/terminate', 'terminateSession')->name('terminate-session');
+        Route::post('/update-policies', 'updateAccessPolicies')->name('update-policies');
+        Route::get('/suspicious-activity', 'detectSuspiciousActivity')->name('detect-suspicious-activity');
+    });
+
+    // Critical Patient Monitoring Routes
+    Route::controller(CriticalPatientMonitorController::class)->prefix('critical-monitor')->name('critical-monitor.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/realtime-data', 'getRealTimeData')->name('realtime-data');
+        Route::get('/detect-care-gaps', 'detectCareGaps')->name('detect-care-gaps');
+        Route::post('/{patientId}/escalate', 'escalateIssue')->name('escalate-issue');
+        Route::post('/care-gap/{gapId}/resolve', 'resolveCareGap')->name('resolve-care-gap');
+    });
+
+    // Overall Monitor Routes
+    Route::controller(OverallMonitorController::class)->prefix('overall-monitor')->name('overall-monitor.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/realtime', 'getRealTimeData')->name('realtime');
     });
 });
 
@@ -276,7 +467,6 @@ Route::middleware(['auth', 'verified', 'role:patient'])
         Route::post('/{appointment}/confirm', 'confirm')->name('confirm');
         Route::post('/{appointment}/cancel', 'cancel')->name('cancel');
         Route::post('/{appointment}/reschedule', 'reschedule')->name('reschedule');
-        Route::post('/{id}/cancel', 'cancel')->name('cancel');
     });
 
     Route::controller(MedicationController::class)->prefix('medications')->name('medications.')->group(function () {
@@ -302,9 +492,6 @@ Route::middleware(['auth', 'verified', 'role:patient'])
         Route::put('/emergency-contacts/{contact}', [PatientDashboardController::class, 'updateEmergencyContact'])->name('update-emergency-contact');
         Route::delete('/emergency-contacts/{contact}', [PatientDashboardController::class, 'deleteEmergencyContact'])->name('delete-emergency-contact');
     });
-
-
-
 
     Route::prefix('goals')->name('goals.')->group(function () {
         Route::get('/', [PatientDashboardController::class, 'goals'])->name('index');
@@ -385,11 +572,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::controller(NotificationController::class)->prefix('notifications')->name('notifications.')->group(function () {
+        // View routes
         Route::get('/', 'index')->name('index');
-        Route::post('/{notification}/mark-read', 'markAsRead')->name('mark-read');
-        Route::post('/mark-all-read', 'markAllAsRead')->name('mark-all-read');
-        Route::delete('/{notification}', 'destroy')->name('destroy');
+        Route::get('/unread', 'getUnread')->name('unread');
+        Route::get('/poll', 'poll')->name('poll');
+        Route::get('/dashboard', 'getDashboardNotifications')->name('dashboard');
+        Route::get('/patient/{patient}', 'getPatientNotifications')->name('patient');
+        Route::get('/stats', 'getNotificationCounts')->name('stats');
+        Route::get('/preferences', 'getPreferences')->name('preferences');
         Route::get('/unread-count', 'unreadCount')->name('unread-count');
+        
+        // Action routes
+        Route::post('/{id}/read', 'markAsRead')->name('mark-read');
+        Route::post('/{notification}/mark-read', 'markAsRead')->name('mark-read-legacy'); // Legacy compatibility
+        Route::post('/mark-all-read', 'markAllAsRead')->name('mark-all-read');
+        Route::post('/bulk-read', 'bulkMarkAsRead')->name('bulk-read');
+        Route::post('/preferences', 'updatePreferences')->name('update-preferences');
+        Route::post('/test', 'sendTestNotification')->name('test');
+        
+        // Delete routes
+        Route::delete('/{id}', 'destroy')->name('destroy');
+        Route::delete('/{notification}', 'destroy')->name('destroy-legacy'); // Legacy compatibility
     });
 
     Route::prefix('api/real-time')->name('realtime.')->group(function () {
@@ -408,6 +611,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/health-data', [PatientDashboardController::class, 'exportHealthData'])->name('health-data');
         Route::get('/appointments', [PatientAppointmentController::class, 'exportAppointments'])->name('appointments');
         Route::get('/medications', [MedicationController::class, 'exportMedications'])->name('medications');
+    });
+
+    // Global Search Routes
+    Route::controller(SearchController::class)->prefix('search')->name('search.')->group(function () {
+        Route::get('/', function() {
+            return view('search.index');
+        })->name('index');
+        Route::get('/global', 'global')->name('global');
+        Route::get('/suggestions', 'suggestions')->name('suggestions');
+        Route::get('/filter-options', 'filterOptions')->name('filter-options');
+        Route::get('/recent', 'recentSearches')->name('recent');
+        Route::get('/analytics', 'analytics')->name('analytics');
+        Route::post('/clear-cache', 'clearCache')->name('clear-cache');
+        Route::get('/export', 'exportResults')->name('export');
     });
 });
 
@@ -471,9 +688,8 @@ Route::get('/dashboard', function () {
     };
 })->middleware('auth')->name('dashboard');
 
-
+// Legacy appointment routes for compatibility
 use App\Http\Controllers\Patient\AppointmentController;
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/appointments', [PatientAppointmentController::class, 'index'])->name('appointments.index');
     Route::post('/appointments/store', [PatientAppointmentController::class, 'store'])->name('appointments.store');

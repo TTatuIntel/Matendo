@@ -66,6 +66,45 @@
                 box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
             }
             
+            .btn-warning {
+                background: linear-gradient(135deg, #f59e0b, #d97706);
+                border: 2px solid #b45309;
+                color: white;
+                transition: all 0.3s ease;
+            }
+            .btn-warning:hover {
+                background: linear-gradient(135deg, #fbbf24, #f59e0b);
+                border-color: #92400e;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+            }
+            
+            .btn-success {
+                background: linear-gradient(135deg, #059669, #047857);
+                border: 2px solid #065f46;
+                color: white;
+                transition: all 0.3s ease;
+            }
+            .btn-success:hover {
+                background: linear-gradient(135deg, #10b981, #059669);
+                border-color: #064e3b;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+            }
+            
+            .btn-info {
+                background: linear-gradient(135deg, #0891b2, #0e7490);
+                border: 2px solid #155e75;
+                color: white;
+                transition: all 0.3s ease;
+            }
+            .btn-info:hover {
+                background: linear-gradient(135deg, #06b6d4, #0891b2);
+                border-color: #164e63;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(8, 145, 178, 0.4);
+            }
+            
             .btn-ghost {
                 background: rgba(255, 255, 255, 0.1);
                 backdrop-filter: blur(10px);
@@ -78,6 +117,40 @@
                 border-color: rgba(255, 255, 255, 0.3);
                 transform: translateY(-1px);
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            
+            /* Base button styles */
+            .btn-primary, .btn-secondary, .btn-danger, .btn-warning, .btn-success, .btn-info, .btn-ghost {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.5rem 1rem;
+                border-radius: 0.75rem;
+                font-weight: 600;
+                font-size: 0.875rem;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .btn-primary:disabled, .btn-secondary:disabled, .btn-danger:disabled, 
+            .btn-warning:disabled, .btn-success:disabled, .btn-info:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+            }
+            
+            /* Small button variant */
+            .btn-sm {
+                padding: 0.25rem 0.75rem;
+                font-size: 0.75rem;
+            }
+            
+            /* Large button variant */
+            .btn-lg {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
             }
             
             /* Enhanced table rows */
@@ -239,6 +312,40 @@
             ::-webkit-scrollbar-thumb:hover {
                 background: linear-gradient(135deg, #047857, #1d4ed8);
             }
+            
+            /* Medical Cards */
+            .medical-card {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-radius: 1rem;
+                border: 1px solid rgba(209, 213, 219, 0.2);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            .hover-lift:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+            
+            /* Better form styling */
+            .form-input {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(8px);
+                border: 2px solid rgba(209, 213, 219, 0.3);
+                border-radius: 0.75rem;
+                padding: 0.75rem 1rem;
+                transition: all 0.3s ease;
+                font-size: 0.875rem;
+            }
+            
+            .form-input:focus {
+                outline: none;
+                border-color: #059669;
+                box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+                background: rgba(255, 255, 255, 1);
+            }
         </style>
        
         <!-- Additional page-specific styles -->
@@ -246,8 +353,6 @@
     </head>
     <body class="font-sans antialiased bg-dashboard">
         <div class="min-h-screen">
-            <!-- Main Content -->
-            @yield('content')
             @isset($header)
                 <header class="glass-card shadow-lg border-b border-gray-200/50 smooth-transition">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -261,7 +366,7 @@
             <!-- Enhanced Page Content -->
             <main class="pb-12">
                 <div class="fade-in">
-                    {{ $slot }}
+                    @yield('content')
                 </div>
             </main>
         </div>
@@ -365,6 +470,9 @@
             document.head.appendChild(style);
         </script>
        
+        <!-- Enhanced Button Functionality -->
+        <script src="{{ asset('js/enhanced-buttons.js') }}"></script>
+        
         <!-- Additional page-specific scripts -->
         @stack('scripts')
     </body>
