@@ -1,0 +1,2 @@
+# Storage is private. Files served only through controlled PHP downloaders.
+Require all denied

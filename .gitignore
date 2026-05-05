@@ -1,0 +1,21 @@
+# Ignore vscode AI rules
+.github/instructions/codacy.instructions.md
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Runtime storage
+storage/uploads/*
+!storage/uploads/.htaccess
+!storage/uploads/.gitkeep
+storage/logs/*
+!storage/logs/.gitkeep
+
+# Editor / OS
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
