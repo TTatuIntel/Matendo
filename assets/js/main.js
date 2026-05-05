@@ -1,7 +1,7 @@
 /* =====================================================================
    Matendo Medics — main.js
    Site-wide UI behaviour: nav, scroll-reveal, back-to-top, cookie banner,
-   newsletter, smooth-scroll, talent-tabs.
+   newsletter, smooth-scroll, talent-tabs, sign-in modal.
    ===================================================================== */
 (function () {
     'use strict';
@@ -75,11 +75,7 @@
                 tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
                 panels.forEach((p) => {
                     p.hidden = p.dataset.talentPanel !== target;
-                    if (!p.hidden) {
-                        p.setAttribute('aria-hidden', 'false');
-                    } else {
-                        p.setAttribute('aria-hidden', 'true');
-                    }
+                    p.setAttribute('aria-hidden', p.hidden ? 'true' : 'false');
                 });
             });
         });
@@ -103,123 +99,89 @@
         decline?.addEventListener('click', () => { localStorage.setItem('cookieConsent', 'declined'); banner.hidden = true; });
     }
 
+    // ------ generic modal openers/closers (works site-wide) ------
+    document.addEventListener('click', (ev) => {
+        const opener = ev.target.closest('[data-open-modal]');
+        if (opener) {
+            ev.preventDefault();
+            const id = opener.getAttribute('data-open-modal');
+            const m  = document.getElementById(id);
+            if (m) {
+                m.hidden = false;
+                document.body.style.overflow = 'hidden';
+                m.querySelector('input,select,textarea,button')?.focus();
+            }
+        }
+        if (ev.target.closest('[data-close-modal]') || ev.target.classList.contains('modal')) {
+            const m = ev.target.closest('.modal');
+            if (m) { m.hidden = true; document.body.style.overflow = ''; }
+        }
+    });
+    document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape') {
+            $$('.modal:not([hidden])').forEach(m => { m.hidden = true; document.body.style.overflow = ''; });
+        }
+    });
+
     // ------ newsletter ------
     const nl = $('#newsletterForm');
-    if (nl) {
-        nl.addEventListener('submit', async (ev) => {
-            ev.preventDefault();
-            const fd = new FormData(nl);
-            try {
-                const res = await fetch('api/newsletter.php', {
-                    method: 'POST',
-                    body:   fd,
-                    headers: { 'X-CSRF-TOKEN': csrf() },
-                    credentials: 'same-origin',
-                });
-                const json = await res.json();
-                alert(json.message || (json.success ? 'Subscribed.' : 'Could not subscribe.'));
-                if (json.success) nl.reset();
-            } catch (e) {
-                alert('Network error. Please try again.');
-            }
-        });
-    }
+    if (nl) wireJsonForm(nl, 'api/newsletter.php', { successAlert: true });
 
     // ------ contact form ------
     const cf = $('#contactForm');
     if (cf) wireJsonForm(cf, 'api/contact.php');
 
-    function wireJsonForm(form, endpoint) {
+    // ------ login modal form ------
+    const lf = $('#loginForm');
+    if (lf) {
+        wireJsonForm(lf, 'api/login.php', {
+            onSuccess: () => { setTimeout(() => window.location.reload(), 600); },
+        });
+    }
+
+    // ------ register modal form ------
+    const rf = $('#registerForm');
+    if (rf) {
+        wireJsonForm(rf, 'api/register.php', {
+            onSuccess: () => { setTimeout(() => window.location.reload(), 800); },
+        });
+    }
+
+    function wireJsonForm(form, endpoint, opts = {}) {
         const fb = form.querySelector('[data-feedback]');
         form.addEventListener('submit', async (ev) => {
             ev.preventDefault();
-            fb.hidden = true; fb.classList.remove('success', 'error');
+            if (!form.reportValidity()) return;
+
+            if (fb) { fb.hidden = true; fb.classList.remove('success', 'error'); }
             const submit = form.querySelector('button[type=submit]');
-            submit.disabled = true; const original = submit.textContent; submit.textContent = 'Sending…';
+            submit.disabled = true;
+            const original = submit.textContent;
+            submit.textContent = 'Sending…';
+
             try {
-                const res = await fetch(endpoint, {
+                const res  = await fetch(endpoint, {
                     method: 'POST',
                     body:   new FormData(form),
                     headers: { 'X-CSRF-TOKEN': csrf() },
                     credentials: 'same-origin',
                 });
-                const json = await res.json();
-                fb.hidden = false;
-                fb.classList.add(json.success ? 'success' : 'error');
-                fb.textContent = json.message || json.error || 'Done.';
-                if (json.success) form.reset();
+                const json = await res.json().catch(() => ({}));
+                if (fb) {
+                    fb.hidden = false;
+                    fb.classList.add(json.success ? 'success' : 'error');
+                    fb.textContent = json.message || json.error || 'Done.';
+                }
+                if (json.success) {
+                    form.reset();
+                    if (opts.successAlert) alert(json.message || 'Done.');
+                    if (opts.onSuccess) opts.onSuccess(json);
+                }
             } catch (e) {
-                fb.hidden = false; fb.classList.add('error');
-                fb.textContent = 'Network error. Please try again.';
+                if (fb) { fb.hidden = false; fb.classList.add('error'); fb.textContent = 'Network error. Please try again.'; }
             } finally {
-                submit.disabled = false; submit.textContent = original;
-            }
-        });
-    }
-})();
-
-
-    // ------ cookie banner ------
-    const banner   = $('#cookieConsent');
-    const accept   = $('#acceptCookies');
-    const decline  = $('#declineCookies');
-    if (banner) {
-        const stored = localStorage.getItem('cookieConsent');
-        if (!stored) banner.hidden = false;
-        accept?.addEventListener('click', () => { localStorage.setItem('cookieConsent', 'accepted'); banner.hidden = true; });
-        decline?.addEventListener('click', () => { localStorage.setItem('cookieConsent', 'declined'); banner.hidden = true; });
-    }
-
-    // ------ newsletter ------
-    const nl = $('#newsletterForm');
-    if (nl) {
-        nl.addEventListener('submit', async (ev) => {
-            ev.preventDefault();
-            const fd = new FormData(nl);
-            try {
-                const res = await fetch('api/newsletter.php', {
-                    method: 'POST',
-                    body:   fd,
-                    headers: { 'X-CSRF-TOKEN': csrf() },
-                    credentials: 'same-origin',
-                });
-                const json = await res.json();
-                alert(json.message || (json.success ? 'Subscribed.' : 'Could not subscribe.'));
-                if (json.success) nl.reset();
-            } catch (e) {
-                alert('Network error. Please try again.');
-            }
-        });
-    }
-
-    // ------ contact form ------
-    const cf = $('#contactForm');
-    if (cf) wireJsonForm(cf, 'api/contact.php');
-
-    function wireJsonForm(form, endpoint) {
-        const fb = form.querySelector('[data-feedback]');
-        form.addEventListener('submit', async (ev) => {
-            ev.preventDefault();
-            fb.hidden = true; fb.classList.remove('success', 'error');
-            const submit = form.querySelector('button[type=submit]');
-            submit.disabled = true; const original = submit.textContent; submit.textContent = 'Sending…';
-            try {
-                const res = await fetch(endpoint, {
-                    method: 'POST',
-                    body:   new FormData(form),
-                    headers: { 'X-CSRF-TOKEN': csrf() },
-                    credentials: 'same-origin',
-                });
-                const json = await res.json();
-                fb.hidden = false;
-                fb.classList.add(json.success ? 'success' : 'error');
-                fb.textContent = json.message || json.error || 'Done.';
-                if (json.success) form.reset();
-            } catch (e) {
-                fb.hidden = false; fb.classList.add('error');
-                fb.textContent = 'Network error. Please try again.';
-            } finally {
-                submit.disabled = false; submit.textContent = original;
+                submit.disabled = false;
+                submit.textContent = original;
             }
         });
     }

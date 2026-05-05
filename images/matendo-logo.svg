@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" role="img" aria-label="Matendo Medics">
+  <defs>
+    <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#34b3ae"/>
+      <stop offset="100%" stop-color="#0f4f4d"/>
+    </linearGradient>
+    <linearGradient id="mp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#ffba08"/>
+      <stop offset="100%" stop-color="#ff7a59"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Mark: rounded square with stylised "M" + medical cross + heartbeat pulse -->
+  <g transform="translate(2,4)">
+    <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#mg)"/>
+    <!-- Medical cross (subtle, behind) -->
+    <rect x="20" y="9"  width="8" height="30" rx="2" fill="rgba(255,255,255,.18)"/>
+    <rect x="9"  y="20" width="30" height="8" rx="2" fill="rgba(255,255,255,.18)"/>
+    <!-- Stylised M with heartbeat pulse cutting through -->
+    <path d="M9 36 V14 L17 24 L24 16 L31 24 L39 14 V36"
+          fill="none" stroke="#ffffff" stroke-width="3.4"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- pulse accent dot -->
+    <circle cx="39" cy="14" r="3" fill="url(#mp)"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-weight="800" letter-spacing="-0.02em">
+    <text x="60" y="32" font-size="22" fill="#0a1f1e">Matendo</text>
+    <text x="60" y="46" font-size="9.5" fill="#1e7e7c" letter-spacing="0.18em" font-weight="600">M E D I C S</text>
+  </g>
+</svg>

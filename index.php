@@ -1,38 +1,43 @@
-
 <?php
-// DEBUG BLOCK: Show PHP errors and confirm execution
-error_reporting(E_ALL); ini_set('display_errors', 1);
-echo '<div style="background:#ffe0e0;color:#900;padding:8px 16px;font-size:1.1em;z-index:9999;position:relative;">PHP is running. Timestamp: '.date('Y-m-d H:i:s').'</div>';
-
 require_once __DIR__ . '/config/bootstrap.php';
 $pageTitle       = 'Matendo Medics — Hire vetted medical professionals';
 $pageDescription = 'Matendo connects healthcare facilities and patients with the top tier of vetted doctors, nurses and caregivers across East Africa.';
 $activeNav       = 'home';
 
-// Featured talent (live data; fallback to seeds if table empty).
+// Featured talent (live data; fallback to seeds if table is empty).
 try {
     $featured = DB::pdo()->query("
         SELECT first_name, last_name, profession, specialization, avatar_path, rating_avg
-        FROM professionals WHERE status = 'active' ORDER BY rating_avg DESC LIMIT 6
+        FROM professionals WHERE status = 'active' ORDER BY rating_avg DESC LIMIT 8
     ")->fetchAll();
 } catch (Throwable $e) {
-    echo '<div style="background:#ffe0e0;color:#900;padding:8px 16px;">DB ERROR: '.e($e->getMessage()).'</div>';
+    error_log('home: featured query failed: ' . $e->getMessage());
     $featured = [];
 }
 
 if (!$featured) {
     $featured = [
-        ['first_name'=>'Sarah','last_name'=>'Williams','profession'=>'General Practice','specialization'=>'Family medicine','avatar_path'=>'images/doc1.png','rating_avg'=>4.9],
-        ['first_name'=>'James','last_name'=>'Smith','profession'=>'Cardiology','specialization'=>'Interventional cardiology','avatar_path'=>'images/doc2.png','rating_avg'=>4.8],
-        ['first_name'=>'Emily','last_name'=>'Brown','profession'=>'Pediatrics','specialization'=>'Neonatal care','avatar_path'=>'images/doc3.png','rating_avg'=>4.9],
-        ['first_name'=>'Mark','last_name'=>'Johnson','profession'=>'Orthopedics','specialization'=>'Sports injury','avatar_path'=>'images/doc4.png','rating_avg'=>4.7],
-        ['first_name'=>'Sophia','last_name'=>'Chen','profession'=>'Neurology','specialization'=>'Stroke care','avatar_path'=>'images/doc5.png','rating_avg'=>4.9],
-        ['first_name'=>'Robert','last_name'=>'Taylor','profession'=>'Oncology','specialization'=>'Radiation oncology','avatar_path'=>'images/doc6.png','rating_avg'=>4.8],
+        ['first_name'=>'Sarah','last_name'=>'Williams','profession'=>'General Practice','specialization'=>'Family medicine','avatar_path'=>'images/doc1.png','rating_avg'=>4.9,'group'=>'doctor'],
+        ['first_name'=>'James', 'last_name'=>'Smith',   'profession'=>'Cardiology',      'specialization'=>'Interventional cardiology','avatar_path'=>'images/doc2.png','rating_avg'=>4.8,'group'=>'doctor'],
+        ['first_name'=>'Emily', 'last_name'=>'Brown',   'profession'=>'Pediatrics',      'specialization'=>'Neonatal care','avatar_path'=>'images/doc3.png','rating_avg'=>4.9,'group'=>'doctor'],
+        ['first_name'=>'Mark',  'last_name'=>'Johnson', 'profession'=>'Orthopedics',     'specialization'=>'Sports injury','avatar_path'=>'images/doc4.png','rating_avg'=>4.7,'group'=>'doctor'],
+        ['first_name'=>'Sophia','last_name'=>'Chen',    'profession'=>'Neurology',       'specialization'=>'Stroke care','avatar_path'=>'images/doc5.png','rating_avg'=>4.9,'group'=>'doctor'],
+        ['first_name'=>'Aisha', 'last_name'=>'Nansubuga','profession'=>'Registered Nurse','specialization'=>'Critical care','avatar_path'=>'images/doc6.png','rating_avg'=>4.8,'group'=>'nurse'],
+        ['first_name'=>'Grace', 'last_name'=>'Akello',  'profession'=>'Midwife',         'specialization'=>'Maternity ward','avatar_path'=>'images/doc7.png','rating_avg'=>4.9,'group'=>'nurse'],
+        ['first_name'=>'David', 'last_name'=>'Mwangi',  'profession'=>'Physiotherapist', 'specialization'=>'Rehabilitation','avatar_path'=>'images/doc8.png','rating_avg'=>4.7,'group'=>'therapist'],
     ];
 }
 
+/** Bucket featured items into tab groups for the talent tabs. */
+$bucket = function (array $p): string {
+    if (!empty($p['group'])) return (string) $p['group'];
+    $prof = strtolower($p['profession'] ?? '');
+    if (str_contains($prof, 'nurse') || str_contains($prof, 'midwif')) return 'nurse';
+    if (str_contains($prof, 'therap') || str_contains($prof, 'physio')) return 'therapist';
+    return 'doctor';
+};
+
 include __DIR__ . '/includes/header.php';
-echo '<div style="background:#e0ffe0;color:#070;padding:8px 16px;font-size:1.1em;z-index:9999;position:relative;">Reached before hero section</div>';
 ?>
 
 <section class="hero">
@@ -45,8 +50,8 @@ echo '<div style="background:#e0ffe0;color:#070;padding:8px 16px;font-size:1.1em
                 doctors, nurses and caregivers — screened, licensed, and ready to start.
             </p>
             <div class="hero-actions">
-                <a href="<?= e(url('hire.php')) ?>"   class="btn btn-primary btn-lg">Hire talent</a>
-                <a href="<?= e(url('join.php')) ?>"   class="btn btn-outline btn-lg">Join as a professional</a>
+                <a href="<?= e(url('hire.php'))   ?>" class="btn btn-primary btn-lg">Hire talent</a>
+                <a href="<?= e(url('join.php'))   ?>" class="btn btn-outline btn-lg">Join as a professional</a>
                 <a href="<?= e(url('talent.php')) ?>" class="btn btn-ghost btn-lg">Browse the network →</a>
             </div>
             <ul class="trust-bar">
@@ -83,17 +88,17 @@ echo '<div style="background:#e0ffe0;color:#070;padding:8px 16px;font-size:1.1em
             <article class="feature-card">
                 <i class="fas fa-user-shield"></i>
                 <h3>Rigorously vetted</h3>
-                <p>Every professional passes credential verification, license checks, and a clinical interview before joining.</p>
+                <p>Every professional passes credential verification, license checks and a clinical interview before joining.</p>
             </article>
             <article class="feature-card">
                 <i class="fas fa-clock"></i>
                 <h3>Matched within 24 hours</h3>
-                <p>Submit your need and we hand-pick a shortlist of three matches the next day, not next month.</p>
+                <p>Submit your need; we hand-pick a shortlist of three matches the next day, not next month.</p>
             </article>
             <article class="feature-card">
                 <i class="fas fa-handshake"></i>
                 <h3>Flexible engagements</h3>
-                <p>Full-time, part-time, locum, or single-shift. Hire how you need, scale when you grow.</p>
+                <p>Full-time, part-time, locum or single-shift. Hire how you need, scale when you grow.</p>
             </article>
             <article class="feature-card">
                 <i class="fas fa-shield-alt"></i>
@@ -104,83 +109,59 @@ echo '<div style="background:#e0ffe0;color:#070;padding:8px 16px;font-size:1.1em
     </div>
 </section>
 
-
 <section class="section section-alt">
     <div class="container">
         <h2 class="section-title" data-reveal>Featured medical professionals</h2>
         <p class="section-sub" data-reveal>Browse by specialty. Sign in to access the full directory and contact details.</p>
+
         <div class="talent-tabs" role="tablist" aria-label="Talent specialties">
-            <button type="button" class="talent-tab is-active" data-talent-tab="all" aria-selected="true" role="tab" id="tab-all">All</button>
-            <button type="button" class="talent-tab" data-talent-tab="doctor" role="tab" id="tab-doctor">Doctors</button>
-            <button type="button" class="talent-tab" data-talent-tab="nurse" role="tab" id="tab-nurse">Nurses</button>
-            <button type="button" class="talent-tab" data-talent-tab="therapist" role="tab" id="tab-therapist">Therapists</button>
+            <button type="button" class="talent-tab is-active" data-talent-tab="all"       role="tab" id="tab-all">All</button>
+            <button type="button" class="talent-tab"           data-talent-tab="doctor"    role="tab" id="tab-doctor">Doctors</button>
+            <button type="button" class="talent-tab"           data-talent-tab="nurse"     role="tab" id="tab-nurse">Nurses</button>
+            <button type="button" class="talent-tab"           data-talent-tab="therapist" role="tab" id="tab-therapist">Therapists</button>
         </div>
+
         <div class="talent-panels">
-            <div class="talent-grid" data-talent-panel="all" data-reveal-stagger role="tabpanel" aria-labelledby="tab-all">
-                <?php foreach ($featured as $p): ?>
-                    <article class="talent-card">
-                        <div class="talent-photo">
-                            <span class="verified-badge"><i class="fas fa-circle-check"></i> Verified</span>
-                            <img src="<?= e(asset($p['avatar_path'] ?? 'images/doc1.png')) ?>" alt="" loading="lazy">
-                        </div>
-                        <div class="talent-info">
-                            <h3>Dr. <?= e($p['first_name'].' '.$p['last_name']) ?></h3>
-                            <p class="talent-specialty"><?= e($p['profession']) ?></p>
-                            <p class="talent-detail"><?= e($p['specialization'] ?? '') ?></p>
-                            <p class="rating"><i class="fas fa-star"></i> <?= number_format((float)$p['rating_avg'], 1) ?></p>
-                        </div>
-                    </article>
-                <?php endforeach; ?>
-            </div>
-            <div class="talent-grid" data-talent-panel="doctor" hidden data-reveal-stagger role="tabpanel" aria-labelledby="tab-doctor">
-                <?php foreach ($featured as $p): if (stripos($p['profession'], 'doctor') !== false || stripos($p['profession'], 'general') !== false || stripos($p['profession'], 'cardio') !== false || stripos($p['profession'], 'neuro') !== false || stripos($p['profession'], 'pedia') !== false || stripos($p['profession'], 'onco') !== false || stripos($p['profession'], 'ortho') !== false): ?>
-                    <article class="talent-card">
-                        <div class="talent-photo">
-                            <span class="verified-badge"><i class="fas fa-circle-check"></i> Verified</span>
-                            <img src="<?= e(asset($p['avatar_path'] ?? 'images/doc1.png')) ?>" alt="" loading="lazy">
-                        </div>
-                        <div class="talent-info">
-                            <h3>Dr. <?= e($p['first_name'].' '.$p['last_name']) ?></h3>
-                            <p class="talent-specialty"><?= e($p['profession']) ?></p>
-                            <p class="talent-detail"><?= e($p['specialization'] ?? '') ?></p>
-                            <p class="rating"><i class="fas fa-star"></i> <?= number_format((float)$p['rating_avg'], 1) ?></p>
-                        </div>
-                    </article>
-                <?php endif; endforeach; ?>
-            </div>
-            <div class="talent-grid" data-talent-panel="nurse" hidden data-reveal-stagger role="tabpanel" aria-labelledby="tab-nurse">
-                <?php foreach ($featured as $p): if (stripos($p['profession'], 'nurse') !== false): ?>
-                    <article class="talent-card">
-                        <div class="talent-photo">
-                            <span class="verified-badge"><i class="fas fa-circle-check"></i> Verified</span>
-                            <img src="<?= e(asset($p['avatar_path'] ?? 'images/doc1.png')) ?>" alt="" loading="lazy">
-                        </div>
-                        <div class="talent-info">
-                            <h3>Dr. <?= e($p['first_name'].' '.$p['last_name']) ?></h3>
-                            <p class="talent-specialty"><?= e($p['profession']) ?></p>
-                            <p class="talent-detail"><?= e($p['specialization'] ?? '') ?></p>
-                            <p class="rating"><i class="fas fa-star"></i> <?= number_format((float)$p['rating_avg'], 1) ?></p>
-                        </div>
-                    </article>
-                <?php endif; endforeach; ?>
-            </div>
-            <div class="talent-grid" data-talent-panel="therapist" hidden data-reveal-stagger role="tabpanel" aria-labelledby="tab-therapist">
-                <?php foreach ($featured as $p): if (stripos($p['profession'], 'therap') !== false): ?>
-                    <article class="talent-card">
-                        <div class="talent-photo">
-                            <span class="verified-badge"><i class="fas fa-circle-check"></i> Verified</span>
-                            <img src="<?= e(asset($p['avatar_path'] ?? 'images/doc1.png')) ?>" alt="" loading="lazy">
-                        </div>
-                        <div class="talent-info">
-                            <h3>Dr. <?= e($p['first_name'].' '.$p['last_name']) ?></h3>
-                            <p class="talent-specialty"><?= e($p['profession']) ?></p>
-                            <p class="talent-detail"><?= e($p['specialization'] ?? '') ?></p>
-                            <p class="rating"><i class="fas fa-star"></i> <?= number_format((float)$p['rating_avg'], 1) ?></p>
-                        </div>
-                    </article>
-                <?php endif; endforeach; ?>
-            </div>
+            <?php
+            // Render the same partial for each tab, filtered server-side.
+            $renderCard = function (array $p) {
+                $href = url('professional.php?ref=' . urlencode($p['reference_number'] ?? ''));
+                ?>
+                <article class="talent-card">
+                    <div class="talent-photo">
+                        <span class="verified-badge"><i class="fas fa-circle-check" aria-hidden="true"></i> Verified</span>
+                        <img src="<?= e(asset($p['avatar_path'] ?? 'images/doc1.png')) ?>" alt="" loading="lazy"
+                             onerror="this.onerror=null;this.src='<?= e(asset('images/doc1.png')) ?>'">
+                        <a class="view-cta" href="<?= e($href) ?>">View profile <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="talent-info">
+                        <h3>Dr. <?= e($p['first_name'].' '.$p['last_name']) ?></h3>
+                        <p class="talent-specialty"><?= e($p['profession']) ?></p>
+                        <?php if (!empty($p['specialization'])): ?>
+                            <p class="talent-detail"><?= e($p['specialization']) ?></p>
+                        <?php endif; ?>
+                        <p class="rating"><i class="fas fa-star" aria-hidden="true"></i> <?= number_format((float)$p['rating_avg'], 1) ?></p>
+                    </div>
+                </article>
+                <?php
+            };
+
+            $groups = ['all' => $featured, 'doctor' => [], 'nurse' => [], 'therapist' => []];
+            foreach ($featured as $p) {
+                $g = $bucket($p);
+                if (isset($groups[$g])) $groups[$g][] = $p;
+            }
+
+            foreach ($groups as $key => $list):
+                $hidden = $key === 'all' ? '' : 'hidden'; ?>
+                <div class="talent-grid" data-talent-panel="<?= e($key) ?>" role="tabpanel" aria-labelledby="tab-<?= e($key) ?>" <?= $hidden ?>>
+                    <?php if (!$list): ?>
+                        <p class="muted small" style="grid-column:1/-1;text-align:center;padding:24px">No professionals in this group yet.</p>
+                    <?php else: foreach ($list as $p) $renderCard($p); endif; ?>
+                </div>
+            <?php endforeach; ?>
         </div>
+
         <div class="text-center"><a href="<?= e(url('talent.php')) ?>" class="btn btn-outline">Browse all talent →</a></div>
     </div>
 </section>
@@ -190,7 +171,7 @@ echo '<div style="background:#e0ffe0;color:#070;padding:8px 16px;font-size:1.1em
         <h2 class="section-title" data-reveal>How hiring on Matendo works</h2>
         <ol class="steps" data-reveal-stagger>
             <li><span class="step-num">1</span><h3>Tell us your need</h3><p>Choose facility hiring or personal home care and describe the role.</p></li>
-            <li><span class="step-num">2</span><h3>Get a curated shortlist</h3><p>Within 24 hours we send 3 vetted professionals matched to your brief.</p></li>
+            <li><span class="step-num">2</span><h3>Get a shortlist</h3><p>Within 24 hours we send 3 vetted professionals matched to your brief.</p></li>
             <li><span class="step-num">3</span><h3>Interview &amp; select</h3><p>Message and schedule interviews directly through the platform.</p></li>
             <li><span class="step-num">4</span><h3>Hire &amp; manage</h3><p>Sign contracts, approve timesheets and pay through Matendo's escrow.</p></li>
         </ol>
@@ -214,7 +195,7 @@ echo '<div style="background:#e0ffe0;color:#070;padding:8px 16px;font-size:1.1em
         ];
         foreach (array_merge($testimonials, $testimonials) as $t): ?>
             <article class="testimonial-card">
-                <p class="quote"><?= e($t['quote']) ?></p>
+                <p class="quote">&ldquo;<?= e($t['quote']) ?>&rdquo;</p>
                 <div class="testimonial-author">
                     <img src="<?= e(asset($t['avatar'])) ?>" alt="" loading="lazy">
                     <div>
@@ -227,7 +208,7 @@ echo '<div style="background:#e0ffe0;color:#070;padding:8px 16px;font-size:1.1em
     </div>
 </section>
 
-<section class="section section-alt" id="personal-care">
+<section class="section" id="personal-care">
     <div class="container">
         <h2 class="section-title" data-reveal>Personal healthcare support, at home</h2>
         <p class="section-sub" data-reveal>Bring vetted nurses, therapists and caregivers to your loved ones &mdash; on your schedule.</p>

@@ -3,7 +3,7 @@
 <footer class="footer">
     <div class="footer-grid">
         <div class="footer-col">
-            <img src="<?= e(asset('images/matelogo1.png')) ?>" alt="Matendo Medics" class="footer-logo">
+            <img src="<?= e(asset('images/matendo-logo.svg')) ?>" alt="Matendo Medics" class="footer-logo">
             <p>Connecting healthcare facilities, patients and professionals across East Africa.</p>
             <div class="social-icons" aria-label="Social media">
                 <a href="#" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
