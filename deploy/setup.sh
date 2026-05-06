@@ -1,19 +1,24 @@
 #!/usr/bin/env bash
 # =====================================================================
-# Matendo Health — one-shot Ubuntu/EC2 setup script
+# Matendo Health — SAFE Ubuntu/EC2 setup script for shared servers.
 #
-# Run AFTER cloning the repo into /var/www/matendohealth.
-# Idempotent: safe to re-run. Asks confirmation before destructive steps.
+# This version assumes the EC2 instance already runs other projects
+# (Laravel, Flutter web builds, HTML sites) and avoids any change that
+# could disrupt them:
+#   - Does NOT install postfix (use existing mail or install manually)
+#   - Does NOT disable 000-default.conf
+#   - Does NOT touch other databases
+#   - Refuses to run if a vhost already serves matendohealth.com
 #
-# Usage:
-#   sudo bash /var/www/matendohealth/deploy/setup.sh
+# Run:
+#   sudo bash /var/www/Matendo/deploy/setup.sh
 # =====================================================================
 set -euo pipefail
 
 DOMAIN="matendohealth.com"
-SITE_DIR="/var/www/matendohealth"
-DB_NAME="matendo"
-DB_USER="matendo_app"
+SITE_DIR="/var/www/Matendo"
+DB_NAME="matendodb"
+DB_USER="root"   # the app uses root locally; least-privilege user recommended for prod
 
 # --- guardrails -------------------------------------------------------
 if [[ $EUID -ne 0 ]]; then
@@ -25,89 +30,117 @@ fi
 
 cd "$SITE_DIR"
 
-echo "==> 1/8  Installing system packages…"
+# --- pre-flight: refuse to clobber existing config -------------------
+echo "==> Pre-flight: checking for conflicts with existing projects…"
+
+if [[ -f /etc/apache2/sites-enabled/matendohealth.conf ]] || \
+   sudo grep -rqsi "ServerName\s\+matendohealth\.com" /etc/apache2/sites-enabled/ 2>/dev/null; then
+    echo "    ⚠  An Apache vhost for $DOMAIN already exists. Skipping vhost install."
+    INSTALL_VHOST=0
+else
+    INSTALL_VHOST=1
+fi
+
+if mysql -e "SHOW DATABASES LIKE '$DB_NAME'" 2>/dev/null | grep -q "$DB_NAME"; then
+    echo "    ℹ  Database '$DB_NAME' already exists — will not recreate or wipe it."
+    DB_EXISTS=1
+else
+    DB_EXISTS=0
+fi
+
+# --- 1/6 packages (no postfix; nothing destructive) ------------------
+echo "==> 1/6  Installing system packages (idempotent)…"
 apt-get update -y
-DEBIAN_FRONTEND=noninteractive apt-get install -y \
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     apache2 mysql-server \
     php php-cli php-mysql php-mbstring php-xml php-curl php-fileinfo php-gd \
     libapache2-mod-php \
-    git certbot python3-certbot-apache \
-    postfix mailutils \
-    unzip
+    git certbot python3-certbot-apache
 
-echo "==> 2/8  Enabling Apache modules…"
-a2enmod rewrite headers expires
+# --- 2/6 Apache modules ----------------------------------------------
+echo "==> 2/6  Enabling Apache modules (mod_rewrite, headers, expires)…"
+a2enmod rewrite headers expires >/dev/null
 
-echo "==> 3/8  Installing the production .htaccess…"
+# --- 3/6 .htaccess (only inside our project folder) ------------------
+echo "==> 3/6  Installing the production .htaccess…"
 if [[ -f .htaccess && ! -f .htaccess.dev ]]; then
-    mv .htaccess .htaccess.dev
+    cp .htaccess .htaccess.dev   # keep the original around as a backup
 fi
 cp deploy/.htaccess.production .htaccess
 
-echo "==> 4/8  Setting permissions…"
+# --- 4/6 permissions (only inside our project folder) ----------------
+echo "==> 4/6  Setting permissions on $SITE_DIR…"
 mkdir -p storage/logs storage/uploads
 chown -R www-data:www-data "$SITE_DIR"
 chmod -R 775 storage
 
-echo "==> 5/8  Creating the database (if missing)…"
-mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-if ! mysql -e "SELECT 1" "$DB_NAME" 2>/dev/null | grep -q 1; then
-    echo "Could not connect to the new database — aborting."; exit 1
+# --- 5/6 database (additive only) ------------------------------------
+echo "==> 5/6  Database setup…"
+if [[ "$DB_EXISTS" -eq 0 ]]; then
+    mysql -e "CREATE DATABASE $DB_NAME CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+    echo "    Created database '$DB_NAME'."
 fi
-# Load the schema if no tables exist yet.
+
 TABLE_COUNT=$(mysql -N -B -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$DB_NAME'")
 if [[ "$TABLE_COUNT" -eq 0 ]]; then
-    echo "    Loading sql/schema.sql…"
+    echo "    Loading sql/schema.sql into '$DB_NAME'…"
     mysql "$DB_NAME" < sql/schema.sql
-fi
-
-# Prompt for the app user's password if it doesn't exist.
-if ! mysql -e "SELECT User FROM mysql.user WHERE User='$DB_USER'" | grep -q "$DB_USER"; then
-    echo
-    read -s -p "    Set a strong password for MySQL user '$DB_USER': " DB_PASS; echo
-    mysql -e "CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';"
-    mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE ON $DB_NAME.* TO '$DB_USER'@'localhost';"
-    mysql -e "FLUSH PRIVILEGES;"
 else
-    echo "    MySQL user '$DB_USER' already exists — leaving it alone."
-    DB_PASS=""
+    echo "    '$DB_NAME' already has $TABLE_COUNT tables — leaving them alone."
 fi
 
-echo "==> 6/8  Generating .env (if missing)…"
+# --- 6/6 .env (only created if missing) ------------------------------
+echo "==> 6/6  Generating .env (only if missing)…"
 if [[ ! -f .env ]]; then
     APP_KEY=$(php -r "echo base64_encode(random_bytes(32));")
     APP_PEPPER=$(php -r "echo bin2hex(random_bytes(32));")
     cp .env.production.example .env
     sed -i "s|APP_KEY=.*|APP_KEY=$APP_KEY|" .env
     sed -i "s|APP_PEPPER=.*|APP_PEPPER=$APP_PEPPER|" .env
-    if [[ -n "$DB_PASS" ]]; then
-        # Escape pipe & ampersand so sed doesn't choke on weird passwords.
-        ESC_PASS=$(printf '%s\n' "$DB_PASS" | sed 's/[\&|]/\\&/g')
-        sed -i "s|DB_PASS=.*|DB_PASS=$ESC_PASS|" .env
-    fi
+    sed -i "s|DB_NAME=.*|DB_NAME=$DB_NAME|" .env
+    sed -i "s|DB_USER=.*|DB_USER=$DB_USER|" .env
     chown www-data:www-data .env
     chmod 640 .env
-    echo "    Wrote $SITE_DIR/.env  (review it: sudo nano $SITE_DIR/.env)"
+    echo "    Wrote $SITE_DIR/.env"
+    echo "    ⚠  DB_PASS is blank in .env — if MySQL root has a password, edit .env now:"
+    echo "       sudo nano $SITE_DIR/.env"
 else
     echo "    .env already exists — leaving it alone."
 fi
 
-echo "==> 7/8  Installing the Apache vhost…"
-cp deploy/matendohealth.conf /etc/apache2/sites-available/matendohealth.conf
-a2dissite 000-default.conf 2>/dev/null || true
-a2ensite matendohealth.conf
-apache2ctl configtest
-systemctl reload apache2
+# --- vhost (only if not already there) -------------------------------
+if [[ "$INSTALL_VHOST" -eq 1 ]]; then
+    echo "==> Installing the Apache vhost (matendohealth.conf)…"
+    cp deploy/matendohealth.conf /etc/apache2/sites-available/matendohealth.conf
+    a2ensite matendohealth.conf >/dev/null
+    apache2ctl configtest
+    systemctl reload apache2
+    echo "    Vhost enabled. Default site (000-default) was NOT touched."
+else
+    echo "==> Skipped vhost install (already present)."
+fi
 
-echo "==> 8/8  Setup done."
 echo
-echo "Next steps (manual, in this order):"
-echo "  1) Verify DNS A records for $DOMAIN and www.$DOMAIN point to this server:"
+echo "================================================================="
+echo "  Setup complete — only $SITE_DIR was changed."
+echo "  Other projects in /var/www/ were left untouched."
+echo "================================================================="
+echo
+echo "Next steps:"
+echo "  1) DNS — verify both records point at this server's Elastic IP:"
 echo "       dig +short $DOMAIN"
-echo "  2) Issue the SSL cert:"
+echo "       dig +short www.$DOMAIN"
+echo
+echo "  2) HTTPS — issue the SSL cert (Let's Encrypt) :"
 echo "       sudo certbot --apache -d $DOMAIN -d www.$DOMAIN \\"
 echo "         --agree-tos -m info@$DOMAIN --redirect"
+echo
 echo "  3) Browse: https://$DOMAIN"
 echo
-echo "Mail (postfix) is installed but not yet configured for outbound delivery."
-echo "See DEPLOY.md §9b for SPF/DMARC setup so mail isn't flagged as spam."
+echo "Optional — outbound mail from info@$DOMAIN:"
+echo "  - Skipped automatic postfix install to avoid disturbing existing"
+echo "    mail config on this server. If outbound mail isn't already"
+echo "    working, install it manually:"
+echo "       sudo apt install -y postfix mailutils   (choose 'Internet Site')"
+echo "  - Or wire send_mail() in config/bootstrap.php to a real SMTP relay"
+echo "    (Amazon SES, Mailgun, Postmark) by adding PHPMailer/Symfony Mailer."
