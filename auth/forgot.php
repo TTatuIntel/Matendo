@@ -26,11 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pageTitle = 'Reset password — Matendo Medics';
 include __DIR__ . '/../includes/header.php';
 ?>
-<section class="hero hero-compact">
-    <div class="hero-content" data-reveal>
-        <span class="eyebrow">Account · reset</span>
-        <h1>Reset password</h1>
-        <p class="lede">We will send a one-time link to your email.</p>
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text" data-reveal="left">
+            <span class="eyebrow">Account · reset</span>
+            <h1>Reset password</h1>
+            <p class="lede">We will send a one-time link to your email.</p>
+        </div>
+        <div class="hero-art is-mark" data-reveal="right" aria-hidden="true">
+            <img src="<?= e(asset('images/matendo-mark.svg')) ?>" alt="">
+        </div>
     </div>
 </section>
 

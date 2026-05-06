@@ -5,10 +5,16 @@ $pageDescription = 'We bridge the gap between healthcare facilities and medical 
 $activeNav = 'about';
 include __DIR__ . '/../includes/header.php';
 ?>
-<section class="hero hero-compact">
+<section class="hero">
     <div class="hero-content">
-        <h1>Bridging facilities and clinicians.</h1>
-        <p class="lede">We deliver reliable staff to the facilities that need them, while giving healthcare professionals the flexibility, will and choice to manage their careers without burnout.</p>
+        <div class="hero-text" data-reveal="left">
+            <span class="eyebrow">About Matendo</span>
+            <h1>Bridging facilities and clinicians.</h1>
+            <p class="lede">We deliver reliable staff to the facilities that need them, while giving healthcare professionals the flexibility, will and choice to manage their careers without burnout.</p>
+        </div>
+        <div class="hero-art" data-reveal="right" aria-hidden="true">
+            <img src="<?= e(asset('images/team1.png')) ?>" alt="">
+        </div>
     </div>
 </section>
 

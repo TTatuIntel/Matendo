@@ -45,11 +45,16 @@ $pageTitle = 'Sign in — Matendo Medics';
 $activeNav = '';
 include __DIR__ . '/../includes/header.php';
 ?>
-<section class="hero hero-compact">
-    <div class="hero-content" data-reveal>
-        <span class="eyebrow">Account · sign in</span>
-        <h1>Welcome back</h1>
-        <p class="lede">Sign in to access your Matendo dashboard.</p>
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text" data-reveal="left">
+            <span class="eyebrow">Account · sign in</span>
+            <h1>Welcome back</h1>
+            <p class="lede">Sign in to access your Matendo dashboard.</p>
+        </div>
+        <div class="hero-art is-mark" data-reveal="right" aria-hidden="true">
+            <img src="<?= e(asset('images/matendo-mark.svg')) ?>" alt="">
+        </div>
     </div>
 </section>
 

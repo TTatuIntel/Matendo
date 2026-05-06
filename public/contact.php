@@ -5,10 +5,16 @@ $pageDescription = 'Reach out to our team for support, partnerships, or general 
 $activeNav = 'contact';
 include __DIR__ . '/../includes/header.php';
 ?>
-<section class="hero hero-compact">
+<section class="hero">
     <div class="hero-content">
-        <h1>Get in touch</h1>
-        <p class="lede">Questions, partnerships, or platform support â€” our team replies within one business day.</p>
+        <div class="hero-text" data-reveal="left">
+            <span class="eyebrow">Contact</span>
+            <h1>Get in touch</h1>
+            <p class="lede">Questions, partnerships, or platform support â€” our team replies within one business day.</p>
+        </div>
+        <div class="hero-art is-mark" data-reveal="right" aria-hidden="true">
+            <img src="<?= e(asset('images/scopeheart.png')) ?>" alt="">
+        </div>
     </div>
 </section>
 

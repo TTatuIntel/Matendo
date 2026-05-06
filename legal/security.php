@@ -3,11 +3,16 @@ require_once __DIR__ . '/../config/bootstrap.php';
 $pageTitle = 'Security & HIPAA practices — Matendo Medics';
 include __DIR__ . '/../includes/header.php';
 ?>
-<section class="hero hero-compact">
-    <div class="hero-content" data-reveal>
-        <span class="eyebrow">Trust · security</span>
-        <h1>Security &amp; HIPAA-equivalent practices</h1>
-        <p class="lede">How we protect your data — at rest, in transit, and in our process.</p>
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text" data-reveal="left">
+            <span class="eyebrow">Trust · security</span>
+            <h1>Security &amp; HIPAA-equivalent practices</h1>
+            <p class="lede">How we protect your data — at rest, in transit, and in our process.</p>
+        </div>
+        <div class="hero-art is-mark" data-reveal="right" aria-hidden="true">
+            <img src="<?= e(asset('images/matendo-mark.svg')) ?>" alt="">
+        </div>
     </div>
 </section>
 

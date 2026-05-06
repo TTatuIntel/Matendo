@@ -7,10 +7,16 @@ include __DIR__ . '/../includes/header.php';
 
 $today = date('Y-m-d');
 ?>
-<section class="hero hero-compact">
+<section class="hero">
     <div class="hero-content">
-        <h1>Join the Matendo network</h1>
-        <p class="lede">Tell us about your training and preferences. Screening typically takes 3â€“5 business days. Approved professionals start receiving matched opportunities immediately.</p>
+        <div class="hero-text" data-reveal="left">
+            <span class="eyebrow">Join the network</span>
+            <h1>Join the Matendo network</h1>
+            <p class="lede">Tell us about your training and preferences. Screening typically takes 3â€“5 business days. Approved professionals start receiving matched opportunities immediately.</p>
+        </div>
+        <div class="hero-art" data-reveal="right" aria-hidden="true">
+            <img src="<?= e(asset('images/nurse1.png')) ?>" alt="">
+        </div>
     </div>
 </section>
 

@@ -49,10 +49,16 @@ try {
 $professions = ['Doctor','Nurse / Midwife','Pharmacist','Lab Technologist','Radiographer','Caregiver'];
 include __DIR__ . '/../includes/header.php';
 ?>
-<section class="hero hero-compact">
+<section class="hero">
     <div class="hero-content">
-        <h1>Find medical talent</h1>
-        <p class="lede">Browse the Matendo network. Every profile is screened, licensed and ready to engage.</p>
+        <div class="hero-text" data-reveal="left">
+            <span class="eyebrow">Find talent</span>
+            <h1>Find medical talent</h1>
+            <p class="lede">Browse the Matendo network. Every profile is screened, licensed and ready to engage.</p>
+        </div>
+        <div class="hero-art" data-reveal="right" aria-hidden="true">
+            <img src="<?= e(asset('images/docpng.png')) ?>" alt="">
+        </div>
     </div>
 </section>
 
