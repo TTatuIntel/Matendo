@@ -33,11 +33,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pageTitle = 'Create account — Matendo Medics';
 include __DIR__ . '/../includes/header.php';
 ?>
+<section class="hero hero-compact">
+    <div class="hero-content" data-reveal>
+        <span class="eyebrow">Account · create</span>
+        <h1>Create your account</h1>
+        <p class="lede">Free to join. Verify your email after signup.</p>
+    </div>
+</section>
+
 <section class="section auth-page">
     <div class="container narrow">
         <div class="card">
-            <h1>Create your account</h1>
-            <p class="muted">Free to join. Verify your email after signup.</p>
 
             <?php if ($error): ?><div class="flash flash-error"><?= e($error) ?></div><?php endif; ?>
             <?php if ($ok): ?>

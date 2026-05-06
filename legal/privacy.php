@@ -3,10 +3,16 @@ require_once __DIR__ . '/../config/bootstrap.php';
 $pageTitle = 'Privacy policy — Matendo Medics';
 include __DIR__ . '/../includes/header.php';
 ?>
+<section class="hero hero-compact">
+    <div class="hero-content" data-reveal>
+        <span class="eyebrow">Legal · privacy</span>
+        <h1>Privacy policy</h1>
+        <p class="lede">Last updated: <?= date('F j, Y') ?></p>
+    </div>
+</section>
+
 <section class="section">
     <div class="container narrow">
-        <h1>Privacy policy</h1>
-        <p class="muted">Last updated: <?= date('F j, Y') ?></p>
         <p>Matendo Medics processes personal information to operate the staffing platform, match clients with professionals, and meet our legal obligations under Uganda's Data Protection and Privacy Act, the EU GDPR (where applicable), and HIPAA-equivalent practices for protected health information.</p>
         <h2>What we collect</h2>
         <ul>

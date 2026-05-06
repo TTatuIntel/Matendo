@@ -72,16 +72,17 @@
     if (stage) {
         const slides = $$('.hero-slide', stage);
         const heroImage = stage.parentElement;
-        // Ring colours cycle slowly with each slide (matches the brand palette).
+        // Ring colours cycle with each slide (matches the brand palette).
+        // Bumped opacity so the swap is clearly visible against the gradient.
         const ringColors = [
-            'rgba(30, 126, 124, .55)',  // primary teal
-            'rgba(52, 179, 174, .55)',  // mint
-            'rgba(255, 186,  8, .60)',  // amber
-            'rgba(255, 122, 89, .55)',  // warm
-            'rgba( 16, 185,129, .55)',  // success green
-            'rgba(15,  79, 77,  .55)',  // primary dark
-            'rgba(34, 211,238, .55)',   // sky
-            'rgba(168,  85,247,.55)',   // soft violet
+            'rgba(30, 126, 124, .85)',  // primary teal
+            'rgba(52, 179, 174, .85)',  // mint
+            'rgba(255, 186,  8, .90)',  // amber
+            'rgba(255, 122, 89, .85)',  // warm
+            'rgba( 16, 185,129, .85)',  // success green
+            'rgba(15,  79, 77,  .85)',  // primary dark
+            'rgba(34, 211,238, .85)',   // sky
+            'rgba(168,  85,247,.85)',   // soft violet
         ];
         let cur = 0, timer = null;
         const interval = 4500;

@@ -25,10 +25,16 @@ try {
 
 include __DIR__ . '/../includes/header.php';
 ?>
+<section class="hero hero-compact">
+    <div class="hero-content" data-reveal>
+        <span class="eyebrow">Account · dashboard</span>
+        <h1>Welcome, <?= e($user['name'] ?: $user['email']) ?></h1>
+        <p class="lede">Role: <strong><?= e($role) ?></strong></p>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
-        <h1>Welcome, <?= e($user['name'] ?: $user['email']) ?></h1>
-        <p class="muted">Role: <strong><?= e($role) ?></strong></p>
 
         <div class="stats-grid mt-32">
             <div class="stat"><i class="fas fa-paper-plane"></i><strong><?= (int)$summary['requests'] ?></strong><span>Hiring requests</span></div>

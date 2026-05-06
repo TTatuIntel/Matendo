@@ -3,9 +3,16 @@ require_once __DIR__ . '/../config/bootstrap.php';
 $pageTitle = 'Security & HIPAA practices — Matendo Medics';
 include __DIR__ . '/../includes/header.php';
 ?>
+<section class="hero hero-compact">
+    <div class="hero-content" data-reveal>
+        <span class="eyebrow">Trust · security</span>
+        <h1>Security &amp; HIPAA-equivalent practices</h1>
+        <p class="lede">How we protect your data — at rest, in transit, and in our process.</p>
+    </div>
+</section>
+
 <section class="section">
     <div class="container narrow">
-        <h1>Security &amp; HIPAA-equivalent practices</h1>
         <ul>
             <li><strong>Encryption in transit:</strong> TLS 1.2+ everywhere; HSTS in production.</li>
             <li><strong>Encryption at rest:</strong> Sensitive PHI columns (medical conditions, medications, allergies) are encrypted with AES-256-GCM at the application layer.</li>

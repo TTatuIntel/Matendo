@@ -45,11 +45,17 @@ $pageTitle = 'Sign in — Matendo Medics';
 $activeNav = '';
 include __DIR__ . '/../includes/header.php';
 ?>
+<section class="hero hero-compact">
+    <div class="hero-content" data-reveal>
+        <span class="eyebrow">Account · sign in</span>
+        <h1>Welcome back</h1>
+        <p class="lede">Sign in to access your Matendo dashboard.</p>
+    </div>
+</section>
+
 <section class="section auth-page">
     <div class="container narrow">
         <div class="card">
-            <h1>Sign in</h1>
-            <p class="muted">Welcome back. Sign in to access your dashboard.</p>
 
             <?php if ($error): ?><div class="flash flash-error"><?= e($error) ?></div><?php endif; ?>
 

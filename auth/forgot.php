@@ -26,10 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pageTitle = 'Reset password — Matendo Medics';
 include __DIR__ . '/../includes/header.php';
 ?>
+<section class="hero hero-compact">
+    <div class="hero-content" data-reveal>
+        <span class="eyebrow">Account · reset</span>
+        <h1>Reset password</h1>
+        <p class="lede">We will send a one-time link to your email.</p>
+    </div>
+</section>
+
 <section class="section auth-page">
     <div class="container narrow">
         <div class="card">
-            <h1>Reset password</h1>
             <?php if ($sent): ?>
                 <div class="flash flash-success">If an account exists for that email, a reset link has been sent. Check your inbox.</div>
             <?php else: ?>
