@@ -1,9 +1,9 @@
-<?php
-require_once __DIR__ . '/config/bootstrap.php';
-$pageTitle = 'Hire medical professionals — Matendo Medics';
+﻿<?php
+require_once __DIR__ . '/../config/bootstrap.php';
+$pageTitle = 'Hire medical professionals â€” Matendo Medics';
 $pageDescription = 'Two ways to hire on Matendo: facility staffing and personal home care. Curated shortlist within 24 hours.';
 $activeNav = 'hire';
-include __DIR__ . '/includes/header.php';
+include __DIR__ . '/../includes/header.php';
 
 $today = date('Y-m-d');
 ?>
@@ -20,7 +20,7 @@ $today = date('Y-m-d');
             <article class="hire-card">
                 <i class="fas fa-hospital"></i>
                 <h2>Facility hiring</h2>
-                <p>Hospitals, clinics, labs and pharmacies — staff vacant roles or scale fast.</p>
+                <p>Hospitals, clinics, labs and pharmacies â€” staff vacant roles or scale fast.</p>
                 <ul class="check-list">
                     <li><i class="fas fa-check"></i> Doctors, nurses, lab techs, pharmacists</li>
                     <li><i class="fas fa-check"></i> Full-time, part-time, locum, or shift cover</li>
@@ -139,7 +139,7 @@ $today = date('Y-m-d');
                 </div>
 
                 <div data-show-when="job-requirement-option=upload">
-                    <div class="field"><label>Job description file (PDF, DOC, DOCX — max 10 MB)</label>
+                    <div class="field"><label>Job description file (PDF, DOC, DOCX â€” max 10 MB)</label>
                         <input type="file" name="jobDescriptionFile" accept=".pdf,.doc,.docx"></div>
                 </div>
                 <div data-show-when="job-requirement-option=manual">
@@ -194,7 +194,7 @@ $today = date('Y-m-d');
                 <legend>Care needs</legend>
                 <div class="field"><label>Type of care *</label>
                     <select name="careType" required>
-                        <option value="">Select…</option>
+                        <option value="">Selectâ€¦</option>
                         <option>Elderly care</option>
                         <option>Post-surgery recovery</option>
                         <option>Chronic condition support</option>
@@ -249,4 +249,4 @@ $today = date('Y-m-d');
 </div>
 
 <script src="<?= e(asset('assets/js/forms.js')) ?>" defer></script>
-<?php include __DIR__ . '/includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

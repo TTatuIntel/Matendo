@@ -1,5 +1,5 @@
-<?php
-require_once __DIR__ . '/config/bootstrap.php';
+﻿<?php
+require_once __DIR__ . '/../config/bootstrap.php';
 $ref = trim((string)($_GET['ref'] ?? ''));
 $activeNav = 'talent';
 
@@ -15,15 +15,15 @@ if (preg_match('/^[A-Z0-9\-]+$/', $ref)) {
 if (!$prof) {
     http_response_code(404);
     $pageTitle = 'Profile not found';
-    include __DIR__ . '/includes/header.php';
-    echo '<section class="section"><div class="container"><h1>Profile not found</h1><p>This profile does not exist or is not currently public.</p><p><a class="btn btn-primary" href="' . e(url('talent.php')) . '">← Back to talent</a></p></div></section>';
-    include __DIR__ . '/includes/footer.php';
+    include __DIR__ . '/../includes/header.php';
+    echo '<section class="section"><div class="container"><h1>Profile not found</h1><p>This profile does not exist or is not currently public.</p><p><a class="btn btn-primary" href="' . e(url('talent.php')) . '">â† Back to talent</a></p></div></section>';
+    include __DIR__ . '/../includes/footer.php';
     exit;
 }
 
-$pageTitle = 'Dr. ' . $prof['first_name'] . ' ' . $prof['last_name'] . ' — Matendo Medics';
+$pageTitle = 'Dr. ' . $prof['first_name'] . ' ' . $prof['last_name'] . ' â€” Matendo Medics';
 $pageDescription = ($prof['headline'] ?? '') ?: ($prof['profession'] . ' on the Matendo network.');
-include __DIR__ . '/includes/header.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 <section class="section">
     <div class="container">
@@ -32,8 +32,8 @@ include __DIR__ . '/includes/header.php';
                 <img src="<?= e(asset($prof['avatar_path'] ?? 'images/doc1.png')) ?>" alt="" class="profile-avatar">
                 <div>
                     <h1>Dr. <?= e($prof['first_name'].' '.$prof['last_name']) ?></h1>
-                    <p class="lede"><?= e($prof['profession']) ?><?= $prof['specialization'] ? ' · ' . e($prof['specialization']) : '' ?></p>
-                    <p class="muted"><i class="fas fa-map-marker-alt"></i> <?= e($prof['preferred_location'] ?? '—') ?> · <?= (int)$prof['years_experience'] ?> yrs experience</p>
+                    <p class="lede"><?= e($prof['profession']) ?><?= $prof['specialization'] ? ' Â· ' . e($prof['specialization']) : '' ?></p>
+                    <p class="muted"><i class="fas fa-map-marker-alt"></i> <?= e($prof['preferred_location'] ?? 'â€”') ?> Â· <?= (int)$prof['years_experience'] ?> yrs experience</p>
                     <p class="rating"><i class="fas fa-star"></i> <?= number_format((float)$prof['rating_avg'], 1) ?> <span class="muted small">(<?= (int)$prof['rating_count'] ?> reviews)</span></p>
 
                     <ul class="badges">
@@ -60,7 +60,7 @@ include __DIR__ . '/includes/header.php';
             <section>
                 <h2>Details</h2>
                 <dl class="details">
-                    <dt>Languages</dt><dd><?= e($prof['languages'] ?? '—') ?></dd>
+                    <dt>Languages</dt><dd><?= e($prof['languages'] ?? 'â€”') ?></dd>
                     <dt>Hourly rate</dt><dd><?= $prof['hourly_rate_kes'] ? 'KES ' . number_format((float)$prof['hourly_rate_kes'], 0) : 'On request' ?></dd>
                     <dt>Available from</dt><dd><?= e($prof['available_from'] ?? 'Immediately') ?></dd>
                 </dl>
@@ -69,4 +69,4 @@ include __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<?php include __DIR__ . '/includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

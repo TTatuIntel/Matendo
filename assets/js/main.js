@@ -9,6 +9,8 @@
     const $  = (s, root = document) => root.querySelector(s);
     const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
     const csrf = () => document.querySelector('meta[name="csrf-token"]')?.content || '';
+    const apiBase = () => document.querySelector('meta[name="api-base"]')?.content || 'api/';
+    const api = (name) => apiBase() + name.replace(/^api\//, '');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ------ sticky nav scroll-shadow ------
@@ -211,25 +213,31 @@
 
     // ------ newsletter ------
     const nl = $('#newsletterForm');
-    if (nl) wireJsonForm(nl, 'api/newsletter.php', { successAlert: true });
+    if (nl) wireJsonForm(nl, api('newsletter.php'), { successAlert: true });
 
     // ------ contact form ------
     const cf = $('#contactForm');
-    if (cf) wireJsonForm(cf, 'api/contact.php');
+    if (cf) wireJsonForm(cf, api('contact.php'));
 
     // ------ login modal form ------
     const lf = $('#loginForm');
     if (lf) {
-        wireJsonForm(lf, 'api/login.php', {
-            onSuccess: () => { setTimeout(() => window.location.reload(), 600); },
+        wireJsonForm(lf, api('login.php'), {
+            onSuccess: (json) => {
+                if (json.redirect) window.location.assign(json.redirect);
+                else setTimeout(() => window.location.reload(), 600);
+            },
         });
     }
 
     // ------ register modal form ------
     const rf = $('#registerForm');
     if (rf) {
-        wireJsonForm(rf, 'api/register.php', {
-            onSuccess: () => { setTimeout(() => window.location.reload(), 800); },
+        wireJsonForm(rf, api('register.php'), {
+            onSuccess: (json) => {
+                if (json.redirect) window.location.assign(json.redirect);
+                else setTimeout(() => window.location.reload(), 800);
+            },
         });
     }
 

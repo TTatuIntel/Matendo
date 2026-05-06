@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/config/bootstrap.php';
+require_once __DIR__ . '/../config/bootstrap.php';
 $pageTitle       = 'Matendo Medics — Hire vetted medical professionals';
 $pageDescription = 'Matendo connects healthcare facilities and patients with the top tier of vetted doctors, nurses and caregivers across East Africa.';
 $activeNav       = 'home';
@@ -37,7 +37,7 @@ $bucket = function (array $p): string {
     return 'doctor';
 };
 
-include __DIR__ . '/includes/header.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 
 <section class="hero">
@@ -397,4 +397,4 @@ include __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<?php include __DIR__ . '/includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

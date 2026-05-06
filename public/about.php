@@ -1,9 +1,9 @@
-<?php
-require_once __DIR__ . '/config/bootstrap.php';
+﻿<?php
+require_once __DIR__ . '/../config/bootstrap.php';
 $pageTitle = 'About Matendo Medics';
 $pageDescription = 'We bridge the gap between healthcare facilities and medical professionals, with reliable staffing and flexibility for clinicians.';
 $activeNav = 'about';
-include __DIR__ . '/includes/header.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 <section class="hero hero-compact">
     <div class="hero-content">
@@ -20,7 +20,7 @@ include __DIR__ . '/includes/header.php';
         </div>
         <div>
             <h2>Our vision</h2>
-            <p>To be a leading force in transforming healthcare by empowering professionals, facilities and patients with innovative, efficient and compassionate solutions — an ecosystem where care is streamlined and outcomes improve for everyone.</p>
+            <p>To be a leading force in transforming healthcare by empowering professionals, facilities and patients with innovative, efficient and compassionate solutions â€” an ecosystem where care is streamlined and outcomes improve for everyone.</p>
         </div>
     </div>
 </section>
@@ -62,4 +62,4 @@ include __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<?php include __DIR__ . '/includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

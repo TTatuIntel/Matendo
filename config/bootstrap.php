@@ -109,7 +109,7 @@ function base_path(): string
     // backslash, so normalize separators again before trimming.
     $dir = rtrim(str_replace('\\', '/', dirname($script)), '/');
     // Auth/api/legal pages live one level deep — strip those subfolders for asset/url roots.
-    foreach (['/auth', '/api', '/legal'] as $sub) {
+    foreach (['/auth', '/api', '/legal', '/public'] as $sub) {
         if (str_ends_with($dir, $sub)) { $dir = substr($dir, 0, -strlen($sub)); break; }
     }
     return $base = $dir === '' ? '' : $dir;
@@ -117,10 +117,32 @@ function base_path(): string
 
 function asset(string $path): string
 {
-    return base_path() . '/' . ltrim($path, '/');
+    $clean = ltrim($path, '/');
+    $url   = base_path() . '/' . $clean;
+    // Cache-bust CSS/JS by appending ?v=<file-mtime> so edits surface immediately.
+    if (preg_match('~\.(css|js)$~i', $clean)) {
+        $disk = __DIR__ . '/../' . $clean;
+        if (is_file($disk)) {
+            $url .= '?v=' . filemtime($disk);
+        }
+    }
+    return $url;
 }
 
+/**
+ * Build a clean (extensionless) URL for a page.
+ *  - 'index.php' or '' resolves to the project root '/'.
+ *  - 'about.php', 'hire.php#care', 'professional.php?ref=X' lose the .php.
+ *  - 'api/*' endpoints keep their .php (the rewrite map only canonicalises pages).
+ */
 function url(string $path = ''): string
 {
-    return base_path() . '/' . ltrim($path, '/');
+    $path = ltrim($path, '/');
+    if ($path === '' || preg_match('~^index\.php([?#].*)?$~', $path, $m)) {
+        return base_path() . '/' . ($m[1] ?? '');
+    }
+    if (!str_starts_with($path, 'api/')) {
+        $path = preg_replace('~\.php(?=$|[?#])~', '', $path, 1);
+    }
+    return base_path() . '/' . $path;
 }

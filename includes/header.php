@@ -31,6 +31,7 @@ $user = current_user();
           referrerpolicy="no-referrer">
 
     <meta name="csrf-token" content="<?= e(csrf()) ?>">
+    <meta name="api-base" content="<?= e(url('api/')) ?>">
 </head>
 <body data-page="<?= e($activeNav) ?>">
 

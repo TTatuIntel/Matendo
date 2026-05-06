@@ -1,16 +1,16 @@
-<?php
-require_once __DIR__ . '/config/bootstrap.php';
-$pageTitle = 'Join as a medical professional — Matendo Medics';
+﻿<?php
+require_once __DIR__ . '/../config/bootstrap.php';
+$pageTitle = 'Join as a medical professional â€” Matendo Medics';
 $pageDescription = 'Apply to join the Matendo network. Doctors, nurses, lab techs, pharmacists and caregivers. Vetted, verified, in demand.';
 $activeNav = 'join';
-include __DIR__ . '/includes/header.php';
+include __DIR__ . '/../includes/header.php';
 
 $today = date('Y-m-d');
 ?>
 <section class="hero hero-compact">
     <div class="hero-content">
         <h1>Join the Matendo network</h1>
-        <p class="lede">Tell us about your training and preferences. Screening typically takes 3–5 business days. Approved professionals start receiving matched opportunities immediately.</p>
+        <p class="lede">Tell us about your training and preferences. Screening typically takes 3â€“5 business days. Approved professionals start receiving matched opportunities immediately.</p>
     </div>
 </section>
 
@@ -48,7 +48,7 @@ $today = date('Y-m-d');
                     <div class="grid-2">
                         <div class="field"><label>Profession *</label>
                             <select name="profession" required>
-                                <option value="">Select…</option>
+                                <option value="">Selectâ€¦</option>
                                 <option>Doctor</option>
                                 <option>Nurse / Midwife</option>
                                 <option>Pharmacist</option>
@@ -70,7 +70,7 @@ $today = date('Y-m-d');
                 </fieldset>
 
                 <fieldset>
-                    <legend>Documents <span class="muted small">(PDF, JPG, PNG — max 10 MB each)</span></legend>
+                    <legend>Documents <span class="muted small">(PDF, JPG, PNG â€” max 10 MB each)</span></legend>
                     <div class="grid-2">
                         <div class="field"><label>Resume / CV *</label>
                             <input type="file" name="resume" accept=".pdf,.doc,.docx" required></div>
@@ -134,4 +134,4 @@ $today = date('Y-m-d');
 </section>
 
 <script src="<?= e(asset('assets/js/forms.js')) ?>" defer></script>
-<?php include __DIR__ . '/includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

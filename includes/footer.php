@@ -19,7 +19,6 @@
                 <li><a href="<?= e(url('about.php'))   ?>">About</a></li>
                 <li><a href="<?= e(url('careers.php')) ?>">Careers</a></li>
                 <li><a href="<?= e(url('contact.php')) ?>">Contact</a></li>
-                <li><a href="<?= e(url('blog.php'))    ?>">Blog</a></li>
             </ul>
         </div>
 

@@ -1,4 +1,37 @@
 # =====================================================================
+# Routing — pages live in public/, auth/, api/, legal/.
+# Both .php and extensionless URLs route to the same file.
+# =====================================================================
+RewriteEngine On
+RewriteBase /tattuintel/Matendo/
+
+# --- Canonical clean URLs ------------------------------------------------
+# 1) /index.php (or /index) → /  (root)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/tattuintel/Matendo/index(\.php)?[\s?] [NC]
+RewriteRule ^index(\.php)?$ /tattuintel/Matendo/ [R=301,L,QSA]
+
+# 2) /<anything>.php → /<anything>  (skip api/, which JS posts to directly)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/tattuintel/Matendo/(?!api/)[^?\s]+\.php(\?[^\s]*)?\s [NC]
+RewriteRule ^(?!api/)(.+?)\.php$ /tattuintel/Matendo/$1 [R=301,L,QSA]
+
+# --- Internal routing ---------------------------------------------------
+# Root and /home → public/index.php  (must come before the file/dir pass-through,
+# otherwise the request for the directory itself short-circuits and 403s).
+RewriteRule ^(home/?)?$ public/index.php [L,QSA]
+
+# Pass-through for real files and directories (assets, images, uploads).
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# /auth/<name> → auth/<name>.php  (same for api, legal)
+RewriteCond %{DOCUMENT_ROOT}/tattuintel/Matendo/$1/$2.php -f
+RewriteRule ^(auth|api|legal)/([a-zA-Z0-9_-]+)$ $1/$2.php [L,QSA]
+
+# Top-level <name> → public/<name>.php
+RewriteCond %{DOCUMENT_ROOT}/tattuintel/Matendo/public/$1.php -f
+RewriteRule ^([a-zA-Z0-9_-]+)$ public/$1.php [L,QSA]
+# =====================================================================
 # Matendo Medics — root .htaccess
 # Security hardening, headers, friendly URLs.
 # =====================================================================
@@ -62,16 +95,11 @@ RedirectMatch 403 ^/tattuintel/Matendo/(config|includes|sql|storage)(/|$)
     RewriteEngine On
     RewriteBase /tattuintel/Matendo/
 
-    # Redirect old .html URLs to new .php pages (clients with bookmarks).
-    RewriteRule ^index\.html$    index.php   [R=301,L]
-    RewriteRule ^about\.html$    about.php   [R=301,L]
-    RewriteRule ^contact\.html$  contact.php [R=301,L]
-    RewriteRule ^careers\.html$  careers.php [R=301,L]
-    RewriteRule ^hire\.html$     hire.php    [R=301,L]
-    RewriteRule ^join\.html$     join.php    [R=301,L]
-
-    # Allow extensionless URLs: /about → /about.php
-    RewriteCond %{REQUEST_FILENAME}     !-d
-    RewriteCond %{REQUEST_FILENAME}.php -f
-    RewriteRule ^([^/.]+)$ $1.php [L]
+    # Redirect old .html bookmarks straight to the clean URL.
+    RewriteRule ^index\.html$    /tattuintel/Matendo/         [R=301,L]
+    RewriteRule ^about\.html$    /tattuintel/Matendo/about    [R=301,L]
+    RewriteRule ^contact\.html$  /tattuintel/Matendo/contact  [R=301,L]
+    RewriteRule ^careers\.html$  /tattuintel/Matendo/careers  [R=301,L]
+    RewriteRule ^hire\.html$     /tattuintel/Matendo/hire     [R=301,L]
+    RewriteRule ^join\.html$     /tattuintel/Matendo/join     [R=301,L]
 </IfModule>
