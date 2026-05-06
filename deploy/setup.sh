@@ -51,10 +51,23 @@ fi
 # --- 1/6 packages (no postfix; nothing destructive) ------------------
 echo "==> 1/6  Installing system packages (idempotent)…"
 apt-get update -y
+
+# Detect existing PHP major.minor version to avoid upgrading the user's
+# Laravel/etc. installs. If none is present, fall back to the meta package.
+PHP_BIN=$(command -v php || true)
+if [[ -n "$PHP_BIN" ]]; then
+    PHP_VER=$("$PHP_BIN" -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')
+    echo "    Detected PHP $PHP_VER — installing matching extensions only."
+    PHP_PKGS="php${PHP_VER}-cli php${PHP_VER}-mysql php${PHP_VER}-mbstring php${PHP_VER}-xml php${PHP_VER}-curl php${PHP_VER}-gd libapache2-mod-php${PHP_VER}"
+else
+    echo "    No PHP detected — installing the default meta package."
+    PHP_PKGS="php php-cli php-mysql php-mbstring php-xml php-curl php-gd libapache2-mod-php"
+fi
+
+# fileinfo is built into php-common (auto-pulled), so we don't list it.
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     apache2 mysql-server \
-    php php-cli php-mysql php-mbstring php-xml php-curl php-fileinfo php-gd \
-    libapache2-mod-php \
+    $PHP_PKGS \
     git certbot python3-certbot-apache
 
 # --- 2/6 Apache modules ----------------------------------------------
