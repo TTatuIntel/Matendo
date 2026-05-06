@@ -26,7 +26,7 @@ include __DIR__ . '/../includes/header.php';
             <li><strong>Audit logging:</strong> Privileged actions are written to an append-only audit trail.</li>
             <li><strong>Least privilege:</strong> The web app connects to MySQL with a dedicated user that has only DML rights — no schema or admin permissions.</li>
         </ul>
-        <p>Report a vulnerability: <a href="mailto:security@matendo.com">security@matendo.com</a>.</p>
+        <p>Report a vulnerability: <a href="mailto:info@matendohealth.com">info@matendohealth.com</a>.</p>
     </div>
 </section>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

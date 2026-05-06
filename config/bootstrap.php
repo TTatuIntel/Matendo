@@ -81,6 +81,54 @@ function json_response(array $payload, int $status = 200): void
     exit;
 }
 
+/**
+ * Send an email via the local MTA (PHP mail()).
+ *
+ * - In production install postfix or sendmail (`sudo apt install postfix`)
+ *   so PHP's mail() can deliver.
+ * - In development this returns true and writes the message to
+ *   storage/logs/mail.log so we can inspect what *would* have been sent.
+ *
+ * Returns true on success / queued, false on hard failure.
+ */
+function send_mail(string $to, string $subject, string $body, ?string $replyTo = null): bool
+{
+    $from     = Env::get('MAIL_FROM',      'info@matendohealth.com') ?? 'info@matendohealth.com';
+    $fromName = Env::get('MAIL_FROM_NAME', 'Matendo Health')         ?? 'Matendo Health';
+
+    $headers = [
+        'From'         => sprintf('%s <%s>', $fromName, $from),
+        'Reply-To'     => $replyTo ?: $from,
+        'MIME-Version' => '1.0',
+        'Content-Type' => 'text/plain; charset=utf-8',
+        'X-Mailer'     => 'Matendo/1.0',
+    ];
+    $headerLines = [];
+    foreach ($headers as $k => $v) { $headerLines[] = "$k: $v"; }
+
+    // In dev, just log. In prod, attempt delivery.
+    if (Env::bool('APP_DEBUG', false)) {
+        $log = __DIR__ . '/../storage/logs/mail.log';
+        @file_put_contents($log, sprintf(
+            "[%s] To: %s\nSubject: %s\n%s\n\n%s\n---\n",
+            date('c'), $to, $subject, implode("\n", $headerLines), $body
+        ), FILE_APPEND);
+        return true;
+    }
+
+    $ok = @mail($to, $subject, $body, implode("\r\n", $headerLines));
+    if (!$ok) {
+        error_log("send_mail failed: to={$to} subject={$subject}");
+    }
+    return $ok;
+}
+
+/** Address for inbound enquiries — read from env, falls back to info@matendohealth.com. */
+function contact_email(): string
+{
+    return Env::get('CONTACT_EMAIL', 'info@matendohealth.com') ?? 'info@matendohealth.com';
+}
+
 function current_user(): ?array
 {
     return $_SESSION['user'] ?? null;

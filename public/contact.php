@@ -31,7 +31,7 @@ include __DIR__ . '/../includes/header.php';
                 <i class="fas fa-envelope"></i>
                 <h3>Email us</h3>
                 <p>We respond within 24 hours.</p>
-                <a href="mailto:info@matendo.com"><i class="fas fa-envelope"></i> info@matendo.com</a>
+                <a href="mailto:info@matendohealth.com"><i class="fas fa-envelope"></i> info@matendohealth.com</a>
             </article>
             <article class="contact-card">
                 <i class="fas fa-map-marker-alt"></i>

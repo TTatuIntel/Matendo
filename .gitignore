@@ -1,10 +1,11 @@
 # Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
 
-# Secrets
+# Secrets — only the *.example templates are committed.
 .env
 .env.*
 !.env.example
+!.env.production.example
 
 # Runtime storage
 storage/uploads/*

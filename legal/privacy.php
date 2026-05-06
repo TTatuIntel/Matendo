@@ -29,7 +29,7 @@ include __DIR__ . '/../includes/header.php';
         <h2>How we use it</h2>
         <p>To deliver the service, communicate with you, verify professionals, prevent fraud, and as required by law. We do not sell personal data.</p>
         <h2>Your rights</h2>
-        <p>Access, correction, deletion, portability, and the right to lodge a complaint with your data protection authority. Contact <a href="mailto:privacy@matendo.com">privacy@matendo.com</a>.</p>
+        <p>Access, correction, deletion, portability, and the right to lodge a complaint with your data protection authority. Contact <a href="mailto:info@matendohealth.com">info@matendohealth.com</a>.</p>
     </div>
 </section>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

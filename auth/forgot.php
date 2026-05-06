@@ -16,8 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 INSERT INTO password_resets (user_id, token_hash, expires_at)
                 VALUES (:u, :t, DATE_ADD(NOW(), INTERVAL 30 MINUTE))
             ")->execute([':u' => $u['id'], ':t' => hash('sha256', $token)]);
-            // TODO: send email containing $token via SMTP. Logging for now.
-            error_log("password reset token for {$email}: {$token}");
+
+            $resetUrl = (Env::get('APP_URL', '') ?: '')
+                . url('auth/reset.php') . '?token=' . urlencode($token);
+            send_mail(
+                $email,
+                'Reset your Matendo Health password',
+                "We received a request to reset your password.\n\n"
+                . "Click the link below within 30 minutes to set a new password:\n\n"
+                . $resetUrl . "\n\n"
+                . "If you did not request this, you can safely ignore this email.\n\n"
+                . "— Matendo Health"
+            );
         }
     }
     $sent = true; // Always pretend success to avoid account enumeration.

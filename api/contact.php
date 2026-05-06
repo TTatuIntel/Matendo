@@ -30,4 +30,12 @@ DB::pdo()->prepare("
     ':ip' => $_SERVER['REMOTE_ADDR'] ?? null,
 ]);
 
+// Forward to the team inbox so we don't have to poll the database.
+send_mail(
+    contact_email(),
+    'New contact form: ' . $name,
+    "From: {$name} <{$email}>\n\n{$message}\n\n--\nIP: " . ($_SERVER['REMOTE_ADDR'] ?? '?'),
+    $email
+);
+
 json_response(['success' => true, 'message' => 'Thanks — we will respond within 24 hours.']);

@@ -45,7 +45,7 @@
         <div class="footer-col">
             <h3>Contact</h3>
             <ul class="contact-list">
-                <li><i class="fas fa-envelope"></i> <a href="mailto:info@matendo.com">info@matendo.com</a></li>
+                <li><i class="fas fa-envelope"></i> <a href="mailto:info@matendohealth.com">info@matendohealth.com</a></li>
                 <li><i class="fas fa-phone"></i> <a href="tel:+256781053105">+256 781 053 105</a></li>
                 <li><i class="fas fa-map-marker-alt"></i> Kampala, Uganda</li>
             </ul>
