@@ -65,7 +65,23 @@
         window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
     }
 
-    // ------ talent tabs (horizontal specialty tabs) ------
+    // ------ featured: toggle between auto-scroll and filter mode ------
+    const expandBtn = $('#featuredExpandBtn');
+    const scroller  = $('#talentScroller');
+    const filterBox = $('#talentFilterMode');
+    if (expandBtn && scroller && filterBox) {
+        expandBtn.addEventListener('click', () => {
+            const showingFilter = !filterBox.hidden;
+            filterBox.hidden = showingFilter;
+            scroller.hidden  = !showingFilter;
+            expandBtn.setAttribute('aria-expanded', String(!showingFilter));
+            expandBtn.innerHTML = showingFilter
+                ? '<i class="fas fa-sliders-h" aria-hidden="true"></i> Filter by specialty'
+                : '<i class="fas fa-times" aria-hidden="true"></i> Close filter';
+        });
+    }
+
+    // ------ talent tabs (horizontal specialty tabs, only visible in filter mode) ------
     const tabs = $$('.talent-tab');
     const panels = $$('[data-talent-panel]');
     if (tabs.length && panels.length) {

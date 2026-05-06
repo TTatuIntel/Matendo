@@ -114,55 +114,74 @@ include __DIR__ . '/includes/header.php';
         <h2 class="section-title" data-reveal>Featured medical professionals</h2>
         <p class="section-sub" data-reveal>Browse by specialty. Sign in to access the full directory and contact details.</p>
 
-        <div class="talent-tabs" role="tablist" aria-label="Talent specialties">
-            <button type="button" class="talent-tab is-active" data-talent-tab="all"       role="tab" id="tab-all">All</button>
-            <button type="button" class="talent-tab"           data-talent-tab="doctor"    role="tab" id="tab-doctor">Doctors</button>
-            <button type="button" class="talent-tab"           data-talent-tab="nurse"     role="tab" id="tab-nurse">Nurses</button>
-            <button type="button" class="talent-tab"           data-talent-tab="therapist" role="tab" id="tab-therapist">Therapists</button>
-        </div>
-
-        <div class="talent-panels">
-            <?php
-            // Render the same partial for each tab, filtered server-side.
-            $renderCard = function (array $p) {
-                $href = url('professional.php?ref=' . urlencode($p['reference_number'] ?? ''));
-                ?>
-                <article class="talent-card">
-                    <div class="talent-photo">
-                        <span class="verified-badge"><i class="fas fa-circle-check" aria-hidden="true"></i> Verified</span>
-                        <img src="<?= e(asset($p['avatar_path'] ?? 'images/doc1.png')) ?>" alt="" loading="lazy"
-                             onerror="this.onerror=null;this.src='<?= e(asset('images/doc1.png')) ?>'">
-                        <a class="view-cta" href="<?= e($href) ?>">View profile <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="talent-info">
-                        <h3>Dr. <?= e($p['first_name'].' '.$p['last_name']) ?></h3>
-                        <p class="talent-specialty"><?= e($p['profession']) ?></p>
-                        <?php if (!empty($p['specialization'])): ?>
-                            <p class="talent-detail"><?= e($p['specialization']) ?></p>
-                        <?php endif; ?>
-                        <p class="rating"><i class="fas fa-star" aria-hidden="true"></i> <?= number_format((float)$p['rating_avg'], 1) ?></p>
-                    </div>
-                </article>
-                <?php
-            };
-
-            $groups = ['all' => $featured, 'doctor' => [], 'nurse' => [], 'therapist' => []];
-            foreach ($featured as $p) {
-                $g = $bucket($p);
-                if (isset($groups[$g])) $groups[$g][] = $p;
-            }
-
-            foreach ($groups as $key => $list):
-                $hidden = $key === 'all' ? '' : 'hidden'; ?>
-                <div class="talent-grid" data-talent-panel="<?= e($key) ?>" role="tabpanel" aria-labelledby="tab-<?= e($key) ?>" <?= $hidden ?>>
-                    <?php if (!$list): ?>
-                        <p class="muted small" style="grid-column:1/-1;text-align:center;padding:24px">No professionals in this group yet.</p>
-                    <?php else: foreach ($list as $p) $renderCard($p); endif; ?>
+        <?php
+        // Card partial — used by both the marquee and the filter grids.
+        $renderCard = function (array $p) {
+            $href = url('professional.php?ref=' . urlencode($p['reference_number'] ?? ''));
+            ?>
+            <article class="talent-card">
+                <div class="talent-photo">
+                    <span class="verified-badge"><i class="fas fa-circle-check" aria-hidden="true"></i> Verified</span>
+                    <img src="<?= e(asset($p['avatar_path'] ?? 'images/doc1.png')) ?>" alt="" loading="lazy"
+                         onerror="this.onerror=null;this.src='<?= e(asset('images/doc1.png')) ?>'">
+                    <a class="view-cta" href="<?= e($href) ?>">View profile <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
-            <?php endforeach; ?>
+                <div class="talent-info">
+                    <h3>Dr. <?= e($p['first_name'].' '.$p['last_name']) ?></h3>
+                    <p class="talent-specialty"><?= e($p['profession']) ?></p>
+                    <?php if (!empty($p['specialization'])): ?>
+                        <p class="talent-detail"><?= e($p['specialization']) ?></p>
+                    <?php endif; ?>
+                    <p class="rating"><i class="fas fa-star" aria-hidden="true"></i> <?= number_format((float)$p['rating_avg'], 1) ?></p>
+                </div>
+            </article>
+            <?php
+        };
+
+        $groups = ['all' => $featured, 'doctor' => [], 'nurse' => [], 'therapist' => []];
+        foreach ($featured as $p) {
+            $g = $bucket($p);
+            if (isset($groups[$g])) $groups[$g][] = $p;
+        }
+        ?>
+
+        <div class="featured-toolbar">
+            <button type="button" class="btn btn-ghost btn-sm" id="featuredExpandBtn" aria-expanded="false" aria-controls="talentFilterMode">
+                <i class="fas fa-sliders-h" aria-hidden="true"></i> Filter by specialty
+            </button>
         </div>
 
-        <div class="text-center"><a href="<?= e(url('talent.php')) ?>" class="btn btn-outline">Browse all talent →</a></div>
+        <!-- Default: auto-scrolling marquee. Pauses on hover. -->
+        <div class="talent-scroller" id="talentScroller" aria-label="Featured professionals (auto-scrolling)">
+            <div class="talent-scroll-track">
+                <?php foreach (array_merge($featured, $featured) as $p) $renderCard($p); ?>
+            </div>
+        </div>
+
+        <!-- Filter mode: revealed when user clicks "Filter by specialty". -->
+        <div id="talentFilterMode" hidden>
+            <div class="talent-tabs-wrap">
+                <div class="talent-tabs" role="tablist" aria-label="Talent specialties">
+                    <button type="button" class="talent-tab is-active" data-talent-tab="all"       role="tab" id="tab-all">All</button>
+                    <button type="button" class="talent-tab"           data-talent-tab="doctor"    role="tab" id="tab-doctor">Doctors</button>
+                    <button type="button" class="talent-tab"           data-talent-tab="nurse"     role="tab" id="tab-nurse">Nurses</button>
+                    <button type="button" class="talent-tab"           data-talent-tab="therapist" role="tab" id="tab-therapist">Therapists</button>
+                </div>
+            </div>
+
+            <div class="talent-panels">
+                <?php foreach ($groups as $key => $list):
+                    $hidden = $key === 'all' ? '' : 'hidden'; ?>
+                    <div class="talent-grid" data-talent-panel="<?= e($key) ?>" role="tabpanel" aria-labelledby="tab-<?= e($key) ?>" <?= $hidden ?>>
+                        <?php if (!$list): ?>
+                            <p class="muted small" style="grid-column:1/-1;text-align:center;padding:24px">No professionals in this group yet.</p>
+                        <?php else: foreach ($list as $p) $renderCard($p); endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top:var(--space-5)"><a href="<?= e(url('talent.php')) ?>" class="btn btn-outline">Browse all talent →</a></div>
     </div>
 </section>
 

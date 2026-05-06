@@ -280,6 +280,44 @@
 .steps li h3 { margin: 0 0 var(--space-2); }
 .steps li p  { color: var(--c-text-muted); margin: 0; }
 
+/* --------- FEATURED TOOLBAR (toggle button above the section) --------- */
+.featured-toolbar {
+    display: flex; justify-content: flex-end;
+    max-width: var(--container);
+    margin: 0 auto var(--space-3);
+}
+.featured-toolbar .btn { gap: 6px; }
+
+/* --------- AUTO-SCROLL MARQUEE --------- */
+.talent-scroller {
+    position: relative;
+    overflow: hidden;
+    /* Fade the edges so cards softly enter/leave the viewport. */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+}
+.talent-scroll-track {
+    display: flex; gap: var(--space-4);
+    width: max-content;
+    animation: talentScroll 50s linear infinite;
+    padding: var(--space-3) 0;
+    will-change: transform;
+}
+.talent-scroller:hover .talent-scroll-track,
+.talent-scroller:focus-within .talent-scroll-track { animation-play-state: paused; }
+.talent-scroll-track .talent-card {
+    flex: 0 0 220px;
+    /* No card entrance animation in marquee — they're already moving. */
+    animation: none !important;
+}
+@keyframes talentScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .talent-scroll-track { animation: none; flex-wrap: wrap; justify-content: center; }
+}
+
 /* --------- TALENT GRID (compact, animated, dynamic) --------- */
 .talent-grid {
     display: grid; gap: var(--space-4);

@@ -6,18 +6,18 @@
 /* --------- NAV --------- */
 .nav-container {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(255,255,255,.78);
-    backdrop-filter: saturate(180%) blur(14px);
-    -webkit-backdrop-filter: saturate(180%) blur(14px);
-    border-bottom: 1px solid transparent;
-    padding: 8px var(--space-5);
+    background: rgba(255,255,255,.45);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+            backdrop-filter: saturate(180%) blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,.25);
+    padding: 14px var(--space-5);
     transition: background 250ms var(--ease), border-color 250ms var(--ease), box-shadow 250ms var(--ease), padding 250ms var(--ease);
 }
 .nav-container.is-scrolled {
-    background: rgba(255,255,255,.95);
+    background: rgba(255,255,255,.85);
     border-bottom-color: var(--c-border);
     box-shadow: 0 4px 18px rgba(15, 23, 42, .06);
-    padding-top: 6px; padding-bottom: 6px;
+    padding-top: 10px; padding-bottom: 10px;
 }
 .nav-content {
     max-width: var(--container);
@@ -25,14 +25,14 @@
     display: flex; align-items: center; justify-content: space-between;
     gap: var(--space-4);
 }
-.logo-img    { height: 32px; width: auto; transition: transform var(--transition); }
+.logo-img    { height: 44px; width: auto; transition: transform var(--transition); }
 .logo-link:hover .logo-img { transform: scale(1.04); }
 
-.nav-links   { display: flex; gap: var(--space-5); align-items: center; font-size: .88rem; }
+.nav-links   { display: flex; gap: 28px; align-items: center; font-size: 1rem; }
 .nav-links a {
     position: relative;
     color: var(--c-text); font-weight: 500;
-    padding: 6px 0;
+    padding: 8px 0;
     transition: color var(--transition);
 }
 .nav-links a::after {
