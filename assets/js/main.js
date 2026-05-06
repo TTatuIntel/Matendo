@@ -65,6 +65,59 @@
         window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
     }
 
+    // ------ HERO STAGE: auto-cycling featured-professional slideshow ------
+    const stage = $('#heroStage');
+    if (stage) {
+        const slides = $$('.hero-slide', stage);
+        let cur = 0, timer = null;
+        const interval = 4500;
+
+        const show = (i) => {
+            cur = (i + slides.length) % slides.length;
+            slides.forEach((s, idx) => s.classList.toggle('is-active', idx === cur));
+        };
+        const stop  = () => { if (timer) { clearInterval(timer); timer = null; } };
+        const start = () => { stop(); timer = setInterval(() => show(cur + 1), interval); };
+
+        stage.addEventListener('mouseenter', stop);
+        stage.addEventListener('mouseleave', start);
+        stage.addEventListener('focusin',   stop);
+        stage.addEventListener('focusout',  start);
+        document.addEventListener('visibilitychange', () => {
+            document.hidden ? stop() : start();
+        });
+
+        if (slides.length > 1 && !reduced) start();
+    }
+
+    // ------ "Why people choose Matendo" — audience switch + expand ------
+    const whyTabs   = $$('.why-tab');
+    const whyPanels = $$('[data-why-panel]');
+    if (whyTabs.length && whyPanels.length) {
+        whyTabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.whyTab;
+                whyTabs.forEach((t) => {
+                    const on = t === tab;
+                    t.classList.toggle('is-active', on);
+                    t.setAttribute('aria-selected', String(on));
+                });
+                whyPanels.forEach((p) => {
+                    p.hidden = p.dataset.whyPanel !== target;
+                });
+            });
+        });
+    }
+    $$('[data-why-toggle]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const panel = btn.closest('.why-panel');
+            if (!panel) return;
+            const expanded = panel.classList.toggle('is-expanded');
+            const label = btn.querySelector('span');
+            if (label) label.textContent = expanded ? 'Show less' : 'Show more details';
+        });
+    });
+
     // ------ featured: toggle between auto-scroll and filter mode ------
     const expandBtn = $('#featuredExpandBtn');
     const scroller  = $('#talentScroller');

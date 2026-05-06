@@ -61,7 +61,27 @@ include __DIR__ . '/includes/header.php';
             </ul>
         </div>
         <div class="hero-image" data-reveal="right">
-            <img src="<?= e(asset('images/doc1.png')) ?>" alt="" loading="eager" decoding="async">
+            <div class="hero-stage" id="heroStage" aria-live="polite">
+                <?php foreach ($featured as $i => $p):
+                    $name  = e('Dr. ' . $p['first_name'] . ' ' . $p['last_name']);
+                    $prof  = e($p['profession'] ?? '');
+                    $spec  = e($p['specialization'] ?? '');
+                    $img   = e(asset($p['avatar_path'] ?? 'images/doc1.png'));
+                    $star  = number_format((float)($p['rating_avg'] ?? 0), 1);
+                ?>
+                    <figure class="hero-slide<?= $i === 0 ? ' is-active' : '' ?>" data-index="<?= $i ?>">
+                        <img src="<?= $img ?>" alt="<?= $name ?> — <?= $prof ?>"
+                             loading="<?= $i === 0 ? 'eager' : 'lazy' ?>" decoding="async"
+                             onerror="this.onerror=null;this.src='<?= e(asset('images/doc1.png')) ?>'">
+                        <figcaption class="hero-slide-card">
+                            <span class="hero-slide-status"><i class="fas fa-circle" aria-hidden="true"></i> Available now</span>
+                            <strong><?= $name ?></strong>
+                            <span class="hero-slide-spec"><?= $prof ?><?= $spec ? ' · ' . $spec : '' ?></span>
+                            <span class="hero-slide-rating"><i class="fas fa-star" aria-hidden="true"></i> <?= e($star) ?></span>
+                        </figcaption>
+                    </figure>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </section>
@@ -80,31 +100,117 @@ include __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<section class="section">
+<section class="section why-section">
     <div class="container">
-        <h2 class="section-title" data-reveal>Why facilities choose Matendo</h2>
-        <p class="section-sub" data-reveal>Built for healthcare. Designed to remove every friction between a need and the right professional.</p>
-        <div class="features-grid" data-reveal-stagger>
-            <article class="feature-card">
-                <i class="fas fa-user-shield"></i>
-                <h3>Rigorously vetted</h3>
-                <p>Every professional passes credential verification, license checks and a clinical interview before joining.</p>
-            </article>
-            <article class="feature-card">
-                <i class="fas fa-clock"></i>
-                <h3>Matched within 24 hours</h3>
-                <p>Submit your need; we hand-pick a shortlist of three matches the next day, not next month.</p>
-            </article>
-            <article class="feature-card">
-                <i class="fas fa-handshake"></i>
-                <h3>Flexible engagements</h3>
-                <p>Full-time, part-time, locum or single-shift. Hire how you need, scale when you grow.</p>
-            </article>
-            <article class="feature-card">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Risk-free trial</h3>
-                <p>If the first week isn't a fit, we re-match at no cost. You only pay for time that delivered value.</p>
-            </article>
+        <h2 class="section-title" data-reveal>Why people choose Matendo</h2>
+        <p class="section-sub" data-reveal>Pick your view — we serve hospitals and clinics as well as patients seeking care at home.</p>
+
+        <!-- Audience switcher -->
+        <div class="why-switch-wrap">
+            <div class="why-switch" role="tablist" aria-label="Audience">
+                <button type="button" class="why-tab is-active" data-why-tab="facilities" role="tab" id="why-tab-facilities" aria-selected="true">
+                    <i class="fas fa-hospital" aria-hidden="true"></i> For facilities
+                </button>
+                <button type="button" class="why-tab" data-why-tab="individuals" role="tab" id="why-tab-individuals" aria-selected="false">
+                    <i class="fas fa-user" aria-hidden="true"></i> For individuals
+                </button>
+            </div>
+        </div>
+
+        <!-- Panel: Facilities -->
+        <div class="why-panel" data-why-panel="facilities" role="tabpanel" aria-labelledby="why-tab-facilities">
+            <div class="features-grid" data-reveal-stagger>
+                <article class="feature-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Rigorously vetted</h3>
+                    <p class="feature-short">Every professional passes credential checks before joining.</p>
+                    <p class="feature-long">Credential verification, license validation against the national register, reference calls and a structured clinical interview. We reject 9 out of 10 applicants so you don't have to screen them.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Matched within 24 hours</h3>
+                    <p class="feature-short">Submit your need; we hand-pick three matches the next day.</p>
+                    <p class="feature-long">A real coordinator reviews your brief, matches by specialty, location, language and availability, and surfaces 3 strong candidates within 24 hours — even faster for urgent shifts.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Flexible engagements</h3>
+                    <p class="feature-short">Full-time, part-time, locum, or single-shift cover.</p>
+                    <p class="feature-long">Hire for permanent roles, weekend cover, holiday locum, or one-off emergency shifts. Switch arrangement at any time — Matendo handles the contract changes.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Risk-free trial</h3>
+                    <p class="feature-short">First week not a fit? We re-match at no cost.</p>
+                    <p class="feature-long">If the placement isn't right within the first 7 days we replace the professional immediately. You only pay for time that delivered value.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h3>One invoice, full compliance</h3>
+                    <p class="feature-short">Timesheets, escrow and payouts handled in one place.</p>
+                    <p class="feature-long">Approve weekly timesheets, get a single consolidated invoice, and Matendo handles taxes, NSSF and statutory deductions for the professional.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Insights &amp; reporting</h3>
+                    <p class="feature-short">Hiring data and quality metrics at a glance.</p>
+                    <p class="feature-long">Track time-to-fill, retention, ratings, and spend per specialty. Export to your HRIS or download CSV for finance.</p>
+                </article>
+            </div>
+            <div class="why-actions">
+                <button type="button" class="btn btn-ghost btn-sm" data-why-toggle="facilities">
+                    <i class="fas fa-chevron-down" aria-hidden="true"></i> <span>Show more details</span>
+                </button>
+                <a href="<?= e(url('hire.php')) ?>" class="btn btn-primary btn-sm">Hire on Matendo →</a>
+            </div>
+        </div>
+
+        <!-- Panel: Individuals -->
+        <div class="why-panel" data-why-panel="individuals" role="tabpanel" aria-labelledby="why-tab-individuals" hidden>
+            <div class="features-grid" data-reveal-stagger>
+                <article class="feature-card">
+                    <i class="fas fa-house-medical"></i>
+                    <h3>Care at home</h3>
+                    <p class="feature-short">Vetted nurses and caregivers come to you.</p>
+                    <p class="feature-long">From post-surgery recovery to elderly companionship, get qualified medical help in your own home — no hospital trips, no waiting rooms.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-id-card-clip"></i>
+                    <h3>Verified professionals</h3>
+                    <p class="feature-short">Background-checked, licensed, insured.</p>
+                    <p class="feature-long">Every caregiver is ID-verified, license-checked and background-screened. You can see their credentials and reviews before booking.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-calendar-day"></i>
+                    <h3>Book in minutes</h3>
+                    <p class="feature-short">Single visits or recurring schedules.</p>
+                    <p class="feature-long">Book a one-off home visit, a weekly check-in, or 24/7 live-in care — and adjust your schedule any time without penalty.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>Private &amp; secure</h3>
+                    <p class="feature-short">Your medical info is encrypted at rest.</p>
+                    <p class="feature-long">Sensitive health details (conditions, medications, allergies) are encrypted with AES-256 and only shared with the professional you book.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-coins"></i>
+                    <h3>Transparent pricing</h3>
+                    <p class="feature-short">Hourly rates shown up front, no surprise fees.</p>
+                    <p class="feature-long">See the rate before booking. Pay weekly via M-Pesa or card. Cancel up to 12 hours in advance free of charge.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>24/7 support</h3>
+                    <p class="feature-short">Our care team is always one tap away.</p>
+                    <p class="feature-long">Need a replacement caregiver overnight, or have a billing question? Our support team is available 24/7 by chat, phone or in-app messaging.</p>
+                </article>
+            </div>
+            <div class="why-actions">
+                <button type="button" class="btn btn-ghost btn-sm" data-why-toggle="individuals">
+                    <i class="fas fa-chevron-down" aria-hidden="true"></i> <span>Show more details</span>
+                </button>
+                <a href="<?= e(url('hire.php#care')) ?>" class="btn btn-primary btn-sm">Find personal care →</a>
+            </div>
         </div>
     </div>
 </section>
