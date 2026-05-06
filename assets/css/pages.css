@@ -155,26 +155,35 @@
     margin-left: auto; margin-right: 0;
     aspect-ratio: 4 / 5;
 }
+/* Spinning dashed ring — only decoration; bottom fades into the page. */
+.hero-image { --ring-color: rgba(30,126,124,.45); }
 .hero-image::before {
-    /* Spinning dashed ring around the stage. */
-    content: ""; position: absolute; inset: -12px;
-    border: 1px dashed rgba(30,126,124,.35);
-    border-radius: calc(var(--radius-xl) + 12px);
+    content: ""; position: absolute; inset: -10px;
+    border: 1px dashed var(--ring-color);
+    border-radius: var(--radius-xl);
     pointer-events: none;
     animation: spin 60s linear infinite;
+    transition: border-color 1200ms var(--ease-out);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 75%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 75%, transparent 100%);
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .hero-stage {
     position: absolute; inset: 0;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    /* Transparent so the page hero gradient shows through PNG transparency. */
     background: transparent;
-    transform: rotate(-1.2deg);
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
     transition: transform 600ms var(--ease-out);
 }
-.hero-image:hover .hero-stage { transform: rotate(0deg) scale(1.01); }
+
+/* Bottom fade so the photo melts into the page — applied to the IMG only,
+   so the floating profile card stays fully opaque. */
+.hero-slide img {
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 78%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 78%, transparent 100%);
+}
 
 .hero-slide {
     position: absolute; inset: 0;
@@ -196,30 +205,43 @@
     display: block;
 }
 
-/* Floating profile card — sits INSIDE the photo, bottom-centre, glassy and compact. */
+/* Floating profile card — clickable link, extends slightly BELOW the photo,
+   glassy translucent so the page background bleeds through. */
 .hero-slide-card {
-    position: absolute; left: 50%; bottom: 14px;
+    position: absolute; left: 14px; bottom: -28px;
     z-index: 3;
-    background: rgba(255, 255, 255, .88);
-    -webkit-backdrop-filter: saturate(160%) blur(10px);
-            backdrop-filter: saturate(160%) blur(10px);
-    border: 1px solid rgba(255, 255, 255, .65);
+    background: rgba(255, 255, 255, .38);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+            backdrop-filter: saturate(180%) blur(16px);
+    border: 1px solid rgba(255, 255, 255, .45);
     border-radius: 12px;
-    padding: 7px 12px;
+    padding: 7px 34px 7px 12px;        /* extra right pad for the arrow */
     width: max-content;
     max-width: calc(100% - 28px);
-    display: grid; grid-template-columns: 1fr auto;
-    grid-template-areas: "status status" "name rating" "spec rating";
-    gap: 1px 8px;
-    box-shadow: 0 10px 22px rgba(15, 23, 42, .14);
-    transform: translate(-50%, 8px);
+    text-decoration: none;
+    color: inherit;
+    display: grid; grid-template-columns: 1fr;
+    grid-template-areas: "status" "name" "spec";
+    gap: 1px;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, .12);
+    transform: translateY(8px);
     opacity: 0;
-    transition: transform 600ms var(--ease-out) 180ms, opacity 500ms var(--ease) 180ms;
+    transition: transform 600ms var(--ease-out) 180ms,
+                opacity 500ms var(--ease) 180ms,
+                background 220ms var(--ease),
+                box-shadow 220ms var(--ease);
 }
 .hero-slide.is-active .hero-slide-card {
-    transform: translate(-50%, 0);
+    transform: translateY(0);
     opacity: 1;
 }
+.hero-slide-card:hover {
+    background: rgba(255, 255, 255, .82);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, .18);
+    text-decoration: none;
+}
+.hero-slide-card:hover .hero-slide-arrow { transform: translateX(3px); color: var(--c-primary); }
+
 .hero-slide-status {
     grid-area: status;
     color: var(--c-success); font-weight: 700; font-size: .58rem;
@@ -232,11 +254,20 @@
     0%,100% { opacity: 1; }
     50%     { opacity: .35; }
 }
-.hero-slide-card strong  { grid-area: name;   font-size: .82rem; color: var(--c-text); letter-spacing: -.01em; line-height: 1.2; }
-.hero-slide-spec         { grid-area: spec;   font-size: .68rem; color: var(--c-text-muted); line-height: 1.2; }
-.hero-slide-rating       { grid-area: rating; align-self: center;
-                           color: var(--c-warning); font-weight: 700; font-size: .78rem;
-                           display: inline-flex; align-items: center; gap: 3px; }
+.hero-slide-card strong  { grid-area: name; font-size: .85rem; color: var(--c-text); letter-spacing: -.01em; line-height: 1.2; }
+.hero-slide-spec         { grid-area: spec; font-size: .7rem;  color: var(--c-text-muted); line-height: 1.2;
+                           overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.hero-slide-arrow {
+    position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--c-text-muted); font-size: .7rem;
+    transition: transform 220ms var(--ease-out), color 220ms var(--ease);
+}
+.hero-slide-card:hover .hero-slide-arrow {
+    /* Override the centring transform for the slide effect. */
+    transform: translateY(-50%) translateX(3px);
+}
 
 @media (min-width: 1100px) {
     .hero-image { max-width: 380px; }

@@ -69,12 +69,27 @@
     const stage = $('#heroStage');
     if (stage) {
         const slides = $$('.hero-slide', stage);
+        const heroImage = stage.parentElement;
+        // Ring colours cycle slowly with each slide (matches the brand palette).
+        const ringColors = [
+            'rgba(30, 126, 124, .55)',  // primary teal
+            'rgba(52, 179, 174, .55)',  // mint
+            'rgba(255, 186,  8, .60)',  // amber
+            'rgba(255, 122, 89, .55)',  // warm
+            'rgba( 16, 185,129, .55)',  // success green
+            'rgba(15,  79, 77,  .55)',  // primary dark
+            'rgba(34, 211,238, .55)',   // sky
+            'rgba(168,  85,247,.55)',   // soft violet
+        ];
         let cur = 0, timer = null;
         const interval = 4500;
 
         const show = (i) => {
             cur = (i + slides.length) % slides.length;
             slides.forEach((s, idx) => s.classList.toggle('is-active', idx === cur));
+            if (heroImage) {
+                heroImage.style.setProperty('--ring-color', ringColors[cur % ringColors.length]);
+            }
         };
         const stop  = () => { if (timer) { clearInterval(timer); timer = null; } };
         const start = () => { stop(); timer = setInterval(() => show(cur + 1), interval); };
@@ -87,6 +102,8 @@
             document.hidden ? stop() : start();
         });
 
+        // Initialise the ring colour for the first slide.
+        if (heroImage) heroImage.style.setProperty('--ring-color', ringColors[0]);
         if (slides.length > 1 && !reduced) start();
     }
 

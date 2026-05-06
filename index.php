@@ -67,18 +67,20 @@ include __DIR__ . '/includes/header.php';
                     $prof  = e($p['profession'] ?? '');
                     $spec  = e($p['specialization'] ?? '');
                     $img   = e(asset($p['avatar_path'] ?? 'images/doc1.png'));
-                    $star  = number_format((float)($p['rating_avg'] ?? 0), 1);
+                    $href  = !empty($p['reference_number'])
+                        ? url('professional.php?ref=' . urlencode($p['reference_number']))
+                        : url('talent.php');
                 ?>
                     <figure class="hero-slide<?= $i === 0 ? ' is-active' : '' ?>" data-index="<?= $i ?>">
                         <img src="<?= $img ?>" alt="<?= $name ?> — <?= $prof ?>"
                              loading="<?= $i === 0 ? 'eager' : 'lazy' ?>" decoding="async"
                              onerror="this.onerror=null;this.src='<?= e(asset('images/doc1.png')) ?>'">
-                        <figcaption class="hero-slide-card">
+                        <a class="hero-slide-card" href="<?= e($href) ?>" aria-label="View <?= $name ?>'s profile">
                             <span class="hero-slide-status"><i class="fas fa-circle" aria-hidden="true"></i> Available now</span>
                             <strong><?= $name ?></strong>
                             <span class="hero-slide-spec"><?= $prof ?><?= $spec ? ' · ' . $spec : '' ?></span>
-                            <span class="hero-slide-rating"><i class="fas fa-star" aria-hidden="true"></i> <?= e($star) ?></span>
-                        </figcaption>
+                            <i class="fas fa-arrow-right hero-slide-arrow" aria-hidden="true"></i>
+                        </a>
                     </figure>
                 <?php endforeach; ?>
             </div>
