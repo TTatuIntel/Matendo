@@ -84,10 +84,10 @@
 .btn {
     position: relative; overflow: hidden;
     display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
-    padding: 9px 16px;
+    padding: 10px 18px;
     border: 1px solid transparent;
     border-radius: var(--radius);
-    font-weight: 600; font-size: .85rem;
+    font-weight: 600; font-size: .92rem;
     cursor: pointer; text-decoration: none;
     transition: transform 220ms var(--ease-out),
                 background 220ms var(--ease),
@@ -109,7 +109,7 @@
 .btn:hover::before { transform: translateX(110%); }
 .btn:active   { transform: translateY(0); }
 .btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
-.btn-lg       { padding: 12px 22px; font-size: .92rem; border-radius: 12px; }
+.btn-lg       { padding: 13px 24px; font-size: .98rem; border-radius: 12px; }
 .btn-sm       { padding: 6px 12px; font-size: .78rem; }
 
 .btn-primary  { background: var(--c-primary); color: #fff; box-shadow: 0 8px 22px rgba(30, 126, 124, .25); }
