@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(powershell.exe -NoProfile -Command \"& 'C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe' --user=root --password= matendo --execute='SHOW TABLES; SELECT COUNT\\(*\\) AS users FROM users; SELECT COUNT\\(*\\) AS pros FROM professionals;' 2>&1\")"
-    ]
-  }
-}

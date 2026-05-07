@@ -9,9 +9,8 @@ final class DB
 
     public static function pdo(): PDO
     {
-        if (self::$pdo instanceof PDO) {
-            return self::$pdo;
-        }
+        if (self::$pdo instanceof PDO) return self::$pdo;
+
         $host    = Env::get('DB_HOST', '127.0.0.1');
         $port    = Env::get('DB_PORT', '3306');
         $name    = Env::require('DB_NAME');
@@ -20,6 +19,7 @@ final class DB
         $charset = Env::get('DB_CHARSET', 'utf8mb4');
 
         $dsn = "mysql:host=$host;port=$port;dbname=$name;charset=$charset";
+
         try {
             self::$pdo = new PDO($dsn, $user, $pass, [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -31,6 +31,7 @@ final class DB
             error_log('DB connect failed: ' . $e->getMessage());
             throw new RuntimeException('Database unavailable');
         }
+
         return self::$pdo;
     }
 }

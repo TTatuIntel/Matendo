@@ -1,54 +1,22 @@
 # =====================================================================
-# Routing — pages live in public/, auth/, api/, legal/.
-# Both .php and extensionless URLs route to the same file.
-# =====================================================================
-RewriteEngine On
-RewriteBase /tattuintel/Matendo/
-
-# --- Canonical clean URLs ------------------------------------------------
-# 1) /index.php (or /index) → /  (root)
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/tattuintel/Matendo/index(\.php)?[\s?] [NC]
-RewriteRule ^index(\.php)?$ /tattuintel/Matendo/ [R=301,L,QSA]
-
-# 2) /<anything>.php → /<anything>  (skip api/, which JS posts to directly)
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/tattuintel/Matendo/(?!api/)[^?\s]+\.php(\?[^\s]*)?\s [NC]
-RewriteRule ^(?!api/)(.+?)\.php$ /tattuintel/Matendo/$1 [R=301,L,QSA]
-
-# --- Internal routing ---------------------------------------------------
-# Root and /home → public/index.php  (must come before the file/dir pass-through,
-# otherwise the request for the directory itself short-circuits and 403s).
-RewriteRule ^(home/?)?$ public/index.php [L,QSA]
-
-# Pass-through for real files and directories (assets, images, uploads).
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# /auth/<name> → auth/<name>.php  (same for api, legal)
-RewriteCond %{DOCUMENT_ROOT}/tattuintel/Matendo/$1/$2.php -f
-RewriteRule ^(auth|api|legal)/([a-zA-Z0-9_-]+)$ $1/$2.php [L,QSA]
-
-# Top-level <name> → public/<name>.php
-RewriteCond %{DOCUMENT_ROOT}/tattuintel/Matendo/public/$1.php -f
-RewriteRule ^([a-zA-Z0-9_-]+)$ public/$1.php [L,QSA]
-# =====================================================================
-# Matendo Medics — root .htaccess
-# Security hardening, headers, friendly URLs.
+# Matendo Health — root .htaccess
+# Production-ready: works at site root (matendohealth.com) AND under
+# the local XAMPP path (/tattuintel/Matendo/).
 # =====================================================================
 
 Options -Indexes -MultiViews
 DirectoryIndex index.php
 
-# --- Security: deny access to sensitive files ------------------------
+# --- Block dotfiles and sensitive files ------------------------------
 <FilesMatch "^\.">
     Require all denied
 </FilesMatch>
-<FilesMatch "(^\.env|composer\.(json|lock)|package\.json|\.gitignore|\.gitattributes|README\.md)$">
+<FilesMatch "(^\.env|composer\.(json|lock)|package\.json|\.gitignore|README\.md)$">
     Require all denied
 </FilesMatch>
 
-# Deny direct access to non-public folders even if rewrite is off.
-RedirectMatch 403 ^/tattuintel/Matendo/(config|includes|sql|storage)(/|$)
+# --- Block private folders (defence in depth — vhost should also deny)
+RedirectMatch 403 (?:^|/)(config|includes|sql|storage|deploy)(/|$)
 
 # --- Security headers ------------------------------------------------
 <IfModule mod_headers.c>
@@ -56,50 +24,72 @@ RedirectMatch 403 ^/tattuintel/Matendo/(config|includes|sql|storage)(/|$)
     Header always set X-Frame-Options "DENY"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=()"
-    # Tighten as you add CDNs / inline scripts.
     Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com data:; script-src 'self' https://cdnjs.cloudflare.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
-    # Enable HSTS only when running over HTTPS in production.
+    # Enable HSTS once HTTPS is live in production:
     # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 </IfModule>
 
-# --- HTTPS redirect (enable in production) ---------------------------
-# <IfModule mod_rewrite.c>
-#     RewriteEngine On
-#     RewriteCond %{HTTPS} !=on
-#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-# </IfModule>
-
 # --- PHP hardening ---------------------------------------------------
 <IfModule mod_php.c>
-    php_flag expose_php Off
-    php_flag display_errors Off
+    php_flag expose_php             Off
+    php_flag display_errors         Off
     php_value session.cookie_httponly 1
     php_value session.cookie_samesite "Lax"
     php_value session.use_strict_mode 1
 </IfModule>
 
-# --- Caching for static assets --------------------------------------
+# --- Static asset caching -------------------------------------------
 <IfModule mod_expires.c>
     ExpiresActive On
-    ExpiresByType image/jpeg "access plus 30 days"
-    ExpiresByType image/png  "access plus 30 days"
-    ExpiresByType image/webp "access plus 30 days"
-    ExpiresByType image/svg+xml "access plus 30 days"
-    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType image/jpeg     "access plus 30 days"
+    ExpiresByType image/png      "access plus 30 days"
+    ExpiresByType image/webp     "access plus 30 days"
+    ExpiresByType image/svg+xml  "access plus 30 days"
+    ExpiresByType text/css       "access plus 7 days"
     ExpiresByType application/javascript "access plus 7 days"
-    ExpiresByType font/woff2 "access plus 30 days"
+    ExpiresByType font/woff2     "access plus 30 days"
 </IfModule>
 
-# --- Friendly URLs (.php optional) ----------------------------------
+# --- Rewrites: clean URLs + folder routing --------------------------
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /tattuintel/Matendo/
 
-    # Redirect old .html bookmarks straight to the clean URL.
-    RewriteRule ^index\.html$    /tattuintel/Matendo/         [R=301,L]
-    RewriteRule ^about\.html$    /tattuintel/Matendo/about    [R=301,L]
-    RewriteRule ^contact\.html$  /tattuintel/Matendo/contact  [R=301,L]
-    RewriteRule ^careers\.html$  /tattuintel/Matendo/careers  [R=301,L]
-    RewriteRule ^hire\.html$     /tattuintel/Matendo/hire     [R=301,L]
-    RewriteRule ^join\.html$     /tattuintel/Matendo/join     [R=301,L]
+    # Redirect /index, /index.php, /<page>.php to extensionless URL.
+    # (Skips api/ — JS posts directly to .php endpoints.)
+    RewriteCond %{THE_REQUEST} \s/(?:[^?\s]*/)?index(?:\.php)?[?\s] [NC]
+    RewriteRule ^(.*?)index(?:\.php)?$ /$1 [R=301,L,QSA]
+
+    RewriteCond %{THE_REQUEST} \s/(?:[^?\s]*/)?(?!api/)([^?\s]+)\.php[?\s] [NC]
+    RewriteRule ^(?!api/)(.+?)\.php$ /$1 [R=301,L,QSA]
+
+    # Pass real files / dirs straight through.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Root → public/index.php
+    RewriteRule ^(home/?)?$ public/index.php [L,QSA]
+
+    # /auth/<x>, /api/<x>, /legal/<x> → that folder's <x>.php
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.php -f [OR]
+    RewriteCond %{REQUEST_URI} ^/(?:[^/]+/)*?(auth|api|legal)/[a-zA-Z0-9_-]+$
+    RewriteRule ^(auth|api|legal)/([a-zA-Z0-9_-]+)$ $1/$2.php [L,QSA]
+
+    # Top-level /<x> → public/<x>.php
+    RewriteRule ^([a-zA-Z0-9_-]+)$ public/$1.php [L,QSA]
+
+    # Old .html bookmarks → clean URL
+    RewriteRule ^index\.html$    /         [R=301,L]
+    RewriteRule ^about\.html$    /about    [R=301,L]
+    RewriteRule ^contact\.html$  /contact  [R=301,L]
+    RewriteRule ^careers\.html$  /careers  [R=301,L]
+    RewriteRule ^hire\.html$     /hire     [R=301,L]
+    RewriteRule ^join\.html$     /join     [R=301,L]
 </IfModule>
+
+# --- HTTPS redirect (uncomment in production after cert is installed)
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} !=on
+#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
