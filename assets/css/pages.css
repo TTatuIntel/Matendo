@@ -298,6 +298,13 @@
     .hero-image, .hero-art { display: none; }
 }
 
+/* Phone: pull hero copy right under the now-compact navbar (no wasted band). */
+@media (max-width: 720px) {
+    .hero          { padding-top: 60px; padding-bottom: var(--space-5); }
+    .hero-compact  { padding-top: 68px; padding-bottom: var(--space-5); }
+    body[data-page="hire"] .hero { padding-top: 60px; padding-bottom: var(--space-4); }
+}
+
 /* --------- HERO ART — static visual for inner-page heroes (no carousel) --------- */
 .hero-art {
     position: relative;
@@ -675,6 +682,86 @@
 .search-bar .field { margin: 0; }
 @media (max-width: 920px) {
     .search-bar { grid-template-columns: 1fr 1fr; }
+}
+
+/* --------- JOIN WIZARD --------- */
+.wizard {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-sm);
+}
+.wizard-header { margin-bottom: var(--space-4); }
+.wizard-header h2 { margin-bottom: var(--space-2); }
+.wizard-header p  { color: var(--c-text-muted); margin: 0; font-size: .9rem; }
+
+.stepper {
+    display: flex; align-items: center; gap: var(--space-2);
+    margin: var(--space-4) 0 var(--space-5);
+    counter-reset: step;
+}
+.stepper-item {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    position: relative;
+}
+.stepper-item::before {
+    counter-increment: step;
+    content: counter(step);
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--c-bg-soft); color: var(--c-text-muted);
+    border: 1px solid var(--c-border);
+    border-radius: 50%;
+    font-weight: 700; font-size: .85rem;
+    transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+.stepper-item.is-done::before {
+    background: var(--c-primary); color: #fff;
+    border-color: var(--c-primary);
+    content: "\2713";              /* checkmark when complete */
+}
+.stepper-item.is-active::before {
+    background: var(--c-primary); color: #fff;
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 4px rgba(30, 126, 124, .15);
+}
+.stepper-item span {
+    font-size: .78rem; font-weight: 600;
+    color: var(--c-text-muted);
+    text-align: center; line-height: 1.2;
+}
+.stepper-item.is-active span,
+.stepper-item.is-done span { color: var(--c-text); }
+.stepper-item:not(:last-child)::after {
+    content: ""; position: absolute;
+    top: 14px; left: calc(50% + 18px); right: calc(-50% + 18px);
+    height: 2px; background: var(--c-border);
+    z-index: -1;
+}
+.stepper-item.is-done:not(:last-child)::after { background: var(--c-primary); }
+
+.form-step { display: none; }
+.form-step.is-active { display: block; animation: stepIn 280ms var(--ease-out); }
+@keyframes stepIn {
+    from { opacity: 0; transform: translateX(8px); }
+    to   { opacity: 1; transform: none; }
+}
+.form-step fieldset { margin-bottom: var(--space-3); }
+.form-step .field   { margin-bottom: var(--space-3); }
+
+.wizard-actions {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-5); padding-top: var(--space-4);
+    border-top: 1px solid var(--c-border);
+}
+.wizard-actions .spacer { flex: 1; }
+
+@media (max-width: 600px) {
+    .stepper-item span { display: none; }
+    .stepper-item:not(:last-child)::after { left: calc(50% + 16px); right: calc(-50% + 16px); }
 }
 
 /* --------- HIRE OPTIONS — typography matched to .feature-card on home --------- */

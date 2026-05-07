@@ -139,6 +139,18 @@
     .mobile-menu-btn     { display: inline-flex; align-items: center; justify-content: center; }
 }
 
+/* Compact navbar on phones — the desktop sizes leave a wasted band
+   between the bar and the hero. Shrinking nav padding + logo brings
+   page content right under the bar. */
+@media (max-width: 720px) {
+    .nav-container               { padding: 8px var(--gutter); }
+    .nav-container.is-scrolled   { padding-top: 6px; padding-bottom: 6px; }
+    .logo-img                    { height: 38px; }
+    .nav-container.is-scrolled .logo-img { height: 34px; }
+    .mobile-menu-btn             { width: 38px; height: 38px; font-size: 1.2rem; }
+    .mobile-menu                 { top: 56px; max-height: calc(100dvh - 68px); }
+}
+
 /* --------- BUTTONS --------- */
 .btn {
     position: relative; overflow: hidden;
@@ -293,7 +305,26 @@ legend  { padding: 0 var(--space-2); font-weight: 600; }
 .modal-card form { padding: var(--space-5); }
 .modal-close { background: transparent; border: 0; font-size: 1.5rem; cursor: pointer; color: var(--c-text-muted); line-height: 1; }
 .modal-card-sm { max-width: 420px; }
-.modal-auth .modal-card { animation: pop 220ms var(--ease-out); }
+
+/* Sign-in / Register popups — frosted glass, page bleeds through.
+   The .modal-auth scope keeps the bigger facility/care forms solid white. */
+.modal.modal-auth {
+    background: rgba(15, 23, 42, .22);
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+}
+.modal-auth .modal-card {
+    background: rgba(255, 255, 255, .82);
+    -webkit-backdrop-filter: saturate(190%) blur(28px);
+            backdrop-filter: saturate(190%) blur(28px);
+    border: 1px solid rgba(229, 231, 235, .55);
+    box-shadow: 0 18px 50px rgba(15, 23, 42, .18);
+    animation: pop 220ms var(--ease-out);
+}
+.modal-auth .modal-card header {
+    background: transparent;
+    border-bottom-color: rgba(229, 231, 235, .55);
+}
 .modal-auth h3 { font-size: 1.1rem; margin: 0; }
 .modal-auth form { padding: var(--space-5); }
 .modal-auth .field { margin-bottom: var(--space-3); }
