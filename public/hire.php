@@ -8,14 +8,14 @@ include __DIR__ . '/../includes/header.php';
 $today = date('Y-m-d');
 ?>
 <section class="hero">
-    <div class="hero-content">
-        <div class="hero-text" data-reveal="left">
+    <div class="hero-content hero-flip">
+        <div class="hero-art" data-reveal="left" aria-hidden="true">
+            <img src="<?= e(asset('images/maledoc.png')) ?>" alt="">
+        </div>
+        <div class="hero-text" data-reveal="right">
             <span class="eyebrow">Hire talent</span>
             <h1>Hire vetted medical professionals</h1>
             <p class="lede">Choose your hiring path. Submit a request and we will return a curated shortlist within 24 hours.</p>
-        </div>
-        <div class="hero-art" data-reveal="right" aria-hidden="true">
-            <img src="<?= e(asset('images/maledoc.png')) ?>" alt="">
         </div>
     </div>
 </section>

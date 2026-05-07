@@ -121,6 +121,12 @@
 }
 .hero-compact .hero-content { grid-template-columns: 1fr; }
 
+/* Inner-page variant: image on the LEFT, copy on the RIGHT.
+   Used on hire, join and careers heroes. */
+.hero-content.hero-flip { grid-template-columns: 1fr 1.2fr; }
+.hero-content.hero-flip .hero-art  { grid-column: 1; margin-left: clamp(24px, 4vw, 72px); margin-right: auto; }
+.hero-content.hero-flip .hero-text { grid-column: 2; }
+
 .hero-text .eyebrow {
     display: inline-flex; align-items: center; gap: var(--space-2);
     background: rgba(255,255,255,.7); color: var(--c-primary);

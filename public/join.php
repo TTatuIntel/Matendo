@@ -8,14 +8,14 @@ include __DIR__ . '/../includes/header.php';
 $today = date('Y-m-d');
 ?>
 <section class="hero">
-    <div class="hero-content">
-        <div class="hero-text" data-reveal="left">
+    <div class="hero-content hero-flip">
+        <div class="hero-art" data-reveal="left" aria-hidden="true">
+            <img src="<?= e(asset('images/nurse1.png')) ?>" alt="">
+        </div>
+        <div class="hero-text" data-reveal="right">
             <span class="eyebrow">Join the network</span>
             <h1>Apply in three quick steps</h1>
             <p class="lede">Tell us who you are, upload your documents, and share your preferences. Screening typically takes 3â€“5 business days.</p>
-        </div>
-        <div class="hero-art" data-reveal="right" aria-hidden="true">
-            <img src="<?= e(asset('images/nurse1.png')) ?>" alt="">
         </div>
     </div>
 </section>

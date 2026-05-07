@@ -14,14 +14,14 @@ try {
 include __DIR__ . '/../includes/header.php';
 ?>
 <section class="hero">
-    <div class="hero-content">
-        <div class="hero-text" data-reveal="left">
+    <div class="hero-content hero-flip">
+        <div class="hero-art" data-reveal="left" aria-hidden="true">
+            <img src="<?= e(asset('images/team1.png')) ?>" alt="">
+        </div>
+        <div class="hero-text" data-reveal="right">
             <span class="eyebrow">Careers at Matendo</span>
             <h1>Join our team</h1>
             <p class="lede">We are looking for talented people who care about transforming healthcare staffing.</p>
-        </div>
-        <div class="hero-art" data-reveal="right" aria-hidden="true">
-            <img src="<?= e(asset('images/team1.png')) ?>" alt="">
         </div>
     </div>
 </section>
