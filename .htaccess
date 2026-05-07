@@ -1,6 +1,12 @@
-sudo tee /var/www/Matendo/.htaccess > /dev/null <<'EOF'
 # =====================================================================
-# Matendo Health — root .htaccess (production)
+# Matendo Health — root .htaccess
+# Works for both:
+#   - XAMPP dev:  http://localhost/tattuintel/Matendo/
+#   - Production: served at the domain root from /var/www/Matendo
+#
+# This file ONLY governs requests inside the Matendo directory. It does
+# NOT make Matendo a catch-all for other sites — that's a vhost concern
+# (see deploy/matendo.conf and the deploy notes).
 # =====================================================================
 
 Options -Indexes -MultiViews
@@ -73,8 +79,3 @@ RedirectMatch 403 (?:^|/)(config|includes|sql|storage|deploy)(/|$)
     RewriteRule ^hire\.html$     /hire     [R=301,L]
     RewriteRule ^join\.html$     /join     [R=301,L]
 </IfModule>
-EOF
-
-sudo chown www-data:www-data /var/www/Matendo/.htaccess
-sudo chmod 644 /var/www/Matendo/.htaccess
-sudo systemctl reload apache2
