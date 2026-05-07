@@ -25,7 +25,7 @@ $today = date('Y-m-d');
         <div class="hire-options">
             <article class="hire-card">
                 <i class="fas fa-hospital"></i>
-                <h2>Facility hiring</h2>
+                <h3>Facility hiring</h3>
                 <p>Hospitals, clinics, labs and pharmacies â€” staff vacant roles or scale fast.</p>
                 <ul class="check-list">
                     <li><i class="fas fa-check"></i> Doctors, nurses, lab techs, pharmacists</li>
@@ -37,7 +37,7 @@ $today = date('Y-m-d');
 
             <article class="hire-card" id="care">
                 <i class="fas fa-user-nurse"></i>
-                <h2>Personal home care</h2>
+                <h3>Personal home care</h3>
                 <p>Trained nurses and caregivers for elderly support, post-op recovery, or chronic care at home.</p>
                 <ul class="check-list">
                     <li><i class="fas fa-check"></i> Vetted, licensed caregivers</li>
