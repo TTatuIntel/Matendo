@@ -259,13 +259,31 @@ include __DIR__ . '/../includes/header.php';
             </button>
         </div>
 
-        <!-- Default: auto-scrolling marquee. Pauses on hover.
-             Cards are rendered once; JS clones them at runtime until the
-             track is ≥ 2× the viewport, so the loop is always seamless
-             regardless of how many real professionals exist. -->
+        <!-- Auto-scrolling marquee. Pauses on hover.
+             SERVER-SIDE LOOP GUARANTEE
+             ──────────────────────────
+             For `transform: translateX(0 → -50%)` to be seamless, the
+             "base set" of cards must already be wider than the viewport.
+             We compute how many times to repeat the base set so it
+             overflows ~2500px (handles up to 1920px screens with margin),
+             then render that twice — the duplicated half is what makes
+             the -50% animation never visibly reset.
+             JS in main.js refines this on resize and sets a speed-based
+             duration so the cards always move at a comfortable rate. -->
+        <?php
+        $cardW       = 234;                                // .talent-card 220px + 14px margin
+        $baseMin     = 2500;                               // px the base set must overflow
+        $cardCount   = max(1, count($featured));
+        $baseRepeats = (int) max(1, ceil($baseMin / ($cardCount * $cardW)));
+        ?>
         <div class="talent-scroller" id="talentScroller" aria-label="Featured professionals (auto-scrolling)">
             <div class="talent-scroll-track" data-marquee>
-                <?php foreach ($featured as $p) $renderCard($p); ?>
+                <?php
+                /* First half — base set, duplicated until ≥ baseMin. */
+                for ($i = 0; $i < $baseRepeats; $i++) foreach ($featured as $p) $renderCard($p);
+                /* Second half — identical copy, this is the seam for the -50% loop. */
+                for ($i = 0; $i < $baseRepeats; $i++) foreach ($featured as $p) $renderCard($p);
+                ?>
             </div>
         </div>
 
@@ -314,27 +332,40 @@ include __DIR__ . '/../includes/header.php';
         <h2 class="section-title">Loved by facilities and patients</h2>
         <p class="section-sub">Real outcomes from teams who trusted Matendo with critical roles.</p>
     </div>
+    <?php
+    $testimonials = [
+        ['quote' => 'We filled two ICU nurse roles in 36 hours. The vetting saved us weeks of interviews.', 'name' => 'Dr. Aisha Nansubuga', 'role' => 'Medical Director, Kampala', 'avatar' => 'images/doc3.png'],
+        ['quote' => 'The home-care nurse Matendo matched for my mother was professional and warm. Five stars.', 'name' => 'Peter Okello', 'role' => 'Family client', 'avatar' => 'images/doc2.png'],
+        ['quote' => 'Best locum platform we have used. Transparent pricing, vetted candidates, fast match.', 'name' => 'HR Lead', 'role' => 'Aga Khan Hospital', 'avatar' => 'images/doc4.png'],
+        ['quote' => 'I joined as a professional 3 months ago and my schedule is full. Game changer.', 'name' => 'Dr. Sophia Chen', 'role' => 'Neurologist', 'avatar' => 'images/doc5.png'],
+        ['quote' => 'Compliance, escrow and timesheets in one place. Finance team finally happy.', 'name' => 'Operations Manager', 'role' => 'Nakasero Hospital', 'avatar' => 'images/doc6.png'],
+    ];
+    /* Same server-side loop guarantee as the talent marquee. */
+    $tCardW       = 380;                                   // .testimonial-card 360px + 20px margin
+    $tBaseMin     = 2500;
+    $tCount       = max(1, count($testimonials));
+    $tBaseRepeats = (int) max(1, ceil($tBaseMin / ($tCount * $tCardW)));
+
+    $renderTestimonial = function (array $t) {
+        ?>
+        <article class="testimonial-card">
+            <p class="quote">&ldquo;<?= e($t['quote']) ?>&rdquo;</p>
+            <div class="testimonial-author">
+                <img src="<?= e(asset($t['avatar'])) ?>" alt="" loading="lazy">
+                <div>
+                    <strong><?= e($t['name']) ?></strong>
+                    <span><?= e($t['role']) ?></span>
+                </div>
+            </div>
+        </article>
+        <?php
+    };
+    ?>
     <div class="testimonial-track" data-marquee>
         <?php
-        $testimonials = [
-            ['quote' => 'We filled two ICU nurse roles in 36 hours. The vetting saved us weeks of interviews.', 'name' => 'Dr. Aisha Nansubuga', 'role' => 'Medical Director, Kampala', 'avatar' => 'images/doc3.png'],
-            ['quote' => 'The home-care nurse Matendo matched for my mother was professional and warm. Five stars.', 'name' => 'Peter Okello', 'role' => 'Family client', 'avatar' => 'images/doc2.png'],
-            ['quote' => 'Best locum platform we have used. Transparent pricing, vetted candidates, fast match.', 'name' => 'HR Lead', 'role' => 'Aga Khan Hospital', 'avatar' => 'images/doc4.png'],
-            ['quote' => 'I joined as a professional 3 months ago and my schedule is full. Game changer.', 'name' => 'Dr. Sophia Chen', 'role' => 'Neurologist', 'avatar' => 'images/doc5.png'],
-            ['quote' => 'Compliance, escrow and timesheets in one place. Finance team finally happy.', 'name' => 'Operations Manager', 'role' => 'Nakasero Hospital', 'avatar' => 'images/doc6.png'],
-        ];
-        foreach ($testimonials as $t): ?>
-            <article class="testimonial-card">
-                <p class="quote">&ldquo;<?= e($t['quote']) ?>&rdquo;</p>
-                <div class="testimonial-author">
-                    <img src="<?= e(asset($t['avatar'])) ?>" alt="" loading="lazy">
-                    <div>
-                        <strong><?= e($t['name']) ?></strong>
-                        <span><?= e($t['role']) ?></span>
-                    </div>
-                </div>
-            </article>
-        <?php endforeach; ?>
+        for ($i = 0; $i < $tBaseRepeats; $i++) foreach ($testimonials as $t) $renderTestimonial($t);
+        for ($i = 0; $i < $tBaseRepeats; $i++) foreach ($testimonials as $t) $renderTestimonial($t);
+        ?>
     </div>
 </section>
 
