@@ -145,6 +145,45 @@
         });
     });
 
+    // ------ infinite marquees ------
+    // For each [data-marquee] track:
+    //   1. Take the original (server-rendered) children as the base set.
+    //   2. Clone them into the track until the base set is ≥ viewport wide
+    //      (so a single set always overflows — no visible tail).
+    //   3. Duplicate the whole built set once more — this is what makes
+    //      `transform: translateX(-50%)` a perfect seamless loop.
+    //   4. Set the animation duration from a target px/sec so the speed
+    //      stays comfortable regardless of how wide the track grows.
+    // Rebuilds on resize so a wider window doesn't expose a tail and the
+    // speed re-normalises.
+    $$('[data-marquee]').forEach((track) => {
+        const originals = [...track.children].map((n) => n.cloneNode(true));
+        if (!originals.length) return;
+        // Reading speed in CSS pixels per second. Lower = slower.
+        // Talent cards are info-heavy → 22 px/s; testimonials → 32 px/s.
+        const speed = track.classList.contains('testimonial-track') ? 32 : 22;
+        const build = () => {
+            const viewportW = (track.parentElement || track).offsetWidth;
+            if (!viewportW) return;
+            track.replaceChildren(...originals.map((n) => n.cloneNode(true)));
+            let safety = 0;
+            while (track.scrollWidth < viewportW + 64 && safety++ < 20) {
+                originals.forEach((n) => track.appendChild(n.cloneNode(true)));
+            }
+            [...track.children].forEach((n) => track.appendChild(n.cloneNode(true)));
+            // Half the track is what gets translated each loop.
+            const halfWidth = track.scrollWidth / 2;
+            const duration  = Math.max(40, Math.round(halfWidth / speed));
+            track.style.animationDuration = duration + 's';
+        };
+        build();
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(build, 180);
+        });
+    });
+
     // ------ featured: toggle between auto-scroll and filter mode ------
     const expandBtn = $('#featuredExpandBtn');
     const scroller  = $('#talentScroller');

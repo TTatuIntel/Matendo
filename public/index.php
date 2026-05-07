@@ -259,10 +259,13 @@ include __DIR__ . '/../includes/header.php';
             </button>
         </div>
 
-        <!-- Default: auto-scrolling marquee. Pauses on hover. -->
+        <!-- Default: auto-scrolling marquee. Pauses on hover.
+             Cards are rendered once; JS clones them at runtime until the
+             track is ≥ 2× the viewport, so the loop is always seamless
+             regardless of how many real professionals exist. -->
         <div class="talent-scroller" id="talentScroller" aria-label="Featured professionals (auto-scrolling)">
-            <div class="talent-scroll-track">
-                <?php foreach (array_merge($featured, $featured) as $p) $renderCard($p); ?>
+            <div class="talent-scroll-track" data-marquee>
+                <?php foreach ($featured as $p) $renderCard($p); ?>
             </div>
         </div>
 
@@ -311,7 +314,7 @@ include __DIR__ . '/../includes/header.php';
         <h2 class="section-title">Loved by facilities and patients</h2>
         <p class="section-sub">Real outcomes from teams who trusted Matendo with critical roles.</p>
     </div>
-    <div class="testimonial-track">
+    <div class="testimonial-track" data-marquee>
         <?php
         $testimonials = [
             ['quote' => 'We filled two ICU nurse roles in 36 hours. The vetting saved us weeks of interviews.', 'name' => 'Dr. Aisha Nansubuga', 'role' => 'Medical Director, Kampala', 'avatar' => 'images/doc3.png'],
@@ -320,7 +323,7 @@ include __DIR__ . '/../includes/header.php';
             ['quote' => 'I joined as a professional 3 months ago and my schedule is full. Game changer.', 'name' => 'Dr. Sophia Chen', 'role' => 'Neurologist', 'avatar' => 'images/doc5.png'],
             ['quote' => 'Compliance, escrow and timesheets in one place. Finance team finally happy.', 'name' => 'Operations Manager', 'role' => 'Nakasero Hospital', 'avatar' => 'images/doc6.png'],
         ];
-        foreach (array_merge($testimonials, $testimonials) as $t): ?>
+        foreach ($testimonials as $t): ?>
             <article class="testimonial-card">
                 <p class="quote">&ldquo;<?= e($t['quote']) ?>&rdquo;</p>
                 <div class="testimonial-author">
