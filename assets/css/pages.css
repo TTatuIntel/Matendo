@@ -298,10 +298,42 @@
     .hero-image, .hero-art { max-width: 260px; }
 }
 @media (max-width: 920px) {
-    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    /* Single-column stacked hero on every page — image on top,
+       copy underneath, both centered. Same behaviour for the home
+       slideshow (.hero-image) and the static inner-page art (.hero-art). */
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--space-4);
+        justify-items: center;
+    }
     .hero-text .lede { margin-left: auto; margin-right: auto; }
     .hero-actions, .trust-bar { justify-content: center; }
-    .hero-image, .hero-art { display: none; }
+
+    /* Show the image, centered, comfortably sized for thumb-scale viewing.
+       The compound selectors here match the desktop .hero-flip specificity
+       so the inner-page art doesn't keep its left/right margin push. */
+    .hero-content .hero-image,
+    .hero-content .hero-art,
+    .hero-content.hero-flip .hero-art {
+        display: block;
+        width: 100%;
+        max-width: 220px;
+        margin: 0 auto;
+        grid-column: 1;
+    }
+
+    /* DOM order on the home page is text-then-image; force image on top.
+       Inner pages use .hero-flip (art-then-text) so natural order already
+       puts the image first — no override needed there. */
+    .hero-content:not(.hero-flip) .hero-image,
+    .hero-content:not(.hero-flip) .hero-art  { order: -1; }
+    .hero-content:not(.hero-flip) .hero-text { order: 0; }
+
+    /* The home slideshow's floating "Available now" card sits below the
+       photo via bottom: -28px; give the column a little extra breathing
+       room so it doesn't crash into the copy below. */
+    .hero-content .hero-image { margin-bottom: var(--space-5); }
 }
 
 /* Phone: pull hero copy right under the now-compact navbar (no wasted band). */
