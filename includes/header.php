@@ -73,13 +73,13 @@ $user = current_user();
      backdrop-filter would otherwise become its containing block and
      collapse the menu to header height. -->
 <div class="mobile-menu" id="mobileMenu" hidden>
-    <a href="<?= e(url('index.php'))   ?>">Home</a>
-    <a href="<?= e(url('hire.php'))    ?>">Hire</a>
-    <a href="<?= e(url('talent.php'))  ?>">Find Talent</a>
-    <a href="<?= e(url('join.php'))    ?>">Join</a>
-    <a href="<?= e(url('about.php'))   ?>">About</a>
-    <a href="<?= e(url('careers.php')) ?>">Careers</a>
-    <a href="<?= e(url('contact.php')) ?>">Contact</a>
+    <a href="<?= e(url('index.php'))   ?>" class="<?= $activeNav === 'home'    ? 'active' : '' ?>">Home</a>
+    <a href="<?= e(url('hire.php'))    ?>" class="<?= $activeNav === 'hire'    ? 'active' : '' ?>">Hire</a>
+    <a href="<?= e(url('talent.php'))  ?>" class="<?= $activeNav === 'talent'  ? 'active' : '' ?>">Find Talent</a>
+    <a href="<?= e(url('join.php'))    ?>" class="<?= $activeNav === 'join'    ? 'active' : '' ?>">Join</a>
+    <a href="<?= e(url('about.php'))   ?>" class="<?= $activeNav === 'about'   ? 'active' : '' ?>">About</a>
+    <a href="<?= e(url('careers.php')) ?>" class="<?= $activeNav === 'careers' ? 'active' : '' ?>">Careers</a>
+    <a href="<?= e(url('contact.php')) ?>" class="<?= $activeNav === 'contact' ? 'active' : '' ?>">Contact</a>
     <?php if ($user): ?>
         <a href="<?= e(url('auth/dashboard.php')) ?>">Dashboard</a>
         <a href="<?= e(url('auth/logout.php')) ?>">Sign out</a>

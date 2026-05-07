@@ -48,7 +48,7 @@
         });
     });
 
-    // ------ mobile menu ------
+    // ------ mobile menu (compact right-side drawer) ------
     const menuBtn = $('#mobileMenuBtn');
     const menu    = $('#mobileMenu');
     if (menuBtn && menu) {
@@ -60,10 +60,17 @@
                 icon.classList.toggle('fa-bars', !open);
                 icon.classList.toggle('fa-times', open);
             }
-            document.body.style.overflow = open ? 'hidden' : '';
         };
-        menuBtn.addEventListener('click', () => setOpen(menu.hidden));
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setOpen(menu.hidden);
+        });
         menu.addEventListener('click', (e) => { if (e.target.tagName === 'A') setOpen(false); });
+        document.addEventListener('click', (e) => {
+            if (menu.hidden) return;
+            if (menu.contains(e.target) || menuBtn.contains(e.target)) return;
+            setOpen(false);
+        });
         window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
     }
 
