@@ -1,13 +1,11 @@
+sudo tee /var/www/Matendo/.htaccess > /dev/null <<'EOF'
 # =====================================================================
-# Matendo Health — root .htaccess
-# Production-ready: works at site root (matendohealth.com) AND under
-# the local XAMPP path (/tattuintel/Matendo/).
+# Matendo Health — root .htaccess (production)
 # =====================================================================
 
 Options -Indexes -MultiViews
 DirectoryIndex index.php
 
-# --- Block dotfiles and sensitive files ------------------------------
 <FilesMatch "^\.">
     Require all denied
 </FilesMatch>
@@ -15,21 +13,16 @@ DirectoryIndex index.php
     Require all denied
 </FilesMatch>
 
-# --- Block private folders (defence in depth — vhost should also deny)
 RedirectMatch 403 (?:^|/)(config|includes|sql|storage|deploy)(/|$)
 
-# --- Security headers ------------------------------------------------
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "DENY"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=()"
     Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com data:; script-src 'self' https://cdnjs.cloudflare.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
-    # Enable HSTS once HTTPS is live in production:
-    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 </IfModule>
 
-# --- PHP hardening ---------------------------------------------------
 <IfModule mod_php.c>
     php_flag expose_php             Off
     php_flag display_errors         Off
@@ -38,7 +31,6 @@ RedirectMatch 403 (?:^|/)(config|includes|sql|storage|deploy)(/|$)
     php_value session.use_strict_mode 1
 </IfModule>
 
-# --- Static asset caching -------------------------------------------
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresByType image/jpeg     "access plus 30 days"
@@ -50,29 +42,24 @@ RedirectMatch 403 (?:^|/)(config|includes|sql|storage|deploy)(/|$)
     ExpiresByType font/woff2     "access plus 30 days"
 </IfModule>
 
-# --- Rewrites: clean URLs + folder routing --------------------------
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Redirect /index, /index.php, /<page>.php to extensionless URL.
-    # (Skips api/ — JS posts directly to .php endpoints.)
-    RewriteCond %{THE_REQUEST} \s/(?:[^?\s]*/)?index(?:\.php)?[?\s] [NC]
-    RewriteRule ^(.*?)index(?:\.php)?$ /$1 [R=301,L,QSA]
+    # Root and /home → public/index.php  (MUST come before the pass-through,
+    # otherwise the bare directory matches -d and 403s.)
+    RewriteRule ^$           public/index.php [L,QSA]
+    RewriteRule ^home/?$     public/index.php [L,QSA]
 
+    # Drop .php from URLs (skip api/ since JS posts directly).
     RewriteCond %{THE_REQUEST} \s/(?:[^?\s]*/)?(?!api/)([^?\s]+)\.php[?\s] [NC]
     RewriteRule ^(?!api/)(.+?)\.php$ /$1 [R=301,L,QSA]
 
-    # Pass real files / dirs straight through.
+    # Pass real files / dirs through (assets, images, uploads).
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
-    # Root → public/index.php
-    RewriteRule ^(home/?)?$ public/index.php [L,QSA]
-
     # /auth/<x>, /api/<x>, /legal/<x> → that folder's <x>.php
-    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.php -f [OR]
-    RewriteCond %{REQUEST_URI} ^/(?:[^/]+/)*?(auth|api|legal)/[a-zA-Z0-9_-]+$
     RewriteRule ^(auth|api|legal)/([a-zA-Z0-9_-]+)$ $1/$2.php [L,QSA]
 
     # Top-level /<x> → public/<x>.php
@@ -86,10 +73,8 @@ RedirectMatch 403 (?:^|/)(config|includes|sql|storage|deploy)(/|$)
     RewriteRule ^hire\.html$     /hire     [R=301,L]
     RewriteRule ^join\.html$     /join     [R=301,L]
 </IfModule>
+EOF
 
-# --- HTTPS redirect (uncomment in production after cert is installed)
-# <IfModule mod_rewrite.c>
-#     RewriteEngine On
-#     RewriteCond %{HTTPS} !=on
-#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-# </IfModule>
+sudo chown www-data:www-data /var/www/Matendo/.htaccess
+sudo chmod 644 /var/www/Matendo/.htaccess
+sudo systemctl reload apache2
