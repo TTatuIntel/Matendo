@@ -71,13 +71,17 @@
 .mobile-menu-btn:hover { background: var(--c-bg-soft); }
 
 .mobile-menu {
-    position: fixed; inset: 64px 0 0 0;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    height: calc(100dvh - 64px);
+    z-index: 99;             /* below nav (z:100) so the bar stays visible on top */
     padding: var(--space-5);
     background: #fff;
     border-top: 1px solid var(--c-border);
     transform: translateY(-12px); opacity: 0;
     transition: transform 280ms var(--ease-out), opacity 280ms var(--ease-out);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .mobile-menu:not([hidden]) { transform: none; opacity: 1; }
 .mobile-menu a {

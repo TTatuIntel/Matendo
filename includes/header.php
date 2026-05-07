@@ -67,24 +67,27 @@ $user = current_user();
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
     </div>
-
-    <div class="mobile-menu" id="mobileMenu" hidden>
-        <a href="<?= e(url('index.php'))   ?>">Home</a>
-        <a href="<?= e(url('hire.php'))    ?>">Hire</a>
-        <a href="<?= e(url('talent.php'))  ?>">Find Talent</a>
-        <a href="<?= e(url('join.php'))    ?>">Join</a>
-        <a href="<?= e(url('about.php'))   ?>">About</a>
-        <a href="<?= e(url('careers.php')) ?>">Careers</a>
-        <a href="<?= e(url('contact.php')) ?>">Contact</a>
-        <?php if ($user): ?>
-            <a href="<?= e(url('auth/dashboard.php')) ?>">Dashboard</a>
-            <a href="<?= e(url('auth/logout.php')) ?>">Sign out</a>
-        <?php else: ?>
-            <button type="button" class="mobile-menu-cta" data-open-modal="loginModal">Sign in</button>
-            <button type="button" class="mobile-menu-cta" data-open-modal="registerModal">Get started</button>
-        <?php endif; ?>
-    </div>
 </header>
+
+<!-- Mobile menu: lives OUTSIDE the .nav-container because the nav's
+     backdrop-filter would otherwise become its containing block and
+     collapse the menu to header height. -->
+<div class="mobile-menu" id="mobileMenu" hidden>
+    <a href="<?= e(url('index.php'))   ?>">Home</a>
+    <a href="<?= e(url('hire.php'))    ?>">Hire</a>
+    <a href="<?= e(url('talent.php'))  ?>">Find Talent</a>
+    <a href="<?= e(url('join.php'))    ?>">Join</a>
+    <a href="<?= e(url('about.php'))   ?>">About</a>
+    <a href="<?= e(url('careers.php')) ?>">Careers</a>
+    <a href="<?= e(url('contact.php')) ?>">Contact</a>
+    <?php if ($user): ?>
+        <a href="<?= e(url('auth/dashboard.php')) ?>">Dashboard</a>
+        <a href="<?= e(url('auth/logout.php')) ?>">Sign out</a>
+    <?php else: ?>
+        <button type="button" class="mobile-menu-cta" data-open-modal="loginModal">Sign in</button>
+        <button type="button" class="mobile-menu-cta" data-open-modal="registerModal">Get started</button>
+    <?php endif; ?>
+</div>
 
 <?php if (!$user): ?>
 <!-- Sign-in modal -->
